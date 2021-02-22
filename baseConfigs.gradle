@@ -1,0 +1,46 @@
+ext {
+
+    minSdkVersion = 20
+    targetSdkVersion = 28
+    compileSdkVersion = 28
+    buildVersion = '28.0.3'
+
+    lifecycle_version = "2.2.0"
+
+
+    //net
+    okhttpVersion = '3.12.6'
+    rxjavaVersion ='2.2.8'
+    rxandroidVersion = '2.1.1'
+    okhttpUtilVersion = '2.6.2'
+
+    // rxHttp
+    rxhttpVersion = '2.4.2'
+    rxlifeCoroutine = '2.0.0'
+    rxlifeVersion = '2.0.0'
+    rxJava = 'rxjava2'
+
+    //util
+    glideVersion = '4.10.0'
+    jpushVersion = '2.1.8'
+    multidexVersion = '2.0.1'
+    xxpermissions = '8.2'
+    eventbusVersion = '3.1.1'
+    loggerVersion = '2.2.0'
+    butterknifeVersion = '10.0.0'
+    pinyin4jVersion = '2.5.1'
+    jsbridgeVersion = '1.0.4'
+    mmkvVersion = '1.1.0'
+    jsoupVersion = '1.11.3'
+    litePalVersion = '3.0.0'
+
+    //ui
+    qmuiVersion = '2.0.0-alpha10'
+    archVersion = '2.0.0-alpha09'
+    BaseRecyclerViewAdapterHelperVersion = '3.0.4'
+    MagicIndicatorVersion = '1.6.0'
+    PictureSelectorVersion = 'v2.5.8'
+    sldinglayoutVersion = '0.9.0'
+    superbuttonVersion = '1.1.1'
+
+}
