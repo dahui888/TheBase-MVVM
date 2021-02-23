@@ -1,9 +1,9 @@
 package com.theone.mvvm.base
 
-import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.multidex.MultiDexApplication
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
 
 
@@ -31,7 +31,7 @@ import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
  * @email 625805189@qq.com
  * @remark
  */
-open class BaseApplication :Application(), ViewModelStoreOwner {
+open class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
 
 
     private lateinit var mAppViewModelStore: ViewModelStore

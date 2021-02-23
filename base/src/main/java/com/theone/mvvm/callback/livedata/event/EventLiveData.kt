@@ -1,4 +1,4 @@
-package me.hgj.jetpackmvvm.callback.livedata.event
+package com.theone.mvvm.callback.livedata.event
 
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 

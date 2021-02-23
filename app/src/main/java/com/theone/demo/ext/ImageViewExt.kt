@@ -1,4 +1,8 @@
-package com.theone.demo
+package com.theone.demo.ext
+
+import android.widget.ImageView
+import androidx.appcompat.widget.AppCompatImageView
+import com.bumptech.glide.Glide
 
 
 //  ┏┓　　　┏┓
@@ -20,9 +24,14 @@ package com.theone.demo
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
+ * @date 2021/2/23 0023
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-data class TestBean(val cover:String)
+
+fun ImageView.loadImage(url: String) {
+    Glide.with(context)
+        .load(url)
+        .into(this)
+}

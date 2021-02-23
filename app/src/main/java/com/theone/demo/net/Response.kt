@@ -1,8 +1,7 @@
-package com.theone.demo
+package com.theone.demo.net
 
-import com.theone.mvvm.base.BaseApplication
-import com.theone.mvvm.util.RxHttpManager
-import rxhttp.wrapper.param.RxHttp
+import com.theone.mvvm.net.IPageInfo
+import com.theone.mvvm.net.IResponse
 
 
 //  ┏┓　　　┏┓
@@ -24,16 +23,25 @@ import rxhttp.wrapper.param.RxHttp
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
+ * @date 2021/2/23 0023
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class App : BaseApplication() {
+class Response<T>(
+    var error_code: Int,
+    var reason: String,
+    var result: T?,
+    var pageInfo: PageInfo?
+) : IResponse<T> {
 
-    override fun onCreate() {
-        super.onCreate()
-        RxHttp.init(RxHttpManager.getHttpClient(RxHttpManager.HttpBuilder()),true)
-    }
+    override fun isSuccess(): Boolean = error_code == 0
 
+    override fun isEmpty(): Boolean = null == result
+
+    override fun getData(): T? = result
+
+    override fun getPageInfo(): IPageInfo? = pageInfo
+
+    override fun getMsg(): String? = reason
 }

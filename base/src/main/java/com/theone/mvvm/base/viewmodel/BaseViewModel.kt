@@ -1,5 +1,7 @@
 package com.theone.mvvm.base.viewmodel
 
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 
 
@@ -28,4 +30,9 @@ import androidx.lifecycle.ViewModel
  * @remark
  */
 open class BaseViewModel :ViewModel() {
+
+    open fun createObserve(lifecycleOwner :LifecycleOwner){
+
+    }
+
 }

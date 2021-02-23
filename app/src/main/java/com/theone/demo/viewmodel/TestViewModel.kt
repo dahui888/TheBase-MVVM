@@ -1,7 +1,11 @@
-package com.theone.demo
+package com.theone.demo.viewmodel
 
-import com.theone.mvvm.base.BaseApplication
-import com.theone.mvvm.util.RxHttpManager
+import androidx.lifecycle.rxLifeScope
+import com.theone.demo.entity.Brand
+import com.theone.demo.net.Response
+import com.theone.demo.net.Url
+import com.theone.mvvm.base.viewmodel.BaseListViewModel
+import rxhttp.toClass
 import rxhttp.wrapper.param.RxHttp
 
 
@@ -29,11 +33,15 @@ import rxhttp.wrapper.param.RxHttp
  * @email 625805189@qq.com
  * @remark
  */
-class App : BaseApplication() {
+class TestViewModel : BaseListViewModel<Brand>() {
 
-    override fun onCreate() {
-        super.onCreate()
-        RxHttp.init(RxHttpManager.getHttpClient(RxHttpManager.HttpBuilder()),true)
+    override fun requestServer() {
+        rxLifeScope.launch {
+            val response = RxHttp.get(Url.BRAND)
+                .toClass<Response<List<Brand>>>()
+                .await()
+            getResponse().postValue(response)
+        }
     }
 
 }

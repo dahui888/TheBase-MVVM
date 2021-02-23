@@ -45,8 +45,8 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     /**
      * 是否为根Fragment： getParentFragment() 为空
      */
-    var isIndexFragment = false
-    var mIsFirstLayInit = true
+    private var isIndexFragment = false
+    private var mIsFirstLayInit = true
 
     abstract fun getLayoutId(): Int
     abstract fun initView(savedInstanceState: Bundle?)
@@ -133,9 +133,9 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
      */
     protected open fun updateStatusBarMode(isLight: Boolean) {
         if (isLight) {
-            QMUIStatusBarHelper.setStatusBarLightMode(baseFragmentActivity)
+            QMUIStatusBarHelper.setStatusBarLightMode(mActivity)
         } else {
-            QMUIStatusBarHelper.setStatusBarDarkMode(baseFragmentActivity)
+            QMUIStatusBarHelper.setStatusBarDarkMode(mActivity)
         }
     }
 

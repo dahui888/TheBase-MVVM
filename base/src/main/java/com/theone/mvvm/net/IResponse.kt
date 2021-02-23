@@ -1,8 +1,4 @@
-package com.theone.demo
-
-import com.theone.mvvm.base.BaseApplication
-import com.theone.mvvm.util.RxHttpManager
-import rxhttp.wrapper.param.RxHttp
+package com.theone.mvvm.net
 
 
 //  ┏┓　　　┏┓
@@ -24,16 +20,21 @@ import rxhttp.wrapper.param.RxHttp
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
- * @describe TODO
+ * @date 2021/2/23 0023
+ * @describe 请求返回
  * @email 625805189@qq.com
  * @remark
  */
-class App : BaseApplication() {
+interface IResponse<T> {
 
-    override fun onCreate() {
-        super.onCreate()
-        RxHttp.init(RxHttpManager.getHttpClient(RxHttpManager.HttpBuilder()),true)
-    }
+    fun isSuccess(): Boolean
+
+    fun isEmpty(): Boolean
+
+    fun getMsg():String?
+
+    fun getData(): T?
+
+    fun getPageInfo(): IPageInfo?
 
 }

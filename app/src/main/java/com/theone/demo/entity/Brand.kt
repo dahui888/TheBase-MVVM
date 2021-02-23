@@ -1,8 +1,7 @@
-package com.theone.demo
+package com.theone.demo.entity
 
-import com.theone.mvvm.base.BaseApplication
-import com.theone.mvvm.util.RxHttpManager
-import rxhttp.wrapper.param.RxHttp
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
 
 //  ┏┓　　　┏┓
@@ -24,16 +23,14 @@ import rxhttp.wrapper.param.RxHttp
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
+ * @date 2021/2/18 0018
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class App : BaseApplication() {
-
-    override fun onCreate() {
-        super.onCreate()
-        RxHttp.init(RxHttpManager.getHttpClient(RxHttpManager.HttpBuilder()),true)
-    }
-
-}
+@Parcelize
+data class Brand(
+        var id:String,
+        var first_letter:String,
+        var brand_name:String,
+        var brand_logo:String) : Parcelable

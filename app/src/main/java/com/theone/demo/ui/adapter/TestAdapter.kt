@@ -1,8 +1,11 @@
-package com.theone.demo
+package com.theone.demo.ui.adapter
 
-import com.kunminx.architecture.ui.callback.UnPeekLiveData
-import com.theone.mvvm.base.viewmodel.BaseViewModel
-import me.hgj.jetpackmvvm.callback.databind.StringObservableField
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.module.LoadMoreModule
+import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
+import com.theone.demo.R
+import com.theone.demo.databinding.ItemTestBinding
+import com.theone.demo.entity.Brand
 
 
 //  ┏┓　　　┏┓
@@ -29,8 +32,12 @@ import me.hgj.jetpackmvvm.callback.databind.StringObservableField
  * @email 625805189@qq.com
  * @remark
  */
-class TestViewModel : BaseViewModel() {
+class TestAdapter : BaseQuickAdapter<Brand,BaseDataBindingHolder<ItemTestBinding>>(
+    R.layout.item_test
+),LoadMoreModule {
 
-    var test = StringObservableField()
+    override fun convert(holder: BaseDataBindingHolder<ItemTestBinding>, item: Brand) {
+       holder.dataBinding?.vm = item
+    }
 
 }

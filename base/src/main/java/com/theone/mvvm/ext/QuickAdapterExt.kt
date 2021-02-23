@@ -1,8 +1,7 @@
 package com.theone.mvvm.ext
 
-import com.qmuiteam.qmui.arch.QMUIFragment
-import com.qmuiteam.qmui.widget.QMUITopBarLayout
-import com.theone.mvvm.base.fragment.BaseFragment
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.theone.mvvm.base.viewmodel.BaseListViewModel
 
 
 //  ┏┓　　　┏┓
@@ -30,14 +29,23 @@ import com.theone.mvvm.base.fragment.BaseFragment
  * @remark
  */
 
-fun QMUITopBarLayout.setTitleWithBackBtn(title:String){
-    setTitle(title)
-    addLeftBackImageButton()
-}
-
-fun QMUITopBarLayout.setTitleWithBackBtn(resId:Int,fragment:BaseFragment){
-    setTitle(resId)
-    addLeftBackImageButton().setOnClickListener {
-        fragment.finish()
+fun <T> BaseQuickAdapter<T, *>.loadListData(vm: BaseListViewModel<T>) {
+    val response = vm.getResponse().value
+    val list = response!!.getData()
+    if (null == list ||list.isEmpty()){
+        return
+    }
+    val data = list.toMutableList()
+    if (vm.mPage == 1) {
+        setList(data)
+    } else {
+        addData(data)
+    }
+    val pageInfo = response.getPageInfo()
+    if(pageInfo == null || pageInfo.getPageCount()>pageInfo.getPage()){
+        vm.mPage++
+        loadMoreModule.loadMoreComplete()
+    } else {
+        loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
     }
 }

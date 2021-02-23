@@ -1,10 +1,4 @@
-package com.theone.demo
-
-import androidx.databinding.DataBindingUtil
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
-import com.theone.demo.databinding.ItemTestBinding
+package com.theone.mvvm.net
 
 
 //  ┏┓　　　┏┓
@@ -26,15 +20,23 @@ import com.theone.demo.databinding.ItemTestBinding
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
- * @describe TODO
+ * @date 2021/2/23 0023
+ * @describe 分页
  * @email 625805189@qq.com
  * @remark
  */
-class TestAdapter : BaseQuickAdapter<TestBean,BaseDataBindingHolder<ItemTestBinding>>(R.layout.item_test) {
+interface IPageInfo {
 
-    override fun convert(holder: BaseDataBindingHolder<ItemTestBinding>, item: TestBean) {
-       holder.dataBinding?.vm = item
-    }
+    // 页数
+    fun getPage():Int
+
+    // 总页数
+    fun getPageCount():Int
+
+    // 总条数
+    fun getTotalCount():Int
+
+    // 每页数量
+    fun getPageSize():Int
 
 }
