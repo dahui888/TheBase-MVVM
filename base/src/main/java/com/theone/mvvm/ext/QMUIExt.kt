@@ -30,9 +30,11 @@ import com.theone.mvvm.base.fragment.BaseFragment
  * @remark
  */
 
-fun QMUITopBarLayout.setTitleWithBackBtn(title:String){
+fun QMUITopBarLayout.setTitleWithBackBtn(title:String,fragment:BaseFragment){
     setTitle(title)
-    addLeftBackImageButton()
+    addLeftBackImageButton().setOnClickListener {
+        fragment.finish()
+    }
 }
 
 fun QMUITopBarLayout.setTitleWithBackBtn(resId:Int,fragment:BaseFragment){

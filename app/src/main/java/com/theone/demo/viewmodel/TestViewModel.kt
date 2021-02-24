@@ -2,9 +2,11 @@ package com.theone.demo.viewmodel
 
 import androidx.lifecycle.rxLifeScope
 import com.theone.demo.entity.Brand
+import com.theone.demo.net.PageInfo
 import com.theone.demo.net.Response
 import com.theone.demo.net.Url
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
+import com.theone.mvvm.ext.util.logE
 import rxhttp.toClass
 import rxhttp.wrapper.param.RxHttp
 
@@ -35,11 +37,17 @@ import rxhttp.wrapper.param.RxHttp
  */
 class TestViewModel : BaseListViewModel<Brand>() {
 
+    init {
+        space.value = 12
+    }
+
     override fun requestServer() {
         rxLifeScope.launch {
             val response = RxHttp.get(Url.BRAND)
                 .toClass<Response<List<Brand>>>()
                 .await()
+            response.pageInfo = PageInfo(1, 1, 1, 1)
+            response.error_code = 1
             getResponse().postValue(response)
         }
     }

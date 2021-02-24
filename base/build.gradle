@@ -60,6 +60,9 @@ dependencies {
 
     api "com.github.LuckSiege.PictureSelector:picture_library:$PictureSelectorVersion"
 
+    //管理界面状态库
+    api 'com.kingja.loadsir:loadsir:1.3.8'
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'

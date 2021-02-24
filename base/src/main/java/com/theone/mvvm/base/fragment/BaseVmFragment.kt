@@ -1,12 +1,8 @@
 package com.theone.mvvm.base.fragment
 
-import android.content.Context
 import android.os.Bundle
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.ViewModelProvider
-import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.ext.getVmClazz
 
@@ -37,15 +33,14 @@ import com.theone.mvvm.ext.getVmClazz
  */
 abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
 
-    lateinit var mViewModel: VM
+    lateinit var mVm: VM
 
     abstract fun createObserver()
     abstract fun initData()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        mVm = createViewModel()
         super.onViewCreated(view, savedInstanceState)
-        mViewModel = createViewModel()
-        mViewModel.createObserve(this)
         createObserver()
         initData()
     }

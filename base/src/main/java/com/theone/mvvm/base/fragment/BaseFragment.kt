@@ -10,8 +10,10 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.kingja.loadsir.core.LoadService
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
+import com.theone.mvvm.ext.loadServiceInit
 
 
 //  ┏┓　　　┏┓
@@ -41,6 +43,9 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
     lateinit var mActivity: AppCompatActivity
+
+    //界面状态管理者
+    lateinit var mLoader: LoadService<Any>
 
     /**
      * 是否为根Fragment： getParentFragment() 为空
@@ -75,6 +80,12 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+    open fun initLoadSer(view: View, callback: () -> Unit) {
+        mLoader = loadServiceInit(view) {
+            callback.invoke()
+        }
+    }
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     open fun onLazyResume() {
         if (isNeedChangeStatusBarMode()) {
@@ -104,7 +115,9 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     private fun checkLazyInit() {
         if (mIsFirstLayInit) {
             mIsFirstLayInit = false
-            onLazyInit()
+            view?.post {
+                onLazyInit()
+            }
         }
     }
 

@@ -1,7 +1,12 @@
 package com.theone.demo
 
+import com.kingja.loadsir.callback.SuccessCallback
+import com.kingja.loadsir.core.LoadSir
 import com.theone.mvvm.base.BaseApplication
 import com.theone.mvvm.util.RxHttpManager
+import com.theone.mvvm.widge.loadCallBack.EmptyCallback
+import com.theone.mvvm.widge.loadCallBack.ErrorCallback
+import com.theone.mvvm.widge.loadCallBack.LoadingCallback
 import rxhttp.wrapper.param.RxHttp
 
 

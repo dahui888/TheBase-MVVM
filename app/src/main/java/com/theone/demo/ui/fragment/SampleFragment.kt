@@ -1,17 +1,13 @@
 package com.theone.demo.ui.fragment
 
 import android.os.Bundle
-import android.view.View
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.demo.R
-import com.theone.demo.ui.adapter.TestAdapter
-import com.theone.demo.viewmodel.TestViewModel
-import com.theone.demo.entity.Brand
-import com.theone.mvvm.base.fragment.BaseListFragment
-import com.theone.mvvm.databinding.BaseTopbarFragmentBinding
+import com.theone.demo.databinding.FragmentTestBinding
+import com.theone.mvvm.base.fragment.BaseVmDbFragment
+import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.ext.setTitleWithBackBtn
 import com.theone.mvvm.ext.showLoading
-import com.theone.mvvm.util.ToastUtil
+import kotlinx.android.synthetic.main.fragment_test.*
 
 
 //  ┏┓　　　┏┓
@@ -33,27 +29,30 @@ import com.theone.mvvm.util.ToastUtil
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
+ * @date 2021/2/24 0024
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class TestFragment : BaseListFragment<Brand, TestAdapter, TestViewModel, BaseTopbarFragmentBinding>() {
+class SampleFragment :BaseVmDbFragment<BaseViewModel,FragmentTestBinding>() {
 
-    override fun createAdapter(): TestAdapter = TestAdapter()
-
-    override fun initTopBar() {
-        super.initTopBar()
-        mTopBarLayout.setTitle(R.string.app_name)
+    override fun createObserver() {
     }
 
     override fun initData() {
-
     }
 
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val data = adapter.getItem(position) as Brand
-        ToastUtil.show(data.brand_name)
+    override fun getLayoutId(): Int = R.layout.fragment_test
+
+    override fun initView(savedInstanceState: Bundle?) {
+        initLoadSer(status_layout){
+
+        }
+        top_layout.setTitleWithBackBtn(R.string.app_name,this)
+    }
+
+    override fun onLazyInit() {
+        mLoader.showLoading()
     }
 
 }

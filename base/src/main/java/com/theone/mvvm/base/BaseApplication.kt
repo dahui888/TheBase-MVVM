@@ -3,8 +3,15 @@ package com.theone.mvvm.base
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
+import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
+import com.kingja.loadsir.callback.SuccessCallback
+import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
+import com.theone.mvvm.widge.loadCallBack.EmptyCallback
+import com.theone.mvvm.widge.loadCallBack.ErrorCallback
+import com.theone.mvvm.widge.loadCallBack.LoadingCallback
+import kotlin.properties.Delegates
 
 
 //  ┏┓　　　┏┓
@@ -33,6 +40,10 @@ import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
  */
 open class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
 
+    companion object {
+        lateinit var INSTANCE: BaseApplication
+        var DEBUG by Delegates.notNull<Boolean>()
+    }
 
     private lateinit var mAppViewModelStore: ViewModelStore
 
@@ -42,10 +53,16 @@ open class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
         return mAppViewModelStore
     }
 
+    open fun isDebug():Boolean = true
+
     override fun onCreate() {
         super.onCreate()
+        INSTANCE = this
+        DEBUG = isDebug()
+        MultiDex.install(this)
         mAppViewModelStore = ViewModelStore()
         QMUISwipeBackActivityManager.init(this)
+        initLoader()
     }
 
     /**
@@ -60,6 +77,15 @@ open class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
             mFactory = ViewModelProvider.AndroidViewModelFactory.getInstance(this)
         }
         return mFactory as ViewModelProvider.Factory
+    }
+
+    open fun initLoader(){
+        LoadSir.beginBuilder()
+            .addCallback(LoadingCallback())
+            .addCallback(ErrorCallback())
+            .addCallback(EmptyCallback())
+            .setDefaultCallback(SuccessCallback::class.java)
+            .commit()
     }
 
 }

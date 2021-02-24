@@ -1,16 +1,14 @@
 package com.theone.mvvm.base.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnLoadMoreListener
-import com.chad.library.adapter.base.viewholder.BaseViewHolder
+import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.callback.livedata.BooleanLiveData
 import com.theone.mvvm.callback.livedata.IntLiveData
+import com.theone.mvvm.callback.livedata.UnPeekLiveData
+import com.theone.mvvm.ext.util.logE
 import com.theone.mvvm.net.IResponse
 
 
@@ -41,11 +39,19 @@ import com.theone.mvvm.net.IResponse
 open abstract class BaseListViewModel<T> : BaseViewModel() {
 
     private val mListData: MutableLiveData<IResponse<List<T>>> = MutableLiveData()
-    var isHeadFresh :Boolean = false
-    var mPage: Int = 1
+    var isFirstLoad: BooleanLiveData = BooleanLiveData()
+    var isHeadFresh: BooleanLiveData = BooleanLiveData()
+    var mPage: IntLiveData = IntLiveData()
     var goneLoadMoreEndView: Boolean = false
 
-    override fun createObserve(lifecycleOwner: LifecycleOwner) {
+    var type: UnPeekLiveData<LayoutManagerType> = UnPeekLiveData()
+    var column :IntLiveData = IntLiveData()
+    var space :IntLiveData = IntLiveData()
+
+    init {
+        type.value =  LayoutManagerType.LIST
+        column.value = 2
+        space.value = 0
     }
 
     abstract fun requestServer()
