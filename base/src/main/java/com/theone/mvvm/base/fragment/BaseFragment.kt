@@ -12,8 +12,15 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.kingja.loadsir.core.LoadService
 import com.qmuiteam.qmui.arch.QMUIFragment
+import com.qmuiteam.qmui.kotlin.matchParent
+import com.qmuiteam.qmui.kotlin.wrapContent
+import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import com.theone.mvvm.ext.loadServiceInit
+import com.qmuiteam.qmui.widget.QMUITopBarLayout
+import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
+import com.theone.mvvm.R
+import com.theone.mvvm.ext.loadSirInit
+import com.theone.mvvm.ext.setMargin
 
 
 //  ┏┓　　　┏┓
@@ -45,7 +52,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     lateinit var mActivity: AppCompatActivity
 
     //界面状态管理者
-    lateinit var mLoader: LoadService<Any>
+    lateinit var mLoadSir: LoadService<Any>
 
     /**
      * 是否为根Fragment： getParentFragment() 为空
@@ -54,15 +61,42 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     private var mIsFirstLayInit = true
 
     abstract fun getLayoutId(): Int
-    abstract fun initView(savedInstanceState: Bundle?)
+    abstract override fun onViewCreated(rootView: View)
+    abstract fun initTopBar(topBar: QMUITopBarLayout?)
+
+    open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
+    open fun showTitleBar(): Boolean = true
 
     override fun onCreateView(): View {
-        return layoutInflater.inflate(getLayoutId(), null)
+        val root = QMUIWindowInsetLayout(mActivity)
+        root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
+        val body = createContentView()
+        if (showTitleBar()) {
+            body.fitsSystemWindows = true
+            root.addView(body)
+            body.setMargin(
+                0,
+                QMUIResHelper.getAttrDimen(mActivity, R.attr.qmui_topbar_height),
+                0,
+                0
+            )
+            root.addView(createQMUITopBarLayout())
+            return root
+        }
+        return body
     }
+
+    private fun createQMUITopBarLayout(): QMUITopBarLayout {
+        val topBar = QMUITopBarLayout(mActivity)
+        topBar.layoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
+        topBar.fitsSystemWindows = true
+        initTopBar(topBar)
+        return topBar
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initView(savedInstanceState)
         lazyViewLifecycleOwner.lifecycle.addObserver(this)
     }
 
@@ -81,7 +115,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     }
 
     open fun initLoadSer(view: View, callback: () -> Unit) {
-        mLoader = loadServiceInit(view) {
+        mLoadSir = loadSirInit(view) {
             callback.invoke()
         }
     }

@@ -10,6 +10,7 @@ import com.theone.mvvm.callback.livedata.IntLiveData
 import com.theone.mvvm.callback.livedata.UnPeekLiveData
 import com.theone.mvvm.ext.util.logE
 import com.theone.mvvm.net.IResponse
+import okhttp3.Response
 
 
 //  ┏┓　　　┏┓
@@ -36,9 +37,8 @@ import com.theone.mvvm.net.IResponse
  * @email 625805189@qq.com
  * @remark
  */
-open abstract class BaseListViewModel<T> : BaseViewModel() {
+abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
 
-    private val mListData: MutableLiveData<IResponse<List<T>>> = MutableLiveData()
     var isFirstLoad: BooleanLiveData = BooleanLiveData()
     var isHeadFresh: BooleanLiveData = BooleanLiveData()
     var mPage: IntLiveData = IntLiveData()
@@ -56,6 +56,5 @@ open abstract class BaseListViewModel<T> : BaseViewModel() {
 
     abstract fun requestServer()
 
-    fun getResponse(): MutableLiveData<IResponse<List<T>>> = mListData
 
 }

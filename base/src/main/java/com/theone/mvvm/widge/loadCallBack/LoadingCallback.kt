@@ -8,11 +8,8 @@ import com.theone.mvvm.R
 
 class LoadingCallback : Callback() {
 
-    override fun onCreateView(): Int {
-        return R.layout.layout_loading
-    }
+    override fun onCreateView(): Int  = R.layout.layout_loading
 
-    override fun onReloadEvent(context: Context?, view: View?): Boolean {
-        return false
-    }
+    override fun onReloadEvent(context: Context?, view: View?): Boolean  = false
+
 }

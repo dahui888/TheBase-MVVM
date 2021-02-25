@@ -8,7 +8,6 @@ import androidx.multidex.MultiDexApplication
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
-import com.theone.mvvm.widge.loadCallBack.EmptyCallback
 import com.theone.mvvm.widge.loadCallBack.ErrorCallback
 import com.theone.mvvm.widge.loadCallBack.LoadingCallback
 import kotlin.properties.Delegates
@@ -83,7 +82,6 @@ open class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
         LoadSir.beginBuilder()
             .addCallback(LoadingCallback())
             .addCallback(ErrorCallback())
-            .addCallback(EmptyCallback())
             .setDefaultCallback(SuccessCallback::class.java)
             .commit()
     }

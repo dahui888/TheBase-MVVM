@@ -31,19 +31,23 @@ import com.theone.mvvm.util.ToastUtil
  * @remark
  */
 
-fun <T> loadListData(vm: BaseListViewModel<T>,adapter: BaseQuickAdapter<T,*>,loader: LoadService<Any>) {
+fun <T> loadListData(
+    vm: BaseListViewModel<T>,
+    adapter: BaseQuickAdapter<T, *>,
+    loader: LoadService<Any>
+) {
     val response = vm.getResponse().value!!
-    if(response.isSuccess()){
+    if (response.isSuccess()) {
+        val list = response.getData()
         val isNewData = vm.mPage.value == 1
-        if (response.isEmpty()){
-            if(isNewData){
+        if (null == list || list.isEmpty()) {
+            if (isNewData) {
                 loader.showEmpty()
-            }else{
+            } else {
                 adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
             }
             return
         }
-        val list = response.getData()
         val pageInfo = response.getPageInfo()
         if (isNewData) {
             vm.isFirstLoad.postValue(false)
@@ -53,24 +57,32 @@ fun <T> loadListData(vm: BaseListViewModel<T>,adapter: BaseQuickAdapter<T,*>,loa
         } else {
             adapter.addData(list!!.toMutableList())
         }
-        if(pageInfo == null || pageInfo.getPageCount()>pageInfo.getPage()){
+        if (pageInfo == null || pageInfo.getPageCount() > pageInfo.getPage()) {
             vm.mPage.value++
             adapter.loadMoreModule.loadMoreComplete()
         } else {
             adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
         }
-    }else{
-        when {
-            vm.isFirstLoad.value -> {
-                loader.showError(response.getMsg()!!)
-            }
-            vm.isHeadFresh.value -> {
-                ToastUtil.show(response.getMsg()!!)
-            }
-            else -> {
-                adapter.loadMoreModule.loadMoreFail()
-            }
+    } else {
+        loadListError(response.getMsg()!!, vm, adapter, loader)
+    }
+}
+
+fun <T> loadListError(
+    errorMsg: String,
+    vm: BaseListViewModel<T>,
+    adapter: BaseQuickAdapter<T, *>,
+    loader: LoadService<Any>
+) {
+    when {
+        vm.isFirstLoad.value -> {
+            loader.showError(errorMsg)
+        }
+        vm.isHeadFresh.value -> {
+            ToastUtil.show(errorMsg)
+        }
+        else -> {
+            adapter.loadMoreModule.loadMoreFail()
         }
     }
-
 }

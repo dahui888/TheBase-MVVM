@@ -1,6 +1,6 @@
 package com.theone.mvvm.base.fragment
 
-import android.os.Bundle
+import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -13,12 +13,12 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
-import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.theone.mvvm.R
 import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.ext.getVmClazz
 import com.theone.mvvm.ext.loadListData
+import com.theone.mvvm.ext.loadListError
 import com.theone.mvvm.ext.showLoading
 import com.theone.mvvm.widge.SpacesItemDecoration
 
@@ -47,36 +47,30 @@ import com.theone.mvvm.widge.SpacesItemDecoration
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseListFragment
+abstract class BaseRecyclerPagerFragment
 <T, AP : BaseQuickAdapter<T, *>, VM : BaseListViewModel<T>, DB : ViewDataBinding>
     : BaseVmDbFragment<VM, DB>(),
     SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, OnItemClickListener {
 
     lateinit var mAdapter: BaseQuickAdapter<T, *>
-    lateinit var mTopBarLayout: QMUITopBarLayout
     lateinit var mRefreshLayout: SwipeRefreshLayout
     lateinit var mRecyclerView: RecyclerView
 
-    override fun getLayoutId(): Int = R.layout.base_topbar_fragment
+    override fun getLayoutId(): Int = R.layout.base_recycler_pager_fragment
     abstract fun createAdapter(): AP
 
     override fun onLazyInit() {
         onFirstLoading()
     }
 
-    override fun initView(savedInstanceState: Bundle?) {
-        initTopBar()
+    override fun onViewCreated(rootView: View) {
         initAdapter()
         initRecyclerView()
         initPullRefreshLayout()
         initLoadSer(mRefreshLayout) {
-            mLoader.showLoading()
+            mLoadSir.showLoading()
             mVm.requestServer()
         }
-    }
-
-    open fun initTopBar() {
-        mTopBarLayout = mDB.root.findViewById(R.id.topBarLayout)
     }
 
     open fun initAdapter() {
@@ -84,7 +78,6 @@ abstract class BaseListFragment
         mAdapter.loadMoreModule.setOnLoadMoreListener(this)
         mAdapter.setOnItemClickListener(this)
     }
-
 
     open fun initRecyclerView() {
         mRecyclerView = mDB.root.findViewById(R.id.recyclerView)
@@ -121,38 +114,47 @@ abstract class BaseListFragment
     open fun initPullRefreshLayout() {
         mRefreshLayout = mDB.root.findViewById(R.id.swipeRefresh)
         mRefreshLayout.isEnabled = false
-        mRefreshLayout.setOnRefreshListener(this@BaseListFragment)
+        mRefreshLayout.setOnRefreshListener(this@BaseRecyclerPagerFragment)
     }
 
     override fun createObserver() {
         mVm.run {
             isFirstLoad.observe(viewLifecycleOwner, Observer {
                 if (it) {
-                    firstRequest()
+                    requestNewData()
                 }
             })
             isHeadFresh.observe(viewLifecycleOwner, Observer {
                 if (it) {
-                    firstRequest()
+                    requestNewData()
                 }
-            })
-            getResponse().observe(viewLifecycleOwner, Observer {
-                loadListData(mVm, mAdapter, mLoader)
-                mRefreshLayout.isEnabled = true
-                mRefreshLayout.isRefreshing = false
             })
             type.observe(viewLifecycleOwner, Observer {
                 mRecyclerView.layoutManager = getLayoutManager(it)
             })
+            getResponse().observe(viewLifecycleOwner, Observer {
+                loadListData(mVm, mAdapter, mLoadSir)
+                onRefreshComplete()
+            })
+            getErrorLiveData().observe(viewLifecycleOwner, Observer {
+                loadListError(it,mVm,mAdapter,mLoadSir)
+                onRefreshComplete()
+            })
         }
     }
 
-    private fun firstRequest() {
+    open fun onRefreshComplete(){
+        mRefreshLayout.isEnabled = true
+        mRefreshLayout.isRefreshing = false
+    }
+
+    private fun requestNewData() {
         mVm.mPage.value = 1
         mVm.requestServer()
     }
+
     open fun onFirstLoading() {
-        mLoader.showLoading()
+        mLoadSir.showLoading()
         mRecyclerView.scrollToPosition(0)
         mVm.isFirstLoad.postValue(true)
     }

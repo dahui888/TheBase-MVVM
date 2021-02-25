@@ -1,11 +1,11 @@
 package com.theone.mvvm.ext
 
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import com.kingja.loadsir.core.LoadService
 import com.kingja.loadsir.core.LoadSir
 import com.theone.mvvm.R
-import com.theone.mvvm.widge.loadCallBack.EmptyCallback
 import com.theone.mvvm.widge.loadCallBack.ErrorCallback
 import com.theone.mvvm.widge.loadCallBack.LoadingCallback
 
@@ -36,29 +36,40 @@ import com.theone.mvvm.widge.loadCallBack.LoadingCallback
  */
 
 
-fun loadServiceInit(view: View, callback: () -> Unit): LoadService<Any> {
-    val loadsir = LoadSir.getDefault().register(view) {
+fun loadSirInit(view: View, callback: () -> Unit): LoadService<Any> {
+    val loadSir = LoadSir.getDefault().register(view) {
         //点击重试时触发的操作
         callback.invoke()
     }
-    loadsir.showLoading()
-    return loadsir
+    loadSir.showLoading()
+    return loadSir
 }
 
 /**
  * 设置错误布局
  * @param message 错误布局显示的提示内容
  */
-fun LoadService<*>.showError(message: String = "") {
-    this.setErrorText(message)
+fun LoadService<*>.showError(message: String, imageRes:Int = R.drawable.status_loading_view_loading_fail) {
+    this.setCallBack(ErrorCallback::class.java) { _, view ->
+        view.findViewById<TextView>(R.id.stateContentTextView).text = message
+        view.findViewById<ImageView>(R.id.stateImageView).setImageResource(imageRes)
+    }
     this.showCallback(ErrorCallback::class.java)
+}
+
+/**
+ * 设置错误布局
+ * @param message 错误布局显示的提示内容
+ */
+fun LoadService<*>.showEmpty(message: String,imageRes:Int = R.drawable.status_search_result_empty) {
+    showError(message,imageRes)
 }
 
 /**
  * 设置空布局
  */
 fun LoadService<*>.showEmpty() {
-    this.showCallback(EmptyCallback::class.java)
+    showEmpty("暂无此内容")
 }
 
 /**
@@ -66,12 +77,4 @@ fun LoadService<*>.showEmpty() {
  */
 fun LoadService<*>.showLoading() {
     this.showCallback(LoadingCallback::class.java)
-}
-
-fun LoadService<*>.setErrorText(message: String) {
-    if (message.isNotEmpty()) {
-        this.setCallBack(ErrorCallback::class.java) { _, view ->
-            view.findViewById<TextView>(R.id.stateContentTextView).text = message
-        }
-    }
 }

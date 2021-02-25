@@ -35,9 +35,6 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
 
     lateinit var mVm: VM
 
-    abstract fun createObserver()
-    abstract fun initData()
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mVm = createViewModel()
         super.onViewCreated(view, savedInstanceState)
@@ -51,5 +48,8 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
     open fun createViewModel(): VM {
         return ViewModelProvider(this).get(getVmClazz(this))
     }
+
+    abstract fun createObserver()
+    abstract fun initData()
 
 }

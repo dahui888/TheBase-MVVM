@@ -1,7 +1,13 @@
-package com.theone.mvvm.ext
+package com.theone.demo.ui.adapter
 
-import android.view.View
-import android.view.ViewGroup
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.chad.library.adapter.base.module.LoadMoreModule
+import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
+import com.theone.demo.R
+import com.theone.demo.databinding.ItemSeriesBinding
+import com.theone.demo.databinding.ItemTestBinding
+import com.theone.demo.entity.Brand
+import com.theone.demo.entity.Series
 
 
 //  ┏┓　　　┏┓
@@ -28,11 +34,12 @@ import android.view.ViewGroup
  * @email 625805189@qq.com
  * @remark
  */
+class SeriesAdapter : BaseQuickAdapter<Series, BaseDataBindingHolder<ItemSeriesBinding>>(
+    R.layout.item_series
+), LoadMoreModule {
 
-fun View.setMargin(left:Int,top:Int,right:Int,bottom:Int){
-    val params = layoutParams
-    if(params is ViewGroup.MarginLayoutParams){
-        params.setMargins(left,top,right,bottom)
-        requestLayout()
+    override fun convert(holder: BaseDataBindingHolder<ItemSeriesBinding>, item: Series) {
+        holder.dataBinding?.data = item
     }
+
 }

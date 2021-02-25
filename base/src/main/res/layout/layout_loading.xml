@@ -33,7 +33,6 @@
             app:qmui_skin_text_color="?attr/app_skin_status_layout_loading_text_color"
             android:textSize="?attr/app_skin_status_layout_loading_tips_size" />
 
-
     </LinearLayout>
 
 

@@ -1,12 +1,8 @@
-package com.theone.demo
+package com.theone.demo.app
 
-import com.kingja.loadsir.callback.SuccessCallback
-import com.kingja.loadsir.core.LoadSir
+import com.theone.demo.BuildConfig
 import com.theone.mvvm.base.BaseApplication
 import com.theone.mvvm.util.RxHttpManager
-import com.theone.mvvm.widge.loadCallBack.EmptyCallback
-import com.theone.mvvm.widge.loadCallBack.ErrorCallback
-import com.theone.mvvm.widge.loadCallBack.LoadingCallback
 import rxhttp.wrapper.param.RxHttp
 
 
@@ -35,6 +31,8 @@ import rxhttp.wrapper.param.RxHttp
  * @remark
  */
 class App : BaseApplication() {
+
+    override fun isDebug(): Boolean = BuildConfig.DEBUG
 
     override fun onCreate() {
         super.onCreate()

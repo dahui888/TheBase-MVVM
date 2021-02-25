@@ -30,14 +30,12 @@ import com.theone.mvvm.net.IResponse
  */
 class Response<T>(
     var error_code: Int,
-    var reason: String,
+    var reason: String?,
     var result: T?,
     var pageInfo: PageInfo?
 ) : IResponse<T> {
 
     override fun isSuccess(): Boolean = error_code == 0
-
-    override fun isEmpty(): Boolean = null == result
 
     override fun getData(): T? = result
 

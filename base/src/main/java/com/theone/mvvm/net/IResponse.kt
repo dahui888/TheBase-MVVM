@@ -28,13 +28,8 @@ package com.theone.mvvm.net
 interface IResponse<T> {
 
     fun isSuccess(): Boolean
-
-    fun isEmpty(): Boolean
-
-    fun getMsg():String?
-
     fun getData(): T?
-
+    fun getMsg():String?
     fun getPageInfo(): IPageInfo?
 
 }

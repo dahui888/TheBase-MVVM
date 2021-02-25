@@ -57,6 +57,7 @@
     <string name="notify_no_network">网络连接不可用，请稍后重试！</string>
     <string name="esky_service_exception">网络不给力，请稍候重试！</string>
     <string name="time_out_please_try_again_later">连接超时,请稍后再试</string>
+    <string name="oops">这个错误可能来自外太空·</string>
     <string name="no_permissioin_tips">没有权限很难办事啊~</string>
     <string name="loading">加载中</string>
 

@@ -1,13 +1,12 @@
 package com.theone.demo.ui.fragment
 
-import android.os.Bundle
+import android.view.View
+import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.theone.demo.R
-import com.theone.demo.databinding.FragmentTestBinding
-import com.theone.mvvm.base.fragment.BaseVmDbFragment
-import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.ext.setTitleWithBackBtn
-import com.theone.mvvm.ext.showLoading
-import kotlinx.android.synthetic.main.fragment_test.*
+import com.theone.mvvm.base.fragment.BaseFragment
+import com.theone.mvvm.ext.qmui.addToGroup
+import com.theone.mvvm.ext.qmui.createNormalItem
+import kotlinx.android.synthetic.main.fragment_sample.*
 
 
 //  ┏┓　　　┏┓
@@ -29,30 +28,30 @@ import kotlinx.android.synthetic.main.fragment_test.*
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/24 0024
+ * @date 2021/2/25 0025
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class SampleFragment :BaseVmDbFragment<BaseViewModel,FragmentTestBinding>() {
+class SampleFragment : BaseFragment(), View.OnClickListener {
 
-    override fun createObserver() {
+    override fun getLayoutId(): Int = R.layout.fragment_sample
+
+    override fun onViewCreated(rootView: View) {
+        val recyclerPager = groupListView.createNormalItem("BaseRecyclerPagerFragment")
+        groupListView.addToGroup(this, recyclerPager)
     }
 
-    override fun initData() {
-    }
-
-    override fun getLayoutId(): Int = R.layout.fragment_test
-
-    override fun initView(savedInstanceState: Bundle?) {
-        initLoadSer(status_layout){
-
-        }
-        top_layout.setTitleWithBackBtn(R.string.app_name,this)
+    override fun initTopBar(topBar: QMUITopBarLayout?) {
+        topBar?.setTitle(R.string.app_name)
     }
 
     override fun onLazyInit() {
-        mLoader.showLoading()
+
+    }
+
+    override fun onClick(v: View?) {
+        startFragment(BrandFragment())
     }
 
 }

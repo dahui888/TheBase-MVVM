@@ -3,12 +3,14 @@ package com.theone.demo.ui.activity
 import android.os.Bundle
 import com.qmuiteam.qmui.arch.annotation.DefaultFirstFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
+import com.theone.demo.ui.fragment.BrandFragment
+import com.theone.demo.ui.fragment.SampleFragment
 import com.theone.demo.ui.fragment.TestFragment
 import com.theone.mvvm.base.activity.BaseFragmentActivity
 import rxhttp.wrapper.param.Param
 import rxhttp.wrapper.param.RxHttp
 
-@DefaultFirstFragment(TestFragment::class)
+@DefaultFirstFragment(SampleFragment::class)
 class MainActivity : BaseFragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
