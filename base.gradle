@@ -25,4 +25,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
     }
 
+    // 避免 lint 检测出错时停止构建
+    lintOptions {
+        abortOnError false
+    }
+
 }

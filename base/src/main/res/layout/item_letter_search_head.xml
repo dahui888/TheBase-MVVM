@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.layout.QMUILinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/letter_search_header_bg_color"
+    android:layout_height="wrap_content">
+
+    <the.one.base.widge.CircleTextView
+        android:id="@+id/tv_section"
+        app:backColor="@color/letter_search_header_text_bg_color"
+        tools:text="E"
+        android:layout_width="@dimen/letter_search_header_text_width"
+        android:layout_height="@dimen/letter_search_header_text_width"
+        android:layout_marginBottom="@dimen/letter_search_header_text_bottom_margin"
+        android:layout_marginStart="@dimen/letter_search_header_text_left_margin"
+        android:layout_marginTop="@dimen/letter_search_header_text_top_margin"
+        android:focusable="false"
+        android:textColor="@color/letter_search_header_text_color"
+        android:textSize="@dimen/letter_search_header_text_size" />
+
+</com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+
+

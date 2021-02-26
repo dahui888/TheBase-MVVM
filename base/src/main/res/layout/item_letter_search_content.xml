@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/qmui_config_color_white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <the.one.base.widge.TheCheckBox
+        android:id="@+id/check_box"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:enabled="false"
+        android:layout_marginEnd="@dimen/side_letter_bar_width"
+        android:visibility="gone" />
+
+    <RelativeLayout
+        android:id="@+id/ll_contact"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/qmui_s_list_item_transparent_bg_with_none"
+        android:paddingLeft="12dp">
+
+        <the.one.base.widge.CircleTextView
+            android:id="@+id/tv_name"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:focusable="false"
+            android:textColor="@color/qmui_config_color_white"
+            android:textSize="16sp"
+            app:backColor="@color/qmui_config_color_red"
+            tools:text="杨" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:scaleType="centerCrop"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/tv_name"
+            android:background="@color/qmui_config_color_transparent"
+            android:focusable="true"
+            android:padding="20dp"
+            android:textColor="@color/we_chat_black"
+            android:textSize="@dimen/city_text_size"
+            tools:text="战三" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

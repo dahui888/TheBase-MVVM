@@ -1,0 +1,31 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/error_info_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@id/iv_close"
+    android:background="@color/white">
+
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="20dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/mz_titlebar_search_layout_ic_delete_dark"/>
+
+    <ScrollView
+        android:id="@+id/error_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/iv_close">
+
+        <TextView
+                android:id="@+id/textMessage"
+                style="@style/crash_text_style" />
+
+    </ScrollView>
+
+
+</RelativeLayout>

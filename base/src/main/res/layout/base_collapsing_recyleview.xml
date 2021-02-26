@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:qmui_skin_background="?attr/app_skin_background_color_1">
+
+    <com.qmuiteam.qmui.widget.QMUIAppBarLayout
+        android:id="@+id/appbar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        app:qmui_skin_background="?attr/app_skin_background_color_1"
+        android:fitsSystemWindows="true">
+
+        <!-- layout_scrollFlags  https://www.jianshu.com/p/7caa5f4f49bd-->
+
+        <com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout
+            android:id="@+id/collapsing_topbar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="?attr/qmui_topbar_height"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            app:qmui_collapsedTitleGravity="center"
+            app:qmui_followTopBarCommonSkin="false"
+            app:qmui_contentScrim="@color/qmui_config_color_white"
+            app:qmui_expandedTitleGravity="center|bottom"
+            app:qmui_expandedTitleMarginBottom="20dp"
+            app:qmui_expandedTitleMarginStart="20dp">
+
+            <FrameLayout
+                android:id="@+id/fl_body"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="invisible"
+                android:fitsSystemWindows="false"
+                app:qmui_layout_collapseMode="parallax"
+                app:qmui_layout_collapseParallaxMultiplier="0.7"
+                tools:ignore="MissingPrefix"/>
+
+            <com.qmuiteam.qmui.widget.QMUITopBar
+                android:id="@+id/topbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/qmui_topbar_height"
+                app:qmui_layout_collapseMode="pin"
+                android:fitsSystemWindows="true"/>
+        </com.qmuiteam.qmui.widget.QMUICollapsingTopBarLayout>
+
+    </com.qmuiteam.qmui.widget.QMUIAppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:overScrollMode="never"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+
+    <the.one.base.widge.StatusLayout
+        android:id="@+id/status_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+

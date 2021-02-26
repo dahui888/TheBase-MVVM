@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<the.one.base.widge.pullextend.PullExtendLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pull_extend"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <the.one.base.widge.pullextend.ExtendListHeader
+        android:id="@+id/extend_header"
+        android:layout_width="match_parent"
+        android:background="@color/qmui_config_color_background"
+        android:layout_height="400dp"/>
+
+    <FrameLayout
+        android:id="@+id/body"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"
+        tools:ignore="KeyboardInaccessibleWidget"/>
+
+    <the.one.base.widge.pullextend.ExtendListFooter
+        android:id="@+id/extend_footer"
+        android:layout_width="match_parent"
+        android:background="@color/qmui_config_color_background"
+        android:layout_height="400dp"/>
+
+
+</the.one.base.widge.pullextend.PullExtendLayout>

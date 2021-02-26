@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.qmuiteam.qmui.layout.QMUIRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.qmuiteam.qmui.layout.QMUIFrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+        <com.qmuiteam.qmui.layout.QMUIRelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="?attr/app_update_logo_half_height"
+            tools:layout_marginTop="70dp">
+
+            <com.qmuiteam.qmui.layout.QMUILinearLayout
+                android:id="@+id/container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="?attr/app_update_horizontal_space"
+                android:layout_marginEnd="?attr/app_update_horizontal_space"
+                android:background="@color/white"
+                android:orientation="vertical"
+                tools:layout_marginEnd="30dp"
+                tools:layout_marginStart="30dp">
+
+                <TextView
+                    android:id="@+id/tv_version"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/app_update_logo_half_height"
+                    android:layout_margin="?attr/app_update_version_margin"
+                    android:gravity="end"
+                    android:textColor="?attr/app_update_version_text_color"
+                    android:textSize="?attr/app_update_version_text_size"
+                    android:textStyle="bold"
+                    tools:layout_height="70dp"
+                    tools:layout_margin="12dp"
+                    tools:text="Ver 1.0.0"
+                    tools:textColor="#42c6a6"
+                    tools:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_tips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="?attr/app_update_title_text"
+                    android:textColor="?attr/app_update_title_text_color"
+                    android:textSize="?attr/app_update_title_text_size"
+                    android:textStyle="bold"
+                    tools:text="@string/app_find_new_version"
+                    tools:textColor="#42c6a6"
+                    tools:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/tv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="?attr/app_update_vertical_space"
+                    android:maxHeight="100dp"
+                    android:minHeight="80dp"
+                    android:textColor="?attr/app_update_content_text_color"
+                    android:textSize="?attr/app_update_content_text_size"
+                    android:scrollbars="vertical"
+                    android:singleLine="false"
+                    tools:textColor="#4b4b4b"
+                    tools:textSize="14sp"
+                    tools:layout_margin="20dp"
+                    tools:text="【新增】短视频首页增加今日热门\n【新增】短视频首页增加今日热门\n【新增】短视频首页增加今日热门\n【新增】短视频首页增加今日热门\n【新增】短视频首页增加今日热门\n【新增】短视频首页增加今日热门" />
+
+                <the.one.base.widge.ProgressButton
+                    android:id="@+id/tv_update"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="?attr/app_update_vertical_space"
+                    android:gravity="center"
+                    android:padding="?attr/app_update_progress_btn_padding"
+                    android:text="@string/btn_update_now"
+                    android:textSize="?attr/app_update_progress_btn_text_size"
+                    app:progressbtn_backgroud_color="#42c6a6"
+                    app:progressbtn_backgroud_second_color="@color/qmui_config_color_gray_8"
+                    app:progressbtn_radius="50"
+                    app:progressbtn_text_color="@color/qmui_config_color_white"
+                    tools:layout_margin="20dp"
+                    tools:padding="12dp" />
+
+            </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/iv_close"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/container"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="?attr/app_update_vertical_space"
+                android:src="@drawable/update_close_img"
+                tools:layout_marginTop="20dp" />
+
+
+        </com.qmuiteam.qmui.layout.QMUIRelativeLayout>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_logo"
+            android:layout_width="?attr/app_update_logo_width"
+            android:layout_height="?attr/app_update_logo_height"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:src="?attr/app_update_logo_resource"
+            tools:layout_height="140dp"
+            tools:layout_width="wrap_content"
+            tools:src="@drawable/ic_update_apk_logo" />
+
+    </com.qmuiteam.qmui.layout.QMUIFrameLayout>
+
+</com.qmuiteam.qmui.layout.QMUIRelativeLayout>

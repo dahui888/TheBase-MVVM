@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<the.one.base.widge.StatusLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.qmuiteam.qmui.layout.QMUIRelativeLayout
+        android:id="@+id/tab_parent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.qmuiteam.qmui.widget.tab.QMUITabSegment
+            android:id="@+id/tab_segment"
+            android:layout_width="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:overScrollMode="never"
+            app:qmui_tab_space="20dp"
+            app:qmui_tab_mode="scrollable"
+            app:qmui_tab_has_indicator="true"
+            app:qmui_tab_indicator_height="2dp"
+            app:qmui_tab_select_no_animation="false"
+            app:qmui_tab_indicator_top="false"
+            android:layout_centerHorizontal="true"
+            android:layout_height="50dp" />
+
+    </com.qmuiteam.qmui.layout.QMUIRelativeLayout>
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:layout_below="@id/tab_parent"
+        android:scrollbars="vertical" />
+
+</the.one.base.widge.StatusLayout>
