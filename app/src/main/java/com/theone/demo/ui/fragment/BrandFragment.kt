@@ -8,6 +8,7 @@ import com.theone.demo.viewmodel.BrandViewModel
 import com.theone.demo.entity.Brand
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
+import com.theone.mvvm.ext.setTitleWithBackBtn
 
 
 //  ┏┓　　　┏┓
@@ -40,11 +41,7 @@ class BrandFragment :
     override fun createAdapter(): TestAdapter = TestAdapter()
 
     override fun initData() {
-
-    }
-
-    override fun initTopBar(topBar: QMUITopBarLayout?) {
-        TODO("Not yet implemented")
+        mTopBar?.setTitleWithBackBtn(this.javaClass.simpleName,this)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

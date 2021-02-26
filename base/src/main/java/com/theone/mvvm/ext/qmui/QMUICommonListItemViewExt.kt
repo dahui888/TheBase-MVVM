@@ -9,6 +9,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.QMUICommonListItemAccessoryType
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.QMUICommonListItemOrientation
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+import java.io.FileDescriptor
 
 
 //  ┏┓　　　┏┓
@@ -155,13 +156,32 @@ fun showRedDots(
 }
 
 fun QMUIGroupListView.addToGroup(
+    title:CharSequence?,
+    description:CharSequence?,
     listener: View.OnClickListener?,
     vararg items: QMUICommonListItemView
 ) {
     val section = QMUIGroupListView.newSection(items[0].context)
+    title?.let {
+        section.setTitle(it)
+    }
+    description?.let {
+        section.setDescription(it)
+    }
     for (item in items) {
         val li = if (null != item.switch) null else listener
         section.addItemView(item, li)
     }
     section.addTo(this)
 }
+
+fun QMUIGroupListView.addToGroup(
+    title:CharSequence?,
+    listener: View.OnClickListener?,
+    vararg items: QMUICommonListItemView
+)= addToGroup(title,"",listener,*items)
+
+fun QMUIGroupListView.addToGroup(
+    listener: View.OnClickListener?,
+    vararg items: QMUICommonListItemView
+)= addToGroup("","",listener,*items)

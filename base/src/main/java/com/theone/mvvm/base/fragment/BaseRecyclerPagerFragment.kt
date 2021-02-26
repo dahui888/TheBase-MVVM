@@ -63,7 +63,7 @@ abstract class BaseRecyclerPagerFragment
         onFirstLoading()
     }
 
-    override fun onViewCreated(rootView: View) {
+    override fun initView(rootView: View) {
         initAdapter()
         initRecyclerView()
         initPullRefreshLayout()

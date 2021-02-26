@@ -51,14 +51,10 @@ class SeriesFragment : BaseRecyclerPagerFragment<Series, SeriesAdapter, SeriesVi
 
     override fun createAdapter(): SeriesAdapter = SeriesAdapter()
 
-    override fun initTopBar(topBar: QMUITopBarLayout?) {
-        val brand = requireArguments().getParcelable("DATA") as Brand
-        mVm.mBrandId = brand.id
-        topBar?.setTitleWithBackBtn(brand.brand_name,this)
-    }
-
     override fun initData() {
-
+        val mBrand = requireArguments().getParcelable("DATA") as Brand
+        mTopBar?.setTitleWithBackBtn(this.javaClass.simpleName,this)
+        mVm.mBrandId = mBrand.id
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

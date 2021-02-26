@@ -45,7 +45,7 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
 
     lateinit var mDB: DB
 
-    override fun createContentView(): View {
+     override fun createContentView(): View {
         mDB = DataBindingUtil.inflate(layoutInflater,getLayoutId(),null,false)
         mDB.lifecycleOwner = this
         return mDB.root

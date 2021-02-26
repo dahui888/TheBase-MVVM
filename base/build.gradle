@@ -57,7 +57,6 @@ dependencies {
     api 'jp.wasabeef:glide-transformations:3.3.0'
     kapt "com.github.bumptech.glide:compiler:$glideVersion"
 
-
     api "com.github.LuckSiege.PictureSelector:picture_library:$PictureSelectorVersion"
 
     //管理界面状态库

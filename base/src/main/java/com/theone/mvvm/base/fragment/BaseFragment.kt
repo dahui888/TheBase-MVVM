@@ -21,6 +21,7 @@ import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
 import com.theone.mvvm.R
 import com.theone.mvvm.ext.loadSirInit
 import com.theone.mvvm.ext.setMargin
+import com.theone.mvvm.ext.util.logE
 
 
 //  ┏┓　　　┏┓
@@ -53,6 +54,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
     //界面状态管理者
     lateinit var mLoadSir: LoadService<Any>
+    var mTopBar: QMUITopBarLayout? = null
 
     /**
      * 是否为根Fragment： getParentFragment() 为空
@@ -61,19 +63,20 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     private var mIsFirstLayInit = true
 
     abstract fun getLayoutId(): Int
-    abstract override fun onViewCreated(rootView: View)
-    abstract fun initTopBar(topBar: QMUITopBarLayout?)
 
-    open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
+    abstract  fun initView(rootView: View)
+
+    internal open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
     open fun showTitleBar(): Boolean = true
 
     override fun onCreateView(): View {
-        val root = QMUIWindowInsetLayout(mActivity)
-        root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
         val body = createContentView()
         if (showTitleBar()) {
+            val root = QMUIWindowInsetLayout(mActivity)
+            root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
             body.fitsSystemWindows = true
             root.addView(body)
+            // 这个一定要放在addView后面
             body.setMargin(
                 0,
                 QMUIResHelper.getAttrDimen(mActivity, R.attr.qmui_topbar_height),
@@ -86,14 +89,16 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         return body
     }
 
-    private fun createQMUITopBarLayout(): QMUITopBarLayout {
-        val topBar = QMUITopBarLayout(mActivity)
-        topBar.layoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
-        topBar.fitsSystemWindows = true
-        initTopBar(topBar)
-        return topBar
+    override fun onViewCreated(rootView: View) {
+        initView(rootView)
     }
 
+    private fun createQMUITopBarLayout(): QMUITopBarLayout {
+        mTopBar = QMUITopBarLayout(mActivity)
+        mTopBar!!.layoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
+        mTopBar!!.fitsSystemWindows = true
+        return mTopBar!!
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

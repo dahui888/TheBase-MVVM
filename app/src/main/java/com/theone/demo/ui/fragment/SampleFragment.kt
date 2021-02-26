@@ -1,7 +1,7 @@
 package com.theone.demo.ui.fragment
 
 import android.view.View
-import com.qmuiteam.qmui.widget.QMUITopBarLayout
+import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.theone.demo.R
 import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.ext.qmui.addToGroup
@@ -37,13 +37,14 @@ class SampleFragment : BaseFragment(), View.OnClickListener {
 
     override fun getLayoutId(): Int = R.layout.fragment_sample
 
-    override fun onViewCreated(rootView: View) {
-        val recyclerPager = groupListView.createNormalItem("BaseRecyclerPagerFragment")
-        groupListView.addToGroup(this, recyclerPager)
-    }
+    lateinit var mRecyclerPager: QMUICommonListItemView
+    lateinit var mGroupListView: QMUICommonListItemView
 
-    override fun initTopBar(topBar: QMUITopBarLayout?) {
-        topBar?.setTitle(R.string.app_name)
+    override fun initView(rootView: View) {
+        mTopBar?.setTitle(R.string.app_name)
+        mRecyclerPager = groupListView.createNormalItem("BaseRecyclerPagerFragment")
+        mGroupListView = groupListView.createNormalItem("QMUIGroupListView")
+        groupListView.addToGroup("ui",this, mRecyclerPager, mGroupListView)
     }
 
     override fun onLazyInit() {
@@ -51,7 +52,12 @@ class SampleFragment : BaseFragment(), View.OnClickListener {
     }
 
     override fun onClick(v: View?) {
-        startFragment(BrandFragment())
+        startFragment(
+            when (v) {
+                mRecyclerPager -> BrandFragment()
+                else -> GroupListViewFragment()
+            }
+        )
     }
 
 }
