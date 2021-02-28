@@ -136,7 +136,7 @@ abstract class BaseRecyclerPagerFragment
                 loadListData(mVm, mAdapter, mLoadSir)
                 onRefreshComplete()
             })
-            getErrorLiveData().observe(viewLifecycleOwner, Observer {
+            getErrorMsg().observe(viewLifecycleOwner, Observer {
                 loadListError(it,mVm,mAdapter,mLoadSir)
                 onRefreshComplete()
             })

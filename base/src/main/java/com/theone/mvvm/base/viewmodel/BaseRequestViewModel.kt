@@ -1,7 +1,6 @@
 package com.theone.mvvm.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
-import com.theone.mvvm.callback.livedata.BooleanLiveData
 import com.theone.mvvm.callback.livedata.StringLiveData
 import com.theone.mvvm.net.IResponse
 import com.theone.mvvm.net.error.ErrorInfo
@@ -39,14 +38,14 @@ abstract class BaseRequestViewModel<T>:BaseViewModel() {
 
     fun getResponse(): MutableLiveData<IResponse<T>> = mResponse
 
-    fun getErrorLiveData():StringLiveData = error
+    fun getErrorMsg():StringLiveData = error
 
     open fun onSuccess(response:IResponse<T>){
         getResponse().postValue(response)
     }
 
     open fun onError(errorMsg:String?){
-        getErrorLiveData().postValue(errorMsg)
+        getErrorMsg().postValue(errorMsg)
     }
 
     open fun onError(error:Throwable?){

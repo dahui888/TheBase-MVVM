@@ -56,5 +56,4 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
 
     abstract fun requestServer()
 
-
 }

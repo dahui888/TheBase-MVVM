@@ -27,7 +27,7 @@ import com.theone.mvvm.net.IPageInfo
  * @email 625805189@qq.com
  * @remark
  */
-data class PageInfo(val mPage: Int = 1, val mPageCount: Int, val mTotalCount:Int, val mPageSize:Int) :
+data class PageInfo(val mPage: Int, val mPageCount: Int, val mTotalCount:Int, val mPageSize:Int) :
     IPageInfo {
 
     override fun getPage(): Int = mPage
