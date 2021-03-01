@@ -8,7 +8,7 @@
     app:qmui_skin_background="?attr/app_skin_background_color_1">
 
     <com.qmuiteam.qmui.widget.QMUIViewPager
-        android:id="@+id/qmui_view_pager"
+        android:id="@+id/mQMUIViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="?attr/qmui_skin_segment_tab_height_size"
@@ -16,7 +16,7 @@
         android:overScrollMode="never" />
 
     <com.qmuiteam.qmui.widget.tab.QMUITabSegment
-        android:id="@+id/tab_segment"
+        android:id="@+id/mTabSegment"
         android:layout_width="match_parent"
         android:layout_height="?attr/qmui_skin_segment_tab_height_size"
         android:layout_gravity="bottom"

@@ -1,8 +1,10 @@
-package com.theone.mvvm.ext
+package com.theone.mvvm.ext.net
 
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kingja.loadsir.core.LoadService
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
+import com.theone.mvvm.ext.showEmpty
+import com.theone.mvvm.ext.showError
 import com.theone.mvvm.util.ToastUtil
 
 
@@ -64,7 +66,12 @@ fun <T> loadListData(
             adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
         }
     } else {
-        loadListError(response.getMsg()!!, vm, adapter, loader)
+        loadListError(
+            response.getMsg()!!,
+            vm,
+            adapter,
+            loader
+        )
     }
 }
 

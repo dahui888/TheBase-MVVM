@@ -7,12 +7,13 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.qmuiteam.qmui.arch.annotation.DefaultFirstFragment
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
+import com.theone.demo.ui.fragment.IndexFragment
 import com.theone.demo.ui.fragment.SampleFragment
 import com.theone.mvvm.base.activity.BaseFragmentActivity
 import rxhttp.wrapper.param.Param
 import rxhttp.wrapper.param.RxHttp
 
-@DefaultFirstFragment(SampleFragment::class)
+@DefaultFirstFragment(IndexFragment::class)
 class MainActivity : BaseFragmentActivity() {
 
     private val PERMISSIONS_REQUEST_CODE = 10

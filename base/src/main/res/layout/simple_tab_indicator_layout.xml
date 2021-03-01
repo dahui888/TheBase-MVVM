@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<net.lucode.hackware.magicindicator.MagicIndicator xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/indicator"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:layout_gravity="center_horizontal"
-    android:paddingLeft="@dimen/dp_10"
-    android:paddingRight="@dimen/dp_10"/>
-

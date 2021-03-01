@@ -1,4 +1,4 @@
-package com.theone.mvvm.ext
+package com.theone.mvvm.ext.qmui
 
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.widget.QMUITopBarLayout

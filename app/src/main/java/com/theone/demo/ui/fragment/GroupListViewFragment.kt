@@ -5,14 +5,11 @@ import android.view.ViewGroup
 import android.widget.CompoundButton
 import android.widget.ImageView
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
-import com.qmuiteam.qmui.widget.QMUITopBarLayout
-import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
-import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.theone.demo.R
 import com.theone.mvvm.base.fragment.BaseVmFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.ext.qmui.*
-import com.theone.mvvm.ext.setTitleWithBackBtn
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.util.ToastUtil
 import kotlinx.android.synthetic.main.fragment_test.*
 
@@ -48,27 +45,33 @@ class GroupListViewFragment : BaseVmFragment<BaseViewModel>(), CompoundButton.On
     override fun initView(rootView: View) {
         mTopBar?.setTitleWithBackBtn(this.javaClass.simpleName,this)
 
-        val normal = groupListView.createNormalItem("Title")
-        val detail = groupListView.createDetailItem("Title", "this is detail",R.drawable.svg_heart)
-        val switch = groupListView.createSwitchItem("Title", "this is detail", false, -1,this)
-
-        val logo = ImageView(mActivity)
-        val size = QMUIDisplayHelper.dp2px(mActivity,40)
-        logo.layoutParams = ViewGroup.LayoutParams(size,size)
-        logo.setImageResource(R.drawable.svg_heart)
-        val custom = groupListView.createCustomViewItem("Title","this is detail",-1,logo)
+//        val normal = groupListView.createNormalItem("Title")
+//        val detail = groupListView.createDetailItem("Title", "this is detail",R.drawable.svg_heart)
+//        val switch = groupListView.createSwitchItem("Title", "this is detail", false, -1,this)
+//
+//        val logo = ImageView(mActivity)
+//        val size = QMUIDisplayHelper.dp2px(mActivity,40)
+//        logo.layoutParams = ViewGroup.LayoutParams(size,size)
+//        logo.setImageResource(R.drawable.svg_heart)
+//        val custom = groupListView.createCustomViewItem("Title","this is detail",-1,logo)
+//
+//        val item = groupListView.createItemView("Title")
+//        val item2 = groupListView.createNormalItem("Title2")
+//        showNewTips(true,item)
+//        showRedDots(false,item2)
+//
+//        showTips(false,false,normal)
+//        showTips(false,true,detail)
+//        showTips(true,true,custom)
+//        groupListView.addToGroup(this,normal,detail)
+//        groupListView.addToGroup(this,switch,custom)
+//        groupListView.addToGroup(this,item,item2)
 
         val item = groupListView.createNormalItem("Title")
         val item2 = groupListView.createNormalItem("Title2")
         showNewTips(true,item)
         showRedDots(false,item2)
-
-        showTips(false,false,normal)
-        showTips(false,true,detail)
-        showTips(true,true,custom)
-        groupListView.addToGroup(this,normal,detail)
-        groupListView.addToGroup(this,switch,custom)
-        groupListView.addToGroup(this,item,item2)
+        groupListView.addToGroup(null,item,item2)
 
     }
 

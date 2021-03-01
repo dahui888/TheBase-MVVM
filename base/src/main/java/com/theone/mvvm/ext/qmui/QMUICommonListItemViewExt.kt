@@ -125,19 +125,19 @@ fun QMUICommonListItemView.removeIconTintColor() {
     setSkinConfig(config)
 }
 
-fun showTips(
+private fun showTips(
     showLeft: Boolean,
     isDot: Boolean,
     vararg items: QMUICommonListItemView
 ) {
-    val p = if(showLeft) QMUICommonListItemView.TIP_POSITION_LEFT else QMUICommonListItemView.TIP_POSITION_RIGHT
+    val p =
+        if (showLeft) QMUICommonListItemView.TIP_POSITION_LEFT else QMUICommonListItemView.TIP_POSITION_RIGHT
     for (item in items) {
         item.setTipPosition(p)
-        if (isDot) {
+        if (isDot)
             item.showRedDot(true)
-        } else {
+        else
             item.showNewTip(true)
-        }
     }
 }
 
@@ -156,12 +156,12 @@ fun showRedDots(
 }
 
 fun QMUIGroupListView.addToGroup(
-    title:CharSequence?,
-    description:CharSequence?,
+    title: CharSequence?,
+    description: CharSequence?,
     listener: View.OnClickListener?,
     vararg items: QMUICommonListItemView
 ) {
-    val section = QMUIGroupListView.newSection(items[0].context)
+    val section = QMUIGroupListView.newSection(context)
     title?.let {
         section.setTitle(it)
     }
@@ -176,12 +176,12 @@ fun QMUIGroupListView.addToGroup(
 }
 
 fun QMUIGroupListView.addToGroup(
-    title:CharSequence?,
+    title: CharSequence?,
     listener: View.OnClickListener?,
     vararg items: QMUICommonListItemView
-)= addToGroup(title,"",listener,*items)
+) = addToGroup(title, "", listener, *items)
 
 fun QMUIGroupListView.addToGroup(
     listener: View.OnClickListener?,
     vararg items: QMUICommonListItemView
-)= addToGroup("","",listener,*items)
+) = addToGroup("", "", listener, *items)

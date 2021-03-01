@@ -17,8 +17,8 @@ import com.theone.mvvm.R
 import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.ext.getVmClazz
-import com.theone.mvvm.ext.loadListData
-import com.theone.mvvm.ext.loadListError
+import com.theone.mvvm.ext.net.loadListData
+import com.theone.mvvm.ext.net.loadListError
 import com.theone.mvvm.ext.showLoading
 import com.theone.mvvm.widge.SpacesItemDecoration
 
@@ -137,7 +137,12 @@ abstract class BaseRecyclerPagerFragment
                 onRefreshComplete()
             })
             getErrorMsg().observe(viewLifecycleOwner, Observer {
-                loadListError(it,mVm,mAdapter,mLoadSir)
+                loadListError(
+                    it,
+                    mVm,
+                    mAdapter,
+                    mLoadSir
+                )
                 onRefreshComplete()
             })
         }

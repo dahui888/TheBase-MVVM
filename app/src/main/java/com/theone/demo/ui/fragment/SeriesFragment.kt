@@ -3,14 +3,13 @@ package com.theone.demo.ui.fragment
 import android.os.Bundle
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.theone.demo.entity.Brand
 import com.theone.demo.entity.Series
 import com.theone.demo.ui.adapter.SeriesAdapter
 import com.theone.demo.viewmodel.SeriesViewModel
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
-import com.theone.mvvm.ext.setTitleWithBackBtn
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
 
 //  ┏┓　　　┏┓
