@@ -67,10 +67,11 @@ abstract class BaseRecyclerPagerFragment
         initAdapter()
         initRecyclerView()
         initPullRefreshLayout()
-        initLoadSer(mRefreshLayout) {
-            mLoadSir.showLoading()
-            mVm.requestServer()
-        }
+    }
+
+    override fun onReLoad() {
+        mLoadSir.showLoading()
+        mVm.requestServer()
     }
 
     open fun initAdapter() {

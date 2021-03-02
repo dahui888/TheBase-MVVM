@@ -10,6 +10,7 @@ import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.base.fragment.BaseTitleTabFragment
 import com.theone.mvvm.entity.QMUITabBean
 import com.theone.mvvm.ext.showError
+import com.theone.mvvm.ext.showLoading
 
 
 //  ┏┓　　　┏┓
@@ -43,7 +44,12 @@ class ProjectFragment : BaseTitleTabFragment<ProjectViewModel>() {
     override fun showTitleBar(): Boolean = true
 
     override fun onLazyInit() {
+        mLoadSir.showLoading()
         mVm.requestServer()
+    }
+
+    override fun onReLoad() {
+        onLazyInit()
     }
 
     override fun initTabAndFragments(

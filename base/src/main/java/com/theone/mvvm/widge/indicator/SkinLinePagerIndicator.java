@@ -44,12 +44,17 @@ public class SkinLinePagerIndicator extends LinePagerIndicator implements IQMUIS
 
     public SkinLinePagerIndicator(Context context) {
         super(context);
+        init();
+    }
+
+    private void init(){
+        int primaryColor = QMUISkinHelper.getSkinColor(this, R.attr.app_skin_tab_indicator_select_color);
+        setColors(primaryColor);
     }
 
     @Override
     public void handle(@NonNull QMUISkinManager manager, int skinIndex, @NonNull Resources.Theme theme, @Nullable SimpleArrayMap<String, Integer> attrs) {
-        int primaryColor = QMUISkinHelper.getSkinColor(this, R.attr.app_skin_tab_indicator_select_color);
-        setColors(primaryColor);
+        init();
         invalidate();
     }
 }

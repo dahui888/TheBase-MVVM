@@ -32,7 +32,7 @@ import rxhttp.wrapper.param.RxHttp
  */
 class App : BaseApplication() {
 
-    override fun isDebug(): Boolean = BuildConfig.DEBUG
+    override fun isDebug(): Boolean = true
 
     override fun onCreate() {
         super.onCreate()

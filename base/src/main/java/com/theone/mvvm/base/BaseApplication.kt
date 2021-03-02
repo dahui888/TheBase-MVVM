@@ -8,6 +8,7 @@ import androidx.multidex.MultiDexApplication
 import com.kingja.loadsir.callback.SuccessCallback
 import com.kingja.loadsir.core.LoadSir
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
+import com.theone.mvvm.BuildConfig
 import com.theone.mvvm.widge.loadCallBack.ErrorCallback
 import com.theone.mvvm.widge.loadCallBack.LoadingCallback
 import kotlin.properties.Delegates
@@ -52,7 +53,7 @@ open class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
         return mAppViewModelStore
     }
 
-    open fun isDebug():Boolean = true
+    open fun isDebug():Boolean = BuildConfig.DEBUG
 
     override fun onCreate() {
         super.onCreate()

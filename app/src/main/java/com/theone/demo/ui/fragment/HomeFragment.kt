@@ -9,6 +9,7 @@ import com.theone.demo.viewmodel.HomeViewModel
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 import com.theone.demo.data.model.bean.ArticleResponse
+import com.theone.mvvm.ext.util.logE
 
 
 //  ┏┓　　　┏┓
@@ -37,6 +38,8 @@ import com.theone.demo.data.model.bean.ArticleResponse
  */
 class HomeFragment :
     BaseRecyclerPagerFragment<ArticleResponse, HomeAdapter, HomeViewModel, BaseRecyclerPagerFragmentBinding>() {
+
+    override fun showTitleBar(): Boolean  = parentFragment is IndexFragment
 
     override fun createAdapter(): HomeAdapter = HomeAdapter()
 

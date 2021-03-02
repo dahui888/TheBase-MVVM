@@ -1,18 +1,15 @@
 package com.theone.mvvm.base.fragment
 
 import android.content.Context
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import androidx.viewpager.widget.ViewPager
 import com.kingja.loadsir.core.LoadService
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.kotlin.matchParent
@@ -56,6 +53,8 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
     lateinit var mActivity: AppCompatActivity
 
+    lateinit var mBody: View
+
     //界面状态管理者
     lateinit var mLoadSir: LoadService<Any>
     var mTopBar: QMUITopBarLayout? = null
@@ -68,20 +67,22 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
     abstract fun getLayoutId(): Int
 
-    abstract  fun initView(rootView: View)
+    abstract fun initView(rootView: View)
 
     internal open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
     open fun showTitleBar(): Boolean = isIndexFragment
 
+    protected open fun onReLoad() {}
+
     override fun onCreateView(): View {
-        val body = createContentView()
+        mBody = createContentView()
         if (showTitleBar()) {
             val root = QMUIWindowInsetLayout(mActivity)
             root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
-            body.fitsSystemWindows = true
-            root.addView(body)
+            mBody.fitsSystemWindows = true
+            root.addView(mBody)
             // 这个一定要放在addView后面
-            body.setMargin(
+            mBody.setMargin(
                 0,
                 QMUIResHelper.getAttrDimen(mActivity, R.attr.qmui_topbar_height),
                 0,
@@ -90,11 +91,14 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
             root.addView(createQMUITopBarLayout())
             return root
         }
-        return body
+        return mBody
     }
 
     override fun onViewCreated(rootView: View) {
         initView(rootView)
+        mLoadSir = loadSirInit(mBody) {
+            onReLoad()
+        }
     }
 
     private fun createQMUITopBarLayout(): QMUITopBarLayout {
@@ -121,12 +125,6 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     ): View? {
         isIndexFragment = null == parentFragment
         return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    open fun initLoadSer(view: View, callback: () -> Unit) {
-        mLoadSir = loadSirInit(view) {
-            callback.invoke()
-        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -195,8 +193,8 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         }
     }
 
-    fun dp2px(dp:Int):Int = QMUIDisplayHelper.dp2px(mActivity,dp)
-    fun sp2px(dp:Int):Int = QMUIDisplayHelper.sp2px(mActivity,dp)
+    fun dp2px(dp: Int): Int = QMUIDisplayHelper.dp2px(mActivity, dp)
+    fun sp2px(dp: Int): Int = QMUIDisplayHelper.sp2px(mActivity, dp)
 
     /**
      * 向外提供的关闭方法

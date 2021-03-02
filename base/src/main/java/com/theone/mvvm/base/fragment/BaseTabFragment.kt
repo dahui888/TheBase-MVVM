@@ -45,7 +45,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>(), ViewPager.OnPageChangeListener {
+abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
 
     private var mTabs: MutableList<QMUITabBean> = mutableListOf()
     private var mFragments: MutableList<Fragment> = mutableListOf()
@@ -59,9 +59,6 @@ abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>(), ViewP
     abstract fun getMagicIndicator(): MagicIndicator?
 
     override fun initView(rootView: View) {
-        initLoadSer(rootView){
-            onLazyInit()
-        }
     }
 
     /**
@@ -80,7 +77,7 @@ abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>(), ViewP
     }
 
     protected open fun initViewPager() {
-        mPagerAdapter = TabFragmentAdapter(parentFragmentManager, mFragments)
+        mPagerAdapter = TabFragmentAdapter(childFragmentManager, mFragments)
         getViewPager().run {
             adapter = mPagerAdapter
         }
@@ -130,15 +127,5 @@ abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>(), ViewP
 
     protected open fun getNavIndicator(context: Context): IPagerIndicator =
         getLinePagerIndicator(context)
-
-
-    override fun onPageScrollStateChanged(state: Int) {
-    }
-
-    override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-    }
-
-    override fun onPageSelected(position: Int) {
-    }
 
 }

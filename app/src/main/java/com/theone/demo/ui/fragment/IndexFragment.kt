@@ -52,4 +52,7 @@ class IndexFragment : BaseHomeFragment<BaseViewModel>() {
     override fun initData() {
     }
 
+
+
+
 }
