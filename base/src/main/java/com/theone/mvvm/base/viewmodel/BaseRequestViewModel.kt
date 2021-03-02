@@ -32,15 +32,15 @@ import com.theone.mvvm.net.error.ErrorInfo
  */
 abstract class BaseRequestViewModel<T>:BaseViewModel() {
 
-    private val mResponse: MutableLiveData<IResponse<T>> = MutableLiveData()
+    private val mResponse: MutableLiveData<T> = MutableLiveData()
 
     private val error :StringLiveData = StringLiveData()
 
-    fun getResponse(): MutableLiveData<IResponse<T>> = mResponse
+    fun getResponse(): MutableLiveData<T> = mResponse
 
     fun getErrorMsg():StringLiveData = error
 
-    open fun onSuccess(response:IResponse<T>){
+    open fun onSuccess(response:T?){
         getResponse().postValue(response)
     }
 
@@ -51,5 +51,7 @@ abstract class BaseRequestViewModel<T>:BaseViewModel() {
     open fun onError(error:Throwable?){
         onError(ErrorInfo(error).errorMsg)
     }
+
+    abstract fun requestServer()
 
 }

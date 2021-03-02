@@ -1,13 +1,7 @@
-package com.theone.demo.ui.adapter
+package com.theone.mvvm.ext
 
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.module.LoadMoreModule
-import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
-import com.theone.demo.R
-import com.theone.demo.databinding.ItemSeriesBinding
-import com.theone.demo.databinding.ItemTestBinding
-import com.theone.demo.entity.Brand
-import com.theone.demo.entity.Series
+import android.view.View
+import android.view.ViewGroup
 
 
 //  ┏┓　　　┏┓
@@ -34,12 +28,28 @@ import com.theone.demo.entity.Series
  * @email 625805189@qq.com
  * @remark
  */
-class SeriesAdapter : BaseQuickAdapter<Series, BaseDataBindingHolder<ItemSeriesBinding>>(
-    R.layout.item_series
-), LoadMoreModule {
 
-    override fun convert(holder: BaseDataBindingHolder<ItemSeriesBinding>, item: Series) {
-        holder.dataBinding?.data = item
+fun View.setMargin(left: Int, top: Int, right: Int, bottom: Int) {
+    val params = layoutParams
+    if (params is ViewGroup.MarginLayoutParams) {
+        params.setMargins(left, top, right, bottom)
+        requestLayout()
     }
+}
 
+fun setVisible(visible: Int, vararg views: View?) {
+    for (view in views)
+        view?.run {
+            if (visibility != visible) {
+                visibility = visible
+            }
+        }
+}
+
+fun goneViews( vararg views: View?){
+    setVisible(View.GONE,*views)
+}
+
+fun showViews( vararg views: View?){
+    setVisible(View.VISIBLE,*views)
 }

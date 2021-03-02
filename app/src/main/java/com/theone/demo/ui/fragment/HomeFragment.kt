@@ -1,13 +1,14 @@
 package com.theone.demo.ui.fragment
 
 import android.view.View
+import androidx.core.content.ContextCompat
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.theone.demo.ui.adapter.TestAdapter
-import com.theone.demo.viewmodel.BrandViewModel
-import com.theone.demo.entity.Brand
+import com.theone.demo.R
+import com.theone.demo.ui.adapter.HomeAdapter
+import com.theone.demo.viewmodel.HomeViewModel
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
-import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
+import com.theone.demo.data.model.bean.ArticleResponse
 
 
 //  ┏┓　　　┏┓
@@ -34,18 +35,28 @@ import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
  * @email 625805189@qq.com
  * @remark
  */
-class BrandFragment :
-    BaseRecyclerPagerFragment<Brand, TestAdapter, BrandViewModel, BaseRecyclerPagerFragmentBinding>() {
+class HomeFragment :
+    BaseRecyclerPagerFragment<ArticleResponse, HomeAdapter, HomeViewModel, BaseRecyclerPagerFragmentBinding>() {
 
-    override fun createAdapter(): TestAdapter = TestAdapter()
+    override fun createAdapter(): HomeAdapter = HomeAdapter()
+
+    override fun initView(rootView: View) {
+        super.initView(rootView)
+        mRecyclerView.setBackgroundColor(
+            ContextCompat.getColor(
+                mActivity,
+                R.color.qmui_config_color_background
+            )
+        )
+    }
 
     override fun initData() {
-        mTopBar?.setTitleWithBackBtn(this.javaClass.simpleName,this)
+        mTopBar?.setTitle(this.javaClass.simpleName)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-        val data = adapter.getItem(position) as Brand
-        startFragment(SeriesFragment.newInstance(data))
+//        val data = adapter.getItem(position) as Brand
+//        startFragment(SeriesFragment.newInstance(data))
     }
 
 }

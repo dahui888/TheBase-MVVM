@@ -9,6 +9,7 @@ import com.theone.mvvm.callback.livedata.BooleanLiveData
 import com.theone.mvvm.callback.livedata.IntLiveData
 import com.theone.mvvm.callback.livedata.UnPeekLiveData
 import com.theone.mvvm.ext.util.logE
+import com.theone.mvvm.net.IPageInfo
 import com.theone.mvvm.net.IResponse
 import okhttp3.Response
 
@@ -39,8 +40,10 @@ import okhttp3.Response
  */
 abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
 
+    val mPageInfo: MutableLiveData<IPageInfo> = MutableLiveData()
     var isFirstLoad: BooleanLiveData = BooleanLiveData()
     var isHeadFresh: BooleanLiveData = BooleanLiveData()
+    var mFirstPage: IntLiveData = IntLiveData()
     var mPage: IntLiveData = IntLiveData()
     var goneLoadMoreEndView: Boolean = false
 
@@ -52,8 +55,13 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
         type.value =  LayoutManagerType.LIST
         column.value = 2
         space.value = 0
+        mFirstPage.value = 1
     }
 
-    abstract fun requestServer()
+    protected open fun onSuccess( response:List<T>?, pageInfo: IPageInfo? ){
+        super.onSuccess(response)
+        mPageInfo.value = pageInfo
+    }
+
 
 }

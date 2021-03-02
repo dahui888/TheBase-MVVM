@@ -31,7 +31,7 @@ interface IPageInfo {
     fun getPage():Int
 
     // 总页数
-    fun getPageCount():Int
+    fun getPageTotalCount():Int
 
     // 总条数
     fun getTotalCount():Int

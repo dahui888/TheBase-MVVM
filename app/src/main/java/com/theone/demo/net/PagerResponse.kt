@@ -2,7 +2,6 @@ package com.theone.demo.net
 
 import com.theone.mvvm.net.IPageInfo
 
-
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
 //┃　　　　　　　┃
@@ -22,20 +21,31 @@ import com.theone.mvvm.net.IPageInfo
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/23 0023
+ * @date 2021/3/2 0002
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-data class PageInfo(val mPage: Int, val mPageCount: Int, val mTotalCount:Int, val mPageSize:Int) :
-    IPageInfo {
+class PagerResponse<T> : IPageInfo {
+    private val curPage = 0
+    private val pageCount = 0
+    private val size = 0
+    private val total = 0
+    val datas: T? = null
 
-    override fun getPage(): Int = mPage
+    override fun getPage(): Int {
+        return curPage
+    }
 
-    override fun getPageCount(): Int = mPageCount
+    override fun getPageTotalCount(): Int {
+        return pageCount
+    }
 
-    override fun getTotalCount(): Int = mTotalCount
+    override fun getTotalCount(): Int {
+        return total
+    }
 
-    override fun getPageSize(): Int = mPageSize
-
+    override fun getPageSize(): Int {
+        return size
+    }
 }

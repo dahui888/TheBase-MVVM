@@ -4,8 +4,8 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.theone.demo.R
-import com.theone.demo.databinding.ItemTestBinding
-import com.theone.demo.entity.Brand
+import com.theone.demo.data.model.bean.ArticleResponse
+import com.theone.demo.databinding.ItemArticleBinding
 
 
 //  ┏┓　　　┏┓
@@ -32,11 +32,11 @@ import com.theone.demo.entity.Brand
  * @email 625805189@qq.com
  * @remark
  */
-class TestAdapter : BaseQuickAdapter<Brand,BaseDataBindingHolder<ItemTestBinding>>(
-    R.layout.item_test
+class HomeAdapter : BaseQuickAdapter<ArticleResponse,BaseDataBindingHolder<ItemArticleBinding>>(
+    R.layout.item_article
 ),LoadMoreModule {
 
-    override fun convert(holder: BaseDataBindingHolder<ItemTestBinding>, item: Brand) {
+    override fun convert(holder: BaseDataBindingHolder<ItemArticleBinding>, item: ArticleResponse) {
        holder.dataBinding?.vm = item
     }
 

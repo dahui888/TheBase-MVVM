@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
+import com.qmuiteam.qmui.layout.QMUILinearLayout;
 
 /**
  * Create by KunMinX at 19/9/18
@@ -22,6 +23,13 @@ public class CommonBindingAdapter {
     @BindingAdapter(value = {"imageUrl", "placeHolder"}, requireAll = false)
     public static void loadUrl(ImageView view, String url, Drawable placeHolder) {
         Glide.with(view.getContext()).load(url).placeholder(placeHolder).into(view);
+    }
+
+    @BindingAdapter(value = {"radius", "shadow", "alpha"}, requireAll = false)
+    public static void radioShadow(QMUILinearLayout view, int radius, int shadow, float alpha) {
+        view.setRadiusAndShadow(radius,
+                shadow,
+                alpha);
     }
 
     @BindingAdapter(value = {"visible"}, requireAll = false)

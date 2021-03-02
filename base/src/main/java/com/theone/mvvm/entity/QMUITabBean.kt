@@ -1,7 +1,4 @@
-package com.theone.mvvm.ext
-
-import android.view.View
-import android.view.ViewGroup
+package com.theone.mvvm.entity
 
 
 //  ┏┓　　　┏┓
@@ -23,16 +20,9 @@ import android.view.ViewGroup
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
+ * @date 2021/3/2 0002
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-
-fun View.setMargin(left:Int,top:Int,right:Int,bottom:Int){
-    val params = layoutParams
-    if(params is ViewGroup.MarginLayoutParams){
-        params.setMargins(left,top,right,bottom)
-        requestLayout()
-    }
-}
+data class QMUITabBean(var title:CharSequence,var normal:Int= -1,var select:Int = -1)

@@ -22,9 +22,9 @@ class MainActivity : BaseFragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        RxHttp.setOnParamAssembly { p: Param<*>? ->
-            p!!.add("key", "0b6d74779b85bc36e020ab6697813714") //添加公共参数
-        }
+//        RxHttp.setOnParamAssembly { p: Param<*>? ->
+//            p!!.add("key", "0b6d74779b85bc36e020ab6697813714") //添加公共参数
+//        }
         QMUIStatusBarHelper.setStatusBarLightMode(this)
         requestPermission()
     }

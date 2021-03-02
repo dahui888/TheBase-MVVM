@@ -54,7 +54,7 @@ class SampleFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         startFragment(
             when (v) {
-                mRecyclerPager -> BrandFragment()
+                mRecyclerPager -> HomeFragment()
                 else -> GroupListViewFragment()
             }
         )

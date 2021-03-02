@@ -1,19 +1,23 @@
 package com.theone.mvvm.base.fragment
 
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import androidx.viewpager.widget.ViewPager
 import com.kingja.loadsir.core.LoadService
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.kotlin.wrapContent
+import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
@@ -67,7 +71,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     abstract  fun initView(rootView: View)
 
     internal open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
-    open fun showTitleBar(): Boolean = true
+    open fun showTitleBar(): Boolean = isIndexFragment
 
     override fun onCreateView(): View {
         val body = createContentView()
@@ -190,6 +194,9 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
             QMUIStatusBarHelper.setStatusBarDarkMode(mActivity)
         }
     }
+
+    fun dp2px(dp:Int):Int = QMUIDisplayHelper.dp2px(mActivity,dp)
+    fun sp2px(dp:Int):Int = QMUIDisplayHelper.sp2px(mActivity,dp)
 
     /**
      * 向外提供的关闭方法

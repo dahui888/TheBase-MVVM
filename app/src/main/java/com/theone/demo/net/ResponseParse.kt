@@ -47,13 +47,13 @@ open class ResponseParse<T> : AbstractParser<T?> {
     override fun onParse(response: okhttp3.Response): T? {
         val type: Type = ParameterizedTypeImpl[Response::class.java, mType]
         val data: Response<T> = response.convert(type)
-        var t = data.getData()
+        var t = data.data
         if (t == null && mType === String::class.java) {
             @Suppress("UNCHECKED_CAST")
-            t = data.getMsg() as T
+            t = data.errorMsg as T
         }
-        if (data.isSuccess()) {
-            throw ParseException(data.error_code.toString(), data.reason, response)
+        if (data.errorCode != 0) {
+            throw ParseException(data.errorCode.toString(), data.errorMsg, response)
         }
         return t
     }

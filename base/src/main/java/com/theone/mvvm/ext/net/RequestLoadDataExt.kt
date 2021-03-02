@@ -5,6 +5,8 @@ import com.kingja.loadsir.core.LoadService
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.ext.showEmpty
 import com.theone.mvvm.ext.showError
+import com.theone.mvvm.ext.util.logE
+import com.theone.mvvm.net.IPageInfo
 import com.theone.mvvm.util.ToastUtil
 
 
@@ -38,40 +40,30 @@ fun <T> loadListData(
     adapter: BaseQuickAdapter<T, *>,
     loader: LoadService<Any>
 ) {
-    val response = vm.getResponse().value!!
-    if (response.isSuccess()) {
-        val list = response.getData()
-        val isNewData = vm.mPage.value == 1
-        if (null == list || list.isEmpty()) {
-            if (isNewData) {
-                loader.showEmpty()
-            } else {
-                adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
-            }
-            return
-        }
-        val pageInfo = response.getPageInfo()
+    val list = vm.getResponse().value
+    val isNewData = vm.mPage.value == vm.mFirstPage.value
+    if (list.isNullOrEmpty()) {
         if (isNewData) {
-            vm.isFirstLoad.postValue(false)
-            vm.isHeadFresh.postValue(false)
-            adapter.setList(list)
-            loader.showSuccess()
-        } else {
-            adapter.addData(list!!.toMutableList())
-        }
-        if (pageInfo == null || pageInfo.getPageCount() > pageInfo.getPage()) {
-            vm.mPage.value++
-            adapter.loadMoreModule.loadMoreComplete()
+            loader.showEmpty()
         } else {
             adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
         }
+        return
+    }
+    if (isNewData) {
+        vm.isFirstLoad.postValue(false)
+        vm.isHeadFresh.postValue(false)
+        adapter.setList(list)
+        loader.showSuccess()
     } else {
-        loadListError(
-            response.getMsg()!!,
-            vm,
-            adapter,
-            loader
-        )
+        adapter.addData(list)
+    }
+    val pageInfo = vm.mPageInfo.value
+    if (pageInfo == null || pageInfo.getPageTotalCount() > pageInfo.getPage()) {
+        vm.mPage.value++
+        adapter.loadMoreModule.loadMoreComplete()
+    } else {
+        adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
     }
 }
 

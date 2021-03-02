@@ -154,7 +154,7 @@ abstract class BaseRecyclerPagerFragment
     }
 
     private fun requestNewData() {
-        mVm.mPage.value = 1
+        mVm.mPage.value = mVm.mFirstPage.value
         mVm.requestServer()
     }
 

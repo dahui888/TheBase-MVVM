@@ -1,15 +1,9 @@
 package com.theone.demo.viewmodel
 
 import androidx.lifecycle.rxLifeScope
-import com.kunminx.architecture.ui.callback.UnPeekLiveData
-import com.theone.demo.entity.Brand
-import com.theone.demo.entity.Series
-import com.theone.demo.net.PageInfo
-import com.theone.demo.net.Response
+import com.theone.demo.data.model.bean.ArticleResponse
+import com.theone.demo.net.PagerResponse
 import com.theone.demo.net.Url
-import com.theone.mvvm.base.viewmodel.BaseListViewModel
-import rxhttp.toClass
-import rxhttp.wrapper.cahce.CacheMode
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
@@ -33,21 +27,18 @@ import rxhttp.wrapper.param.toResponse
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/25 0025
+ * @date 2021/2/22 0022
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class SeriesViewModel: BaseDemoViewModel<Series>() {
-
-    var mBrandId :String = String()
+class HomeViewModel : BaseDemoViewModel<ArticleResponse>() {
 
     override fun requestServer() {
         rxLifeScope.launch({
-            val response = RxHttp.get(Url.SERIES)
-                .add("brandid",mBrandId)
+            val response = RxHttp.get(Url.HOME_ARTICLE,mPage.value)
                 .setCacheMode(getCacheMode())
-                .toClass<Response<List<Series>>>()
+                .toResponse<PagerResponse<List<ArticleResponse>>>()
                 .await()
             onSuccess(response)
         }, {
@@ -56,3 +47,4 @@ class SeriesViewModel: BaseDemoViewModel<Series>() {
     }
 
 }
+
