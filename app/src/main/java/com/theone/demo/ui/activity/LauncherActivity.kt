@@ -34,7 +34,7 @@ class LauncherActivity : Activity() {
         }
         var intent = QMUILatestVisit.intentOfLatestVisit(this)
         if (intent == null) {
-            intent = Intent(this, MainActivity::class.java)
+            intent = Intent(this, LoginActivity::class.java)
         }
         startActivity(intent)
         finish()
