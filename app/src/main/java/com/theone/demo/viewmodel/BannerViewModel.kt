@@ -1,11 +1,7 @@
-package com.theone.demo.ui.adapter
+package com.theone.demo.viewmodel
 
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.module.LoadMoreModule
-import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
-import com.theone.demo.R
-import com.theone.demo.data.model.bean.ArticleResponse
-import com.theone.demo.databinding.ItemArticleBinding
+import com.theone.demo.data.model.bean.BannerResponse
+import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
 
 
 //  ┏┓　　　┏┓
@@ -27,17 +23,15 @@ import com.theone.demo.databinding.ItemArticleBinding
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
+ * @date 2021/3/3 0003
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class HomeAdapter : BaseQuickAdapter<ArticleResponse,BaseDataBindingHolder<ItemArticleBinding>>(
-    R.layout.item_article
-),LoadMoreModule {
+class BannerViewModel : BaseRequestViewModel<List<BannerResponse>>() {
 
-    override fun convert(holder: BaseDataBindingHolder<ItemArticleBinding>, item: ArticleResponse) {
-       holder.dataBinding?.vm = item
+    override fun requestServer() {
+        
     }
 
 }

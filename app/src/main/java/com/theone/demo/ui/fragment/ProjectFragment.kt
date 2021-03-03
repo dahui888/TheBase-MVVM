@@ -7,6 +7,7 @@ import com.theone.demo.R
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.viewmodel.ProjectViewModel
 import com.theone.mvvm.base.fragment.BaseFragment
+import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.base.fragment.BaseTitleTabFragment
 import com.theone.mvvm.entity.QMUITabBean
 import com.theone.mvvm.ext.showError
@@ -37,11 +38,11 @@ import com.theone.mvvm.ext.showLoading
  * @email 625805189@qq.com
  * @remark
  */
-class ProjectFragment : BaseTitleTabFragment<ProjectViewModel>() {
+class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
 
     private lateinit var mResponse: List<ClassifyResponse>
 
-    override fun showTitleBar(): Boolean = true
+    override fun isNeedChangeStatusBarMode(): Boolean = true
 
     override fun onLazyInit() {
         mLoadSir.showLoading()
@@ -58,7 +59,16 @@ class ProjectFragment : BaseTitleTabFragment<ProjectViewModel>() {
     ) {
         for (data in mResponse) {
             tabs.add(QMUITabBean(data.name))
-            fragments.add(HomeFragment())
+            fragments.add(ProjectItemFragment.newInstance(data.id))
+        }
+    }
+
+    override fun initView(rootView: View) {
+        super.initView(rootView)
+        getTopBar()?.run {
+            addRightImageButton(R.drawable.mz_titlebar_ic_list_dark,R.id.topbar_right_button1).setOnClickListener{
+
+            }
         }
     }
 
@@ -73,7 +83,6 @@ class ProjectFragment : BaseTitleTabFragment<ProjectViewModel>() {
     }
 
     override fun initData() {
-        mTopBar?.setTitle("项目")
     }
 
 }

@@ -43,7 +43,7 @@ class GroupListViewFragment : BaseVmFragment<BaseViewModel>(), CompoundButton.On
     override fun getLayoutId(): Int = R.layout.fragment_test
 
     override fun initView(rootView: View) {
-        mTopBar?.setTitleWithBackBtn(this.javaClass.simpleName,this)
+        getTopBar()?.setTitleWithBackBtn(this.javaClass.simpleName,this)
 
 //        val normal = groupListView.createNormalItem("Title")
 //        val detail = groupListView.createDetailItem("Title", "this is detail",R.drawable.svg_heart)

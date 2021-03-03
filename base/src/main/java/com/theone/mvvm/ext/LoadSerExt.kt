@@ -3,11 +3,11 @@ package com.theone.mvvm.ext
 import android.view.View
 import android.widget.ImageView
 import android.widget.TextView
-import com.kingja.loadsir.core.LoadService
-import com.kingja.loadsir.core.LoadSir
+import com.theone.mvvm.widge.loadsir.core.LoadService
+import com.theone.mvvm.widge.loadsir.core.LoadSir
 import com.theone.mvvm.R
-import com.theone.mvvm.widge.loadCallBack.ErrorCallback
-import com.theone.mvvm.widge.loadCallBack.LoadingCallback
+import com.theone.mvvm.widge.loadsir.callback.ErrorCallback
+import com.theone.mvvm.widge.loadsir.callback.LoadingCallback
 
 
 //  ┏┓　　　┏┓

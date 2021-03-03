@@ -3,6 +3,7 @@
 package com.theone.demo.ui.adapter;
 
 import android.graphics.drawable.Drawable;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -22,6 +23,7 @@ public class CommonBindingAdapter {
 
     @BindingAdapter(value = {"imageUrl", "placeHolder"}, requireAll = false)
     public static void loadUrl(ImageView view, String url, Drawable placeHolder) {
+        if(TextUtils.isEmpty(url)) return;
         Glide.with(view.getContext()).load(url).placeholder(placeHolder).into(view);
     }
 

@@ -1,12 +1,10 @@
 package com.theone.mvvm.ext.net
 
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.kingja.loadsir.core.LoadService
+import com.theone.mvvm.widge.loadsir.core.LoadService
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.ext.showEmpty
 import com.theone.mvvm.ext.showError
-import com.theone.mvvm.ext.util.logE
-import com.theone.mvvm.net.IPageInfo
 import com.theone.mvvm.util.ToastUtil
 
 
@@ -52,7 +50,8 @@ fun <T> loadListData(
     }
     if (isNewData) {
         vm.isFirstLoad.postValue(false)
-        vm.isHeadFresh.postValue(false)
+        vm.isFresh.postValue(false)
+        vm.firstLoadSuccess.postValue(true)
         adapter.setList(list)
         loader.showSuccess()
     } else {
@@ -77,7 +76,7 @@ fun <T> loadListError(
         vm.isFirstLoad.value -> {
             loader.showError(errorMsg)
         }
-        vm.isHeadFresh.value -> {
+        vm.isFresh.value -> {
             ToastUtil.show(errorMsg)
         }
         else -> {

@@ -41,7 +41,7 @@ class SampleFragment : BaseFragment(), View.OnClickListener {
     lateinit var mGroupListView: QMUICommonListItemView
 
     override fun initView(rootView: View) {
-        mTopBar?.setTitle(R.string.app_name)
+        getTopBar()?.setTitle(R.string.app_name)
         mRecyclerPager = groupListView.createNormalItem("BaseRecyclerPagerFragment")
         mGroupListView = groupListView.createNormalItem("QMUIGroupListView")
         groupListView.addToGroup("ui",this, mRecyclerPager, mGroupListView)

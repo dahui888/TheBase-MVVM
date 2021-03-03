@@ -39,6 +39,8 @@ import kotlinx.android.synthetic.main.fragment_index.*
  */
 class IndexFragment : BaseHomeFragment<BaseViewModel>() {
 
+    override fun isNeedChangeStatusBarMode(): Boolean = false
+
     override fun initTabAndFragments(tabs: MutableList<QMUITabBean>, fragments: MutableList<Fragment>) {
         tabs.add(QMUITabBean("首页",R.drawable.ic_home_normal,R.drawable.ic_home_selected))
         tabs.add(QMUITabBean("项目",R.drawable.ic_classification_normal,R.drawable.ic_classification_selected))

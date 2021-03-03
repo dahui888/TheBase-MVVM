@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.kingja.loadsir.core.LoadService
+import com.theone.mvvm.widge.loadsir.core.LoadService
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.kotlin.wrapContent
@@ -57,7 +57,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
     //界面状态管理者
     lateinit var mLoadSir: LoadService<Any>
-    var mTopBar: QMUITopBarLayout? = null
+    private var mTopBar: QMUITopBarLayout? = null
 
     /**
      * 是否为根Fragment： getParentFragment() 为空
@@ -79,15 +79,17 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         if (showTitleBar()) {
             val root = QMUIWindowInsetLayout(mActivity)
             root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
-            mBody.fitsSystemWindows = true
+            mBody.fitsSystemWindows = !translucentFull()
             root.addView(mBody)
             // 这个一定要放在addView后面
-            mBody.setMargin(
-                0,
-                QMUIResHelper.getAttrDimen(mActivity, R.attr.qmui_topbar_height),
-                0,
-                0
-            )
+            if(!translucentFull()){
+                mBody.setMargin(
+                    0,
+                    QMUIResHelper.getAttrDimen(mActivity, R.attr.qmui_topbar_height),
+                    0,
+                    0
+                )
+            }
             root.addView(createQMUITopBarLayout())
             return root
         }
@@ -107,6 +109,8 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         mTopBar!!.fitsSystemWindows = true
         return mTopBar!!
     }
+
+    protected open fun getTopBar():QMUITopBarLayout? = mTopBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -200,7 +204,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
      * 向外提供的关闭方法
      */
     open fun finish() {
-        popBackStack()
+        popBackStackAfterResume()
     }
 
 }

@@ -36,5 +36,10 @@ object Url {
 
     var HOME_ARTICLE = "article/list/%d/json"
 
+    var HOME_BANNER = "banner/json"
+
     var PROJECT = "project/tree/json"
+
+    var PROJECT_DATA = "project/list/%d/json?cid=%d"
+
 }

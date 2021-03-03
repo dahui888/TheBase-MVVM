@@ -13,5 +13,5 @@ android {
 }
 
 dependencies {
-
+    implementation "com.zhpan.library:bannerview:2.7.1"
 }

@@ -41,15 +41,16 @@ import okhttp3.Response
 abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
 
     val mPageInfo: MutableLiveData<IPageInfo> = MutableLiveData()
-    var isFirstLoad: BooleanLiveData = BooleanLiveData()
-    var isHeadFresh: BooleanLiveData = BooleanLiveData()
-    var mFirstPage: IntLiveData = IntLiveData()
-    var mPage: IntLiveData = IntLiveData()
+    val isFirstLoad: BooleanLiveData = BooleanLiveData()
+    val isFresh: BooleanLiveData = BooleanLiveData()
+    val firstLoadSuccess: BooleanLiveData = BooleanLiveData()
+    val mFirstPage: IntLiveData = IntLiveData()
+    val mPage: IntLiveData = IntLiveData()
     var goneLoadMoreEndView: Boolean = false
 
-    var type: UnPeekLiveData<LayoutManagerType> = UnPeekLiveData()
-    var column :IntLiveData = IntLiveData()
-    var space :IntLiveData = IntLiveData()
+    val type: UnPeekLiveData<LayoutManagerType> = UnPeekLiveData()
+    val column :IntLiveData = IntLiveData()
+    val space :IntLiveData = IntLiveData()
 
     init {
         type.value =  LayoutManagerType.LIST

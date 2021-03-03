@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
-import com.kingja.loadsir.callback.SuccessCallback
-import com.kingja.loadsir.core.LoadSir
+import com.theone.mvvm.widge.loadsir.callback.SuccessCallback
+import com.theone.mvvm.widge.loadsir.core.LoadSir
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
 import com.theone.mvvm.BuildConfig
-import com.theone.mvvm.widge.loadCallBack.ErrorCallback
-import com.theone.mvvm.widge.loadCallBack.LoadingCallback
+import com.theone.mvvm.widge.loadsir.callback.ErrorCallback
+import com.theone.mvvm.widge.loadsir.callback.LoadingCallback
 import kotlin.properties.Delegates
 
 

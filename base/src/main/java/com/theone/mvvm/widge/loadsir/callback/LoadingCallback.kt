@@ -1,8 +1,8 @@
-package com.theone.mvvm.widge.loadCallBack
+package com.theone.mvvm.widge.loadsir.callback
 
 import android.content.Context
 import android.view.View
-import com.kingja.loadsir.callback.Callback
+import com.theone.mvvm.widge.loadsir.callback.Callback
 import com.theone.mvvm.R
 
 

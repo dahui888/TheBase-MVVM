@@ -70,8 +70,7 @@ abstract class BaseRecyclerPagerFragment
     }
 
     override fun onReLoad() {
-        mLoadSir.showLoading()
-        mVm.requestServer()
+        onFirstLoading()
     }
 
     open fun initAdapter() {
@@ -125,7 +124,7 @@ abstract class BaseRecyclerPagerFragment
                     requestNewData()
                 }
             })
-            isHeadFresh.observe(viewLifecycleOwner, Observer {
+            isFresh.observe(viewLifecycleOwner, Observer {
                 if (it) {
                     requestNewData()
                 }
@@ -166,7 +165,7 @@ abstract class BaseRecyclerPagerFragment
     }
 
     override fun onRefresh() {
-        mVm.isHeadFresh.postValue(true)
+        mVm.isFresh.postValue(true)
     }
 
     override fun onLoadMore() {

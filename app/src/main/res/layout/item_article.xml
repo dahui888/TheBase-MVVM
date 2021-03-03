@@ -58,18 +58,57 @@
                 android:textSize="15sp" />
         </LinearLayout>
 
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="2"
-            android:text="@{vm.title}"
-            android:textColor="@color/qmui_config_color_gray_2"
-            android:textSize="17sp"
-            android:textStyle="bold"
-            tools:text="Java “优雅”地中断线程(原理篇)" />
+            android:orientation="horizontal">
+
+            <com.qmuiteam.qmui.widget.QMUIRadiusImageView2
+                imageUrl="@{vm.envelopePic}"
+                placeHolder="@{@drawable/image_place_holder}"
+                visible="@{!textUtils.isEmpty(vm.envelopePic)}"
+                app:qmui_corner_radius="2dp"
+                app:qmui_border_color="@color/qmui_config_color_background"
+                android:layout_width="100dp"
+                android:layout_height="150dp"
+                android:scaleType="centerCrop"
+                android:layout_marginEnd="12dp" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLines="2"
+                    android:text="@{vm.title}"
+                    android:textColor="@color/qmui_config_color_gray_2"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    tools:text="Java “优雅”地中断线程(原理篇)" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="10dp"
+                    android:ellipsize="end"
+                    visible="@{!textUtils.isEmpty(vm.desc)}"
+                    android:text="@{vm.desc}"
+                    android:textColor="@color/qmui_config_color_gray_4"
+                    android:textSize="14sp"
+                    tools:text="Java “优雅”地中断线程(原理篇)" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -83,11 +122,11 @@
                 style="@style/home_tag_style"
                 visible="@{null !=vm.tags&amp;&amp;vm.tags.size()>0}"
                 android:text='@{(null !=vm.tags &amp;&amp; vm.tags.size()>0)?vm.tags.get(0).name:""}'
-                app:qmui_borderColor="@color/qmui_config_color_gray_5"
-                app:qmui_isRadiusAdjustBounds="false"
+                android:textColor="@color/white"
                 android:textSize="11sp"
                 app:qmui_backgroundColor="@color/qmui_config_color_gray_5"
-                android:textColor="@color/white"
+                app:qmui_borderColor="@color/qmui_config_color_gray_5"
+                app:qmui_isRadiusAdjustBounds="false"
                 app:qmui_radius="2dp" />
 
             <TextView
@@ -102,7 +141,7 @@
             <ImageView
                 android:layout_width="22dp"
                 android:layout_height="22dp"
-                android:src="@{vm.collect? @drawable/svg_collection_select: @drawable/svg_collection_normal}"/>
+                android:src="@{vm.collect? @drawable/svg_collection_select: @drawable/svg_collection_normal}" />
         </LinearLayout>
 
     </com.qmuiteam.qmui.layout.QMUILinearLayout>
