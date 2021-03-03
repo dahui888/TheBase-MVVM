@@ -44,8 +44,10 @@ class IndexFragment : BaseHomeFragment<BaseViewModel>() {
     override fun initTabAndFragments(tabs: MutableList<QMUITabBean>, fragments: MutableList<Fragment>) {
         tabs.add(QMUITabBean("首页",R.drawable.ic_home_normal,R.drawable.ic_home_selected))
         tabs.add(QMUITabBean("项目",R.drawable.ic_classification_normal,R.drawable.ic_classification_selected))
+        tabs.add(QMUITabBean("广场",R.drawable.ic_classification_normal,R.drawable.ic_classification_selected))
         fragments.add(HomeFragment())
         fragments.add(ProjectFragment())
+        fragments.add(TreeArrFragment())
     }
 
     override fun createObserver() {

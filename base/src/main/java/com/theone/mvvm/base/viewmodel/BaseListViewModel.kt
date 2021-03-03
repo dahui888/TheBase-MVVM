@@ -64,5 +64,6 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
         mPageInfo.value = pageInfo
     }
 
+    fun getPage():Int = mPage.value
 
 }

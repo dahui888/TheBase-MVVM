@@ -99,7 +99,7 @@
                     android:layout_weight="1"
                     android:layout_marginTop="10dp"
                     android:ellipsize="end"
-                    visible="@{!textUtils.isEmpty(vm.desc)}"
+                    visible="@{vm.showDes()}"
                     android:text="@{vm.desc}"
                     android:textColor="@color/qmui_config_color_gray_4"
                     android:textSize="14sp"

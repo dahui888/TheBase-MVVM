@@ -42,4 +42,14 @@ object Url {
 
     var PROJECT_DATA = "project/list/%d/json?cid=%d"
 
+    /**
+     * 广场
+     */
+    var PLAZA = "user_article/list/%d/json"
+
+    /**
+     * 问答
+     */
+    var QA = "wenda/list/%d/json "
+
 }

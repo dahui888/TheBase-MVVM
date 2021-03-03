@@ -2,6 +2,7 @@ package com.theone.demo.data.model.bean
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import android.text.TextUtils
 import kotlinx.android.parcel.Parcelize
 
 /**
@@ -34,4 +35,11 @@ data class ArticleResponse(
     var type: Int,
     var userId: Int,
     var visible: Int,
-    var zan: Int) : Parcelable
+    var zan: Int) : Parcelable{
+
+
+    fun showDes():Boolean{
+        return !TextUtils.isEmpty(desc) && !desc.contains("<p>")
+    }
+
+}
