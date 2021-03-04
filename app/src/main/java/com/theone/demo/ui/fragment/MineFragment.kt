@@ -1,9 +1,15 @@
 package com.theone.demo.ui.fragment
 
+import android.content.Intent
 import android.view.View
+import androidx.lifecycle.Observer
 import com.theone.demo.R
+import com.theone.demo.app.util.notNull
 import com.theone.demo.databinding.FragmentMineBinding
+import com.theone.demo.ui.activity.LoginActivity
+import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.MineViewModel
+import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.addToGroup
 import com.theone.mvvm.base.ext.qmui.createDetailItem
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
@@ -37,6 +43,8 @@ import kotlinx.android.synthetic.main.fragment_mine.*
  */
 class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(),View.OnClickListener {
 
+    val appVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
+
     override fun isNeedChangeStatusBarMode(): Boolean = true
 
     override fun translucentFull(): Boolean = true
@@ -61,12 +69,34 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(),View
     }
 
     override fun createObserver() {
+        appVm.userinfo.observe(viewLifecycleOwner, Observer {
+            it.notNull({
+                mVm.name.set(if (it.nickname.isEmpty()) it.username else it.nickname)
+                mVm.requestServer()
+            }, {
+                mVm.name.set("请先登录~")
+                mVm.integral.set("积分")
+                mVm.rank.set("排名")
+            })
+        })
     }
 
     override fun initData() {
+        mDB.run {
+            vm = mVm
+            click = ProxyClick()
+        }
     }
 
     override fun onClick(p0: View?) {
+    }
+
+    inner class ProxyClick{
+
+        fun doLogin(){
+            startActivity(Intent(mActivity,LoginActivity::class.java))
+        }
+
     }
 
 }

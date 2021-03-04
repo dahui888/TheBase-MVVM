@@ -116,7 +116,7 @@ object CustomBindAdapter {
         view.setSelection(view.text.length)
     }
 
-    @BindingAdapter(value = ["imageUrl", "placeHolder"])
+    @BindingAdapter(value = ["imageUrl", "placeHolder"], requireAll = false)
     @JvmStatic
     fun imageUrl(view: ImageView, url: String, placeholder: Drawable) {
         Glide.with(view.context.applicationContext)

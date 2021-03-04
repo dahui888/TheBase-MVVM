@@ -50,6 +50,13 @@ object Url {
      */
     var LOGIN_OUT = "user/logout/json"
 
+
+    /**
+     * 获取个人积分
+     */
+    var USER_COIN = "lg/coin/userinfo/json"
+
+
     /**
      * 首页文章
      */

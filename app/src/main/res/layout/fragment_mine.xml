@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/tools">
 
-    <data></data>
+    <data>
+
+        <variable
+            name="vm"
+            type="com.theone.demo.viewmodel.MineViewModel" />
+
+        <variable
+            name="click"
+            type="com.theone.demo.ui.fragment.MineFragment.ProxyClick" />
+
+    </data>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -18,12 +29,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
                 android:layout_marginStart="20dp"
+                bind:noRepeatClick="@{()-> click.doLogin()}"
                 android:orientation="horizontal">
 
                 <com.qmuiteam.qmui.widget.QMUIRadiusImageView2
                     android:id="@+id/iv_icon"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
+                    imageUrl="@{vm.imageUrl}"
+                    placeHolder="@{@drawable/svg_holder_user_icon}"
                     app:qmui_is_circle="true"
                     app:srcCompat="@drawable/svg_holder_user_icon"/>
 
@@ -35,7 +49,7 @@
                     android:textSize="17sp"
                     android:textColor="@color/qmui_config_color_gray_2"
                     android:layout_marginStart="20dp"
-                    android:text="@string/plz_login_first"/>
+                    android:text="@{vm.name}"/>
 
             </LinearLayout>
 
@@ -56,12 +70,12 @@
 
                 <TextView
                     app:drawableTopCompat="@drawable/svg_mine_score"
-                    android:text="@string/score"
+                    android:text='@{vm.integral}'
                     style="@style/mine_tips_style" />
 
                 <TextView
                     style="@style/mine_tips_style"
-                    android:text="@string/rank"
+                    android:text="@{vm.rank}"
                     app:drawableTopCompat="@drawable/svg_mine_rank" />
 
             </com.qmuiteam.qmui.layout.QMUILinearLayout>
