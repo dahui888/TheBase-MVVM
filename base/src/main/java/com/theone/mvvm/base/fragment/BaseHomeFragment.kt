@@ -1,12 +1,9 @@
 package com.theone.mvvm.base.fragment
 
-import androidx.fragment.app.Fragment
-import androidx.viewpager.widget.ViewPager
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import com.theone.mvvm.R
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.entity.QMUITabBean
 import kotlinx.android.synthetic.main.base_fragment_home.*
 import net.lucode.hackware.magicindicator.MagicIndicator
 

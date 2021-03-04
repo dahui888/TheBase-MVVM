@@ -1,17 +1,11 @@
 package com.theone.mvvm.base.viewmodel
 
-import android.util.Log
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.callback.livedata.BooleanLiveData
 import com.theone.mvvm.callback.livedata.IntLiveData
 import com.theone.mvvm.callback.livedata.UnPeekLiveData
-import com.theone.mvvm.ext.util.logE
-import com.theone.mvvm.net.IPageInfo
-import com.theone.mvvm.net.IResponse
-import okhttp3.Response
+import com.theone.mvvm.base.net.IPageInfo
 
 
 //  ┏┓　　　┏┓
@@ -41,7 +35,7 @@ import okhttp3.Response
 abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
 
     val mPageInfo: MutableLiveData<IPageInfo> = MutableLiveData()
-    val isFirstLoad: BooleanLiveData = BooleanLiveData()
+    val isFirst: BooleanLiveData = BooleanLiveData()
     val isFresh: BooleanLiveData = BooleanLiveData()
     val firstLoadSuccess: BooleanLiveData = BooleanLiveData()
     val mFirstPage: IntLiveData = IntLiveData()
@@ -65,5 +59,10 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
     }
 
     fun getPage():Int = mPage.value
+
+    fun requestNewData(){
+        mPage.value = mFirstPage.value
+        requestServer()
+    }
 
 }

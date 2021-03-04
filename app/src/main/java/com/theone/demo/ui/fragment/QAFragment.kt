@@ -4,4 +4,6 @@ import com.theone.demo.viewmodel.QAViewModel
 
 class QAFragment:ArticleFragment<QAViewModel>() {
 
+
+
 }

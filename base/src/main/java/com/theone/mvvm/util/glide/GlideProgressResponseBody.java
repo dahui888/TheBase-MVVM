@@ -3,7 +3,7 @@ package com.theone.mvvm.util.glide;
 
 import androidx.annotation.Nullable;
 
-import com.theone.mvvm.Interface.IGlideProgressListener;
+import com.theone.mvvm.callback.Interface.IGlideProgressListener;
 
 import java.io.IOException;
 

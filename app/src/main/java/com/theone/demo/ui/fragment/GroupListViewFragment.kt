@@ -1,15 +1,12 @@
 package com.theone.demo.ui.fragment
 
 import android.view.View
-import android.view.ViewGroup
 import android.widget.CompoundButton
-import android.widget.ImageView
-import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.theone.demo.R
 import com.theone.mvvm.base.fragment.BaseVmFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.ext.qmui.*
-import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.base.ext.qmui.*
+import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.util.ToastUtil
 import kotlinx.android.synthetic.main.fragment_test.*
 

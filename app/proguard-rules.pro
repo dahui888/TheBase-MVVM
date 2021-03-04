@@ -23,5 +23,5 @@
 
 -keep class com.theone.demo.entity.** { *; }
 -keep class com.theone.demo.data.** { *; }
--keep class com.theone.demo.net.** { *; }
--keep class com.theone.demo.widge.** { *; }
+-keep class com.theone.demo.app.net.** { *; }
+-keep class com.theone.demo.app.widge.** { *; }

@@ -20,9 +20,9 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
 import com.theone.mvvm.R
-import com.theone.mvvm.ext.loadSirInit
-import com.theone.mvvm.ext.setMargin
-import com.theone.mvvm.ext.util.logE
+import com.theone.mvvm.base.ext.loadSirInit
+import com.theone.mvvm.base.ext.setMargin
+import com.theone.mvvm.base.ext.util.logE
 
 
 //  ┏┓　　　┏┓
@@ -206,5 +206,16 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     open fun finish() {
         popBackStackAfterResume()
     }
+
+    override fun onResume() {
+        "onResume() ${this.javaClass.simpleName}".logE()
+        super.onResume()
+    }
+
+    override fun onPause() {
+        "onPause() ${this.javaClass.simpleName}".logE()
+        super.onPause()
+    }
+
 
 }

@@ -1,6 +1,6 @@
 package com.theone.demo.viewmodel
 
-import com.theone.demo.net.PagerResponse
+import com.theone.demo.app.net.PagerResponse
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import rxhttp.wrapper.cahce.CacheMode
 
@@ -41,7 +41,7 @@ abstract class BaseDemoViewModel<T> : BaseListViewModel<T>() {
     }
 
     fun getCacheMode(): CacheMode {
-        return if (isFirstLoad.value)
+        return if (isFirst.value)
             CacheMode.READ_CACHE_FAILED_REQUEST_NETWORK
         else
             CacheMode.ONLY_NETWORK

@@ -17,8 +17,8 @@ import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.ui.adapter.ArticleAdapter
 import com.theone.demo.viewmodel.HomeViewModel
-import com.theone.demo.widge.OffsetLinearLayoutManager
-import com.theone.demo.widge.banner.BannerViewHolder
+import com.theone.demo.app.widge.OffsetLinearLayoutManager
+import com.theone.demo.app.widge.banner.BannerViewHolder
 import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
@@ -187,8 +187,7 @@ class HomeFragment :
             mBannerViewPager.create(it)
         })
         mVm.firstLoadSuccess.observe(viewLifecycleOwner, Observer {
-            updateStatusBarMode(false)
-            mBannerViewPager.startLoop()
+            setStatusBarMode(false)
         })
     }
 
@@ -200,9 +199,9 @@ class HomeFragment :
 
     }
 
+
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    override fun onPause() {
-        super.onPause()
+    fun onLazyPause() {
         isShow = false
         setBannerStatus(false)
     }

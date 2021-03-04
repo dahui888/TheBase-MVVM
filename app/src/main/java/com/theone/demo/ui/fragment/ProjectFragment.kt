@@ -6,12 +6,10 @@ import androidx.lifecycle.Observer
 import com.theone.demo.R
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.viewmodel.ProjectViewModel
-import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
-import com.theone.mvvm.base.fragment.BaseTitleTabFragment
-import com.theone.mvvm.entity.QMUITabBean
-import com.theone.mvvm.ext.showError
-import com.theone.mvvm.ext.showLoading
+import com.theone.mvvm.base.entity.QMUITabBean
+import com.theone.mvvm.base.ext.showError
+import com.theone.mvvm.base.ext.showLoading
 
 
 //  ┏┓　　　┏┓

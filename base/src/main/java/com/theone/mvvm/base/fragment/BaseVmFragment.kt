@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.ext.getVmClazz
+import com.theone.mvvm.base.ext.getVmClazz
 
 
 //  ┏┓　　　┏┓
@@ -35,9 +35,11 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
 
     lateinit var mVm: VM
 
-    override fun onViewCreated(rootView: View) {
+    protected open fun getViewModelIndex():Int = 0
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         mVm = createViewModel()
-        super.onViewCreated(rootView)
+        super.onViewCreated(view, savedInstanceState)
         createObserver()
         initData()
     }
@@ -46,7 +48,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
      * 创建viewModel
      */
     open fun createViewModel(): VM {
-        return ViewModelProvider(this).get(getVmClazz(this))
+        return ViewModelProvider(this).get(getVmClazz(this,getViewModelIndex()))
     }
 
     abstract fun createObserver()

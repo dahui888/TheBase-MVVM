@@ -3,7 +3,6 @@ package com.theone.mvvm.base.fragment
 import android.view.View
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -16,10 +15,10 @@ import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.theone.mvvm.R
 import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
-import com.theone.mvvm.ext.getVmClazz
-import com.theone.mvvm.ext.net.loadListData
-import com.theone.mvvm.ext.net.loadListError
-import com.theone.mvvm.ext.showLoading
+import com.theone.mvvm.base.ext.net.loadListData
+import com.theone.mvvm.base.ext.net.loadListError
+import com.theone.mvvm.base.ext.showLoading
+import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.widge.SpacesItemDecoration
 
 
@@ -119,31 +118,23 @@ abstract class BaseRecyclerPagerFragment
 
     override fun createObserver() {
         mVm.run {
-            isFirstLoad.observe(viewLifecycleOwner, Observer {
-                if (it) {
-                    requestNewData()
-                }
-            })
-            isFresh.observe(viewLifecycleOwner, Observer {
-                if (it) {
-                    requestNewData()
-                }
-            })
             type.observe(viewLifecycleOwner, Observer {
                 mRecyclerView.layoutManager = getLayoutManager(it)
             })
             getResponse().observe(viewLifecycleOwner, Observer {
-                loadListData(mVm, mAdapter, mLoadSir)
+                "Observer getResponse ".logE()
                 onRefreshComplete()
+                loadListData(mVm, mAdapter, mLoadSir)
             })
             getErrorMsg().observe(viewLifecycleOwner, Observer {
+                "Observer getErrorMsg ".logE()
+                onRefreshComplete()
                 loadListError(
                     it,
                     mVm,
                     mAdapter,
                     mLoadSir
                 )
-                onRefreshComplete()
             })
         }
     }
@@ -153,27 +144,23 @@ abstract class BaseRecyclerPagerFragment
         mRefreshLayout.isRefreshing = false
     }
 
-    private fun requestNewData() {
-        mVm.mPage.value = mVm.mFirstPage.value
-        mVm.requestServer()
-    }
-
     open fun onFirstLoading() {
         mLoadSir.showLoading()
         mRecyclerView.scrollToPosition(0)
-        mVm.isFirstLoad.postValue(true)
+        mVm.isFirst.value = true
+        mVm.requestNewData()
     }
 
     override fun onRefresh() {
-        mVm.isFresh.postValue(true)
+        "onRefresh".logE()
+        mVm.isFresh.value = true
+        mVm.requestNewData()
     }
 
     override fun onLoadMore() {
         mVm.requestServer()
     }
 
-    override fun createViewModel(): VM {
-        return ViewModelProvider(this).get(getVmClazz(this, 2))
-    }
+    override fun getViewModelIndex(): Int  = 2
 
 }

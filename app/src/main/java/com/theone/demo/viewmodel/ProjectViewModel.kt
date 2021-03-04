@@ -2,7 +2,7 @@ package com.theone.demo.viewmodel
 
 import androidx.lifecycle.rxLifeScope
 import com.theone.demo.data.model.bean.ClassifyResponse
-import com.theone.demo.net.Url
+import com.theone.demo.app.net.Url
 import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
@@ -36,7 +36,7 @@ class ProjectViewModel : BaseRequestViewModel<List<ClassifyResponse>>() {
 
     override fun requestServer() {
         rxLifeScope.launch({
-            val response = RxHttp.get(Url.PROJECT)
+            val response = RxHttp.get(Url.PROJECT_ITEM)
                 .setCacheMode(getCacheMode(true))
                 .toResponse<List<ClassifyResponse>>()
                 .await()

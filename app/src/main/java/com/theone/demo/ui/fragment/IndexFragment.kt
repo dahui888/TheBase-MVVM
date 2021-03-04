@@ -1,16 +1,10 @@
 package com.theone.demo.ui.fragment
 
-import android.graphics.Typeface
-import android.view.View
 import androidx.fragment.app.Fragment
 import com.theone.demo.R
-import com.theone.mvvm.base.adapter.TabFragmentAdapter
-import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.base.fragment.BaseHomeFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.entity.QMUITabBean
-import com.theone.mvvm.ext.qmui.init
-import kotlinx.android.synthetic.main.fragment_index.*
+import com.theone.mvvm.base.entity.QMUITabBean
 
 
 //  ┏┓　　　┏┓
@@ -42,12 +36,17 @@ class IndexFragment : BaseHomeFragment<BaseViewModel>() {
     override fun isNeedChangeStatusBarMode(): Boolean = false
 
     override fun initTabAndFragments(tabs: MutableList<QMUITabBean>, fragments: MutableList<Fragment>) {
-        tabs.add(QMUITabBean("首页",R.drawable.ic_home_normal,R.drawable.ic_home_selected))
-        tabs.add(QMUITabBean("项目",R.drawable.ic_classification_normal,R.drawable.ic_classification_selected))
-        tabs.add(QMUITabBean("广场",R.drawable.ic_classification_normal,R.drawable.ic_classification_selected))
+        tabs.add(QMUITabBean("首页",R.drawable.svg_home,R.drawable.svg_home_select))
+        tabs.add(QMUITabBean("项目",R.drawable.svg_project,R.drawable.svg_project_selected))
+        tabs.add(QMUITabBean("分类",R.drawable.svg_classification,R.drawable.svg_classification_selected))
+        tabs.add(QMUITabBean("公众号",R.drawable.svg_wx_gzh,R.drawable.svg_wx_gzh_selected))
+        tabs.add(QMUITabBean("我的",R.drawable.svg_mine,R.drawable.svg_mine_selected))
+
         fragments.add(HomeFragment())
         fragments.add(ProjectFragment())
-        fragments.add(TreeArrFragment())
+        fragments.add(ClassificationFragment())
+        fragments.add(WxGzhFragment())
+        fragments.add(MineFragment())
     }
 
     override fun createObserver() {

@@ -4,8 +4,8 @@ import android.view.View
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.theone.demo.R
 import com.theone.mvvm.base.fragment.BaseFragment
-import com.theone.mvvm.ext.qmui.addToGroup
-import com.theone.mvvm.ext.qmui.createNormalItem
+import com.theone.mvvm.base.ext.qmui.addToGroup
+import com.theone.mvvm.base.ext.qmui.createNormalItem
 import kotlinx.android.synthetic.main.fragment_sample.*
 
 
