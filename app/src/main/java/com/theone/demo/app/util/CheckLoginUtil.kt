@@ -1,7 +1,8 @@
-package com.theone.demo.viewmodel
+package com.theone.demo.app.util
 
-import com.theone.demo.data.model.bean.BannerResponse
-import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
+import android.content.Intent
+import com.qmuiteam.qmui.arch.QMUIFragment
+import com.theone.demo.ui.activity.LoginActivity
 
 
 //  ┏┓　　　┏┓
@@ -23,15 +24,15 @@ import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/3 0003
+ * @date 2021/3/5 0005
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class BannerViewModel : BaseRequestViewModel<List<BannerResponse>>() {
-
-    override fun requestServer() {
-        
+fun QMUIFragment.checkLogin(isLoginAction: () -> Unit = {}) {
+    if (UserUtil.isLogin()) {
+        isLoginAction.invoke()
+    } else {
+        startActivity(Intent(activity, LoginActivity::class.java))
     }
-
 }

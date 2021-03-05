@@ -35,7 +35,7 @@ import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
  * @remark
  */
 class WxGzhItemFragment :
-    BaseDemoPagerListFragment<ArticleResponse, ArticleAdapter, WxGzhItemViewModel, BaseRecyclerPagerFragmentBinding>() {
+    ArticleFragment<WxGzhItemViewModel>() {
 
     companion object {
         fun newInstance(id: Int): WxGzhItemFragment {
@@ -47,15 +47,9 @@ class WxGzhItemFragment :
         }
     }
 
-    override fun createAdapter(): ArticleAdapter = ArticleAdapter()
-
-
     override fun initData() {
         val id = requireArguments().getInt("DATA")
         mVm.mId = id
-    }
-
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
     }
 
 }

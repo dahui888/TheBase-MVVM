@@ -10,8 +10,9 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class IntegralResponse(
-        var coinCount: Int,//当前积分
-        var rank: Int,
+        var coinCount: Int,//积分
+        var level: Int,//等级
+        var rank: Int,// 排名
         var userId: Int,
         var username: String) : Parcelable
 

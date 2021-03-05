@@ -34,7 +34,7 @@ import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
  * @remark
  */
 class ProjectItemFragment :
-    BaseDemoPagerListFragment<ArticleResponse, ArticleAdapter, ProjectItemViewModel, BaseRecyclerPagerFragmentBinding>() {
+    ArticleFragment<ProjectItemViewModel>() {
 
     companion object {
         fun newInstance(id: Int): ProjectItemFragment {
@@ -46,15 +46,9 @@ class ProjectItemFragment :
         }
     }
 
-    override fun createAdapter(): ArticleAdapter = ArticleAdapter()
-
-
     override fun initData() {
         val id = requireArguments().getInt("DATA")
         mVm.mId = id
-    }
-
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
     }
 
 }

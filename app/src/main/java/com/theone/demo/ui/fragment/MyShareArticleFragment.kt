@@ -1,7 +1,9 @@
-package com.theone.demo.app.net
+package com.theone.demo.ui.fragment
 
-import com.theone.mvvm.base.net.IPageInfo
-import java.io.Serializable
+import android.view.View
+import com.theone.demo.viewmodel.MyShareArticleViewModel
+import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -22,31 +24,16 @@ import java.io.Serializable
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/2 0002
- * @describe TODO
+ * @date 2021/3/5 0005
+ * @describe 我分享的文章
  * @email 625805189@qq.com
  * @remark
  */
-class PagerResponse<T> : IPageInfo, Serializable {
-    var curPage = 0
-    var pageCount = 0
-    var size = 0
-    var total = 0
-    var datas: T? = null
+class MyShareArticleFragment:ArticleFragment<MyShareArticleViewModel>() {
 
-    override fun getPage(): Int {
-        return curPage
+    override fun initView(rootView: View) {
+        super.initView(rootView)
+        getTopBar()?.setTitleWithBackBtn("分享的文章",this)
     }
 
-    override fun getPageTotalCount(): Int {
-        return pageCount
-    }
-
-    override fun getTotalCount(): Int {
-        return total
-    }
-
-    override fun getPageSize(): Int {
-        return size
-    }
 }

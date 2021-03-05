@@ -4,6 +4,7 @@ import androidx.lifecycle.rxLifeScope
 import com.theone.demo.data.model.bean.NavigationResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
+import com.theone.mvvm.base.ext.request
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
@@ -35,7 +36,7 @@ import rxhttp.wrapper.param.toResponse
 class NavViewModel:BaseDemoViewModel<NavigationResponse>() {
 
     override fun requestServer() {
-        rxLifeScope.launch({
+        request({
             val response = RxHttp.get(Url.NAVIGATION)
                 .setCacheMode(getCacheMode())
                 .toResponse<List<NavigationResponse>>()
@@ -45,8 +46,6 @@ class NavViewModel:BaseDemoViewModel<NavigationResponse>() {
             data.curPage = 1
             data.pageCount =1
             onSuccess(data)
-        }, {
-            onError(it)
         })
     }
 

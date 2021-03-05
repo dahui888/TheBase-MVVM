@@ -15,12 +15,15 @@ import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
+import com.qmuiteam.qmui.util.QMUIKeyboardHelper
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
+import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.theone.mvvm.R
 import com.theone.mvvm.base.ext.loadSirInit
+import com.theone.mvvm.base.ext.qmui.showLoadingDialog
 import com.theone.mvvm.base.ext.setMargin
 import com.theone.mvvm.base.ext.util.logE
 
@@ -206,16 +209,9 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     open fun finish() {
         popBackStackAfterResume()
     }
-
-    override fun onResume() {
-        "onResume() ${this.javaClass.simpleName}".logE()
-        super.onResume()
-    }
-
     override fun onPause() {
-        "onPause() ${this.javaClass.simpleName}".logE()
         super.onPause()
+        QMUIKeyboardHelper.hideKeyboard(view)
     }
-
 
 }

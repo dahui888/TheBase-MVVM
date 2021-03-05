@@ -15,79 +15,91 @@
 
     </data>
 
-    <ScrollView
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.qmuiteam.qmui.layout.QMUILinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="100dp"
-                android:layout_marginStart="20dp"
-                bind:noRepeatClick="@{()-> click.doLogin()}"
-                android:orientation="horizontal">
-
-                <com.qmuiteam.qmui.widget.QMUIRadiusImageView2
-                    android:id="@+id/iv_icon"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    imageUrl="@{vm.imageUrl}"
-                    placeHolder="@{@drawable/svg_holder_user_icon}"
-                    app:qmui_is_circle="true"
-                    app:srcCompat="@drawable/svg_holder_user_icon"/>
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/user_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:gravity="center_vertical"
-                    android:textSize="17sp"
-                    android:textColor="@color/qmui_config_color_gray_2"
-                    android:layout_marginStart="20dp"
-                    android:text="@{vm.name}"/>
-
-            </LinearLayout>
-
+            android:layout_height="match_parent">
 
             <com.qmuiteam.qmui.layout.QMUILinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="20dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
-                android:background="@color/white"
-                app:qmui_borderColor="@color/qmui_config_color_background"
-                app:qmui_general_shadow_alpha="1"
-                app:qmui_radius="10dp"
-                app:qmui_shadowElevation="20dp"
-                app:qmui_showBorderOnlyBeforeL="false"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
-                <TextView
-                    app:drawableTopCompat="@drawable/svg_mine_score"
-                    android:text='@{vm.integral}'
-                    style="@style/mine_tips_style" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="100dp"
+                    android:orientation="horizontal"
+                    bind:noRepeatClick="@{()-> click.doLogin()}">
 
-                <TextView
-                    style="@style/mine_tips_style"
-                    android:text="@{vm.rank}"
-                    app:drawableTopCompat="@drawable/svg_mine_rank" />
+                    <com.qmuiteam.qmui.widget.QMUIRadiusImageView2
+                        android:id="@+id/iv_icon"
+                        imageUrl="@{vm.imageUrl}"
+                        placeHolder="@{@drawable/svg_holder_user_icon}"
+                        android:layout_width="70dp"
+                        android:layout_height="70dp"
+                        app:qmui_is_circle="true"
+                        app:srcCompat="@drawable/svg_holder_user_icon" />
+
+                    <androidx.appcompat.widget.AppCompatTextView
+                        android:id="@+id/user_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="20dp"
+                        android:gravity="center_vertical"
+                        android:text="@{vm.name}"
+                        android:textColor="@color/qmui_config_color_gray_2"
+                        android:textSize="17sp" />
+
+                </LinearLayout>
+
+
+                <com.qmuiteam.qmui.layout.QMUILinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:background="@color/white"
+                    android:orientation="horizontal"
+                    android:paddingTop="15dp"
+                    android:paddingBottom="15dp"
+                    app:qmui_borderColor="@color/qmui_config_color_background"
+                    app:qmui_general_shadow_alpha="1"
+                    app:qmui_radius="10dp"
+                    app:qmui_shadowElevation="20dp"
+                    app:qmui_showBorderOnlyBeforeL="false">
+
+                    <TextView
+                        style="@style/mine_tips_style"
+                        android:text='@{vm.level}'
+                        app:drawableTopCompat="@drawable/svg_mine_user_id" />
+
+                    <TextView
+                        style="@style/mine_tips_style"
+                        android:text='@{vm.integral}'
+                        app:drawableTopCompat="@drawable/svg_mine_score" />
+
+                    <TextView
+                        style="@style/mine_tips_style"
+                        android:text="@{vm.rank}"
+                        app:drawableTopCompat="@drawable/svg_mine_rank" />
+
+                </com.qmuiteam.qmui.layout.QMUILinearLayout>
+
+
+                <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
+                    android:id="@+id/groupListView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/qmui_config_color_background" />
 
             </com.qmuiteam.qmui.layout.QMUILinearLayout>
 
+        </ScrollView>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-            <com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
-                android:id="@+id/groupListView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/qmui_config_color_background"/>
-
-        </com.qmuiteam.qmui.layout.QMUILinearLayout>
-
-    </ScrollView>
 </layout>

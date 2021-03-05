@@ -4,6 +4,7 @@ import androidx.lifecycle.rxLifeScope
 import com.theone.demo.data.model.bean.SystemResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
+import com.theone.mvvm.base.ext.request
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
@@ -35,7 +36,7 @@ import rxhttp.wrapper.param.toResponse
 class SystemViewModel:BaseDemoViewModel<SystemResponse>() {
 
     override fun requestServer() {
-        rxLifeScope.launch({
+        request({
             val response = RxHttp.get(Url.TREE)
                 .setCacheMode(getCacheMode())
                 .toResponse<List<SystemResponse>>()
@@ -45,8 +46,6 @@ class SystemViewModel:BaseDemoViewModel<SystemResponse>() {
             data.curPage = 1
             data.pageCount =1
             onSuccess(data)
-        }, {
-            onError(it)
         })
     }
 

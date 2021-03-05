@@ -20,6 +20,7 @@ import com.theone.demo.viewmodel.HomeViewModel
 import com.theone.demo.app.widge.OffsetLinearLayoutManager
 import com.theone.demo.app.widge.banner.BannerViewHolder
 import com.theone.mvvm.base.constant.LayoutManagerType
+import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 import com.zhpan.bannerview.BannerViewPager
@@ -51,9 +52,9 @@ import com.zhpan.bannerview.constants.IndicatorGravity
  * @remark
  */
 class HomeFragment :
-    BaseRecyclerPagerFragment<ArticleResponse, ArticleAdapter, HomeViewModel, BaseRecyclerPagerFragmentBinding>() {
+    ArticleFragment<HomeViewModel>() {
 
-    private lateinit var mBannerViewPager: BannerViewPager<BannerResponse, BannerViewHolder>
+    private var mBannerViewPager: BannerViewPager<BannerResponse, BannerViewHolder>? = null
     private var mMaxOffsetHeight: Float = 0f
     private var isLightMode: Boolean = true
     private var isShow: Boolean = true
@@ -65,8 +66,6 @@ class HomeFragment :
 
     override fun showTitleBar(): Boolean = true
 
-    override fun createAdapter(): ArticleAdapter = ArticleAdapter()
-
     override fun translucentFull(): Boolean = true
 
     override fun initView(rootView: View) {
@@ -77,6 +76,14 @@ class HomeFragment :
         }
     }
 
+    override fun createObserver() {
+        super.createObserver()
+        mVm.getBanners().observe(viewLifecycleOwner, Observer {
+            mBannerViewPager?.create(it)
+            setStatusBarMode(false)
+        })
+    }
+
     override fun initAdapter() {
         super.initAdapter()
         val mBannerHeight = dp2px(250)
@@ -85,18 +92,20 @@ class HomeFragment :
             R.attr.qmui_topbar_height
         )).toFloat()
         mBannerViewPager = BannerViewPager<BannerResponse, BannerViewHolder>(mActivity)
-        mBannerViewPager.layoutParams = ViewGroup.LayoutParams(matchParent, mBannerHeight)
-        mBannerViewPager
-            .setIndicatorGravity(IndicatorGravity.END)
-            .setIndicatorSliderColor(
+        mBannerViewPager?.run {
+            layoutParams = ViewGroup.LayoutParams(matchParent, mBannerHeight)
+//            setAutoPlay(true)
+            setIndicatorGravity(IndicatorGravity.END)
+            setIndicatorSliderColor(
                 getColor(mActivity, R.color.white),
                 QMUIResHelper.getAttrColor(mActivity, R.attr.app_skin_primary_color)
             )
-            .setHolderCreator { BannerViewHolder() }
-            .setOnPageClickListener { position: Int ->
+            setHolderCreator { BannerViewHolder() }
+            setOnPageClickListener { position: Int ->
 
             }
-        mAdapter.addHeaderView(mBannerViewPager)
+            mAdapter.addHeaderView(this)
+        }
     }
 
     override fun initRecyclerView() {
@@ -107,8 +116,7 @@ class HomeFragment :
                 val offsetLinearLayoutManager =
                     recyclerView.layoutManager as OffsetLinearLayoutManager
                 val y = offsetLinearLayoutManager.computeVerticalScrollOffset(null)
-                val percent: Float
-                 = if (y > mMaxOffsetHeight)
+                val percent: Float = if (y > mMaxOffsetHeight)
                     1.0f
                 else
                     y / mMaxOffsetHeight
@@ -161,8 +169,8 @@ class HomeFragment :
      */
     private fun setStatusBarMode(isLight: Boolean) {
         isLightMode = isLight
-        if (isShow) {
-            setBannerStatus(isLight)
+        if(isShow){
+            setBannerStatus(isShow)
             updateStatusBarMode(isLight)
         }
     }
@@ -172,42 +180,37 @@ class HomeFragment :
      * @param start
      */
     private fun setBannerStatus(start: Boolean) {
-        mBannerViewPager.run {
+        mBannerViewPager?.run {
             if (start) {
-                stopLoop()
-            } else {
+                "startLoop ${this.javaClass.simpleName}".logE()
                 startLoop()
+            } else {
+                "stopLoop ${this.javaClass.simpleName}".logE()
+                stopLoop()
             }
         }
     }
 
-    override fun createObserver() {
-        super.createObserver()
-        mVm.getBanners().observe(viewLifecycleOwner, Observer {
-            mBannerViewPager.create(it)
-        })
-        mVm.firstLoadSuccess.observe(viewLifecycleOwner, Observer {
-            setStatusBarMode(false)
-        })
+    override fun onFirstLoading() {
+        super.onFirstLoading()
+        mVm.requestBanner()
     }
 
-    override fun initData() {
-
+    override fun onRefresh() {
+        super.onRefresh()
+        mVm.requestBanner()
     }
-
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-
-    }
-
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
     fun onLazyPause() {
+        "onLazyPause ${this.javaClass.simpleName}".logE()
         isShow = false
         setBannerStatus(false)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     override fun onLazyResume() {
+        "onLazyResume ${this.javaClass.simpleName}".logE()
         isShow = true
         super.onLazyResume()
         setBannerStatus(true)

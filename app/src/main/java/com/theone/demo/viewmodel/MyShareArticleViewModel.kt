@@ -1,10 +1,11 @@
 package com.theone.demo.viewmodel
 
 import androidx.lifecycle.rxLifeScope
-import com.theone.demo.data.model.bean.ClassifyResponse
+import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
+import com.theone.demo.data.model.bean.ArticleResponse
+import com.theone.demo.data.model.bean.ShareResponse
 import com.theone.mvvm.base.ext.request
-import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
@@ -28,20 +29,20 @@ import rxhttp.wrapper.param.toResponse
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/2 0002
- * @describe 微信公众号
+ * @date 2021/3/5 0005
+ * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class WxGzhViewModel : BaseRequestViewModel<List<ClassifyResponse>>() {
+class MyShareArticleViewModel:ArticleViewModel() {
 
     override fun requestServer() {
         request({
-            val response = RxHttp.get(Url.WX_GZH)
-                .setCacheMode(getCacheMode(true))
-                .toResponse<List<ClassifyResponse>>()
+            val response = RxHttp.get(Url.MY_SHARE_ARTICLE,getPage())
+                .setCacheMode(getCacheMode())
+                .toResponse<ShareResponse>()
                 .await()
-            onSuccess(response)
+            onSuccess(response?.shareArticles)
         })
     }
 

@@ -2,6 +2,9 @@ package com.theone.mvvm.util;
 
 import android.os.Environment;
 
+import com.theone.mvvm.R;
+import com.theone.mvvm.base.BaseApplication;
+
 import java.io.File;
 
 /**
@@ -16,7 +19,7 @@ public class FileDirectoryUtil {
     /**
      * 根目录
      */
-    private static  String INDEX = "TheBase";
+    private static  String INDEX = BaseApplication.INSTANCE.getString(R.string.app_name);
     /**
      * 下载目录
      */

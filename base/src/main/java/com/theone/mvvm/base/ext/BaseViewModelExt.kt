@@ -1,12 +1,10 @@
-package com.theone.demo.viewmodel
+package com.theone.mvvm.base.ext
 
 import androidx.lifecycle.rxLifeScope
-import com.theone.demo.data.model.bean.ClassifyResponse
-import com.theone.demo.app.net.Url
-import com.theone.mvvm.base.ext.request
+import androidx.lifecycle.viewModelScope
 import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
-import rxhttp.wrapper.param.RxHttp
-import rxhttp.wrapper.param.toResponse
+import com.theone.mvvm.base.viewmodel.BaseViewModel
+import kotlinx.coroutines.*
 
 
 //  ┏┓　　　┏┓
@@ -28,21 +26,29 @@ import rxhttp.wrapper.param.toResponse
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/2 0002
- * @describe 微信公众号
+ * @date 2021/3/5 0005
+ * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class WxGzhViewModel : BaseRequestViewModel<List<ClassifyResponse>>() {
 
-    override fun requestServer() {
-        request({
-            val response = RxHttp.get(Url.WX_GZH)
-                .setCacheMode(getCacheMode(true))
-                .toResponse<List<ClassifyResponse>>()
-                .await()
-            onSuccess(response)
-        })
+fun <T> BaseRequestViewModel<T>.request(
+    block: suspend CoroutineScope.() -> Unit,
+    loadingMsg: String? = null
+){
+    rxLifeScope.launch({
+        block()
+    }, {
+        onError(it)
+    }, {
+        loadingMsg?.let {
+            loadingChange.showDialog.postValue(loadingMsg)
+        }
+    }, {
+        getFinallyLiveData().postValue(true)
+        loadingMsg?.let {
+            loadingChange.dismissDialog.postValue(false)
+        }
     }
-
+    )
 }

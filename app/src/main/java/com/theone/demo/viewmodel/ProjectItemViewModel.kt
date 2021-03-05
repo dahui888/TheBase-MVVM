@@ -4,6 +4,7 @@ import androidx.lifecycle.rxLifeScope
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
+import com.theone.mvvm.base.ext.request
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
@@ -32,19 +33,17 @@ import rxhttp.wrapper.param.toResponse
  * @email 625805189@qq.com
  * @remark
  */
-class ProjectItemViewModel : BaseDemoViewModel<ArticleResponse>() {
+class ProjectItemViewModel : ArticleViewModel() {
 
     var mId: Int = 0
 
     override fun requestServer() {
-        rxLifeScope.launch({
+       request({
             val response = RxHttp.get(Url.PROJECT_DATA, mPage.value,mId)
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<ArticleResponse>>>()
                 .await()
             onSuccess(response)
-        }, {
-            onError(it)
         })
     }
 

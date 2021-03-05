@@ -6,6 +6,7 @@ import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
+import com.theone.mvvm.base.ext.request
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
@@ -34,33 +35,35 @@ import rxhttp.wrapper.param.toResponse
  * @email 625805189@qq.com
  * @remark
  */
-class HomeViewModel : BaseDemoViewModel<ArticleResponse>() {
+class HomeViewModel : ArticleViewModel() {
 
     private val mBanners: MutableLiveData<List<BannerResponse>> = MutableLiveData()
 
-    open fun getBanners(): MutableLiveData<List<BannerResponse>> = mBanners
+    fun getBanners(): MutableLiveData<List<BannerResponse>> = mBanners
 
     init {
         space.value = 0
     }
 
     override fun requestServer() {
-        rxLifeScope.launch({
-            if (isFirst.value || isFresh.value) {
-                val banners = RxHttp.get(Url.HOME_BANNER)
-                    .setCacheMode(getCacheMode())
-                    .toResponse<List<BannerResponse>>()
-                    .await()
-                mBanners.postValue(banners)
-            }
+        request({
             val response = RxHttp.get(Url.HOME_ARTICLE, mPage.value)
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<ArticleResponse>>>()
                 .await()
 
             onSuccess(response)
+        })
+    }
+
+    fun requestBanner() {
+        rxLifeScope.launch({
+            val banners = RxHttp.get(Url.HOME_BANNER)
+                .setCacheMode(getCacheMode())
+                .toResponse<List<BannerResponse>>()
+                .await()
+            mBanners.postValue(banners)
         }, {
-            onError(it)
         })
     }
 

@@ -5,16 +5,17 @@ import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.theone.demo.R
+import com.theone.demo.app.util.UserUtil
 import com.theone.demo.viewmodel.LoginViewModel
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import com.theone.demo.databinding.FragmentLoginBinding
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
+import com.theone.mvvm.base.ext.qmui.*
 import com.theone.mvvm.base.ext.util.logE
 import java.util.logging.Handler
 
 class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
-
 
     val appViewModel: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
@@ -39,13 +40,14 @@ class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
 
     override fun createObserver() {
         mVm.getResponse().observe(viewLifecycleOwner, Observer {
+            UserUtil.setUser(it)
             appViewModel.userinfo.postValue(it)
-            showSuccessMsg("登录成功"){
+            showSuccessDialog("登录成功"){
                 popBackStack()
             }
         })
         mVm.getErrorMsg().observe(viewLifecycleOwner, Observer {
-            showFailMsg(it){}
+            showFailDialog(it)
         })
     }
 
@@ -54,62 +56,23 @@ class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
         mDB.click = ProxyClick()
     }
 
-    private fun showSuccessMsg(msg: String,callback: () -> Unit) {
-        showTipsDialog(msg, QMUITipDialog.Builder.ICON_TYPE_SUCCESS,callback)
-    }
-
-    private fun showFailMsg(msg: String,callback: () -> Unit) {
-        showTipsDialog(msg, QMUITipDialog.Builder.ICON_TYPE_FAIL,callback)
-    }
-
-    private var mLoadingDialog: QMUITipDialog? = null
-
-    private fun showLoadingDialog(msg: String) {
-        mLoadingDialog = createQMUIDialog(msg,QMUITipDialog.Builder.ICON_TYPE_LOADING)
-        mLoadingDialog?.run {
-            setCancelable(false)
-            setCanceledOnTouchOutside(false)
-            show()
-        }
-    }
-
-    private fun hideLoadingDialog(){
-        mLoadingDialog?.dismiss()
-    }
-
-    private fun showTipsDialog(msg: String, type: Int,callback: () -> Unit) {
-        hideLoadingDialog()
-        val dialog = createQMUIDialog(msg, type)
-        dialog.run {
-            setCancelable(false)
-            setCanceledOnTouchOutside(false)
-            show()
-        }
-        android.os.Handler().postDelayed({
-            dialog.dismiss()
-            callback?.invoke()
-        }, 1000)
-    }
-
-    private fun createQMUIDialog(msg: String, type: Int): QMUITipDialog {
-        return QMUITipDialog.Builder(context)
-            .setIconType(type)
-            .setTipWord(msg)
-            .create()
-    }
 
     inner class ProxyClick {
 
         fun login() {
             when {
-                mVm.account.value.isEmpty() -> showFailMsg("请填写账号"){}
-                mVm.password.get().isEmpty() -> showFailMsg("请填写密码"){}
+                mVm.account.value.isEmpty() -> showFailDialog("请填写账号")
+                mVm.password.get().isEmpty() -> showFailDialog("请填写密码")
                 else -> {
-                    showLoadingDialog("登录中")
                     mVm.requestServer()
                 }
             }
         }
     }
+
+    /**
+     * 更改进出动画效果 QMUIFragment提供
+     */
+    override fun onFetchTransitionConfig(): TransitionConfig  = SCALE_TRANSITION_CONFIG
 
 }

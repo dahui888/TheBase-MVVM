@@ -1,19 +1,20 @@
 package com.theone.demo.ui.fragment
 
-import android.content.Intent
 import android.view.View
 import androidx.lifecycle.Observer
+import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.theone.demo.R
+import com.theone.demo.app.util.checkLogin
 import com.theone.demo.app.util.notNull
+import com.theone.demo.data.model.bean.UserInfo
 import com.theone.demo.databinding.FragmentMineBinding
-import com.theone.demo.ui.activity.LoginActivity
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.MineViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.addToGroup
 import com.theone.mvvm.base.ext.qmui.createDetailItem
+import com.theone.mvvm.base.ext.qmui.showFailDialog
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
-import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 
@@ -41,7 +42,11 @@ import kotlinx.android.synthetic.main.fragment_mine.*
  * @email 625805189@qq.com
  * @remark
  */
-class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(),View.OnClickListener {
+class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), View.OnClickListener {
+
+    private lateinit var mShare : QMUICommonListItemView
+    private lateinit var mCollection : QMUICommonListItemView
+    private lateinit var mSetting : QMUICommonListItemView
 
     val appVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
@@ -54,30 +59,52 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(),View
     override fun initView(rootView: View) {
         getTopBar()?.run {
             setBackgroundAlpha(0)
-            updateBottomDivider(0,0,0,0)
+            updateBottomDivider(0, 0, 0, 0)
         }
-        val collection =groupListView.createDetailItem("我的收藏","",R.drawable.svg_mine_collection)
-        val article =groupListView.createDetailItem("我的文章","",R.drawable.svg_mine_article)
+        mCollection = groupListView.createDetailItem("我的收藏", "", R.drawable.svg_mine_collection)
+        mShare = groupListView.createDetailItem("我的分享", "", R.drawable.svg_mine_article)
 
-        val setting =groupListView.createDetailItem("设置","",R.drawable.svg_mine_setting)
+        mSetting = groupListView.createDetailItem("设置", "", R.drawable.svg_mine_setting)
 
-        groupListView.addToGroup(null,this,collection,article)
-        groupListView.addToGroup(null,null,this,setting)
+        groupListView.addToGroup(null, this, mCollection, mShare)
+        groupListView.addToGroup(null, null, this, mSetting)
+
+        swipeRefresh.isEnabled = false
+        swipeRefresh.setOnRefreshListener {
+            mVm.requestServer()
+        }
     }
 
     override fun onLazyInit() {
+        appVm.userinfo.value?.let {
+            mVm.requestServer()
+        }
     }
 
     override fun createObserver() {
         appVm.userinfo.observe(viewLifecycleOwner, Observer {
             it.notNull({
-                mVm.name.set(if (it.nickname.isEmpty()) it.username else it.nickname)
+                setUserInfo(it)
                 mVm.requestServer()
             }, {
                 mVm.name.set("请先登录~")
                 mVm.integral.set("积分")
                 mVm.rank.set("排名")
             })
+        })
+        mVm.getResponse().observe(viewLifecycleOwner, Observer {
+            it.run {
+                mVm.integral.set("积分 $coinCount")
+                mVm.rank.set("排名 $rank")
+                mVm.level.set("等级 $level")
+            }
+        })
+        mVm.getErrorMsg().observe(viewLifecycleOwner, Observer {
+            showFailDialog(it)
+        })
+        mVm.getFinallyLiveData().observe(viewLifecycleOwner, Observer {
+            onRefreshingEnd()
+            mVm.isFirst.set(false)
         })
     }
 
@@ -86,15 +113,45 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(),View
             vm = mVm
             click = ProxyClick()
         }
+        appVm.userinfo.value?.let {
+            setUserInfo(it)
+            mVm.requestServer()
+        }
+    }
+
+    private fun setUserInfo(it: UserInfo) {
+        onRefreshingEnd()
+        mVm.name.set(it.getUserName())
+        mVm.id.set("ID "+ it.id)
+        if (it.icon.isNotEmpty())
+            mVm.imageUrl.set(it.icon)
+    }
+
+    private fun onRefreshingEnd(){
+        swipeRefresh.isEnabled = true
+        swipeRefresh.isRefreshing = false
     }
 
     override fun onClick(p0: View?) {
+        when(p0){
+            mShare -> checkLogin{
+                startFragment(MyShareArticleFragment())
+            }
+            mCollection -> checkLogin{
+
+            }
+            mSetting ->{
+
+            }
+        }
     }
 
-    inner class ProxyClick{
+    inner class ProxyClick {
 
-        fun doLogin(){
-            startActivity(Intent(mActivity,LoginActivity::class.java))
+        fun doLogin() {
+            checkLogin {
+
+            }
         }
 
     }

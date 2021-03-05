@@ -1,7 +1,10 @@
-package com.theone.demo.app.net
+package com.theone.demo.ui.fragment
 
-import com.theone.mvvm.base.net.IPageInfo
-import java.io.Serializable
+import androidx.fragment.app.Fragment
+import com.theone.mvvm.base.entity.QMUITabBean
+import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
+import com.theone.mvvm.base.viewmodel.BaseViewModel
+
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -22,31 +25,26 @@ import java.io.Serializable
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/2 0002
+ * @date 2021/3/5 0005
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class PagerResponse<T> : IPageInfo, Serializable {
-    var curPage = 0
-    var pageCount = 0
-    var size = 0
-    var total = 0
-    var datas: T? = null
+class MyCollectionFragment :BaseTabInTitleFragment<BaseViewModel>() {
 
-    override fun getPage(): Int {
-        return curPage
+    override fun initTabAndFragments(
+        tabs: MutableList<QMUITabBean>,
+        fragments: MutableList<Fragment>
+    ) {
+       tabs.add(QMUITabBean("文章"))
+        tabs.add(QMUITabBean("网址"))
     }
 
-    override fun getPageTotalCount(): Int {
-        return pageCount
+    override fun initData() {
     }
 
-    override fun getTotalCount(): Int {
-        return total
+    override fun createObserver() {
+
     }
 
-    override fun getPageSize(): Int {
-        return size
-    }
 }

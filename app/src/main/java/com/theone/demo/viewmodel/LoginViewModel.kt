@@ -3,6 +3,7 @@ package com.theone.demo.viewmodel
 import androidx.lifecycle.rxLifeScope
 import com.theone.demo.app.net.Url
 import com.theone.demo.data.model.bean.UserInfo
+import com.theone.mvvm.base.ext.request
 import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.callback.databind.StringObservableField
@@ -16,19 +17,15 @@ class LoginViewModel : BaseRequestViewModel<UserInfo>() {
     var account = StringLiveData()
     var password = StringObservableField()
 
-
     override fun requestServer() {
-        rxLifeScope.launch({
+        request({
             val res = RxHttp.postForm(Url.LOGIN)
                 .add("username", account.value)
                 .add("password", password.get())
                 .toResponse<UserInfo>()
                 .await()
             onSuccess(res)
-        }, {
-            onError(it)
-        }
-        )
+        },"登录中")
     }
 
 }

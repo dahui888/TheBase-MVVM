@@ -20,4 +20,11 @@ data class UserInfo(var admin: Boolean = false,
                     var password: String="",
                     var token: String="",
                     var type: Int =0,
-                    var username: String="") : Parcelable
+                    var username: String="") : Parcelable{
+
+
+    fun getUserName():String{
+        return if(nickname.isEmpty()) username else nickname
+    }
+
+}

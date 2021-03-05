@@ -123,18 +123,19 @@ abstract class BaseRecyclerPagerFragment
             })
             getResponse().observe(viewLifecycleOwner, Observer {
                 "Observer getResponse ".logE()
-                onRefreshComplete()
                 loadListData(mVm, mAdapter, mLoadSir)
             })
             getErrorMsg().observe(viewLifecycleOwner, Observer {
                 "Observer getErrorMsg ".logE()
-                onRefreshComplete()
                 loadListError(
                     it,
                     mVm,
                     mAdapter,
                     mLoadSir
                 )
+            })
+            getFinallyLiveData().observe(viewLifecycleOwner, Observer {
+                onRefreshComplete()
             })
         }
     }
@@ -152,7 +153,6 @@ abstract class BaseRecyclerPagerFragment
     }
 
     override fun onRefresh() {
-        "onRefresh".logE()
         mVm.isFresh.value = true
         mVm.requestNewData()
     }
