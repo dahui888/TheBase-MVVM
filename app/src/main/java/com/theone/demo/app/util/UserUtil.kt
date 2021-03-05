@@ -1,10 +1,8 @@
 package com.theone.demo.app.util
 
-import android.content.Intent
 import com.google.gson.Gson
-import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.data.model.bean.UserInfo
-import com.theone.demo.ui.activity.LoginActivity
+import com.theone.mvvm.base.ext.util.logE
 
 
 //  ┏┓　　　┏┓
@@ -51,11 +49,13 @@ object UserUtil {
 
     fun getUser(): UserInfo? {
         val userStr = MMKVUtil.getString(USER)
-        return if (userStr.isNullOrEmpty() || !CookieUtil.isExistCookie())
-            null
-        else
+        val userExist = !userStr.isNullOrEmpty()
+        val cookieExist =CookieUtil.isExistCookie()
+        "getUser $userExist $cookieExist".logE()
+        return if (userExist && cookieExist)
             Gson().fromJson(userStr, UserInfo::class.java)
-
+        else
+            null
     }
 
 

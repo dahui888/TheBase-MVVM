@@ -1,6 +1,7 @@
 package com.theone.demo.app.util
 
 import com.theone.demo.app.net.Url
+import com.theone.mvvm.base.ext.util.logE
 import okhttp3.Cookie
 import okhttp3.HttpUrl
 import rxhttp.HttpSender
@@ -39,15 +40,19 @@ object CookieUtil {
      * 是否存在Cookie
      */
     fun isExistCookie(): Boolean {
+        getCacheCookie().toString().logE()
         return !getCacheCookie().isNullOrEmpty()
+    }
+
+    fun setCookie() {
+        getCookieJar().saveCookie(getHttpUrl(), getCacheCookie())
     }
 
     /**
      * 获取Cookie
      */
-    fun getCacheCookie(): List<Cookie>? {
-        val httpUrl = HttpUrl.parse(Url.BASE_URL)
-        return getCookieJar().loadCookie(httpUrl)
+    private fun getCacheCookie(): List<Cookie>? {
+        return getCookieJar().loadCookie(getHttpUrl())
     }
 
     /**
@@ -56,6 +61,8 @@ object CookieUtil {
     fun removeAllCookie() {
         getCookieJar().removeAllCookie()
     }
+
+    private fun getHttpUrl(): HttpUrl? = HttpUrl.parse(Url.BASE_URL)
 
     private fun getCookieJar(): ICookieJar = HttpSender.getOkHttpClient().cookieJar() as ICookieJar
 

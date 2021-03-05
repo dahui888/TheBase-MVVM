@@ -24,7 +24,6 @@ class MainActivity : BaseFragmentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        CookieUtil.getCacheCookie().toString().logE()
         requestPermission()
     }
 

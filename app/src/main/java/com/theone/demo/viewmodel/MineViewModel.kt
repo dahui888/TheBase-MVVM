@@ -6,6 +6,7 @@ import com.theone.demo.app.util.ColorUtil
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.IntegralResponse
 import com.theone.mvvm.base.ext.request
+import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
 import com.theone.mvvm.callback.databind.BooleanObservableField
 import com.theone.mvvm.callback.databind.CharSequenceObservableField
@@ -56,12 +57,12 @@ class MineViewModel : BaseRequestViewModel<IntegralResponse>() {
     var isFirst =  BooleanObservableField(true)
 
     override fun requestServer() {
+        "requestServer ${isFirst.get()}".logE()
         request({
             val response = RxHttp.get(Url.USER_COIN)
                 .setCacheMode(getCacheMode(isFirst.get()))
                 .toResponse<IntegralResponse>()
                 .await()
-
             onSuccess(response)
         })
     }
