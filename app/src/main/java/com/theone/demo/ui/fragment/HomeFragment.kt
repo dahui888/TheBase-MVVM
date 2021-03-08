@@ -62,17 +62,17 @@ class HomeFragment :
 
     override fun isNeedChangeStatusBarMode(): Boolean = true
 
-    override fun isStatusBarLightMode(): Boolean = isLightMode
+    override fun isStatusBarLightMode(): Boolean = true
 
     override fun showTitleBar(): Boolean = true
 
-    override fun translucentFull(): Boolean = true
+    override fun translucentFull(): Boolean = false
 
     override fun initView(rootView: View) {
         super.initView(rootView)
         getTopBar()?.run {
             mTitleView = setTitle("首页")
-            setBackgroundAlpha(0)
+//            setBackgroundAlpha(0)
         }
     }
 
@@ -94,7 +94,6 @@ class HomeFragment :
         mBannerViewPager = BannerViewPager<BannerResponse, BannerViewHolder>(mActivity)
         mBannerViewPager?.run {
             layoutParams = ViewGroup.LayoutParams(matchParent, mBannerHeight)
-//            setAutoPlay(true)
             setIndicatorGravity(IndicatorGravity.END)
             setIndicatorSliderColor(
                 getColor(mActivity, R.color.white),
@@ -104,50 +103,50 @@ class HomeFragment :
             setOnPageClickListener { position: Int ->
 
             }
-            mAdapter.addHeaderView(this)
         }
+//        mAdapter.addHeaderView(mBannerViewPager!!)
     }
 
     override fun initRecyclerView() {
         super.initRecyclerView()
-        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                super.onScrolled(recyclerView, dx, dy)
-                val offsetLinearLayoutManager =
-                    recyclerView.layoutManager as OffsetLinearLayoutManager
-                val y = offsetLinearLayoutManager.computeVerticalScrollOffset(null)
-                val percent: Float = if (y > mMaxOffsetHeight)
-                    1.0f
-                else
-                    y / mMaxOffsetHeight
-                val isLight = percent > 0.6
-                if (!isLightMode && isLight) {
-                    setStatusBarMode(true)
-                } else if (isLightMode && !isLight) {
-                    setStatusBarMode(false)
-                }
-                mTitleView.setTextColor(
-                    getColorAlpha(
-                        percent,
-                        R.color.qmui_config_color_gray_1
-                    )
-                )
-                getTopBar()?.run {
-                    updateBottomSeparatorColor(
-                        getColorAlpha(
-                            percent,
-                            R.color.qmui_config_color_separator
-                        )
-                    )
-                    setBackgroundColor(
-                        getColorAlpha(
-                            percent,
-                            R.color.qmui_config_color_white
-                        )
-                    )
-                }
-            }
-        })
+//        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+//                super.onScrolled(recyclerView, dx, dy)
+//                val offsetLinearLayoutManager =
+//                    recyclerView.layoutManager as OffsetLinearLayoutManager
+//                val y = offsetLinearLayoutManager.computeVerticalScrollOffset(null)
+//                val percent: Float = if (y > mMaxOffsetHeight)
+//                    1.0f
+//                else
+//                    y / mMaxOffsetHeight
+//                val isLight = percent > 0.6
+//                if (!isLightMode && isLight) {
+//                    setStatusBarMode(true)
+//                } else if (isLightMode && !isLight) {
+//                    setStatusBarMode(false)
+//                }
+//                mTitleView.setTextColor(
+//                    getColorAlpha(
+//                        percent,
+//                        R.color.qmui_config_color_gray_1
+//                    )
+//                )
+//                getTopBar()?.run {
+//                    updateBottomSeparatorColor(
+//                        getColorAlpha(
+//                            percent,
+//                            R.color.qmui_config_color_separator
+//                        )
+//                    )
+//                    setBackgroundColor(
+//                        getColorAlpha(
+//                            percent,
+//                            R.color.qmui_config_color_white
+//                        )
+//                    )
+//                }
+//            }
+//        })
     }
 
     private fun getColorAlpha(percent: Float, color: Int): Int {
@@ -180,25 +179,25 @@ class HomeFragment :
      * @param start
      */
     private fun setBannerStatus(start: Boolean) {
-        mBannerViewPager?.run {
-            if (start) {
-                "startLoop ${this.javaClass.simpleName}".logE()
-                startLoop()
-            } else {
-                "stopLoop ${this.javaClass.simpleName}".logE()
-                stopLoop()
-            }
-        }
+//        mBannerViewPager?.run {
+//            if (start) {
+//                "startLoop ${this.javaClass.simpleName}".logE()
+//                startLoop()
+//            } else {
+//                "stopLoop ${this.javaClass.simpleName}".logE()
+//                stopLoop()
+//            }
+//        }
     }
 
     override fun onFirstLoading() {
         super.onFirstLoading()
-        mVm.requestBanner()
+//        mVm.requestBanner()
     }
 
     override fun onRefresh() {
         super.onRefresh()
-        mVm.requestBanner()
+//        mVm.requestBanner()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

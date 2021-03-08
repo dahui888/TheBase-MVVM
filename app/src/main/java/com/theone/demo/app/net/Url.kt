@@ -182,4 +182,19 @@ object Url {
      */
     var COLLECTION_OUT_SITE_ARTICLE = "lg/collect/add/json"
 
+    /**
+     * 取消收藏-文章列表
+     * @POST
+     * @id  列表中文章的id
+     */
+    var UN_LIST_COLLECTION = "lg/uncollect_originId/%d/json"
+
+    /**
+     * 取消收藏-我的收藏页面
+     * @POST
+     * @id  收藏文章的id
+     * @originId 收藏之前的那篇文章本身的id； 但是收藏支持主动添加，这种情况下，没有originId则为-1
+     */
+    var UN_MY_COLLECTION = "lg/uncollect_originId/%d/json"
+
 }

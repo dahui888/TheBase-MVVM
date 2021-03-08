@@ -122,11 +122,11 @@ abstract class BaseRecyclerPagerFragment
                 mRecyclerView.layoutManager = getLayoutManager(it)
             })
             getResponse().observe(viewLifecycleOwner, Observer {
-                "Observer getResponse ".logE()
+                "Observer getResponse ${this.javaClass.simpleName}".logE()
                 loadListData(mVm, mAdapter, mLoadSir)
             })
             getErrorMsg().observe(viewLifecycleOwner, Observer {
-                "Observer getErrorMsg ".logE()
+                "Observer getErrorMsg ${this.javaClass.simpleName}".logE()
                 loadListError(
                     it,
                     mVm,
@@ -135,6 +135,7 @@ abstract class BaseRecyclerPagerFragment
                 )
             })
             getFinallyLiveData().observe(viewLifecycleOwner, Observer {
+                "Observer Finally ${this.javaClass.simpleName}".logE()
                 onRefreshComplete()
             })
         }

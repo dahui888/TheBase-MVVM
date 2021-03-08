@@ -6,6 +6,7 @@ import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.viewmodel.WxGzhViewModel
 import com.theone.mvvm.base.entity.QMUITabBean
 import com.theone.mvvm.base.ext.showError
+import com.theone.mvvm.base.ext.showLoading
 import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
 
 
@@ -40,6 +41,7 @@ class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
     private lateinit var mResponse: List<ClassifyResponse>
 
     override fun onLazyInit() {
+        mLoadSir.showLoading()
         mVm.requestServer()
     }
 

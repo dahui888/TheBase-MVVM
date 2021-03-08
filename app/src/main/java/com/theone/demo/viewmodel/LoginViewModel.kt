@@ -1,14 +1,11 @@
 package com.theone.demo.viewmodel
 
-import androidx.lifecycle.rxLifeScope
 import com.theone.demo.app.net.Url
 import com.theone.demo.data.model.bean.UserInfo
 import com.theone.mvvm.base.ext.request
 import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
-import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.callback.databind.StringObservableField
 import com.theone.mvvm.callback.livedata.StringLiveData
-import rxhttp.toClass
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 

@@ -51,7 +51,6 @@ class HomeViewModel : ArticleViewModel() {
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<ArticleResponse>>>()
                 .await()
-
             onSuccess(response)
         })
     }
@@ -62,7 +61,7 @@ class HomeViewModel : ArticleViewModel() {
                 .setCacheMode(getCacheMode())
                 .toResponse<List<BannerResponse>>()
                 .await()
-            mBanners.postValue(banners)
+            mBanners.value = banners
         }, {
         })
     }

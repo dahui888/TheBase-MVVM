@@ -8,10 +8,10 @@ import com.theone.mvvm.callback.livedata.UnPeekLiveData
 class AppViewModel:BaseViewModel() {
 
     //App的账户信息
-    var userinfo = UnPeekLiveData<UserInfo>()
+    var userInfo = UnPeekLiveData<UserInfo>()
 
     init {
-        userinfo.value = UserUtil.getUser()
+        userInfo.value = UserUtil.getUser()
     }
 
 }

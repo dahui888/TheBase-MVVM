@@ -51,7 +51,7 @@ fun <T> loadListData(
     if (isNewData) {
         vm.isFirst.value = false
         vm.isFresh.value = false
-        vm.firstLoadSuccess.postValue(true)
+        vm.firstLoadSuccess.value = true
         adapter.setList(list)
         loader.showSuccess()
     } else {

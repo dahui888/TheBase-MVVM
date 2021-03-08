@@ -46,17 +46,23 @@ abstract class BaseRequestViewModel<T>:BaseViewModel() {
     fun getFinallyLiveData():BooleanLiveData = finally
 
     open fun onSuccess(response:T?){
-        "onSuccess ".logE()
-        getResponse().postValue(response)
+        getResponse().value = response
     }
 
-    open fun onError(errorMsg:String?){
-        "onError $errorMsg".logE()
-        getErrorMsg().postValue(errorMsg)
+    open fun onError(errorMsg:String,liveData :StringLiveData){
+        liveData.value = errorMsg
     }
 
-    open fun onError(error:Throwable?){
-        onError(ErrorInfo(error).errorMsg)
+    open fun onError(errorMsg:String){
+        onError(errorMsg,error)
+    }
+
+    open fun onError(throwable:Throwable?,liveData :StringLiveData){
+        onError(ErrorInfo(throwable).errorMsg,liveData)
+    }
+
+    open fun onError(throwable:Throwable?){
+        onError(throwable,error)
     }
 
     abstract fun requestServer()

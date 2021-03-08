@@ -37,7 +37,7 @@ object UserUtil {
     fun isLogin(): Boolean = null != getUser()
 
     fun loginOut(){
-        CookieUtil.removeAllCookie()
+//        CookieUtil.removeAllCookie()
         setUser(null)
     }
 
@@ -50,9 +50,9 @@ object UserUtil {
     fun getUser(): UserInfo? {
         val userStr = MMKVUtil.getString(USER)
         val userExist = !userStr.isNullOrEmpty()
-        val cookieExist =CookieUtil.isExistCookie()
-        "getUser $userExist $cookieExist".logE()
-        return if (userExist && cookieExist)
+//        val cookieExist =CookieUtil.isExistCookie()
+//        "getUser $userExist $cookieExist".logE()
+        return if (userExist)
             Gson().fromJson(userStr, UserInfo::class.java)
         else
             null

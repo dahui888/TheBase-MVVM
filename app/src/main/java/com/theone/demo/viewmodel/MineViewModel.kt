@@ -57,7 +57,6 @@ class MineViewModel : BaseRequestViewModel<IntegralResponse>() {
     var isFirst =  BooleanObservableField(true)
 
     override fun requestServer() {
-        "requestServer ${isFirst.get()}".logE()
         request({
             val response = RxHttp.get(Url.USER_COIN)
                 .setCacheMode(getCacheMode(isFirst.get()))

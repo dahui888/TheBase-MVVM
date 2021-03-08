@@ -19,6 +19,10 @@ package com.theone.mvvm.util;
 //      ┗┻┛　┗┻┛
 
 
+import com.franmontiel.persistentcookiejar.PersistentCookieJar;
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
+import com.theone.mvvm.base.BaseApplication;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.File;
@@ -27,7 +31,6 @@ import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import rxhttp.RxHttpPlugins;
 import rxhttp.wrapper.cahce.CacheMode;
-import rxhttp.wrapper.cookie.CookieStore;
 import rxhttp.wrapper.ssl.HttpsUtils;
 
 /**
@@ -39,10 +42,14 @@ import rxhttp.wrapper.ssl.HttpsUtils;
  */
 public class RxHttpManager {
 
+    public static PersistentCookieJar getCookieJar(){
+        return new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(BaseApplication.INSTANCE));
+    }
+
     public static OkHttpClient getHttpClient(HttpBuilder builder) {
         OkHttpClient.Builder httpBuilder = new OkHttpClient.Builder();
         if (builder.isNeedCookie())
-            httpBuilder.cookieJar(new CookieStore(new File(builder.getCookieFilePath(), builder.getCookieFileName()), false));
+            httpBuilder.cookieJar(getCookieJar());
         httpBuilder.connectTimeout(builder.getOutTime(), TimeUnit.SECONDS)
                 .readTimeout(builder.getReadTime(), TimeUnit.SECONDS)
                 .writeTimeout(builder.getWriteTime(), TimeUnit.SECONDS)

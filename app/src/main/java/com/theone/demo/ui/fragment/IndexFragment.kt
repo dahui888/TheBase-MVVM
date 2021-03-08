@@ -38,7 +38,7 @@ class IndexFragment : BaseHomeFragment<BaseViewModel>() {
     override fun initTabAndFragments(tabs: MutableList<QMUITabBean>, fragments: MutableList<Fragment>) {
         tabs.add(QMUITabBean("首页",R.drawable.svg_home,R.drawable.svg_home_select))
         tabs.add(QMUITabBean("项目",R.drawable.svg_project,R.drawable.svg_project_selected))
-        tabs.add(QMUITabBean("分类",R.drawable.svg_classification,R.drawable.svg_classification_selected))
+        tabs.add(QMUITabBean("分类",R.drawable.svg_classfication,R.drawable.svg_classification_selected))
         tabs.add(QMUITabBean("公众号",R.drawable.svg_wx_gzh,R.drawable.svg_wx_gzh_selected))
         tabs.add(QMUITabBean("我的",R.drawable.svg_mine,R.drawable.svg_mine_selected))
 

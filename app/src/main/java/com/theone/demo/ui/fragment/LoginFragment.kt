@@ -2,8 +2,6 @@ package com.theone.demo.ui.fragment
 
 import android.view.View
 import androidx.lifecycle.Observer
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.theone.demo.R
 import com.theone.demo.app.util.UserUtil
 import com.theone.demo.viewmodel.LoginViewModel
@@ -12,8 +10,6 @@ import com.theone.demo.databinding.FragmentLoginBinding
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.*
-import com.theone.mvvm.base.ext.util.logE
-import java.util.logging.Handler
 
 class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
 
@@ -40,8 +36,8 @@ class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
 
     override fun createObserver() {
         mVm.getResponse().observe(viewLifecycleOwner, Observer {
+            appViewModel.userInfo.value = it
             UserUtil.setUser(it)
-            appViewModel.userinfo.postValue(it)
             showSuccessDialog("登录成功"){
                 popBackStack()
             }
@@ -55,7 +51,6 @@ class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
         mDB.vm = mVm
         mDB.click = ProxyClick()
     }
-
 
     inner class ProxyClick {
 

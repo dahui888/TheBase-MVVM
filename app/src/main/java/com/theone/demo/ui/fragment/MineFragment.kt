@@ -14,7 +14,6 @@ import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.addToGroup
 import com.theone.mvvm.base.ext.qmui.createDetailItem
 import com.theone.mvvm.base.ext.qmui.showFailDialog
-import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -63,7 +62,7 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
             updateBottomDivider(0, 0, 0, 0)
         }
         mCollection = groupListView.createDetailItem("我的收藏", "", R.drawable.svg_mine_collection)
-        mShare = groupListView.createDetailItem("我的分享", "", R.drawable.svg_mine_article)
+        mShare = groupListView.createDetailItem("我的分享", "", R.drawable.svg_mine_share)
 
         mSetting = groupListView.createDetailItem("设置", "", R.drawable.svg_mine_setting)
 
@@ -77,13 +76,13 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
     }
 
     override fun onLazyInit() {
-        appVm.userinfo.value?.let {
+        appVm.userInfo.value?.let {
             mVm.requestServer()
         }
     }
 
     override fun createObserver() {
-        appVm.userinfo.observe(viewLifecycleOwner, Observer {
+        appVm.userInfo.observe(viewLifecycleOwner, Observer {
             it.notNull({
                 setUserInfo(it)
                 mVm.requestServer()
@@ -114,7 +113,7 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
             vm = mVm
             click = ProxyClick()
         }
-        appVm.userinfo.value?.let {
+        appVm.userInfo.value?.let {
             setUserInfo(it)
             mVm.requestServer()
         }

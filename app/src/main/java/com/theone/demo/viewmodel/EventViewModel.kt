@@ -1,8 +1,8 @@
 package com.theone.demo.viewmodel
 
-import com.theone.demo.app.net.PagerResponse
-import com.theone.mvvm.base.viewmodel.BaseListViewModel
-import rxhttp.wrapper.cahce.CacheMode
+import com.theone.demo.data.model.bean.CollectBus
+import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.callback.livedata.event.EventLiveData
 
 
 //  ┏┓　　　┏┓
@@ -24,32 +24,14 @@ import rxhttp.wrapper.cahce.CacheMode
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
+ * @date 2021/3/8 0008
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseDemoViewModel<T> : BaseListViewModel<T>() {
+class EventViewModel:BaseViewModel() {
 
-    init {
-        space.value = 12
-        mFirstPage.value = 0
-    }
-
-    fun onSuccess(response: PagerResponse<List<T>>?) {
-        super.onSuccess(response?.datas,response)
-    }
-
-    fun getCacheMode(): CacheMode {
-       return getCacheMode(isFirst.value)
-    }
+    //全局收藏，在任意一个地方收藏或取消收藏，监听该值的界面都会收到消息
+    val collectEvent = EventLiveData<CollectBus>()
 
 }
-
-fun getCacheMode(isFirst: Boolean): CacheMode{
-    return if (isFirst)
-        CacheMode.READ_CACHE_FAILED_REQUEST_NETWORK
-    else
-        CacheMode.ONLY_NETWORK
-}
-
