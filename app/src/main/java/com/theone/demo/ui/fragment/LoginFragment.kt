@@ -35,14 +35,14 @@ class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     override fun createObserver() {
-        mVm.getResponse().observe(viewLifecycleOwner, Observer {
+        mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
             appViewModel.userInfo.value = it
             UserUtil.setUser(it)
             showSuccessDialog("登录成功"){
                 popBackStack()
             }
         })
-        mVm.getErrorMsg().observe(viewLifecycleOwner, Observer {
+        mVm.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
             showFailDialog(it)
         })
     }

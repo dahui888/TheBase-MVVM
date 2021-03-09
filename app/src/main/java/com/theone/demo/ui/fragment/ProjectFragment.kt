@@ -10,6 +10,7 @@ import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.base.entity.QMUITabBean
 import com.theone.mvvm.base.ext.showError
 import com.theone.mvvm.base.ext.showLoading
+import com.theone.mvvm.base.ext.util.logI
 
 
 //  ┏┓　　　┏┓
@@ -71,11 +72,14 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
     }
 
     override fun createObserver() {
-        mVm.getResponse().observe(viewLifecycleOwner, Observer {
+        "$TAG createObserver ".logI(TAG)
+        mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
+            "$TAG getResponse  observe ".logI(TAG)
             mResponse = it
             startInit()
         })
-        mVm.getErrorMsg().observe(viewLifecycleOwner, Observer {
+        mVm.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+            "$TAG getErrorMsg  observe ".logI(TAG)
             mLoadSir.showError(it)
         })
     }

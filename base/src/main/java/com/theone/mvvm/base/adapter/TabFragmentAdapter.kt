@@ -4,7 +4,6 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.PagerAdapter
-import com.theone.mvvm.base.fragment.BaseFragment
 
 
 //  ┏┓　　　┏┓
@@ -31,7 +30,9 @@ import com.theone.mvvm.base.fragment.BaseFragment
  * @email 625805189@qq.com
  * @remark
  */
-class TabFragmentAdapter(fm:FragmentManager,private val mFragments : List<Fragment>) :FragmentPagerAdapter(fm) {
+class TabFragmentAdapter(fm:FragmentManager,private val mFragments : List<Fragment>) :FragmentPagerAdapter(fm,
+    BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+) {
 
     private var mChildCount = 0
 

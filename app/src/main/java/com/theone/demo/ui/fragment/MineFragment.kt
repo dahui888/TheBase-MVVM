@@ -92,14 +92,14 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
                 mVm.rank.set("排名")
             })
         })
-        mVm.getResponse().observe(viewLifecycleOwner, Observer {
+        mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
             it.run {
                 mVm.integral.set("积分 $coinCount")
                 mVm.rank.set("排名 $rank")
                 mVm.level.set("等级 $level")
             }
         })
-        mVm.getErrorMsg().observe(viewLifecycleOwner, Observer {
+        mVm.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
             showFailDialog(it)
         })
         mVm.getFinallyLiveData().observe(viewLifecycleOwner, Observer {

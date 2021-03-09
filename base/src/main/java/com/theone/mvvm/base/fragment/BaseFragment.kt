@@ -54,6 +54,8 @@ import com.theone.mvvm.base.ext.util.logE
  */
 abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
+    protected val TAG: String = this.javaClass.simpleName
+
     lateinit var mActivity: AppCompatActivity
 
     lateinit var mBody: View
@@ -85,7 +87,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
             mBody.fitsSystemWindows = !translucentFull()
             root.addView(mBody)
             // 这个一定要放在addView后面
-            if(!translucentFull()){
+            if (!translucentFull()) {
                 mBody.setMargin(
                     0,
                     QMUIResHelper.getAttrDimen(mActivity, R.attr.qmui_topbar_height),
@@ -113,7 +115,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         return mTopBar!!
     }
 
-    protected open fun getTopBar():QMUITopBarLayout? = mTopBar
+    protected open fun getTopBar(): QMUITopBarLayout? = mTopBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -209,6 +211,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     open fun finish() {
         popBackStackAfterResume()
     }
+
     override fun onPause() {
         super.onPause()
         QMUIKeyboardHelper.hideKeyboard(view)

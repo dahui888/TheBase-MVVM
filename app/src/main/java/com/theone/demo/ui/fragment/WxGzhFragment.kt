@@ -58,11 +58,11 @@ class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
     }
 
     override fun createObserver() {
-       mVm.getResponse().observe(viewLifecycleOwner, Observer {
+       mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
            mResponse = it
            startInit()
        })
-        mVm.getErrorMsg().observe(viewLifecycleOwner, Observer {
+        mVm.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
             mLoadSir.showError(it)
         })
     }

@@ -32,6 +32,8 @@ import com.theone.mvvm.callback.livedata.event.EventLiveData
  */
 open class BaseViewModel :ViewModel() {
 
+    protected val TAG: String = this.javaClass.simpleName
+
     val loadingChange: UiLoadingChange by lazy { UiLoadingChange() }
 
     /**

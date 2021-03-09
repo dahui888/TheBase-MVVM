@@ -30,16 +30,19 @@ data class ArticleResponse(
     var superChapterId: Int,
     var superChapterName: String,
     var shareUser: String,
-    var tags: List<TagsResponse>,
+    var tags: List<TagsResponse>?,
     var title: String,
     var type: Int,
     var userId: Int,
     var visible: Int,
-    var zan: Int) : Parcelable{
+    var zan: Int
+) : Parcelable {
 
-
-    fun showDes():Boolean{
+    fun showDes(): Boolean {
         return !TextUtils.isEmpty(desc) && !desc.contains("<p>")
     }
 
+    fun showTags(): Boolean {
+        return null != tags && tags!!.isNotEmpty()
+    }
 }

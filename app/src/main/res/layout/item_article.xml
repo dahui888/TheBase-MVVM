@@ -120,8 +120,8 @@
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 style="@style/home_tag_style"
-                visible="@{null !=item.tags&amp;&amp;item.tags.size()>0}"
-                android:text='@{(null !=item.tags &amp;&amp; item.tags.size()>0)?item.tags.get(0).name:""}'
+                visible="@{item.showTags()}"
+                android:text='@{item.showTags()?item.tags.get(0).name:""}'
                 android:textColor="@color/white"
                 android:textSize="11sp"
                 app:qmui_backgroundColor="@color/qmui_config_color_gray_5"

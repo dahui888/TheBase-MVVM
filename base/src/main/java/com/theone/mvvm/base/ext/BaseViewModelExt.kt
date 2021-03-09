@@ -1,11 +1,7 @@
 package com.theone.mvvm.base.ext
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import androidx.lifecycle.rxLifeScope
-import androidx.lifecycle.viewModelScope
 import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
-import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.callback.livedata.StringLiveData
 import kotlinx.coroutines.*
 
@@ -38,7 +34,7 @@ import kotlinx.coroutines.*
 fun <T> BaseRequestViewModel<T>.request(
     block: suspend CoroutineScope.() -> Unit,
     loadingMsg: String? = null,
-    errorLiveData: StringLiveData= getErrorMsg()
+    errorLiveData: StringLiveData= getErrorMsgLiveData()
     ){
     rxLifeScope.launch({
         block()

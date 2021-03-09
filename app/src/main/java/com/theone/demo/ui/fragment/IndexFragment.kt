@@ -1,6 +1,7 @@
 package com.theone.demo.ui.fragment
 
 import androidx.fragment.app.Fragment
+import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.theone.demo.R
 import com.theone.mvvm.base.fragment.BaseHomeFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
@@ -35,12 +36,24 @@ class IndexFragment : BaseHomeFragment<BaseViewModel>() {
 
     override fun isNeedChangeStatusBarMode(): Boolean = false
 
-    override fun initTabAndFragments(tabs: MutableList<QMUITabBean>, fragments: MutableList<Fragment>) {
-        tabs.add(QMUITabBean("首页",R.drawable.svg_home,R.drawable.svg_home_select))
-        tabs.add(QMUITabBean("项目",R.drawable.svg_project,R.drawable.svg_project_selected))
-        tabs.add(QMUITabBean("分类",R.drawable.svg_classfication,R.drawable.svg_classification_selected))
-        tabs.add(QMUITabBean("公众号",R.drawable.svg_wx_gzh,R.drawable.svg_wx_gzh_selected))
-        tabs.add(QMUITabBean("我的",R.drawable.svg_mine,R.drawable.svg_mine_selected))
+    override fun createTabBuilder(): QMUITabBuilder? {
+        return super.createTabBuilder().also {
+            // 选中图标的颜色可以在这里设置
+            it?.skinChangeWithTintColor(true)
+        }
+    }
+
+    override fun initTabAndFragments(
+        tabs: MutableList<QMUITabBean>,
+        fragments: MutableList<Fragment>
+    ) {
+        // 选中图标的颜色也可以在这里设置 - R.drawable.svg_home_select 本身的颜色的是灰色的，选中变色是因为 skinChangeWithTintColor = true
+        tabs.add(QMUITabBean("首页", R.drawable.svg_home, R.drawable.svg_home_select))
+        // skinChangeWithTintColor = false 时   颜色直接使用的是选中图标本身的颜色 使用 ?attr/app_skin_primary_color 填充
+        tabs.add(QMUITabBean("项目", R.drawable.svg_project, R.drawable.svg_project_selected))
+        tabs.add(QMUITabBean("分类", R.drawable.svg_classfication, R.drawable.svg_classification_selected))
+        tabs.add(QMUITabBean("公众号", R.drawable.svg_wx_gzh, R.drawable.svg_wx_gzh_selected))
+        tabs.add(QMUITabBean("我的", R.drawable.svg_mine, R.drawable.svg_mine_selected))
 
         fragments.add(HomeFragment())
         fragments.add(ProjectFragment())
@@ -54,8 +67,6 @@ class IndexFragment : BaseHomeFragment<BaseViewModel>() {
 
     override fun initData() {
     }
-
-
 
 
 }

@@ -38,7 +38,7 @@ fun <T> loadListData(
     adapter: BaseQuickAdapter<T, *>,
     loader: LoadService<Any>
 ) {
-    val list = vm.getResponse().value
+    val list = vm.getResponseLiveData().value
     val isNewData = vm.mPage.value == vm.mFirstPage.value
     if (list.isNullOrEmpty()) {
         if (isNewData) {

@@ -1,5 +1,6 @@
 package com.theone.mvvm.base.fragment
 
+import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.theone.mvvm.base.viewmodel.BaseViewModel
@@ -7,6 +8,8 @@ import com.theone.mvvm.base.ext.getVmClazz
 import com.theone.mvvm.base.ext.loadSirInit
 import com.theone.mvvm.base.ext.qmui.hideLoadingDialog
 import com.theone.mvvm.base.ext.qmui.showLoadingDialog
+import com.theone.mvvm.base.ext.util.logE
+import com.theone.mvvm.base.ext.util.logI
 
 
 //  ┏┓　　　┏┓
@@ -41,13 +44,14 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
 
     override fun onViewCreated(rootView: View) {
         mVm = createViewModel()
-        initView(rootView)
+        initData()
+        super.onViewCreated(rootView)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         addLoadingObserve(mVm)
         createObserver()
-        initData()
-        mLoadSir = loadSirInit(mBody) {
-            onReLoad()
-        }
     }
 
     /**

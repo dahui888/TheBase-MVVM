@@ -121,11 +121,11 @@ abstract class BaseRecyclerPagerFragment
             type.observe(viewLifecycleOwner, Observer {
                 mRecyclerView.layoutManager = getLayoutManager(it)
             })
-            getResponse().observe(viewLifecycleOwner, Observer {
+            getResponseLiveData().observe(viewLifecycleOwner, Observer {
                 "Observer getResponse ${this.javaClass.simpleName}".logE()
                 loadListData(mVm, mAdapter, mLoadSir)
             })
-            getErrorMsg().observe(viewLifecycleOwner, Observer {
+            getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
                 "Observer getErrorMsg ${this.javaClass.simpleName}".logE()
                 loadListError(
                     it,
