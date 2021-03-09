@@ -3,6 +3,7 @@ package com.theone.demo.ui.fragment
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.R
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.viewmodel.ProjectViewModel
@@ -10,6 +11,7 @@ import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.base.entity.QMUITabBean
 import com.theone.mvvm.base.ext.showError
 import com.theone.mvvm.base.ext.showLoading
+import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.base.ext.util.logI
 
 
@@ -44,6 +46,7 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
     override fun isNeedChangeStatusBarMode(): Boolean = true
 
     override fun onLazyInit() {
+        "onLazyInit  $TAG".logE(TAG)
         mLoadSir.showLoading()
         mVm.requestServer()
     }
@@ -54,7 +57,7 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
 
     override fun initTabAndFragments(
         tabs: MutableList<QMUITabBean>,
-        fragments: MutableList<Fragment>
+        fragments: MutableList<QMUIFragment>
     ) {
         for (data in mResponse) {
             tabs.add(QMUITabBean(data.name))
@@ -72,19 +75,27 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
     }
 
     override fun createObserver() {
-        "$TAG createObserver ".logI(TAG)
+        "createObserver  $TAG".logE(TAG)
         mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
-            "$TAG getResponse  observe ".logI(TAG)
             mResponse = it
             startInit()
         })
         mVm.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-            "$TAG getErrorMsg  observe ".logI(TAG)
             mLoadSir.showError(it)
         })
     }
 
     override fun initData() {
+    }
+
+    override fun onResume() {
+        super.onResume()
+        "onResume  $TAG".logE(TAG)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        "onPause  $TAG".logE(TAG)
     }
 
 }

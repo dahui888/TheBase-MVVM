@@ -44,14 +44,14 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
 
     override fun onViewCreated(rootView: View) {
         mVm = createViewModel()
-        initData()
         super.onViewCreated(rootView)
+        createObserver()
+        addLoadingObserve(mVm)
+        initData()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        addLoadingObserve(mVm)
-        createObserver()
     }
 
     /**

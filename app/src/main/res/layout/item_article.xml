@@ -117,7 +117,6 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 style="@style/home_tag_style"
                 visible="@{item.showTags()}"
@@ -130,7 +129,7 @@
                 app:qmui_radius="2dp" />
 
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:layout_weight="1"
@@ -140,9 +139,11 @@
 
             <ImageView
                 android:id="@+id/collection"
-                android:layout_width="22dp"
-                android:layout_height="22dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
                 android:src="@{item.collect? @drawable/svg_collection_select: @drawable/svg_collection_normal}" />
         </LinearLayout>
 

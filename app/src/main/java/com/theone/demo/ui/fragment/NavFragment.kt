@@ -32,7 +32,7 @@ import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
  * @email 625805189@qq.com
  * @remark
  */
-class NavFragment:BaseDemoPagerListFragment<NavigationResponse,NavAdapter,NavViewModel,BaseRecyclerPagerFragmentBinding>() {
+class NavFragment:BaseDemoPagerListFragment<NavigationResponse,NavViewModel>() {
 
     override fun createAdapter(): NavAdapter  = NavAdapter(this)
 

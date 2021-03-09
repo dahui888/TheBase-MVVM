@@ -13,16 +13,13 @@ import com.qmuiteam.qmui.qqface.QMUIQQFaceView
 import com.qmuiteam.qmui.util.QMUIColorHelper
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.theone.demo.R
-import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.BannerResponse
-import com.theone.demo.ui.adapter.ArticleAdapter
 import com.theone.demo.viewmodel.HomeViewModel
 import com.theone.demo.app.widge.OffsetLinearLayoutManager
 import com.theone.demo.app.widge.banner.BannerViewHolder
 import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.base.ext.util.logE
-import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
-import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
+import com.theone.mvvm.widge.SpacesItemDecoration
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 
@@ -54,6 +51,8 @@ import com.zhpan.bannerview.constants.IndicatorGravity
 class HomeFragment :
     ArticleFragment<HomeViewModel>() {
 
+    private fun showBanner(): Boolean = true
+
     private var mBannerViewPager: BannerViewPager<BannerResponse, BannerViewHolder>? = null
     private var mMaxOffsetHeight: Float = 0f
     private var isLightMode: Boolean = true
@@ -62,91 +61,97 @@ class HomeFragment :
 
     override fun isNeedChangeStatusBarMode(): Boolean = true
 
-    override fun isStatusBarLightMode(): Boolean = true
+    override fun isStatusBarLightMode(): Boolean = if (showBanner()) isLightMode else true
 
     override fun showTitleBar(): Boolean = true
 
-    override fun translucentFull(): Boolean = false
+    override fun translucentFull(): Boolean = showBanner()
 
     override fun initView(rootView: View) {
         super.initView(rootView)
         getTopBar()?.run {
             mTitleView = setTitle("首页")
-//            setBackgroundAlpha(0)
+            if (showBanner())
+                setBackgroundAlpha(0)
         }
     }
 
     override fun createObserver() {
         super.createObserver()
-        mVm.getBanners().observe(viewLifecycleOwner, Observer {
-            mBannerViewPager?.create(it)
-            setStatusBarMode(false)
-        })
+        if (showBanner())
+            mVm.getBanners().observe(viewLifecycleOwner, Observer {
+                "getBanners().observe".logE(TAG)
+                mBannerViewPager?.create(it)
+                setStatusBarMode(false)
+            })
     }
 
     override fun initAdapter() {
         super.initAdapter()
-        val mBannerHeight = dp2px(250)
-        mMaxOffsetHeight = (mBannerHeight - QMUIResHelper.getAttrDimen(
-            mActivity,
-            R.attr.qmui_topbar_height
-        )).toFloat()
-        mBannerViewPager = BannerViewPager<BannerResponse, BannerViewHolder>(mActivity)
-        mBannerViewPager?.run {
-            layoutParams = ViewGroup.LayoutParams(matchParent, mBannerHeight)
-            setIndicatorGravity(IndicatorGravity.END)
-            setIndicatorSliderColor(
-                getColor(mActivity, R.color.white),
-                QMUIResHelper.getAttrColor(mActivity, R.attr.app_skin_primary_color)
-            )
-            setHolderCreator { BannerViewHolder() }
-            setOnPageClickListener { position: Int ->
+        if (showBanner()) {
+            val mBannerHeight = dp2px(250)
+            mMaxOffsetHeight = (mBannerHeight - QMUIResHelper.getAttrDimen(
+                mActivity,
+                R.attr.qmui_topbar_height
+            )).toFloat()
+            mBannerViewPager = BannerViewPager<BannerResponse, BannerViewHolder>(mActivity)
+            mBannerViewPager?.run {
+                layoutParams = ViewGroup.LayoutParams(matchParent, mBannerHeight)
+                setIndicatorGravity(IndicatorGravity.END)
+                setIndicatorSliderColor(
+                    getColor(mActivity, R.color.white),
+                    QMUIResHelper.getAttrColor(mActivity, R.attr.app_skin_primary_color)
+                )
+                setHolderCreator { BannerViewHolder() }
+                setOnPageClickListener { position: Int ->
 
+                }
+                mAdapter.addHeaderView(this)
             }
         }
-//        mAdapter.addHeaderView(mBannerViewPager!!)
     }
 
     override fun initRecyclerView() {
         super.initRecyclerView()
-//        mRecyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
-//            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-//                super.onScrolled(recyclerView, dx, dy)
-//                val offsetLinearLayoutManager =
-//                    recyclerView.layoutManager as OffsetLinearLayoutManager
-//                val y = offsetLinearLayoutManager.computeVerticalScrollOffset(null)
-//                val percent: Float = if (y > mMaxOffsetHeight)
-//                    1.0f
-//                else
-//                    y / mMaxOffsetHeight
-//                val isLight = percent > 0.6
-//                if (!isLightMode && isLight) {
-//                    setStatusBarMode(true)
-//                } else if (isLightMode && !isLight) {
-//                    setStatusBarMode(false)
-//                }
-//                mTitleView.setTextColor(
-//                    getColorAlpha(
-//                        percent,
-//                        R.color.qmui_config_color_gray_1
-//                    )
-//                )
-//                getTopBar()?.run {
-//                    updateBottomSeparatorColor(
-//                        getColorAlpha(
-//                            percent,
-//                            R.color.qmui_config_color_separator
-//                        )
-//                    )
-//                    setBackgroundColor(
-//                        getColorAlpha(
-//                            percent,
-//                            R.color.qmui_config_color_white
-//                        )
-//                    )
-//                }
-//            }
-//        })
+        if (showBanner())
+            getRecyclerView().addOnScrollListener(object : RecyclerView.OnScrollListener() {
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
+                    val offsetLinearLayoutManager =
+                        recyclerView.layoutManager as OffsetLinearLayoutManager
+                    val y = offsetLinearLayoutManager.computeVerticalScrollOffset(null)
+                    val percent: Float = if (y > mMaxOffsetHeight)
+                        1.0f
+                    else
+                        y / mMaxOffsetHeight
+                    val isLight = percent > 0.6
+                    if (!isLightMode && isLight) {
+                        setStatusBarMode(true)
+                    } else if (isLightMode && !isLight) {
+                        setStatusBarMode(false)
+                    }
+                    mTitleView.setTextColor(
+                        getColorAlpha(
+                            percent,
+                            R.color.qmui_config_color_gray_1
+                        )
+                    )
+                    getTopBar()?.run {
+                        updateBottomSeparatorColor(
+                            getColorAlpha(
+                                percent,
+                                R.color.qmui_config_color_separator
+                            )
+                        )
+                        setBackgroundColor(
+                            getColorAlpha(
+                                percent,
+                                R.color.qmui_config_color_white
+                            )
+                        )
+                    }
+                }
+            })
     }
 
     private fun getColorAlpha(percent: Float, color: Int): Int {
@@ -168,7 +173,7 @@ class HomeFragment :
      */
     private fun setStatusBarMode(isLight: Boolean) {
         isLightMode = isLight
-        if(isShow){
+        if (isShow) {
             setBannerStatus(isShow)
             updateStatusBarMode(isLight)
         }
@@ -179,25 +184,28 @@ class HomeFragment :
      * @param start
      */
     private fun setBannerStatus(start: Boolean) {
-//        mBannerViewPager?.run {
-//            if (start) {
-//                "startLoop ${this.javaClass.simpleName}".logE()
-//                startLoop()
-//            } else {
-//                "stopLoop ${this.javaClass.simpleName}".logE()
-//                stopLoop()
-//            }
-//        }
+        if (showBanner())
+            mBannerViewPager?.run {
+                if (start) {
+                    "startLoop ${this.javaClass.simpleName}".logE()
+                    startLoop()
+                } else {
+                    "stopLoop ${this.javaClass.simpleName}".logE()
+                    stopLoop()
+                }
+            }
     }
 
     override fun onFirstLoading() {
-        super.onFirstLoading()
-//        mVm.requestBanner()
+//        super.onFirstLoading()
+//        if (showBanner())
+//            mVm.requestBanner()
     }
 
     override fun onRefresh() {
         super.onRefresh()
-//        mVm.requestBanner()
+        if (showBanner())
+            mVm.requestBanner()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

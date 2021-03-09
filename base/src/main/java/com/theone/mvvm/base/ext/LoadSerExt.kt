@@ -6,6 +6,7 @@ import android.widget.TextView
 import com.theone.mvvm.widge.loadsir.core.LoadService
 import com.theone.mvvm.widge.loadsir.core.LoadSir
 import com.theone.mvvm.R
+import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.widge.loadsir.callback.ErrorCallback
 import com.theone.mvvm.widge.loadsir.callback.LoadingCallback
 
@@ -37,12 +38,10 @@ import com.theone.mvvm.widge.loadsir.callback.LoadingCallback
 
 
 fun loadSirInit(view: View, callback: () -> Unit): LoadService<Any> {
-    val loadSir = LoadSir.getDefault().register(view) {
+    return LoadSir.getDefault().register(view) {
         //点击重试时触发的操作
         callback.invoke()
     }
-    loadSir.showLoading()
-    return loadSir
 }
 
 /**
@@ -77,4 +76,24 @@ fun LoadService<*>.showEmpty() {
  */
 fun LoadService<*>.showLoading() {
     this.showCallback(LoadingCallback::class.java)
+}
+
+fun BaseFragment.showContentPage(){
+    mLoadSir.showSuccess()
+}
+
+fun BaseFragment.showLoadingPage(){
+    mLoadSir.showLoading()
+}
+
+fun BaseFragment.showErrorPage(message: String, imageRes:Int = R.drawable.status_loading_view_loading_fail){
+    mLoadSir.showError(message,imageRes)
+}
+
+fun BaseFragment.showEmptyPage(message: String, imageRes:Int = R.drawable.status_search_result_empty){
+    mLoadSir.showEmpty(message,imageRes)
+}
+
+fun BaseFragment.showEmptyPage(){
+    mLoadSir.showEmpty()
 }

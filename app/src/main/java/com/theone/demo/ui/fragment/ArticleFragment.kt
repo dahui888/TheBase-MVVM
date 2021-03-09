@@ -42,7 +42,7 @@ import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
  * @remark
  */
 abstract class ArticleFragment<VM : ArticleViewModel> :
-    BaseDemoPagerListFragment<ArticleResponse, ArticleAdapter, VM, BaseRecyclerPagerFragmentBinding>(),
+    BaseDemoPagerListFragment<ArticleResponse, VM>(),
     OnItemChildClickListener {
 
     private val mEventVm: EventViewModel by lazy { getAppViewModel<EventViewModel>() }
@@ -67,7 +67,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
             for (index in mAdapter.data.indices) {
                 if (mAdapter.data[index].id == it.id) {
                     mAdapter.data[index].collect = it.collect
-                    mAdapter.notifyItemChanged(index)
+                    mAdapter.notifyItemChanged(index+mAdapter.headerLayoutCount)
                     break
                 }
             }

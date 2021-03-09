@@ -2,6 +2,8 @@ package com.theone.mvvm.base.ext
 
 import android.view.View
 import android.view.ViewGroup
+import com.qmuiteam.qmui.kotlin.matchParent
+import com.qmuiteam.qmui.kotlin.wrapContent
 
 
 //  ┏┓　　　┏┓
@@ -53,3 +55,6 @@ fun goneViews( vararg views: View?){
 fun showViews( vararg views: View?){
     setVisible(View.VISIBLE,*views)
 }
+
+val match_match :ViewGroup.LayoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
+val match_wrap :ViewGroup.LayoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)

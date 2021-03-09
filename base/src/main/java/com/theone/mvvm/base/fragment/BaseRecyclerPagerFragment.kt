@@ -18,8 +18,10 @@ import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.base.ext.net.loadListData
 import com.theone.mvvm.base.ext.net.loadListError
 import com.theone.mvvm.base.ext.showLoading
+import com.theone.mvvm.base.ext.showLoadingPage
 import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.widge.SpacesItemDecoration
+import kotlinx.android.synthetic.main.base_recycler_pager_fragment.*
 
 
 //  ┏┓　　　┏┓
@@ -47,16 +49,17 @@ import com.theone.mvvm.widge.SpacesItemDecoration
  * @remark
  */
 abstract class BaseRecyclerPagerFragment
-<T, AP : BaseQuickAdapter<T, *>, VM : BaseListViewModel<T>, DB : ViewDataBinding>
-    : BaseVmDbFragment<VM, DB>(),
+<T, VM : BaseListViewModel<T>>
+    : BaseVmFragment<VM>(),
     SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, OnItemClickListener {
 
     lateinit var mAdapter: BaseQuickAdapter<T, *>
-    lateinit var mRefreshLayout: SwipeRefreshLayout
-    lateinit var mRecyclerView: RecyclerView
 
     override fun getLayoutId(): Int = R.layout.base_recycler_pager_fragment
-    abstract fun createAdapter(): AP
+    abstract fun createAdapter(): BaseQuickAdapter<T, *>
+
+    protected open fun getRecyclerView(): RecyclerView = recyclerView
+    protected open fun getRefreshLayout(): SwipeRefreshLayout = swipeRefresh
 
     override fun onLazyInit() {
         onFirstLoading()
@@ -73,15 +76,17 @@ abstract class BaseRecyclerPagerFragment
     }
 
     open fun initAdapter() {
-        mAdapter = createAdapter()
-        mAdapter.loadMoreModule.setOnLoadMoreListener(this)
-        mAdapter.setOnItemClickListener(this)
+        mAdapter = createAdapter().apply {
+            loadMoreModule.setOnLoadMoreListener(this@BaseRecyclerPagerFragment)
+            setOnItemClickListener(this@BaseRecyclerPagerFragment)
+        }
     }
 
     open fun initRecyclerView() {
-        mRecyclerView = mDB.root.findViewById(R.id.recyclerView)
-        mRecyclerView.run {
-            addItemDecoration(getSpacesItemDecoration())
+        getRecyclerView().run {
+            getSpacesItemDecoration()?.run {
+                addItemDecoration(this)
+            }
             layoutManager = getLayoutManager(mVm.type.value)
             adapter = mAdapter
         }
@@ -92,7 +97,10 @@ abstract class BaseRecyclerPagerFragment
         layoutManager = when (type) {
             LayoutManagerType.GRID -> GridLayoutManager(mActivity, mVm.column.value)
             LayoutManagerType.STAGGERED -> {
-                val m = StaggeredGridLayoutManager(mVm.column.value, StaggeredGridLayoutManager.VERTICAL)
+                val m = StaggeredGridLayoutManager(
+                    mVm.column.value,
+                    StaggeredGridLayoutManager.VERTICAL
+                )
                 m.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
                 return m
             }
@@ -101,7 +109,7 @@ abstract class BaseRecyclerPagerFragment
         return layoutManager
     }
 
-    open fun getSpacesItemDecoration(): SpacesItemDecoration {
+    open fun getSpacesItemDecoration(): SpacesItemDecoration? {
         val space = QMUIDisplayHelper.dp2px(mActivity, mVm.space.value)
         return SpacesItemDecoration(
             if (mVm.type.value == LayoutManagerType.LIST) 1 else mVm.column.value,
@@ -111,22 +119,21 @@ abstract class BaseRecyclerPagerFragment
     }
 
     open fun initPullRefreshLayout() {
-        mRefreshLayout = mDB.root.findViewById(R.id.swipeRefresh)
-        mRefreshLayout.isEnabled = false
-        mRefreshLayout.setOnRefreshListener(this@BaseRecyclerPagerFragment)
+        getRefreshLayout().run {
+            isEnabled = false
+            setOnRefreshListener(this@BaseRecyclerPagerFragment)
+        }
     }
 
     override fun createObserver() {
         mVm.run {
             type.observe(viewLifecycleOwner, Observer {
-                mRecyclerView.layoutManager = getLayoutManager(it)
+                getRecyclerView().layoutManager = getLayoutManager(it)
             })
             getResponseLiveData().observe(viewLifecycleOwner, Observer {
-                "Observer getResponse ${this.javaClass.simpleName}".logE()
                 loadListData(mVm, mAdapter, mLoadSir)
             })
             getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-                "Observer getErrorMsg ${this.javaClass.simpleName}".logE()
                 loadListError(
                     it,
                     mVm,
@@ -135,20 +142,21 @@ abstract class BaseRecyclerPagerFragment
                 )
             })
             getFinallyLiveData().observe(viewLifecycleOwner, Observer {
-                "Observer Finally ${this.javaClass.simpleName}".logE()
                 onRefreshComplete()
             })
         }
     }
 
-    open fun onRefreshComplete(){
-        mRefreshLayout.isEnabled = true
-        mRefreshLayout.isRefreshing = false
+    open fun onRefreshComplete() {
+        getRefreshLayout().run {
+            isEnabled = true
+            isRefreshing = false
+        }
     }
 
     open fun onFirstLoading() {
-        mLoadSir.showLoading()
-        mRecyclerView.scrollToPosition(0)
+        showLoadingPage()
+        getRecyclerView().scrollToPosition(0)
         mVm.isFirst.value = true
         mVm.requestNewData()
     }
@@ -162,6 +170,6 @@ abstract class BaseRecyclerPagerFragment
         mVm.requestServer()
     }
 
-    override fun getViewModelIndex(): Int  = 2
+    override fun getViewModelIndex(): Int = 1
 
 }

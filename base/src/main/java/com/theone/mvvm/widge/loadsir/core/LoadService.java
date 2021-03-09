@@ -8,10 +8,6 @@ import android.widget.LinearLayout;
 
 import com.theone.mvvm.widge.loadsir.callback.Callback;
 import com.theone.mvvm.widge.loadsir.callback.SuccessCallback;
-import com.theone.mvvm.widge.loadsir.core.Convertor;
-import com.theone.mvvm.widge.loadsir.core.LoadLayout;
-import com.theone.mvvm.widge.loadsir.core.LoadSir;
-import com.theone.mvvm.widge.loadsir.core.Transport;
 
 import java.util.List;
 
@@ -23,10 +19,10 @@ import java.util.List;
  */
 public class LoadService<T> {
     private final String TAG = getClass().getSimpleName();
-    private com.theone.mvvm.widge.loadsir.core.LoadLayout loadLayout;
-    private com.theone.mvvm.widge.loadsir.core.Convertor<T> convertor;
+    private LoadLayout loadLayout;
+    private Convertor<T> convertor;
 
-    LoadService(Convertor<T> convertor, com.theone.mvvm.widge.loadsir.core.LoadLayout loadLayout, com.theone.mvvm.widge.loadsir.core.LoadSir.Builder builder) {
+    LoadService(Convertor<T> convertor, LoadLayout loadLayout, LoadSir.Builder builder) {
         this.convertor = convertor;
         this.loadLayout = loadLayout;
         initCallback(builder);

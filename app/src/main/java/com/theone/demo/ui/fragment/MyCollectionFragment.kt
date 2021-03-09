@@ -1,6 +1,7 @@
 package com.theone.demo.ui.fragment
 
 import androidx.fragment.app.Fragment
+import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.mvvm.base.entity.QMUITabBean
 import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
@@ -34,7 +35,7 @@ class MyCollectionFragment :BaseTabInTitleFragment<BaseViewModel>() {
 
     override fun initTabAndFragments(
         tabs: MutableList<QMUITabBean>,
-        fragments: MutableList<Fragment>
+        fragments: MutableList<QMUIFragment>
     ) {
        tabs.add(QMUITabBean("文章"))
         tabs.add(QMUITabBean("网址"))

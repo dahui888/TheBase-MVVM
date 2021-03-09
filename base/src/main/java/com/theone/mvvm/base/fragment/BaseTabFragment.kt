@@ -3,6 +3,7 @@ package com.theone.mvvm.base.fragment
 import android.content.Context
 import android.view.View
 import androidx.fragment.app.Fragment
+import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
@@ -12,6 +13,7 @@ import com.theone.mvvm.base.entity.QMUITabBean
 import com.theone.mvvm.base.ext.getLinePagerIndicator
 import com.theone.mvvm.base.ext.getPagerTitleView
 import com.theone.mvvm.base.ext.qmui.init
+import com.theone.mvvm.base.ext.showContentPage
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -47,11 +49,11 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
 
     private var mTabs: MutableList<QMUITabBean> = mutableListOf()
-    private var mFragments: MutableList<Fragment> = mutableListOf()
+    private var mFragments: MutableList<QMUIFragment> = mutableListOf()
 
     private lateinit var mPagerAdapter: TabFragmentAdapter
 
-    abstract fun initTabAndFragments(tabs: MutableList<QMUITabBean>, fragments: MutableList<Fragment>)
+    abstract fun initTabAndFragments(tabs: MutableList<QMUITabBean>, fragments: MutableList<QMUIFragment>)
 
     abstract fun getViewPager(): QMUIViewPager
     abstract fun getTabSegment(): QMUITabSegment?
@@ -68,11 +70,13 @@ abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
     }
 
     protected open fun startInit() {
+        mTabs.clear()
+        mFragments.clear()
         initTabAndFragments(mTabs, mFragments)
         initViewPager()
         initSegment()
         initMagicIndicator()
-        mLoadSir.showSuccess()
+        showContentPage()
     }
 
     protected open fun initViewPager() {

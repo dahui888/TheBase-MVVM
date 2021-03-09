@@ -10,22 +10,21 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
-import com.theone.mvvm.widge.loadsir.core.LoadService
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.kotlin.matchParent
-import com.qmuiteam.qmui.kotlin.wrapContent
+import com.qmuiteam.qmui.skin.QMUISkinManager
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.util.QMUIKeyboardHelper
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.theone.mvvm.R
 import com.theone.mvvm.base.ext.loadSirInit
-import com.theone.mvvm.base.ext.qmui.showLoadingDialog
+import com.theone.mvvm.base.ext.match_wrap
 import com.theone.mvvm.base.ext.setMargin
 import com.theone.mvvm.base.ext.util.logE
+import com.theone.mvvm.widge.loadsir.core.LoadService
 
 
 //  ┏┓　　　┏┓
@@ -54,15 +53,16 @@ import com.theone.mvvm.base.ext.util.logE
  */
 abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
-    protected val TAG: String = this.javaClass.simpleName
+    val TAG: String = this.javaClass.simpleName
 
     lateinit var mActivity: AppCompatActivity
-
-    lateinit var mBody: View
 
     //界面状态管理者
     lateinit var mLoadSir: LoadService<Any>
     private var mTopBar: QMUITopBarLayout? = null
+    private val mBody: View by lazy {
+        createContentView()
+    }
 
     /**
      * 是否为根Fragment： getParentFragment() 为空
@@ -80,7 +80,6 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     protected open fun onReLoad() {}
 
     override fun onCreateView(): View {
-        mBody = createContentView()
         if (showTitleBar()) {
             val root = QMUIWindowInsetLayout(mActivity)
             root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
@@ -88,9 +87,13 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
             root.addView(mBody)
             // 这个一定要放在addView后面
             if (!translucentFull()) {
+                val margin = QMUIResHelper.getAttrDimen(
+                    mActivity,
+                    R.attr.qmui_topbar_height
+                )
                 mBody.setMargin(
                     0,
-                    QMUIResHelper.getAttrDimen(mActivity, R.attr.qmui_topbar_height),
+                    margin,
                     0,
                     0
                 )
@@ -102,25 +105,26 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     }
 
     override fun onViewCreated(rootView: View) {
+        mIsFirstLayInit = true
         initView(rootView)
         mLoadSir = loadSirInit(mBody) {
             onReLoad()
         }
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        lazyViewLifecycleOwner.lifecycle.addObserver(this)
+    }
+
     private fun createQMUITopBarLayout(): QMUITopBarLayout {
         mTopBar = QMUITopBarLayout(mActivity)
-        mTopBar!!.layoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
+        mTopBar!!.layoutParams = match_wrap
         mTopBar!!.fitsSystemWindows = true
         return mTopBar!!
     }
 
     protected open fun getTopBar(): QMUITopBarLayout? = mTopBar
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        lazyViewLifecycleOwner.lifecycle.addObserver(this)
-    }
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -136,8 +140,19 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+
+    /**
+     * 懒加载分两种情况
+     * 1.在动画结束后开始进行加载
+     * 2.当前Fragment为子Fragment时，比如ViewPager的ItemFragment,或者点击切换的，这种情况下当界面可见时才进行加载
+     *
+     * 这里自动根据 [.isIndexFragment] 判断是以哪种情况进行懒加载
+     */
+    abstract fun onLazyInit()
+
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     open fun onLazyResume() {
+        "onResume $TAG".logE("onResume")
         if (isNeedChangeStatusBarMode()) {
             updateStatusBarMode(isStatusBarLightMode())
         }
@@ -153,19 +168,11 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         }
     }
 
-    /**
-     * 懒加载分两种情况
-     * 1.在动画结束后开始进行加载
-     * 2.当前Fragment为子Fragment时，比如ViewPager的ItemFragment,或者点击切换的，这种情况下当界面可见时才进行加载
-     *
-     * 这里自动根据 [.isIndexFragment] 判断是以哪种情况进行懒加载
-     */
-    abstract fun onLazyInit()
-
     private fun checkLazyInit() {
         if (mIsFirstLayInit) {
-            mIsFirstLayInit = false
+            "checkLazyInit $TAG".logE("checkLazyInit")
             view?.post {
+                mIsFirstLayInit = false
                 onLazyInit()
             }
         }
@@ -195,6 +202,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
      * 支持 4.4 以上版本 MIUI 和 Flyme，以及 6.0 以上版本的其他 Android
      */
     protected open fun updateStatusBarMode(isLight: Boolean) {
+        "updateStatusBarMode $isLight".logE(TAG)
         if (isLight) {
             QMUIStatusBarHelper.setStatusBarLightMode(mActivity)
         } else {

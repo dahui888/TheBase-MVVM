@@ -1,7 +1,6 @@
 package com.theone.demo.ui.fragment
 
 import androidx.core.content.ContextCompat
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.demo.R
@@ -33,12 +32,12 @@ import com.theone.mvvm.base.viewmodel.BaseListViewModel
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseDemoPagerListFragment<T, AP : BaseQuickAdapter<T, *>, VM : BaseListViewModel<T>, DB : ViewDataBinding>:BaseRecyclerPagerFragment<T,AP,VM,DB>() {
+abstract class BaseDemoPagerListFragment<T, VM : BaseListViewModel<T>>:BaseRecyclerPagerFragment<T,VM>() {
 
     override fun createObserver() {
         super.createObserver()
         mVm.firstLoadSuccess.observe(viewLifecycleOwner, Observer {
-            mRecyclerView.setBackgroundColor(
+            getRecyclerView().setBackgroundColor(
                 ContextCompat.getColor(
                     mActivity,
                     R.color.qmui_config_color_background

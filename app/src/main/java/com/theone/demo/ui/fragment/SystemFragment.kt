@@ -32,7 +32,7 @@ import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
  * @email 625805189@qq.com
  * @remark
  */
-class SystemFragment:BaseDemoPagerListFragment<SystemResponse,SystemAdapter,SystemViewModel,BaseRecyclerPagerFragmentBinding>() {
+class SystemFragment:BaseDemoPagerListFragment<SystemResponse,SystemViewModel>() {
 
     override fun createAdapter(): SystemAdapter  = SystemAdapter(this)
 

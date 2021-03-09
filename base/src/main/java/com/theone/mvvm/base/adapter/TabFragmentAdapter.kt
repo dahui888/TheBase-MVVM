@@ -1,9 +1,13 @@
 package com.theone.mvvm.base.adapter
 
+import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
+import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.PagerAdapter
+import com.qmuiteam.qmui.arch.QMUIFragment
+import com.qmuiteam.qmui.arch.QMUIFragmentPagerAdapter
 
 
 //  ┏┓　　　┏┓
@@ -30,15 +34,10 @@ import androidx.viewpager.widget.PagerAdapter
  * @email 625805189@qq.com
  * @remark
  */
-class TabFragmentAdapter(fm:FragmentManager,private val mFragments : List<Fragment>) :FragmentPagerAdapter(fm,
-    BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
-) {
+class TabFragmentAdapter(fm:FragmentManager,private val mFragments : List<QMUIFragment>) :
+    QMUIFragmentPagerAdapter(fm) {
 
     private var mChildCount = 0
-
-    override fun getItem(position: Int): Fragment {
-       return mFragments[position]
-    }
 
     override fun getCount(): Int  = mFragments.size
 
@@ -47,6 +46,8 @@ class TabFragmentAdapter(fm:FragmentManager,private val mFragments : List<Fragme
             PagerAdapter.POSITION_NONE
         } else super.getItemPosition(`object`)
     }
+
+    override fun createFragment(position: Int): QMUIFragment  = mFragments[position]
 
     override fun notifyDataSetChanged() {
         mChildCount = count

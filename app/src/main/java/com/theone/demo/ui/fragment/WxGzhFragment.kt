@@ -2,6 +2,7 @@ package com.theone.demo.ui.fragment
 
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.viewmodel.WxGzhViewModel
 import com.theone.mvvm.base.entity.QMUITabBean
@@ -47,7 +48,7 @@ class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
 
     override fun initTabAndFragments(
         tabs: MutableList<QMUITabBean>,
-        fragments: MutableList<Fragment>
+        fragments: MutableList<QMUIFragment>
     ) {
 
         for (data in mResponse) {

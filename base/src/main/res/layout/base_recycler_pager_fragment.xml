@@ -5,9 +5,9 @@
 
     </data>
 
-    <com.qmuiteam.qmui.layout.QMUIFrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+<!--    <FrameLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
 
         <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
@@ -21,7 +21,6 @@
                 android:scrollbars="none" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-    </com.qmuiteam.qmui.layout.QMUIFrameLayout>
 
-
+<!--    </FrameLayout>-->
 </layout>

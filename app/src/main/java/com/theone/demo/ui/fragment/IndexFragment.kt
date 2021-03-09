@@ -1,6 +1,7 @@
 package com.theone.demo.ui.fragment
 
 import androidx.fragment.app.Fragment
+import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.theone.demo.R
 import com.theone.mvvm.base.fragment.BaseHomeFragment
@@ -45,7 +46,7 @@ class IndexFragment : BaseHomeFragment<BaseViewModel>() {
 
     override fun initTabAndFragments(
         tabs: MutableList<QMUITabBean>,
-        fragments: MutableList<Fragment>
+        fragments: MutableList<QMUIFragment>
     ) {
         // 选中图标的颜色也可以在这里设置 - R.drawable.svg_home_select 本身的颜色的是灰色的，选中变色是因为 skinChangeWithTintColor = true
         tabs.add(QMUITabBean("首页", R.drawable.svg_home, R.drawable.svg_home_select))
