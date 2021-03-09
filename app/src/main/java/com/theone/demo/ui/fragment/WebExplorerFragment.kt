@@ -76,13 +76,16 @@ open class WebExplorerFragment : BaseFragment() {
     override fun initView(rootView: View) {
         mArticle = requireArguments().getParcelable("DATA")!!
         initTopBar()
-        initWebView()
     }
 
     private fun initTopBar() {
         topbar.run {
             setTitleWithBackBtn(mArticle.title, this@WebExplorerFragment)
         }
+    }
+
+    override fun onLazyInit() {
+        initWebView()
     }
 
     private fun initWebView() {
@@ -247,9 +250,6 @@ open class WebExplorerFragment : BaseFragment() {
 
     }
 
-    override fun onLazyInit() {
-
-    }
 
     override fun onDestroyView() {
         super.onDestroyView()

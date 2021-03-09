@@ -1,10 +1,9 @@
 package com.theone.demo.ui.fragment
 
-import androidx.fragment.app.Fragment
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.theone.demo.R
-import com.theone.mvvm.base.fragment.BaseHomeFragment
+import com.theone.mvvm.base.fragment.BaseIndexTabFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.base.entity.QMUITabBean
 
@@ -33,7 +32,7 @@ import com.theone.mvvm.base.entity.QMUITabBean
  * @email 625805189@qq.com
  * @remark
  */
-class IndexFragment : BaseHomeFragment<BaseViewModel>() {
+class IndexFragment : BaseIndexTabFragment<BaseViewModel>() {
 
     override fun isNeedChangeStatusBarMode(): Boolean = false
 

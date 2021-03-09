@@ -42,8 +42,13 @@ import rxhttp.wrapper.ssl.HttpsUtils;
  */
 public class RxHttpManager {
 
+    private static PersistentCookieJar cookieJar;
+
     public static PersistentCookieJar getCookieJar(){
-        return new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(BaseApplication.INSTANCE));
+        if(null == cookieJar){
+            cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(BaseApplication.INSTANCE));
+        }
+        return cookieJar;
     }
 
     public static OkHttpClient getHttpClient(HttpBuilder builder) {

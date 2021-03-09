@@ -23,6 +23,7 @@ import com.theone.mvvm.R
 import com.theone.mvvm.base.ext.loadSirInit
 import com.theone.mvvm.base.ext.match_wrap
 import com.theone.mvvm.base.ext.setMargin
+import com.theone.mvvm.base.ext.updateStatusBarMode
 import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.widge.loadsir.core.LoadService
 
@@ -152,7 +153,6 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     open fun onLazyResume() {
-        "onResume $TAG".logE("onResume")
         if (isNeedChangeStatusBarMode()) {
             updateStatusBarMode(isStatusBarLightMode())
         }
@@ -170,7 +170,6 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
     private fun checkLazyInit() {
         if (mIsFirstLayInit) {
-            "checkLazyInit $TAG".logE("checkLazyInit")
             view?.post {
                 mIsFirstLayInit = false
                 onLazyInit()
@@ -193,25 +192,6 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     protected open fun isStatusBarLightMode(): Boolean {
         return true
     }
-
-    /**
-     * 更新状态栏模式
-     *
-     * @param isLight true 设置状态栏黑色字体图标，
-     *
-     * 支持 4.4 以上版本 MIUI 和 Flyme，以及 6.0 以上版本的其他 Android
-     */
-    protected open fun updateStatusBarMode(isLight: Boolean) {
-        "updateStatusBarMode $isLight".logE(TAG)
-        if (isLight) {
-            QMUIStatusBarHelper.setStatusBarLightMode(mActivity)
-        } else {
-            QMUIStatusBarHelper.setStatusBarDarkMode(mActivity)
-        }
-    }
-
-    fun dp2px(dp: Int): Int = QMUIDisplayHelper.dp2px(mActivity, dp)
-    fun sp2px(dp: Int): Int = QMUIDisplayHelper.sp2px(mActivity, dp)
 
     /**
      * 向外提供的关闭方法

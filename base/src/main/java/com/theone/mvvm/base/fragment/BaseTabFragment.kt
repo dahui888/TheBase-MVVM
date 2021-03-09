@@ -2,7 +2,6 @@ package com.theone.mvvm.base.fragment
 
 import android.content.Context
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
@@ -51,6 +50,7 @@ abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
     private var mTabs: MutableList<QMUITabBean> = mutableListOf()
     private var mFragments: MutableList<QMUIFragment> = mutableListOf()
 
+    private var isInit:Boolean = false
     private lateinit var mPagerAdapter: TabFragmentAdapter
 
     abstract fun initTabAndFragments(tabs: MutableList<QMUITabBean>, fragments: MutableList<QMUIFragment>)
@@ -70,6 +70,7 @@ abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
     }
 
     protected open fun startInit() {
+        if(isInit) return
         mTabs.clear()
         mFragments.clear()
         initTabAndFragments(mTabs, mFragments)
@@ -77,6 +78,7 @@ abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
         initSegment()
         initMagicIndicator()
         showContentPage()
+        isInit = true
     }
 
     protected open fun initViewPager() {

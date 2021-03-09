@@ -14,6 +14,7 @@ import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.addToGroup
 import com.theone.mvvm.base.ext.qmui.createDetailItem
 import com.theone.mvvm.base.ext.qmui.showFailDialog
+import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -82,14 +83,18 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
     }
 
     override fun createObserver() {
+        "createObserver ".logE(TAG)
         appVm.userInfo.observe(viewLifecycleOwner, Observer {
+            "appVm.userInfo.observe".logE(TAG)
             it.notNull({
+                "appVm.userInfo.observe notNull".logE(TAG)
                 setUserInfo(it)
-                mVm.requestServer()
             }, {
+                "appVm.userInfo.observe null".logE(TAG)
                 mVm.name.set("请先登录~")
                 mVm.integral.set("积分")
                 mVm.rank.set("排名")
+                mVm.level.set("等级")
             })
         })
         mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
@@ -114,13 +119,13 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
             click = ProxyClick()
         }
         appVm.userInfo.value?.let {
+            "appVm.userInfo.value ".logE(TAG)
             setUserInfo(it)
-            mVm.requestServer()
         }
     }
 
     private fun setUserInfo(it: UserInfo) {
-        onRefreshingEnd()
+        mVm.requestServer()
         mVm.name.set(it.getUserName())
         mVm.id.set("ID "+ it.id)
         if (it.icon.isNotEmpty())
@@ -141,7 +146,7 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
 
             }
             mSetting ->{
-
+                startFragment(SettingFragment())
             }
         }
     }

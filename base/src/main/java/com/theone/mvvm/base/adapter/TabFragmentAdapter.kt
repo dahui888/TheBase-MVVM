@@ -53,4 +53,5 @@ class TabFragmentAdapter(fm:FragmentManager,private val mFragments : List<QMUIFr
         mChildCount = count
         super.notifyDataSetChanged()
     }
+
 }

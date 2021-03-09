@@ -32,7 +32,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseHomeFragment<VM : BaseViewModel> : BaseTabFragment<VM>() {
+abstract class BaseIndexTabFragment<VM : BaseViewModel> : BaseTabFragment<VM>() {
 
     override fun showTitleBar(): Boolean = false
 

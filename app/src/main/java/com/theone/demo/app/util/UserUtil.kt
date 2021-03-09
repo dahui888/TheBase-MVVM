@@ -3,6 +3,7 @@ package com.theone.demo.app.util
 import com.google.gson.Gson
 import com.theone.demo.data.model.bean.UserInfo
 import com.theone.mvvm.base.ext.util.logE
+import com.theone.mvvm.util.RxHttpManager
 
 
 //  ┏┓　　　┏┓
@@ -37,7 +38,7 @@ object UserUtil {
     fun isLogin(): Boolean = null != getUser()
 
     fun loginOut(){
-//        CookieUtil.removeAllCookie()
+        RxHttpManager.getCookieJar().clear()
         setUser(null)
     }
 
@@ -50,8 +51,6 @@ object UserUtil {
     fun getUser(): UserInfo? {
         val userStr = MMKVUtil.getString(USER)
         val userExist = !userStr.isNullOrEmpty()
-//        val cookieExist =CookieUtil.isExistCookie()
-//        "getUser $userExist $cookieExist".logE()
         return if (userExist)
             Gson().fromJson(userStr, UserInfo::class.java)
         else

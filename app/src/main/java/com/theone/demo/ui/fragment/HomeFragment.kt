@@ -18,8 +18,9 @@ import com.theone.demo.viewmodel.HomeViewModel
 import com.theone.demo.app.widge.OffsetLinearLayoutManager
 import com.theone.demo.app.widge.banner.BannerViewHolder
 import com.theone.mvvm.base.constant.LayoutManagerType
+import com.theone.mvvm.base.ext.dp2px
+import com.theone.mvvm.base.ext.updateStatusBarMode
 import com.theone.mvvm.base.ext.util.logE
-import com.theone.mvvm.widge.SpacesItemDecoration
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 
@@ -80,9 +81,7 @@ class HomeFragment :
         super.createObserver()
         if (showBanner())
             mVm.getBanners().observe(viewLifecycleOwner, Observer {
-                "getBanners().observe".logE(TAG)
                 mBannerViewPager?.create(it)
-                setStatusBarMode(false)
             })
     }
 
@@ -197,9 +196,9 @@ class HomeFragment :
     }
 
     override fun onFirstLoading() {
-//        super.onFirstLoading()
-//        if (showBanner())
-//            mVm.requestBanner()
+        super.onFirstLoading()
+        if (showBanner())
+            mVm.requestBanner()
     }
 
     override fun onRefresh() {
