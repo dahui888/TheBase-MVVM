@@ -64,11 +64,11 @@ class GroupListViewFragment : BaseVmFragment<BaseViewModel>(), CompoundButton.On
 //        groupListView.addToGroup(this,switch,custom)
 //        groupListView.addToGroup(this,item,item2)
 
-        val item = groupListView.createNormalItem("Title")
-        val item2 = groupListView.createNormalItem("Title2")
-        showNewTips(true,item)
-        showRedDots(false,item2)
-        groupListView.addToGroup(null,item,item2)
+//        val item = groupListView.createNormalItem("Title")
+//        val item2 = groupListView.createNormalItem("Title2")
+//        showNewTips(true,item)
+//        showRedDots(false,item2)
+//        groupListView.addToGroup(null,item,item2)
 
     }
 

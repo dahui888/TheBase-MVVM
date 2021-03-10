@@ -1,7 +1,6 @@
 package com.theone.mvvm.base.fragment
 
 import android.view.View
-import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,9 +16,7 @@ import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.base.ext.net.loadListData
 import com.theone.mvvm.base.ext.net.loadListError
-import com.theone.mvvm.base.ext.showLoading
 import com.theone.mvvm.base.ext.showLoadingPage
-import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.widge.SpacesItemDecoration
 import kotlinx.android.synthetic.main.base_recycler_pager_fragment.*
 
@@ -87,7 +84,7 @@ abstract class BaseRecyclerPagerFragment
             getSpacesItemDecoration()?.run {
                 addItemDecoration(this)
             }
-            layoutManager = getLayoutManager(mVm.type.value)
+            layoutManager = getLayoutManager(mViewModel.type.value)
             adapter = mAdapter
         }
     }
@@ -95,10 +92,10 @@ abstract class BaseRecyclerPagerFragment
     open fun getLayoutManager(type: LayoutManagerType?): RecyclerView.LayoutManager {
         val layoutManager: RecyclerView.LayoutManager
         layoutManager = when (type) {
-            LayoutManagerType.GRID -> GridLayoutManager(mActivity, mVm.column.value)
+            LayoutManagerType.GRID -> GridLayoutManager(mActivity, mViewModel.column.value)
             LayoutManagerType.STAGGERED -> {
                 val m = StaggeredGridLayoutManager(
-                    mVm.column.value,
+                    mViewModel.column.value,
                     StaggeredGridLayoutManager.VERTICAL
                 )
                 m.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
@@ -110,9 +107,9 @@ abstract class BaseRecyclerPagerFragment
     }
 
     open fun getSpacesItemDecoration(): SpacesItemDecoration? {
-        val space = QMUIDisplayHelper.dp2px(mActivity, mVm.space.value)
+        val space = QMUIDisplayHelper.dp2px(mActivity, mViewModel.space.value)
         return SpacesItemDecoration(
-            if (mVm.type.value == LayoutManagerType.LIST) 1 else mVm.column.value,
+            if (mViewModel.type.value == LayoutManagerType.LIST) 1 else mViewModel.column.value,
             mAdapter.headerLayoutCount,
             space
         )
@@ -126,17 +123,17 @@ abstract class BaseRecyclerPagerFragment
     }
 
     override fun createObserver() {
-        mVm.run {
+        mViewModel.run {
             type.observe(viewLifecycleOwner, Observer {
                 getRecyclerView().layoutManager = getLayoutManager(it)
             })
             getResponseLiveData().observe(viewLifecycleOwner, Observer {
-                loadListData(mVm, mAdapter, mLoadSir)
+                loadListData(mViewModel, mAdapter, mLoadSir)
             })
             getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
                 loadListError(
                     it,
-                    mVm,
+                    mViewModel,
                     mAdapter,
                     mLoadSir
                 )
@@ -157,17 +154,17 @@ abstract class BaseRecyclerPagerFragment
     open fun onFirstLoading() {
         showLoadingPage()
         getRecyclerView().scrollToPosition(0)
-        mVm.isFirst.value = true
-        mVm.requestNewData()
+        mViewModel.isFirst.value = true
+        mViewModel.requestNewData()
     }
 
     override fun onRefresh() {
-        mVm.isFresh.value = true
-        mVm.requestNewData()
+        mViewModel.isFresh.value = true
+        mViewModel.requestNewData()
     }
 
     override fun onLoadMore() {
-        mVm.requestServer()
+        mViewModel.requestServer()
     }
 
     override fun getViewModelIndex(): Int = 1

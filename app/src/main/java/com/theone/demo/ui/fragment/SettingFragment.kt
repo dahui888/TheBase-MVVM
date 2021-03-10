@@ -8,17 +8,17 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.theone.demo.R
 import com.theone.demo.app.util.UserUtil
+import com.theone.demo.databinding.FragmentSettingBinding
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.SettingViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.goneViews
 import com.theone.mvvm.base.ext.qmui.*
-import com.theone.mvvm.base.fragment.BaseVmFragment
+import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import kotlinx.android.synthetic.main.fragment_setting.*
 
-class SettingFragment : BaseVmFragment<SettingViewModel>(), View.OnClickListener,
+class SettingFragment : BaseVmDbFragment<SettingViewModel,FragmentSettingBinding>(), View.OnClickListener,
     QMUIDialogAction.ActionListener {
-
 
     val appVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
@@ -49,14 +49,12 @@ class SettingFragment : BaseVmFragment<SettingViewModel>(), View.OnClickListener
     }
 
     override fun createObserver() {
-        mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
+        mViewModel.getResponseLiveData().observe(viewLifecycleOwner, Observer {
             appVm.userInfo.value = null
             UserUtil.loginOut()
-            showSuccessDialog("退出成功"){
-                finish()
-            }
+            showSuccessExitDialog("退出成功")
         })
-        mVm.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+        mViewModel.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
             showFailDialog(it)
         })
     }
@@ -81,7 +79,7 @@ class SettingFragment : BaseVmFragment<SettingViewModel>(), View.OnClickListener
     override fun onClick(dialog: QMUIDialog?, index: Int) {
         dialog?.dismiss()
         if (index > 0) {
-            mVm.loginOut()
+            mViewModel.loginOut()
         }
     }
 

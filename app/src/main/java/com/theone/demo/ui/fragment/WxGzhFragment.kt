@@ -1,6 +1,5 @@
 package com.theone.demo.ui.fragment
 
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.data.model.bean.ClassifyResponse
@@ -43,7 +42,7 @@ class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
 
     override fun onLazyInit() {
         mLoadSir.showLoading()
-        mVm.requestServer()
+        mViewModel.requestServer()
     }
 
     override fun initTabAndFragments(
@@ -59,11 +58,11 @@ class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
     }
 
     override fun createObserver() {
-       mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
+       mViewModel.getResponseLiveData().observe(viewLifecycleOwner, Observer {
            mResponse = it
            startInit()
        })
-        mVm.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+        mViewModel.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
             mLoadSir.showError(it)
         })
     }

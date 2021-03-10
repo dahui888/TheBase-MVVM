@@ -1,6 +1,7 @@
 package com.theone.mvvm.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.mvvm.callback.livedata.StringLiveData
 import com.theone.mvvm.base.ext.util.logI
 import com.theone.mvvm.base.net.error.ErrorInfo
@@ -46,12 +47,10 @@ abstract class BaseRequestViewModel<T>:BaseViewModel() {
     fun getFinallyLiveData():BooleanLiveData = finally
 
     open fun onSuccess(response:T?){
-        "$TAG  onSuccess ".logI(TAG)
         getResponseLiveData().value = response
     }
 
     open fun onError(errorMsg:String,liveData :StringLiveData){
-        "$TAG  onError $errorMsg ".logI(TAG)
         liveData.value = errorMsg
     }
 

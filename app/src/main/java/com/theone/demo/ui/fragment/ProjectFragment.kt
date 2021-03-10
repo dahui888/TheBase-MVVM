@@ -1,7 +1,6 @@
 package com.theone.demo.ui.fragment
 
 import android.view.View
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.R
@@ -12,7 +11,6 @@ import com.theone.mvvm.base.entity.QMUITabBean
 import com.theone.mvvm.base.ext.showError
 import com.theone.mvvm.base.ext.showLoading
 import com.theone.mvvm.base.ext.util.logE
-import com.theone.mvvm.base.ext.util.logI
 
 
 //  ┏┓　　　┏┓
@@ -48,7 +46,7 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
     override fun onLazyInit() {
         "onLazyInit  $TAG".logE(TAG)
         mLoadSir.showLoading()
-        mVm.requestServer()
+        mViewModel.requestServer()
     }
 
     override fun onReLoad() {
@@ -76,11 +74,11 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
 
     override fun createObserver() {
         "createObserver  $TAG".logE(TAG)
-        mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
+        mViewModel.getResponseLiveData().observe(viewLifecycleOwner, Observer {
             mResponse = it
             startInit()
         })
-        mVm.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+        mViewModel.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
             mLoadSir.showError(it)
         })
     }

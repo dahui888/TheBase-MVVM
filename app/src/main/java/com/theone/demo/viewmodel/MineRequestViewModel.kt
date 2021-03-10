@@ -8,7 +8,6 @@ import com.theone.demo.data.model.bean.IntegralResponse
 import com.theone.mvvm.base.ext.request
 import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
-import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.callback.databind.BooleanObservableField
 import com.theone.mvvm.callback.databind.CharSequenceObservableField
 import com.theone.mvvm.callback.databind.IntObservableField
@@ -41,18 +40,18 @@ import rxhttp.wrapper.param.toResponse
  * @email 625805189@qq.com
  * @remark
  */
-class MineViewModel : BaseViewModel() {
+class MineRequestViewModel : BaseRequestViewModel<IntegralResponse>() {
 
-    var name = StringObservableField("请先登录~")
+    var isFirst =  BooleanObservableField(true)
 
-    var id = StringObservableField("ID")
-
-    var level = StringObservableField("等级")
-
-    var integral = StringObservableField("积分")
-
-    var rank = StringObservableField("排名")
-
-    var imageUrl = StringObservableField(ColorUtil.randomImage())
+    override fun requestServer() {
+        request({
+            val response = RxHttp.get(Url.USER_COIN)
+                .setCacheMode(getCacheMode(isFirst.get()))
+                .toResponse<IntegralResponse>()
+                .await()
+            onSuccess(response)
+        })
+    }
 
 }

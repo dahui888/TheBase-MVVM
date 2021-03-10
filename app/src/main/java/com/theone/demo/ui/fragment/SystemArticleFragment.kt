@@ -48,7 +48,7 @@ class SystemArticleFragment :
     override fun initData() {
         val data = requireArguments().getParcelable<ClassifyResponse>("DATA")
         getTopBar()?.setTitleWithBackBtn(data!!.name,this)
-        mVm.mId = data!!.id
+        mViewModel.mId = data!!.id
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

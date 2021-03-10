@@ -8,13 +8,10 @@ import com.theone.demo.R
 import com.theone.demo.app.util.checkLogin
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.ui.adapter.ArticleAdapter
-import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.ArticleViewModel
 import com.theone.demo.viewmodel.EventViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.showFailDialog
-import com.theone.mvvm.base.ext.util.logE
-import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -72,7 +69,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
                 }
             }
         })
-        mVm.getCollectionError().observe(viewLifecycleOwner, Observer {
+        mViewModel.getCollectionError().observe(viewLifecycleOwner, Observer {
             showFailDialog(it)
         })
     }
@@ -87,7 +84,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
     ) {
         checkLogin {
             val article = adapter.getItem(position) as ArticleResponse
-            mVm.collection(article,mEventVm)
+            mViewModel.collection(article,mEventVm)
         }
     }
 

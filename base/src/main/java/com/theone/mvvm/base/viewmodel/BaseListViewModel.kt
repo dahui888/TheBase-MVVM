@@ -1,10 +1,10 @@
 package com.theone.mvvm.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.callback.livedata.BooleanLiveData
 import com.theone.mvvm.callback.livedata.IntLiveData
-import com.theone.mvvm.callback.livedata.UnPeekLiveData
 import com.theone.mvvm.base.net.IPageInfo
 
 
@@ -42,7 +42,7 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
     val mPage: IntLiveData = IntLiveData()
     var goneLoadMoreEndView: Boolean = false
 
-    val type: UnPeekLiveData<LayoutManagerType> = UnPeekLiveData()
+    val type: MutableLiveData<LayoutManagerType> = MutableLiveData()
     val column :IntLiveData = IntLiveData()
     val space :IntLiveData = IntLiveData()
 

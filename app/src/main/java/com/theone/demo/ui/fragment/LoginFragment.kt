@@ -13,7 +13,7 @@ import com.theone.mvvm.base.ext.qmui.*
 
 class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
 
-    val appViewModel: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
+    val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
     override fun getLayoutId(): Int = R.layout.fragment_login
 
@@ -35,31 +35,29 @@ class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     override fun createObserver() {
-        mVm.getResponseLiveData().observe(viewLifecycleOwner, Observer {
-            appViewModel.userInfo.value = it
+        mViewModel.getResponseLiveData().observe(viewLifecycleOwner, Observer {
+            mAppVm.userInfo.value = it
             UserUtil.setUser(it)
-            showSuccessDialog("登录成功"){
-                popBackStack()
-            }
+            showSuccessExitDialog("登录成功")
         })
-        mVm.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+        mViewModel.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
             showFailDialog(it)
         })
     }
 
     override fun initData() {
-        mDB.vm = mVm
-        mDB.click = ProxyClick()
+        mBinding.vm = mViewModel
+        mBinding.click = ProxyClick()
     }
 
     inner class ProxyClick {
 
         fun login() {
             when {
-                mVm.account.value.isEmpty() -> showFailDialog("请填写账号")
-                mVm.password.get().isEmpty() -> showFailDialog("请填写密码")
+                mViewModel.account.value.isEmpty() -> showFailDialog("请填写账号")
+                mViewModel.password.get().isEmpty() -> showFailDialog("请填写密码")
                 else -> {
-                    mVm.requestServer()
+                    mViewModel.requestServer()
                 }
             }
         }

@@ -1,10 +1,7 @@
 package com.theone.mvvm.base.viewmodel
 
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
-import com.theone.mvvm.callback.livedata.BooleanLiveData
-import com.theone.mvvm.callback.livedata.event.EventLiveData
+import com.kunminx.architecture.ui.callback.UnPeekLiveData
 
 
 //  ┏┓　　　┏┓
@@ -39,10 +36,10 @@ open class BaseViewModel : ViewModel() {
 
     inner class UiLoadingChange {
         //显示加载框
-        val showDialog by lazy { EventLiveData<String>() }
+        val showDialog by lazy { UnPeekLiveData<String>() }
 
         //隐藏
-        val dismissDialog by lazy { EventLiveData<Boolean>() }
+        val dismissDialog by lazy { UnPeekLiveData<Boolean>() }
     }
 
 }

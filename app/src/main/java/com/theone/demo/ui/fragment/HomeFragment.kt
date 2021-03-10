@@ -7,7 +7,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.RecyclerView
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView
 import com.qmuiteam.qmui.util.QMUIColorHelper
@@ -80,7 +79,7 @@ class HomeFragment :
     override fun createObserver() {
         super.createObserver()
         if (showBanner())
-            mVm.getBanners().observe(viewLifecycleOwner, Observer {
+            mViewModel.getBanners().observe(viewLifecycleOwner, Observer {
                 mBannerViewPager?.create(it)
             })
     }
@@ -198,13 +197,13 @@ class HomeFragment :
     override fun onFirstLoading() {
         super.onFirstLoading()
         if (showBanner())
-            mVm.requestBanner()
+            mViewModel.requestBanner()
     }
 
     override fun onRefresh() {
         super.onRefresh()
         if (showBanner())
-            mVm.requestBanner()
+            mViewModel.requestBanner()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

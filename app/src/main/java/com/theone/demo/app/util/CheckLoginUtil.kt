@@ -3,6 +3,7 @@ package com.theone.demo.app.util
 import android.content.Intent
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.ui.activity.LoginActivity
+import com.theone.demo.ui.fragment.LoginFragment
 
 
 //  ┏┓　　　┏┓
@@ -33,6 +34,7 @@ fun QMUIFragment.checkLogin(isLoginAction: () -> Unit = {}) {
     if (UserUtil.isLogin()) {
         isLoginAction.invoke()
     } else {
-        startActivity(Intent(activity, LoginActivity::class.java))
+        startFragment(LoginFragment())
+//        startActivity(Intent(activity, LoginActivity::class.java))
     }
 }

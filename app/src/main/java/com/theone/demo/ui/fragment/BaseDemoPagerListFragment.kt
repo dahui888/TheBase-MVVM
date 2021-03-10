@@ -2,7 +2,6 @@ package com.theone.demo.ui.fragment
 
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.demo.R
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
@@ -36,7 +35,7 @@ abstract class BaseDemoPagerListFragment<T, VM : BaseListViewModel<T>>:BaseRecyc
 
     override fun createObserver() {
         super.createObserver()
-        mVm.firstLoadSuccess.observe(viewLifecycleOwner, Observer {
+        mViewModel.firstLoadSuccess.observe(viewLifecycleOwner, Observer {
             getRecyclerView().setBackgroundColor(
                 ContextCompat.getColor(
                     mActivity,

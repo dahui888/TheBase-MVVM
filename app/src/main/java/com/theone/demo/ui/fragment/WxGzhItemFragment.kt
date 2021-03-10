@@ -1,13 +1,7 @@
 package com.theone.demo.ui.fragment
 
 import android.os.Bundle
-import android.view.View
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.theone.demo.data.model.bean.ArticleResponse
-import com.theone.demo.ui.adapter.ArticleAdapter
-import com.theone.demo.viewmodel.ProjectItemViewModel
 import com.theone.demo.viewmodel.WxGzhItemViewModel
-import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -49,7 +43,7 @@ class WxGzhItemFragment :
 
     override fun initData() {
         val id = requireArguments().getInt("DATA")
-        mVm.mId = id
+        mViewModel.mId = id
     }
 
 }
