@@ -21,7 +21,4 @@
 #-renamesourcefileattribute SourceFile
 
 
--keep class com.theone.demo.entity.** { *; }
--keep class com.theone.demo.data.** { *; }
--keep class com.theone.demo.app.net.** { *; }
--keep class com.theone.demo.app.widge.** { *; }
+-keep class com.theone.demo.** { *; }

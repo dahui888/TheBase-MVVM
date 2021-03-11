@@ -5,7 +5,37 @@
         <item name="qmui_skin_support_common_list_separator_color">@color/white</item>
         <item name="qmui_content_padding_horizontal">20dp</item>
         <item name="qmui_topbar_height">60dp</item>
+        <item name="qmui_dialog_radius">7dp</item>
+        <item name="qmui_dialog_title_style">@style/DialogTheme2TitleStyle</item>
+        <item name="qmui_dialog_action_style">@style/DialogTheme2ActionStyle</item>
+        <item name="qmui_skin_support_dialog_positive_action_text_color">?attr/app_skin_primary_color</item>
+        <item name="qmui_skin_support_dialog_negative_action_text_color">?attr/qmui_config_color_red</item>
+    </style>
 
+    <style name="dialog_wrapper_style_63">
+        <item name="android:paddingLeft">30dp</item>
+        <item name="android:paddingRight">30dp</item>
+    </style>
+
+    <style name="DialogTheme2TitleStyle" parent="QMUI.Dialog.Title">
+        <item name="android:textColor">@color/qmui_config_color_gray_1</item>
+        <item name="android:textSize">17sp</item>
+    </style>
+
+    <style name="DialogTheme2ActionContainerStyle">
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+        <item name="android:paddingTop">0dp</item>
+        <item name="android:paddingBottom">0dp</item>
+        <item name="qmui_dialog_action_container_justify_content">stretch</item>
+        <item name="qmui_dialog_action_height">56dp</item>
+        <item name="qmui_dialog_action_space">8dp</item>
+        <item name="qmui_topDividerHeight">1px</item>
+    </style>
+
+    <style name="DialogTheme2ActionStyle" parent="QMUI.Dialog.Action">
+        <item name="android:textColor">@color/qmui_config_color_gray_2</item>
+        <item name="android:textSize">15sp</item>
     </style>
 
     <style name="home_tag_style">
