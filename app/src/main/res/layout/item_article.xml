@@ -13,6 +13,10 @@
             alias="textUtils"
             type="android.text.TextUtils" />
 
+        <import
+            alias="html"
+            type="android.text.Html" />
+
     </data>
 
     <com.qmuiteam.qmui.layout.QMUILinearLayout
@@ -87,7 +91,7 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:text="@{item.title}"
+                    android:text="@{html.fromHtml(item.title)}"
                     android:textColor="@color/qmui_config_color_gray_2"
                     android:textSize="17sp"
                     android:textStyle="bold"
@@ -99,8 +103,9 @@
                     android:layout_weight="1"
                     android:layout_marginTop="10dp"
                     android:ellipsize="end"
-                    visible="@{item.showDes()}"
-                    android:text="@{item.desc}"
+                    android:maxHeight="120dp"
+                    visible="@{!textUtils.isEmpty(item.desc)}"
+                    android:text="@{html.fromHtml(item.desc)}"
                     android:textColor="@color/qmui_config_color_gray_4"
                     android:textSize="14sp"
                     tools:text="Java “优雅”地中断线程(原理篇)" />

@@ -4,6 +4,8 @@
         <!-- Customize your theme here. -->
         <item name="qmui_skin_support_common_list_separator_color">@color/white</item>
         <item name="qmui_content_padding_horizontal">20dp</item>
+        <item name="qmui_topbar_height">60dp</item>
+
     </style>
 
     <style name="home_tag_style">

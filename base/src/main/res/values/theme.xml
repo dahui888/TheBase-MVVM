@@ -108,7 +108,7 @@
         <!--App-->
         <item name="app_skin_primary_color">@color/app_color_theme_6</item>
         <item name="colorAccent">?attr/app_skin_primary_color</item>
-        <item name="colorPrimary">?attr/app_skin_primary_color</item>
+        <item name="colorPrimary">@color/qmui_config_color_gray_5</item>
         <item name="app_skin_checked_color">?attr/app_skin_primary_color</item>
         <item name="app_skin_background_color_1">@color/white</item>
         <item name="app_skin_background_color_2">@color/qmui_config_color_background</item>

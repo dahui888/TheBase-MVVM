@@ -44,10 +44,6 @@ data class ArticleResponse(
 
     override fun getWebTitle(): String = title
 
-    fun showDes(): Boolean {
-        return !TextUtils.isEmpty(desc) && !desc.contains("<p>")
-    }
-
     fun showTags(): Boolean {
         return null != tags && tags!!.isNotEmpty()
     }

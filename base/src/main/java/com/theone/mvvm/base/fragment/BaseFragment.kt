@@ -78,7 +78,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     protected open fun onReLoad() {}
 
     override fun onCreateView(): View {
-        mBody.setBackgroundColor(QMUIResHelper.getAttrColor(mActivity,R.attr.app_skin_background_color_1))
+//        mBody.setBackgroundColor(QMUIResHelper.getAttrColor(mActivity,R.attr.app_skin_background_color_1))
         if (showTitleBar()) {
             val root = QMUIWindowInsetLayout(mActivity)
             root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)

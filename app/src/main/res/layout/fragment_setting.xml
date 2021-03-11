@@ -5,7 +5,6 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/qmui_config_color_background"
         bind:ignore="MissingDefaultResource">
 
 
@@ -13,6 +12,7 @@
             android:id="@+id/groupListView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </ScrollView>
 </layout>
 
