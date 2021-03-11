@@ -10,4 +10,7 @@
     <string name="rank">排名</string>
     <string name="score">积分</string>
     <string name="plz_login_first">请先登录</string>
+    <string name="search_clear_history">清空</string>
+    <string name="search_history">搜索记录</string>
+    <string name="search_hot_words">热门搜索</string>
 </resources>

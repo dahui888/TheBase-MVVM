@@ -78,6 +78,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     protected open fun onReLoad() {}
 
     override fun onCreateView(): View {
+        mBody.setBackgroundColor(QMUIResHelper.getAttrColor(mActivity,R.attr.app_skin_background_color_1))
         if (showTitleBar()) {
             val root = QMUIWindowInsetLayout(mActivity)
             root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
@@ -184,8 +185,8 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     }
 
     /**
-     * @return 是否设置状态栏LightMode 深色图标 白色背景
-     * @remark 默认根据当前TopBarLayout的背景颜色是否为白色或是否存在渐变色背景进行判断
+     * @return 是否设置状态栏LightMode true 深色图标 false 白色背景
+     * @remark 根据自己APP的配色，给定一个全局的默认模式。个人建议用TopBar的背景颜色做判断。
      */
     protected open fun isStatusBarLightMode(): Boolean {
         return true
@@ -198,9 +199,10 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         popBackStackAfterResume()
     }
 
-    override fun onPause() {
-        super.onPause()
+    @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
+    open fun onLazyPause(){
         QMUIKeyboardHelper.hideKeyboard(view)
     }
+
 
 }

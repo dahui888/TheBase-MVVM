@@ -41,7 +41,7 @@ import kotlinx.android.synthetic.main.base_recycler_pager_fragment.*
 /**
  * @author The one
  * @date 2021/2/23 0023
- * @describe TODO
+ * @describe RecyclerView分页显示基类
  * @email 625805189@qq.com
  * @remark
  */
@@ -119,6 +119,9 @@ abstract class BaseRecyclerPagerFragment
         )
     }
 
+    /**
+     * 初始化下拉刷新
+     */
     open fun initPullRefreshLayout() {
         getRefreshLayout().run {
             isEnabled = false
@@ -145,13 +148,9 @@ abstract class BaseRecyclerPagerFragment
         }
     }
 
-    open fun onRefreshComplete() {
-        getRefreshLayout().run {
-            isEnabled = true
-            isRefreshing = false
-        }
-    }
-
+    /**
+     * 第一次加载和刷新还是有区别的，所以这里分开
+     */
     open fun onFirstLoading() {
         showLoadingPage()
         getRecyclerView().scrollToPosition(0)
@@ -159,11 +158,29 @@ abstract class BaseRecyclerPagerFragment
         mViewModel.requestNewData()
     }
 
+    /**
+     * 刷新
+     */
     override fun onRefresh() {
         mViewModel.isFresh.value = true
         mViewModel.requestNewData()
     }
 
+    /**
+     * 刷新完成时的操作
+     */
+    open fun onRefreshComplete() {
+        getRefreshLayout().run {
+            isEnabled = true
+            isRefreshing = false
+        }
+    }
+
+
+    /**
+     * 加载更多(page已经在 loadListData 方法里增加了，所以这里只管请求数据）
+     * page的更改绝对不能放在这里处理，因为加载更多可能存在失败的情况。
+     */
     override fun onLoadMore() {
         mViewModel.requestServer()
     }

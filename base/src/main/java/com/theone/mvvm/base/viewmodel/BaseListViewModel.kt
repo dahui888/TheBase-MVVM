@@ -40,10 +40,12 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
     val firstLoadSuccess: BooleanLiveData = BooleanLiveData()
     val mFirstPage: IntLiveData = IntLiveData()
     val mPage: IntLiveData = IntLiveData()
+    val showEmpty: BooleanLiveData = BooleanLiveData()
     var goneLoadMoreEndView: Boolean = false
 
     init {
         mFirstPage.value = 1
+        showEmpty.value = true
     }
 
     protected open fun onSuccess( response:List<T>?, pageInfo: IPageInfo? ){

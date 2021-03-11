@@ -29,9 +29,9 @@ import rxhttp.wrapper.annotation.DefaultDomain
  */
 object Url {
 
-    @JvmField
-    @DefaultDomain //设置为默认域名
-    var BASE_URL = "https://www.wanandroid.com/"
+    @DefaultDomain
+     //设置为默认域名
+    const val BASE_URL = "https://www.wanandroid.com/"
 
     /**
      * 登录
@@ -39,7 +39,7 @@ object Url {
      * @username 用户名
      * @password 登录密码
      */
-    var LOGIN = "user/login"
+    const val LOGIN = "user/login"
 
     /**
      * 注册
@@ -48,38 +48,38 @@ object Url {
      * @password   登录密码
      * @repassword 确认密码
      */
-    var REGISTER = "user/register"
+    const val REGISTER = "user/register"
 
     /**
      * 登出
      * @GET
      */
-    var LOGIN_OUT = "user/logout/json"
+    const val LOGIN_OUT = "user/logout/json"
 
     /**
      * 获取个人积分
      * @GET
      */
-    var USER_COIN = "lg/coin/userinfo/json"
+    const val USER_COIN = "lg/coin/userinfo/json"
 
     /**
      * 首页文章
      * @GET
      * @page 页码
      */
-    var HOME_ARTICLE = "article/list/%d/json"
+    const val HOME_ARTICLE = "article/list/%d/json"
 
     /**
      * 首页Banner
      * @GET
      */
-    var HOME_BANNER = "banner/json"
+    const val HOME_BANNER = "banner/json"
 
     /**
      * 项目分类
      * @GET
      */
-    var PROJECT_ITEM = "project/tree/json"
+    const val PROJECT_ITEM = "project/tree/json"
 
     /**
      * 项目内容
@@ -87,27 +87,27 @@ object Url {
      * @page 页码
      * @cid 二级目录的id
      */
-    var PROJECT_DATA = "project/list/%d/json?cid=%d"
+    const val PROJECT_DATA = "project/list/%d/json?cid=%d"
 
     /**
      * 广场
      * @GET
      * @page 页码
      */
-    var PLAZA = "user_article/list/%d/json"
+    const val PLAZA = "user_article/list/%d/json"
 
     /**
      * 问答
      * @GET
      * @page 页码
      */
-    var QA = "wenda/list/%d/json"
+    const val QA = "wenda/list/%d/json"
 
     /**
      * 体系
      * @GET
      */
-    var TREE = "tree/json"
+    const val TREE = "tree/json"
 
     /**
      * 体系
@@ -115,19 +115,19 @@ object Url {
      * @page 页码
      * @cid 二级目录的id
      */
-    var TREE_DATA = "article/list/%d/json?cid=%d"
+    const val TREE_DATA = "article/list/%d/json?cid=%d"
 
     /**
      * 导航
      * @GET
      */
-    var NAVIGATION = "navi/json"
+    const val NAVIGATION = "navi/json"
 
     /**
      * 微信公众号
      * @GET
      */
-    var WX_GZH = "wxarticle/chapters/json"
+    const val WX_GZH = "wxarticle/chapters/json"
 
     /**
      * 公众号历史数据
@@ -135,7 +135,7 @@ object Url {
      * @id 公众号ID
      * @page 页码
      */
-    var WX_GZH_DATA = "wxarticle/list/%d/%d/json"
+    const val WX_GZH_DATA = "wxarticle/list/%d/%d/json"
 
     /**
      * 分享的文章
@@ -143,35 +143,35 @@ object Url {
      * @title 分享的标题
      * @link 分享的链接
      */
-    var SHARE_ARTICLE = "lg/user_article/add/json"
+    const val SHARE_ARTICLE = "lg/user_article/add/json"
 
     /**
      * 自己分享的文章
      * @GET
      * @page 页码
      */
-    var MY_SHARE_ARTICLE = "user/lg/private_articles/%d/json"
+    const val MY_SHARE_ARTICLE = "user/lg/private_articles/%d/json"
 
     /**
      * 删除自己分享的文章
      * @POST
      * @文章id
      */
-    var DELETE_SHARE_ARTICLE = "lg/user_article/delete/%d/json"
+    const val DELETE_SHARE_ARTICLE = "lg/user_article/delete/%d/json"
 
     /**
      * 积分排行榜
      * @GET
      * @page 页码
      */
-    var COIN_RANK = "coin/rank/%d/json"
+    const val COIN_RANK = "coin/rank/%d/json"
 
     /**
      * 收藏站内文章
      * @POST
      * @id 文章id
      */
-    var COLLECTION_ARTICLE = "lg/collect/%d/json"
+    const val COLLECTION_ARTICLE = "lg/collect/%d/json"
 
     /**
      * 收藏站外文章
@@ -180,14 +180,14 @@ object Url {
      * @author 作者
      * @link   链接
      */
-    var COLLECTION_OUT_SITE_ARTICLE = "lg/collect/add/json"
+    const val COLLECTION_OUT_SITE_ARTICLE = "lg/collect/add/json"
 
     /**
      * 取消收藏-文章列表
      * @POST
      * @id  列表中文章的id
      */
-    var UN_LIST_COLLECTION = "lg/uncollect_originId/%d/json"
+    const val UN_LIST_COLLECTION = "lg/uncollect_originId/%d/json"
 
     /**
      * 取消收藏-我的收藏页面
@@ -195,6 +195,20 @@ object Url {
      * @id  收藏文章的id
      * @originId 收藏之前的那篇文章本身的id； 但是收藏支持主动添加，这种情况下，没有originId则为-1
      */
-    var UN_MY_COLLECTION = "lg/uncollect_originId/%d/json"
+    const val UN_MY_COLLECTION = "lg/uncollect_originId/%d/json"
+
+    /**
+     * 获取搜索热词
+     * @GET
+     */
+    const val HOT_KEYS = "hotkey/json"
+
+    /**
+     * 搜索
+     * @POST
+     * @page 页码
+     * @k    搜索关键词(支持多个关键词，用空格隔开)
+     */
+    const val SEARCH = "article/query/%d/json"
 
 }

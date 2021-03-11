@@ -7,6 +7,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.recyclerview.widget.RecyclerView
+import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView
 import com.qmuiteam.qmui.util.QMUIColorHelper
@@ -18,9 +19,7 @@ import com.theone.demo.app.widge.OffsetLinearLayoutManager
 import com.theone.demo.app.widge.banner.HomeBannerAdapter
 import com.theone.demo.app.widge.banner.HomeBannerViewHolder
 import com.theone.mvvm.base.constant.LayoutManagerType
-import com.theone.mvvm.base.ext.dp2px
-import com.theone.mvvm.base.ext.getView
-import com.theone.mvvm.base.ext.updateStatusBarMode
+import com.theone.mvvm.base.ext.*
 import com.theone.mvvm.base.ext.util.logE
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.annotation.AIndicatorGravity
@@ -51,16 +50,17 @@ import com.zhpan.bannerview.constants.IndicatorGravity
  * @email 625805189@qq.com
  * @remark
  */
-class HomeFragment : ArticleFragment<HomeViewModel>() {
+class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
 
     private fun showBanner(): Boolean = true
 
-    private var mBannerList:List<BannerResponse> = mutableListOf()
+    private var mBannerList: List<BannerResponse> = mutableListOf()
     private var mBannerViewPager: BannerViewPager<BannerResponse, HomeBannerViewHolder>? = null
     private var mMaxOffsetHeight: Float = 0f
     private var isLightMode: Boolean = true
     private var isShow: Boolean = true
     private lateinit var mTitleView: QMUIQQFaceView
+    private lateinit var mSearchBtn: QMUIAlphaImageButton
 
     override fun isNeedChangeStatusBarMode(): Boolean = true
 
@@ -76,6 +76,9 @@ class HomeFragment : ArticleFragment<HomeViewModel>() {
         super.initView(rootView)
         getTopBar()?.run {
             mTitleView = setTitle("首页")
+            mSearchBtn = addRightImageButton(R.drawable.mz_titlebar_ic_search_light,R.id.topbar_search)
+            mSearchBtn.setOnClickListener(this@HomeFragment)
+            goneViews(mSearchBtn)
             if (showBanner())
                 setBackgroundAlpha(0)
         }
@@ -130,12 +133,13 @@ class HomeFragment : ArticleFragment<HomeViewModel>() {
                         1.0f
                     else
                         y / mMaxOffsetHeight
-                    val isLight = percent > 0.6
+                    val isLight = percent > 0.5
                     if (!isLightMode && isLight) {
                         setStatusBarMode(true)
                     } else if (isLightMode && !isLight) {
                         setStatusBarMode(false)
                     }
+                    // 更改Title的字体颜色
                     mTitleView.setTextColor(
                         getColorAlpha(
                             percent,
@@ -143,12 +147,14 @@ class HomeFragment : ArticleFragment<HomeViewModel>() {
                         )
                     )
                     getTopBar()?.run {
+                        // 更改底部分割线的颜色
                         updateBottomSeparatorColor(
                             getColorAlpha(
                                 percent,
                                 R.color.qmui_config_color_separator
                             )
                         )
+                        // 更改背景颜色
                         setBackgroundColor(
                             getColorAlpha(
                                 percent,
@@ -160,6 +166,17 @@ class HomeFragment : ArticleFragment<HomeViewModel>() {
             })
     }
 
+    override fun onClick(view: View?) {
+        when(view?.id){
+            R.id.topbar_search->{startFragment(SearchFragment())}
+        }
+    }
+
+    /**
+     * @TODO 根据百分比获取一个颜色的alpha值
+     * @param percent 百分比
+     * @param color   颜色
+     */
     private fun getColorAlpha(percent: Float, color: Int): Int {
         return QMUIColorHelper.setColorAlpha(
             getColor(mActivity, color),
@@ -167,22 +184,24 @@ class HomeFragment : ArticleFragment<HomeViewModel>() {
         )
     }
 
-    override fun getLayoutManager(type: LayoutManagerType?): RecyclerView.LayoutManager {
-        return OffsetLinearLayoutManager(mActivity)
-    }
+
 
     /**
      * 更改状态栏模式
-     * 由于只有折叠和展开时才会调用，所以在这里对轮播也进行处理下
      * @param isLight
-     * @remark 显示的时候才做更改
      */
     private fun setStatusBarMode(isLight: Boolean) {
-        if (isShow) {
-            setBannerStatus(!isLight)
-            updateStatusBarMode(isLight)
+        // 只有当Banner数据存在后才进行状态栏的切换
+        if (!mBannerList.isNullOrEmpty()) {
+            //显示的时候才做更改
+            if (isShow) {
+                showViews(mSearchBtn)
+                mSearchBtn.setImageResource(if(isLight) R.drawable.mz_titlebar_ic_search_dark else R.drawable.mz_titlebar_ic_search_light)
+                setBannerStatus(!isLight)
+                updateStatusBarMode(isLight)
+            }
+            isLightMode = isLight
         }
-        isLightMode = isLight
     }
 
     /**
@@ -200,31 +219,45 @@ class HomeFragment : ArticleFragment<HomeViewModel>() {
             }
     }
 
+    /**
+     * 第一次获取数据时要重新获取Banner数据
+     */
     override fun onFirstLoading() {
         super.onFirstLoading()
         if (showBanner())
             mViewModel.requestBanner()
     }
 
+    /**
+     * 刷新时要重新获取Banner数据
+     */
     override fun onRefresh() {
         super.onRefresh()
         if (showBanner())
             mViewModel.requestBanner()
     }
 
+    /**
+     * 重写父类方法更换LayoutManager
+     */
+    override fun getLayoutManager(type: LayoutManagerType?): RecyclerView.LayoutManager {
+        return OffsetLinearLayoutManager(mActivity)
+    }
+
+    // 当前界面不显示了
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    fun onLazyPause() {
-        "onLazyPause ${this.javaClass.simpleName}".logE()
+    override fun onLazyPause() {
         isShow = false
         setBannerStatus(false)
     }
 
+    // 当前界面显示了
     @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
     override fun onLazyResume() {
-        "onLazyResume ${this.javaClass.simpleName}".logE()
         isShow = true
         super.onLazyResume()
         setBannerStatus(true)
     }
+
 
 }

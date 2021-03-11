@@ -42,7 +42,8 @@ fun <T> loadListData(
     val isNewData = vm.mPage.value == vm.mFirstPage.value
     if (list.isNullOrEmpty()) {
         if (isNewData) {
-            loader.showEmpty()
+            if (vm.showEmpty.value) loader.showEmpty()
+            else loader.showSuccess()
         } else {
             adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
         }

@@ -21,6 +21,7 @@ import com.theone.demo.R
 import com.theone.demo.app.util.ColorUtil
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.ClassifyResponse
+import com.theone.demo.data.model.bean.SearchResponse
 import com.theone.demo.ui.fragment.SystemArticleFragment
 import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.base.ext.util.dp2px
@@ -41,28 +42,8 @@ object CustomBindAdapter {
         fragment: BaseFragment?
     ) {
         floatLayout.removeAllViews()
-        val context = floatLayout.context
         for (c in classifyResponses) {
-            val layoutParams = ViewGroup.LayoutParams(wrapContent, wrapContent)
-            val container = QMUIFrameLayout(context)
-            val space = dp2px(context, 10)
-            container.setPadding(0,0,space,space)
-            val tag = TextView(context)
-            val padding = dp2px(context, 4)
-            val padding2 = padding * 2
-            tag.run {
-                setPadding(padding2, padding, padding2, padding)
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                maxLines = 1
-                setTextColor(ColorUtil.randomColor())
-                text = c.name
-                background = getDrawable(context, R.drawable.tree_tag_bg)
-            }
-            container.setOnClickListener{
-                fragment?.startFragment(SystemArticleFragment.newInstance(c))
-            }
-            container.addView(tag,layoutParams)
-            floatLayout.addView(container, layoutParams)
+            createFloatLayoutItem(floatLayout,c.name)
         }
     }
 
@@ -76,27 +57,46 @@ object CustomBindAdapter {
         floatLayout.removeAllViews()
         val context = floatLayout.context
         for (article in articles) {
-            val layoutParams = ViewGroup.LayoutParams(wrapContent, wrapContent)
-            val container = QMUIFrameLayout(context)
-            val space = dp2px(context, 10)
-            container.setPadding(0,0,space,space)
-            val tag = TextView(context)
-            val padding = dp2px(context, 4)
-            val padding2 = padding * 2
-            tag.run {
-                setPadding(padding2, padding, padding2, padding)
-                setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
-                maxLines = 1
-                setTextColor(ColorUtil.randomColor())
-                text = article.title
-                background = getDrawable(context, R.drawable.tree_tag_bg)
-            }
-            container.addView(tag,layoutParams)
-            container.setOnClickListener{
-
-            }
-            floatLayout.addView(container, layoutParams)
+            createFloatLayoutItem(floatLayout,article.title)
         }
+    }
+
+    fun loadHotSearchData(
+        floatLayout: QMUIFloatLayout,
+        articles: List<SearchResponse>,
+        callback: ((String) -> Unit?)? = null
+    ) {
+        floatLayout.removeAllViews()
+        for (article in articles) {
+            createFloatLayoutItem(floatLayout,article.name,callback)
+        }
+    }
+
+    private fun createFloatLayoutItem(
+        floatLayout: QMUIFloatLayout,title:String,callback: ((String) -> Unit?)? = null){
+        val context = floatLayout.context
+        val layoutParams = ViewGroup.LayoutParams(wrapContent, wrapContent)
+        val container = QMUIFrameLayout(context)
+        val space = dp2px(context, 10)
+        container.setPadding(0,0,space,space)
+        val tag = TextView(context)
+        val padding = dp2px(context, 4)
+        val padding2 = padding * 2
+        tag.run {
+            setPadding(padding2, padding, padding2, padding)
+            setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+            maxLines = 1
+            setTextColor(ColorUtil.randomColor())
+            text = title
+            background = getDrawable(context, R.drawable.tree_tag_bg)
+        }
+        container.addView(tag,layoutParams)
+        callback?.run {
+            container.setOnClickListener{
+                invoke(title)
+            }
+        }
+        floatLayout.addView(container, layoutParams)
     }
 
     @BindingAdapter(value = ["checkChange"])
