@@ -129,7 +129,7 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
     }
 
     private fun setUserInfo(it: UserInfo) {
-        "setUserInfo ".logE(TAG)
+        "setUserInfo ${it.toString()}".logE(TAG)
         mRequestVm.requestServer()
         swipeRefresh.isEnabled = true
         mViewModel.run {

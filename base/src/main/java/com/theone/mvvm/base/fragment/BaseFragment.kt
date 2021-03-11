@@ -20,10 +20,7 @@ import com.qmuiteam.qmui.util.QMUIStatusBarHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
 import com.theone.mvvm.R
-import com.theone.mvvm.base.ext.loadSirInit
-import com.theone.mvvm.base.ext.match_wrap
-import com.theone.mvvm.base.ext.setMargin
-import com.theone.mvvm.base.ext.updateStatusBarMode
+import com.theone.mvvm.base.ext.*
 import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.widge.loadsir.core.LoadService
 
@@ -75,7 +72,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
     abstract fun initView(rootView: View)
 
-    internal open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
+    internal open fun createContentView(): View = getView(getLayoutId())
     open fun showTitleBar(): Boolean = isIndexFragment
 
     protected open fun onReLoad() {}
@@ -99,7 +96,8 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
                     0
                 )
             }
-            root.addView(createQMUITopBarLayout())
+            mTopBar = createQMUITopBarLayout()
+            root.addView(mTopBar)
             return root
         }
         return mBody
@@ -118,11 +116,11 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
         lazyViewLifecycleOwner.lifecycle.addObserver(this)
     }
 
-    private fun createQMUITopBarLayout(): QMUITopBarLayout {
-        mTopBar = QMUITopBarLayout(mActivity)
-        mTopBar!!.layoutParams = match_wrap
-        mTopBar!!.fitsSystemWindows = true
-        return mTopBar!!
+    private fun createQMUITopBarLayout(): QMUITopBarLayout? {
+        return QMUITopBarLayout(mActivity).apply{
+            layoutParams = match_wrap
+            fitsSystemWindows = true
+        }
     }
 
     protected open fun getTopBar(): QMUITopBarLayout? = mTopBar

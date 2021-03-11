@@ -32,7 +32,6 @@ import rxhttp.wrapper.cahce.CacheMode
 abstract class BaseDemoViewModel<T> : BaseListViewModel<T>() {
 
     init {
-        space.value = 12
         mFirstPage.value = 0
     }
 

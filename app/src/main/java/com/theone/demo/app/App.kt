@@ -37,7 +37,7 @@ class App : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        MMKV.initialize(this)
+        MMKV.initialize(this.filesDir.absolutePath + "/mmkv")
         RxHttp.init(RxHttpManager.getHttpClient(RxHttpManager.HttpBuilder().setNeedCookie(true)),true)
     }
 

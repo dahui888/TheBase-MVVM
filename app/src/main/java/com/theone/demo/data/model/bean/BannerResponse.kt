@@ -18,6 +18,11 @@ data class BannerResponse(
     var title: String = "",
     var type: Int = 0,
     var url: String = ""
-) : Parcelable
+) :IWeb, Parcelable {
+
+    override fun getWebUrl(): String = url
+
+    override fun getWebTitle(): String = title
+}
 
 

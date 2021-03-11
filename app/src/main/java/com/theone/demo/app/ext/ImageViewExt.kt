@@ -2,6 +2,7 @@ package com.theone.demo.app.ext
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.zhpan.bannerview.BaseBannerAdapter
 
 
 //  ┏┓　　　┏┓

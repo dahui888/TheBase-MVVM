@@ -31,7 +31,9 @@ import com.theone.mvvm.base.viewmodel.BaseListViewModel
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseDemoPagerListFragment<T, VM : BaseListViewModel<T>>:BaseRecyclerPagerFragment<T,VM>() {
+abstract class SpacePagerListFragment<T, VM : BaseListViewModel<T>>:BaseRecyclerPagerFragment<T,VM>() {
+
+    override fun getItemSpace(): Int = 12
 
     override fun createObserver() {
         super.createObserver()

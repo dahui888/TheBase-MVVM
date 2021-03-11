@@ -1,10 +1,7 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.data.model.bean
 
-import android.view.View
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.theone.demo.data.model.bean.SystemResponse
-import com.theone.demo.ui.adapter.SystemAdapter
-import com.theone.demo.viewmodel.SystemViewModel
+import android.os.Parcelable
+import java.io.Serializable
 
 
 //  ┏┓　　　┏┓
@@ -26,19 +23,13 @@ import com.theone.demo.viewmodel.SystemViewModel
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/4 0004
+ * @date 2021/3/11 0011
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class SystemFragment:SpacePagerListFragment<SystemResponse,SystemViewModel>() {
+interface IWeb: Parcelable {
 
-    override fun createAdapter(): SystemAdapter  = SystemAdapter(this)
-
-    override fun initData() {
-    }
-
-    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-    }
-
+    fun getWebUrl():String
+    fun getWebTitle():String
 }

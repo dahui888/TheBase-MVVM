@@ -1,5 +1,7 @@
 package com.theone.mvvm.base.ext
 
+import android.view.LayoutInflater
+import android.view.View
 import androidx.fragment.app.Fragment
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
@@ -20,6 +22,11 @@ fun Fragment.updateStatusBarMode(isLight: Boolean) {
     } else {
         QMUIStatusBarHelper.setStatusBarDarkMode(requireActivity())
     }
+}
+
+
+fun Fragment.getView(layoutId: Int): View {
+   return layoutInflater.inflate(layoutId, null)
 }
 
 fun Fragment.dp2px(dp: Int): Int = QMUIDisplayHelper.dp2px(requireActivity(), dp)

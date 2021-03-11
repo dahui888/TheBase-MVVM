@@ -54,7 +54,6 @@ class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
             tabs.add(QMUITabBean(data.name))
             fragments.add(WxGzhItemFragment.newInstance(data.id))
         }
-
     }
 
     override fun createObserver() {

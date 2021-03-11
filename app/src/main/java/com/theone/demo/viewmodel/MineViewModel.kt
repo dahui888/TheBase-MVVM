@@ -43,7 +43,7 @@ import rxhttp.wrapper.param.toResponse
  */
 class MineViewModel : BaseViewModel() {
 
-    var name = StringObservableField("请先登录~")
+    var name = StringObservableField("请先登录")
 
     var id = StringObservableField("ID")
 

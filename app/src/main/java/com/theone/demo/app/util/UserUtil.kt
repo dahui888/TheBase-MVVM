@@ -37,7 +37,7 @@ object UserUtil {
 
     fun isLogin(): Boolean = null != getUser()
 
-    fun loginOut(){
+    fun loginOut() {
         RxHttpManager.getCookieJar().clear()
         setUser(null)
     }
@@ -50,11 +50,10 @@ object UserUtil {
 
     fun getUser(): UserInfo? {
         val userStr = MMKVUtil.getString(USER)
-        val userExist = !userStr.isNullOrEmpty()
-        return if (userExist)
-            Gson().fromJson(userStr, UserInfo::class.java)
-        else
+        return if (userStr.isNullOrEmpty())
             null
+        else
+            Gson().fromJson(userStr, UserInfo::class.java)
     }
 
 

@@ -58,14 +58,18 @@ abstract class BaseRecyclerPagerFragment
     protected open fun getRecyclerView(): RecyclerView = recyclerView
     protected open fun getRefreshLayout(): SwipeRefreshLayout = swipeRefresh
 
-    override fun onLazyInit() {
-        onFirstLoading()
-    }
+    protected open fun getLayoutManagerType():LayoutManagerType = LayoutManagerType.LIST
+    protected open fun getSpanCount():Int = 1
+    protected open fun getItemSpace():Int = 0
 
     override fun initView(rootView: View) {
         initAdapter()
         initRecyclerView()
         initPullRefreshLayout()
+    }
+
+    override fun onLazyInit() {
+        onFirstLoading()
     }
 
     override fun onReLoad() {
@@ -84,7 +88,7 @@ abstract class BaseRecyclerPagerFragment
             getSpacesItemDecoration()?.run {
                 addItemDecoration(this)
             }
-            layoutManager = getLayoutManager(mViewModel.type.value)
+            layoutManager = getLayoutManager(getLayoutManagerType())
             adapter = mAdapter
         }
     }
@@ -92,10 +96,10 @@ abstract class BaseRecyclerPagerFragment
     open fun getLayoutManager(type: LayoutManagerType?): RecyclerView.LayoutManager {
         val layoutManager: RecyclerView.LayoutManager
         layoutManager = when (type) {
-            LayoutManagerType.GRID -> GridLayoutManager(mActivity, mViewModel.column.value)
+            LayoutManagerType.GRID -> GridLayoutManager(mActivity,getSpanCount())
             LayoutManagerType.STAGGERED -> {
                 val m = StaggeredGridLayoutManager(
-                    mViewModel.column.value,
+                    getSpanCount(),
                     StaggeredGridLayoutManager.VERTICAL
                 )
                 m.gapStrategy = StaggeredGridLayoutManager.GAP_HANDLING_NONE
@@ -107,9 +111,9 @@ abstract class BaseRecyclerPagerFragment
     }
 
     open fun getSpacesItemDecoration(): SpacesItemDecoration? {
-        val space = QMUIDisplayHelper.dp2px(mActivity, mViewModel.space.value)
+        val space = QMUIDisplayHelper.dp2px(mActivity, getItemSpace())
         return SpacesItemDecoration(
-            if (mViewModel.type.value == LayoutManagerType.LIST) 1 else mViewModel.column.value,
+            if (getLayoutManagerType() == LayoutManagerType.LIST) 1 else getSpanCount(),
             mAdapter.headerLayoutCount,
             space
         )
@@ -124,9 +128,6 @@ abstract class BaseRecyclerPagerFragment
 
     override fun createObserver() {
         mViewModel.run {
-            type.observe(viewLifecycleOwner, Observer {
-                getRecyclerView().layoutManager = getLayoutManager(it)
-            })
             getResponseLiveData().observe(viewLifecycleOwner, Observer {
                 loadListData(mViewModel, mAdapter, mLoadSir)
             })

@@ -2,8 +2,10 @@ package com.theone.demo.data.model.bean
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import android.service.quicksettings.Tile
 import android.text.TextUtils
 import kotlinx.android.parcel.Parcelize
+import java.io.Serializable
 
 /**
  * 文章
@@ -36,7 +38,11 @@ data class ArticleResponse(
     var userId: Int,
     var visible: Int,
     var zan: Int
-) : Parcelable {
+) : IWeb, Parcelable {
+
+    override fun getWebUrl(): String = link
+
+    override fun getWebTitle(): String = title
 
     fun showDes(): Boolean {
         return !TextUtils.isEmpty(desc) && !desc.contains("<p>")

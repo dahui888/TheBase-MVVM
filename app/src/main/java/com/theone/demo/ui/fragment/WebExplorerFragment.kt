@@ -17,6 +17,7 @@ import com.qmuiteam.qmui.widget.webview.QMUIWebViewClient
 import com.theone.demo.R
 import com.theone.demo.app.widge.QDWebView
 import com.theone.demo.data.model.bean.ArticleResponse
+import com.theone.demo.data.model.bean.IWeb
 import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.base.ext.showViews
 import com.theone.mvvm.base.fragment.BaseFragment
@@ -51,7 +52,7 @@ import java.lang.reflect.Field
 open class WebExplorerFragment : BaseFragment() {
 
     companion object {
-        fun newInstance(data: ArticleResponse): WebExplorerFragment {
+        fun <T:IWeb>newInstance(data: T): WebExplorerFragment {
             val fragment = WebExplorerFragment()
             val bundle = Bundle()
             bundle.putParcelable("DATA", data)
@@ -63,7 +64,7 @@ open class WebExplorerFragment : BaseFragment() {
         const val PROGRESS_GONE: Int = 1
     }
 
-    private lateinit var mArticle: ArticleResponse
+    private lateinit var mIWeb: IWeb
     private var mWebView: QDWebView? = null
     private val mProgressHandler: ProgressHandler by lazy { ProgressHandler() }
 
@@ -74,13 +75,13 @@ open class WebExplorerFragment : BaseFragment() {
     override fun getLayoutId(): Int = R.layout.fragment_web_exploerer
 
     override fun initView(rootView: View) {
-        mArticle = requireArguments().getParcelable("DATA")!!
+        mIWeb = requireArguments().getParcelable("DATA")!!
         initTopBar()
     }
 
     private fun initTopBar() {
         topbar.run {
-            setTitleWithBackBtn(mArticle.title, this@WebExplorerFragment)
+            setTitleWithBackBtn(mIWeb.getWebTitle(), this@WebExplorerFragment)
         }
     }
 
@@ -106,7 +107,7 @@ open class WebExplorerFragment : BaseFragment() {
             webChromeClient = ExplorerWebViewChromeClient(this@WebExplorerFragment)
             webViewClient = ExplorerWebViewClient(needDispatchSafeAreaInset)
             setZoomControlGone(this)
-            loadUrl(mArticle.link)
+            loadUrl(mIWeb.getWebUrl())
         }
     }
 

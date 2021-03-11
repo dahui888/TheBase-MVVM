@@ -42,10 +42,6 @@ class HomeViewModel : ArticleViewModel() {
 
     fun getBanners(): MutableLiveData<List<BannerResponse>> = mBanners
 
-    init {
-        space.value = 0
-    }
-
     override fun requestServer() {
         request({
             val response = RxHttp.get(Url.HOME_ARTICLE, mPage.value)

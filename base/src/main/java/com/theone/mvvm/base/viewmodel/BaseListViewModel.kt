@@ -42,14 +42,7 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
     val mPage: IntLiveData = IntLiveData()
     var goneLoadMoreEndView: Boolean = false
 
-    val type: MutableLiveData<LayoutManagerType> = MutableLiveData()
-    val column :IntLiveData = IntLiveData()
-    val space :IntLiveData = IntLiveData()
-
     init {
-        type.value =  LayoutManagerType.LIST
-        column.value = 2
-        space.value = 0
         mFirstPage.value = 1
     }
 

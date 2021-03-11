@@ -39,7 +39,7 @@ import com.theone.mvvm.base.ext.qmui.showFailDialog
  * @remark
  */
 abstract class ArticleFragment<VM : ArticleViewModel> :
-    BaseDemoPagerListFragment<ArticleResponse, VM>(),
+    SpacePagerListFragment<ArticleResponse, VM>(),
     OnItemChildClickListener {
 
     private val mEventVm: EventViewModel by lazy { getAppViewModel<EventViewModel>() }

@@ -44,7 +44,6 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
     override fun isNeedChangeStatusBarMode(): Boolean = true
 
     override fun onLazyInit() {
-        "onLazyInit  $TAG".logE(TAG)
         mLoadSir.showLoading()
         mViewModel.requestServer()
     }
@@ -73,7 +72,6 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
     }
 
     override fun createObserver() {
-        "createObserver  $TAG".logE(TAG)
         mViewModel.getResponseLiveData().observe(viewLifecycleOwner, Observer {
             mResponse = it
             startInit()
@@ -86,14 +84,6 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
     override fun initData() {
     }
 
-    override fun onResume() {
-        super.onResume()
-        "onResume  $TAG".logE(TAG)
-    }
 
-    override fun onPause() {
-        super.onPause()
-        "onPause  $TAG".logE(TAG)
-    }
 
 }

@@ -18,6 +18,6 @@ android {
 }
 
 dependencies {
-    implementation "com.zhpan.library:bannerview:2.7.1"
+    implementation 'com.github.zhpanvip:BannerViewPager:3.1.5'
     implementation "com.tencent:mmkv-static:1.1.0"
 }

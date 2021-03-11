@@ -5,7 +5,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.demo.data.model.bean.NavigationResponse
 import com.theone.demo.ui.adapter.NavAdapter
 import com.theone.demo.viewmodel.NavViewModel
-import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -32,7 +31,7 @@ import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
  * @email 625805189@qq.com
  * @remark
  */
-class NavFragment:BaseDemoPagerListFragment<NavigationResponse,NavViewModel>() {
+class NavFragment:SpacePagerListFragment<NavigationResponse,NavViewModel>() {
 
     override fun createAdapter(): NavAdapter  = NavAdapter(this)
 

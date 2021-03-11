@@ -15,12 +15,15 @@ import com.theone.demo.R
 import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.viewmodel.HomeViewModel
 import com.theone.demo.app.widge.OffsetLinearLayoutManager
-import com.theone.demo.app.widge.banner.BannerViewHolder
+import com.theone.demo.app.widge.banner.HomeBannerAdapter
+import com.theone.demo.app.widge.banner.HomeBannerViewHolder
 import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.base.ext.dp2px
+import com.theone.mvvm.base.ext.getView
 import com.theone.mvvm.base.ext.updateStatusBarMode
 import com.theone.mvvm.base.ext.util.logE
 import com.zhpan.bannerview.BannerViewPager
+import com.zhpan.bannerview.annotation.AIndicatorGravity
 import com.zhpan.bannerview.constants.IndicatorGravity
 
 
@@ -48,12 +51,12 @@ import com.zhpan.bannerview.constants.IndicatorGravity
  * @email 625805189@qq.com
  * @remark
  */
-class HomeFragment :
-    ArticleFragment<HomeViewModel>() {
+class HomeFragment : ArticleFragment<HomeViewModel>() {
 
     private fun showBanner(): Boolean = true
 
-    private var mBannerViewPager: BannerViewPager<BannerResponse, BannerViewHolder>? = null
+    private var mBannerList:List<BannerResponse> = mutableListOf()
+    private var mBannerViewPager: BannerViewPager<BannerResponse, HomeBannerViewHolder>? = null
     private var mMaxOffsetHeight: Float = 0f
     private var isLightMode: Boolean = true
     private var isShow: Boolean = true
@@ -66,6 +69,8 @@ class HomeFragment :
     override fun showTitleBar(): Boolean = true
 
     override fun translucentFull(): Boolean = showBanner()
+
+    override fun getItemSpace(): Int = 0
 
     override fun initView(rootView: View) {
         super.initView(rootView)
@@ -80,6 +85,7 @@ class HomeFragment :
         super.createObserver()
         if (showBanner())
             mViewModel.getBanners().observe(viewLifecycleOwner, Observer {
+                mBannerList = it
                 mBannerViewPager?.create(it)
             })
     }
@@ -92,17 +98,19 @@ class HomeFragment :
                 mActivity,
                 R.attr.qmui_topbar_height
             )).toFloat()
-            mBannerViewPager = BannerViewPager<BannerResponse, BannerViewHolder>(mActivity)
+            mBannerViewPager = BannerViewPager<BannerResponse, HomeBannerViewHolder>(mActivity)
             mBannerViewPager?.run {
                 layoutParams = ViewGroup.LayoutParams(matchParent, mBannerHeight)
+                adapter = HomeBannerAdapter()
+                setAutoPlay(true)
+                setInterval(2000)
                 setIndicatorGravity(IndicatorGravity.END)
                 setIndicatorSliderColor(
                     getColor(mActivity, R.color.white),
                     QMUIResHelper.getAttrColor(mActivity, R.attr.app_skin_primary_color)
                 )
-                setHolderCreator { BannerViewHolder() }
                 setOnPageClickListener { position: Int ->
-
+                    startFragment(WebExplorerFragment.newInstance(mBannerList[position]))
                 }
                 mAdapter.addHeaderView(this)
             }
@@ -170,11 +178,11 @@ class HomeFragment :
      * @remark 显示的时候才做更改
      */
     private fun setStatusBarMode(isLight: Boolean) {
-        isLightMode = isLight
         if (isShow) {
-            setBannerStatus(isShow)
+            setBannerStatus(!isLight)
             updateStatusBarMode(isLight)
         }
+        isLightMode = isLight
     }
 
     /**
@@ -185,10 +193,8 @@ class HomeFragment :
         if (showBanner())
             mBannerViewPager?.run {
                 if (start) {
-                    "startLoop ${this.javaClass.simpleName}".logE()
                     startLoop()
                 } else {
-                    "stopLoop ${this.javaClass.simpleName}".logE()
                     stopLoop()
                 }
             }
