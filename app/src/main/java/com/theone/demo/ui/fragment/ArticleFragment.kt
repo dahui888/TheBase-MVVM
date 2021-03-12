@@ -8,6 +8,7 @@ import com.theone.demo.R
 import com.theone.demo.app.util.checkLogin
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.ui.adapter.ArticleAdapter
+import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.ArticleViewModel
 import com.theone.demo.viewmodel.EventViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
@@ -43,6 +44,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
     OnItemChildClickListener {
 
     private val mEventVm: EventViewModel by lazy { getAppViewModel<EventViewModel>() }
+    private val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
     override fun getViewModelIndex(): Int = 0
 
@@ -60,6 +62,24 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
 
     override fun createObserver() {
         super.createObserver()
+        // 监听用户登录、登出时，改变收藏
+        mAppVm.userInfo.observe(viewLifecycleOwner, Observer {
+            if (it != null) {
+                it.collectIds.forEach { id ->
+                    for (item in mAdapter.data) {
+                        if (id.toInt() == item.id) {
+                            item.collect = true
+                            break
+                        }
+                    }
+                }
+            } else {
+                for (item in mAdapter.data) {
+                    item.collect = false
+                }
+            }
+            mAdapter.notifyDataSetChanged()
+        })
         mEventVm.collectEvent.observeInFragment(this, Observer {
             for (index in mAdapter.data.indices) {
                 if (mAdapter.data[index].id == it.id) {

@@ -46,8 +46,10 @@ class LoginFragment : BaseVmDbFragment<LoginViewModel, FragmentLoginBinding>() {
     }
 
     override fun initData() {
-        mBinding.vm = mViewModel
-        mBinding.click = ProxyClick()
+        mBinding.run {
+            vm = mViewModel
+            click = ProxyClick()
+        }
     }
 
     inner class ProxyClick {
