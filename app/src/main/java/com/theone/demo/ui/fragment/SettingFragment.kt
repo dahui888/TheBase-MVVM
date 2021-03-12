@@ -2,6 +2,7 @@ package com.theone.demo.ui.fragment
 
 import android.view.View
 import androidx.lifecycle.Observer
+import com.qmuiteam.qmui.util.QMUIPackageHelper
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog.MessageDialogBuilder
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
@@ -17,19 +18,43 @@ import com.theone.mvvm.base.ext.qmui.*
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import kotlinx.android.synthetic.main.fragment_setting.*
 
-class SettingFragment : BaseVmDbFragment<SettingViewModel,FragmentSettingBinding>(), View.OnClickListener,
+class SettingFragment : BaseVmDbFragment<SettingViewModel, FragmentSettingBinding>(),
+    View.OnClickListener,
     QMUIDialogAction.ActionListener {
 
     val appVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
     private lateinit var mLoginOut: QMUICommonListItemView
+    private lateinit var mVersion: QMUICommonListItemView
+    private lateinit var mAnimation: QMUICommonListItemView
+    private lateinit var mTheme: QMUICommonListItemView
+    private lateinit var mAuthor: QMUICommonListItemView
 
     override fun getLayoutId(): Int = R.layout.fragment_setting
 
     override fun initView(rootView: View) {
-        mLoginOut = groupListView.createNormalItem("退出账号")
+        groupListView.run {
 
-        groupListView.addToGroup(this, mLoginOut)
+            mAnimation = createNormalItem("列表动画", R.drawable.svg_setting_animation)
+            mTheme = createNormalItem("主题颜色", R.drawable.svg_setting_theme)
+
+            mVersion = createDetailItem(
+                "当前版本",
+                "Ver " + QMUIPackageHelper.getAppVersion(mActivity),
+                R.drawable.svg_setting_version
+            )
+            mAuthor= createDetailItem(
+                "项目作者",
+                "The one",
+                R.drawable.svg_setting_author
+            )
+
+            mLoginOut = createNormalItem("退出账号", R.drawable.svg_setting_login_out)
+        }
+
+        groupListView.addToGroup("个性化", this, mAnimation, mTheme)
+        groupListView.addToGroup("关于", this, mVersion,mAuthor)
+        groupListView.addToGroup("", this, mLoginOut)
 
         if (!UserUtil.isLogin()) {
             goneViews(mLoginOut)

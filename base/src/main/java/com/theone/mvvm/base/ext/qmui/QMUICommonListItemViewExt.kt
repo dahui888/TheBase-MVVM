@@ -180,9 +180,9 @@ fun QMUIGroupListView.addToGroup(
     title: CharSequence?,
     listener: View.OnClickListener?,
     vararg items: QMUICommonListItemView
-) = addToGroup(title, "", listener, *items)
+) = addToGroup(title, null, listener, *items)
 
 fun QMUIGroupListView.addToGroup(
     listener: View.OnClickListener?,
     vararg items: QMUICommonListItemView
-) = addToGroup("", "", listener, *items)
+) = addToGroup(null, null, listener, *items)

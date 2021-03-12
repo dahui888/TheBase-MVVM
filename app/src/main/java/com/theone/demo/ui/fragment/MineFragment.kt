@@ -5,9 +5,12 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.theone.demo.R
+import com.theone.demo.app.ext.joinQQGroup
+import com.theone.demo.app.net.Url
 import com.theone.demo.app.util.UserUtil
 import com.theone.demo.app.util.checkLogin
 import com.theone.demo.app.util.notNull
+import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.data.model.bean.UserInfo
 import com.theone.demo.databinding.FragmentMineBinding
 import com.theone.demo.viewmodel.AppViewModel
@@ -17,7 +20,6 @@ import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.addToGroup
 import com.theone.mvvm.base.ext.qmui.createDetailItem
 import com.theone.mvvm.base.ext.qmui.showFailDialog
-import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -55,6 +57,9 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
     private lateinit var mShare: QMUICommonListItemView
     private lateinit var mCollection: QMUICommonListItemView
     private lateinit var mSetting: QMUICommonListItemView
+    private lateinit var mAPI: QMUICommonListItemView
+    private lateinit var mTheBase: QMUICommonListItemView
+    private lateinit var mJoinUs: QMUICommonListItemView
 
     override fun isNeedChangeStatusBarMode(): Boolean = true
 
@@ -67,13 +72,18 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
             setBackgroundAlpha(0)
             updateBottomDivider(0, 0, 0, 0)
         }
-        mCollection = groupListView.createDetailItem("我的收藏", "", R.drawable.svg_mine_collection)
-        mShare = groupListView.createDetailItem("我的分享", "", R.drawable.svg_mine_share)
+        groupListView.run {
+            mCollection = createDetailItem("我的收藏", "", R.drawable.svg_mine_collection)
+            mShare = createDetailItem("我的分享", "", R.drawable.svg_mine_share)
 
-        mSetting = groupListView.createDetailItem("设置", "", R.drawable.svg_mine_setting)
-
-        groupListView.addToGroup(null, this, mCollection, mShare)
-        groupListView.addToGroup(null, null, this, mSetting)
+            mAPI = createDetailItem("开源网站", "玩Android", R.drawable.svg_mine_web)
+            mTheBase = createDetailItem("项目地址", "TheBase-MVVM", R.drawable.svg_mine_project_address)
+            mJoinUs = createDetailItem("加入我们", "QQ群：761201022", R.drawable.svg_mine_qq)
+            mSetting = createDetailItem("系统设置", "", R.drawable.svg_mine_setting)
+        }
+        groupListView.addToGroup(this, mCollection, mShare)
+        groupListView.addToGroup("", this, mAPI, mTheBase, mJoinUs)
+        groupListView.addToGroup("", this, mSetting)
 
         swipeRefresh.setOnRefreshListener {
             mRequestVm.requestServer()
@@ -119,17 +129,9 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
             vm = mViewModel
             click = ProxyClick()
         }
-//        appVm.userInfo.value.notNull(
-//            {
-//                setUserInfo(it)
-//            }, {
-//                resetUserInfo()
-//            }
-//        )
     }
 
     private fun setUserInfo(it: UserInfo) {
-        "setUserInfo ${it.toString()}".logE(TAG)
         mRequestVm.requestServer()
         swipeRefresh.isEnabled = true
         mViewModel.run {
@@ -141,7 +143,6 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
     }
 
     private fun resetUserInfo() {
-        "resetUserInfo ".logE(TAG)
         swipeRefresh.isEnabled = false
         mViewModel.run {
             name.set("请先登录~")
@@ -160,9 +161,29 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
             mCollection -> checkLogin {
 
             }
+            mAPI -> startFragment(
+                WebExplorerFragment.newInstance(
+                    BannerResponse(
+                        title = "玩Android",
+                        url = Url.BASE_URL
+                    )
+                )
+            )
+            mTheBase -> startFragment(
+                WebExplorerFragment.newInstance(
+                    BannerResponse(
+                        title = "TheBase-MVVM",
+                        url = "https://gitee.com/theoneee/the-base-mvvm"
+                    )
+                )
+            )
+            mJoinUs -> {
+                joinQQGroup("26hK_GKmpQJbBHpfPIMlJztVmzTRyzZp")
+            }
             mSetting -> {
                 startFragment(SettingFragment())
             }
+
         }
     }
 

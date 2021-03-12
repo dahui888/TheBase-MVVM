@@ -7,6 +7,7 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.text.Html
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -81,7 +82,7 @@ open class WebExplorerFragment : BaseFragment() {
 
     private fun initTopBar() {
         topbar.run {
-            setTitleWithBackBtn(mIWeb.getWebTitle(), this@WebExplorerFragment)
+            setTitleWithBackBtn(mIWeb.getWebTitle(),this@WebExplorerFragment)
         }
     }
 
