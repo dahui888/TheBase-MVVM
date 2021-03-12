@@ -1,10 +1,8 @@
 package com.theone.demo.ui.fragment
 
-import androidx.fragment.app.Fragment
-import com.qmuiteam.qmui.arch.QMUIFragment
-import com.theone.mvvm.base.entity.QMUITabBean
-import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
-import com.theone.mvvm.base.viewmodel.BaseViewModel
+import android.view.View
+import com.theone.demo.viewmodel.ShareArticleViewModel
+import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
 
 
 //  ┏┓　　　┏┓
@@ -27,25 +25,15 @@ import com.theone.mvvm.base.viewmodel.BaseViewModel
 /**
  * @author The one
  * @date 2021/3/5 0005
- * @describe TODO
+ * @describe 我分享的文章
  * @email 625805189@qq.com
  * @remark
  */
-class MyCollectionFragment :BaseTabInTitleFragment<BaseViewModel>() {
+class ShareArticleFragment:ArticleFragment<ShareArticleViewModel>() {
 
-    override fun initTabAndFragments(
-        tabs: MutableList<QMUITabBean>,
-        fragments: MutableList<QMUIFragment>
-    ) {
-       tabs.add(QMUITabBean("文章"))
-        tabs.add(QMUITabBean("网址"))
-    }
-
-    override fun initData() {
-    }
-
-    override fun createObserver() {
-
+    override fun initView(rootView: View) {
+        super.initView(rootView)
+        getTopBar()?.setTitleWithBackBtn("分享的文章",this)
     }
 
 }

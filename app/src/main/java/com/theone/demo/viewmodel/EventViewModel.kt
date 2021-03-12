@@ -1,5 +1,6 @@
 package com.theone.demo.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.demo.data.model.bean.CollectBus
 import com.theone.mvvm.base.viewmodel.BaseViewModel
@@ -32,6 +33,6 @@ import com.theone.mvvm.base.viewmodel.BaseViewModel
 class EventViewModel:BaseViewModel() {
 
     //全局收藏，在任意一个地方收藏或取消收藏，监听该值的界面都会收到消息
-    val collectEvent = UnPeekLiveData<CollectBus>()
+    val collectEvent = MutableLiveData<CollectBus>()
 
 }

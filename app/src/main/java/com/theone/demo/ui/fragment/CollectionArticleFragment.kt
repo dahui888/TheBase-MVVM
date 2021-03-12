@@ -1,8 +1,6 @@
 package com.theone.demo.ui.fragment
 
-import android.view.View
-import com.theone.demo.viewmodel.MyShareArticleViewModel
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.theone.demo.viewmodel.CollectionArticleViewModel
 
 
 //  ┏┓　　　┏┓
@@ -24,16 +22,12 @@ import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/5 0005
- * @describe 我分享的文章
+ * @date 2021/3/12 0012
+ * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class MyShareArticleFragment:ArticleFragment<MyShareArticleViewModel>() {
+class CollectionArticleFragment:ArticleFragment<CollectionArticleViewModel>() {
 
-    override fun initView(rootView: View) {
-        super.initView(rootView)
-        getTopBar()?.setTitleWithBackBtn("分享的文章",this)
-    }
 
 }

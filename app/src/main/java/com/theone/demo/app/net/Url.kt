@@ -167,6 +167,13 @@ object Url {
     const val COIN_RANK = "coin/rank/%d/json"
 
     /**
+     * 我收藏的文章
+     * @GET
+     * @page 页码
+     */
+    const val MY_COLLECTION_ARTICLES = " lg/collect/list/0/json"
+
+    /**
      * 收藏站内文章
      * @POST
      * @id 文章id
@@ -195,7 +202,7 @@ object Url {
      * @id  收藏文章的id
      * @originId 收藏之前的那篇文章本身的id； 但是收藏支持主动添加，这种情况下，没有originId则为-1
      */
-    const val UN_MY_COLLECTION = "lg/uncollect_originId/%d/json"
+    const val UN_MY_COLLECTION = "lg/uncollect/2805/json"
 
     /**
      * 获取搜索热词

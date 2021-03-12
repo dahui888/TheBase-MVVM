@@ -35,20 +35,24 @@ abstract class BaseDemoViewModel<T> : BaseListViewModel<T>() {
         mFirstPage.value = 0
     }
 
-    fun onSuccess(response: PagerResponse<List<T>>?) {
-        super.onSuccess(response?.datas,response)
+    open fun onSuccess(response: PagerResponse<List<T>>?) {
+        onSuccess(response?.datas, response)
     }
 
     fun getCacheMode(): CacheMode {
-       return getCacheMode(isFirst.value)
+        return when {
+            isFirst.value -> CacheMode.READ_CACHE_FAILED_REQUEST_NETWORK
+            isFresh.value -> CacheMode.NETWORK_SUCCESS_WRITE_CACHE
+            else -> CacheMode.ONLY_NETWORK
+        }
     }
 
 }
 
-fun getCacheMode(isFirst: Boolean): CacheMode{
+fun getCacheMode(isFirst: Boolean): CacheMode {
     return if (isFirst)
         CacheMode.READ_CACHE_FAILED_REQUEST_NETWORK
     else
-        CacheMode.ONLY_NETWORK
+        CacheMode.NETWORK_SUCCESS_WRITE_CACHE
 }
 

@@ -46,8 +46,8 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
         mFirstPage.value = 1
     }
 
-    protected open fun onSuccess( response:List<T>?, pageInfo: IPageInfo? ){
-        super.onSuccess(response)
+    open fun onSuccess( response:List<T>?, pageInfo: IPageInfo? ){
+        onSuccess(response)
         mPageInfo.value = pageInfo
     }
 

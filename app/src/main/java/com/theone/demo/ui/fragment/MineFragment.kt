@@ -91,37 +91,34 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
     }
 
     override fun onLazyInit() {
-        appVm.userInfo.value?.let {
-            mRequestVm.requestServer()
-        }
+        setUserInfo(appVm.userInfo.value)
     }
 
     override fun createObserver() {
-        appVm.userInfo.observe(viewLifecycleOwner, Observer { it ->
-            it.notNull({
-                setUserInfo(it)
-            }, {
-                resetUserInfo()
+        mRequestVm.run {
+            getResponseLiveData().observe(viewLifecycleOwner, Observer {
+                it.run {
+                    mViewModel.integral.set("积分 $coinCount")
+                    mViewModel.rank.set("排名 $rank")
+                    mViewModel.level.set("等级 $level")
+                }
             })
-        })
-
-        if (UserUtil.isLogin())
-            mRequestVm.run {
-                getResponseLiveData().observe(viewLifecycleOwner, Observer {
-                    it.run {
-                        mViewModel.integral.set("积分 $coinCount")
-                        mViewModel.rank.set("排名 $rank")
-                        mViewModel.level.set("等级 $level")
-                    }
-                })
-                getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-                    showFailDialog(it)
-                })
-                getFinallyLiveData().observe(viewLifecycleOwner, Observer {
-                    swipeRefresh.isRefreshing = false
+            getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+                showFailDialog(it)
+            })
+            getFinallyLiveData().observe(viewLifecycleOwner, Observer {
+                swipeRefresh.isRefreshing = false
+                swipeRefresh.isEnabled = true
+                if (mRequestVm.isFirst.get()) {
                     mRequestVm.isFirst.set(false)
-                })
-            }
+                    requestIntegral()
+                }
+            })
+        }
+        appVm.userInfo.observeInFragment(this, Observer { it ->
+            mRequestVm.isFirst.set(null == it)
+            setUserInfo(it)
+        })
     }
 
     override fun initData() {
@@ -131,35 +128,40 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
         }
     }
 
-    private fun setUserInfo(it: UserInfo) {
+    private fun requestIntegral() {
+        swipeRefresh.isRefreshing = !mRequestVm.isFirst.get()
         mRequestVm.requestServer()
-        swipeRefresh.isEnabled = true
-        mViewModel.run {
-            name.set(it.getUserName())
-            id.set("ID " + it.id)
-            if (it.icon.isNotEmpty())
-                imageUrl.set(it.icon)
-        }
     }
 
-    private fun resetUserInfo() {
-        swipeRefresh.isEnabled = false
-        mViewModel.run {
-            name.set("请先登录~")
-            id.set("ID")
-            integral.set("积分")
-            rank.set("排名")
-            level.set("等级")
-        }
+    private fun setUserInfo(it: UserInfo?) {
+        it.notNull({
+            requestIntegral()
+            mViewModel.run {
+                name.set(it.getUserName())
+                id.set("ID " + it.id)
+                if (it.icon.isNotEmpty())
+                    imageUrl.set(it.icon)
+            }
+        }, {
+            swipeRefresh.isEnabled = false
+            mViewModel.run {
+                name.set("请先登录~")
+                id.set("ID")
+                integral.set("积分")
+                rank.set("排名")
+                level.set("等级")
+            }
+        })
+
     }
 
     override fun onClick(p0: View?) {
         when (p0) {
             mShare -> checkLogin {
-                startFragment(MyShareArticleFragment())
+                startFragment(ShareArticleFragment())
             }
             mCollection -> checkLogin {
-
+                startFragment(CollectionFragment())
             }
             mAPI -> startFragment(
                 WebExplorerFragment.newInstance(

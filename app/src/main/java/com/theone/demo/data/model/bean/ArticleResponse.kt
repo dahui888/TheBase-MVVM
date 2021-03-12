@@ -26,6 +26,7 @@ data class ArticleResponse(
     var link: String,
     var niceDate: String,
     var origin: String,
+    var originId: Int = 0,
     var prefix: String,
     var projectLink: String,
     var publishTime: Long,
@@ -39,6 +40,10 @@ data class ArticleResponse(
     var visible: Int,
     var zan: Int
 ) : IWeb, Parcelable {
+
+    fun getArticleId():Int{
+        return if(originId != 0) originId else id
+    }
 
     override fun getWebUrl(): String = link
 

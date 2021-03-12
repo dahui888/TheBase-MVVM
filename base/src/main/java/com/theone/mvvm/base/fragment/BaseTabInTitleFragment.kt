@@ -1,5 +1,6 @@
 package com.theone.mvvm.base.fragment
 
+import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import com.theone.mvvm.R
@@ -37,6 +38,8 @@ abstract class BaseTabInTitleFragment<VM : BaseViewModel> : BaseTabFragment<VM>(
     override fun showTitleBar(): Boolean = false
 
     override fun getLayoutId(): Int = R.layout.base_tab_in_title_layout
+
+    override fun getTopBar(): QMUITopBarLayout? = mTopBarLayout
 
     override fun getViewPager(): QMUIViewPager = mQMUIViewPager
 

@@ -5,6 +5,8 @@ import androidx.lifecycle.Observer
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.theone.demo.R
+import com.theone.demo.app.util.CacheUtil
+import com.theone.demo.app.util.UserUtil
 import com.theone.demo.app.util.checkLogin
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.ui.adapter.ArticleAdapter
@@ -13,6 +15,7 @@ import com.theone.demo.viewmodel.ArticleViewModel
 import com.theone.demo.viewmodel.EventViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.showFailDialog
+import com.theone.mvvm.base.ext.util.logE
 
 
 //  ┏┓　　　┏┓
@@ -43,7 +46,6 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
     SpacePagerListFragment<ArticleResponse, VM>(),
     OnItemChildClickListener {
 
-    private val mEventVm: EventViewModel by lazy { getAppViewModel<EventViewModel>() }
     private val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
     override fun getViewModelIndex(): Int = 0
@@ -62,33 +64,52 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
 
     override fun createObserver() {
         super.createObserver()
-        // 监听用户登录、登出时，改变收藏
-        mAppVm.userInfo.observe(viewLifecycleOwner, Observer {
-            if (it != null) {
-                it.collectIds.forEach { id ->
-                    for (item in mAdapter.data) {
-                        if (id.toInt() == item.id) {
-                            item.collect = true
-                            break
+        val isCollection = this is CollectionArticleFragment
+        mAppVm.run {
+            // 监听用户登录、登出时，改变收藏
+            userInfo.observeInFragment(this@ArticleFragment, Observer {
+                if (it != null) {
+                    it.collectIds.forEach { id ->
+                        // 以用户信息里的为准，请求的数据可能是缓存里的，没有更新
+                        for (item in mAdapter.data) {
+                            if (id.toInt() == item.id) {
+                                item.collect = true
+                                break
+                            }
                         }
                     }
+                } else {
+                    for (item in mAdapter.data) {
+                        item.collect = false
+                    }
                 }
-            } else {
-                for (item in mAdapter.data) {
-                    item.collect = false
+                mAdapter.notifyDataSetChanged()
+            })
+            collectEvent.observe(viewLifecycleOwner, Observer {
+                for (index in mAdapter.data.indices) {
+                    val articleId = mAdapter.data[index].getArticleId()
+                    if (articleId == it.id) {
+                        mAdapter.data[index].collect = it.collect
+                        if (isCollection) {
+                            mAdapter.data.removeAt(index)
+                            mAdapter.notifyItemRemoved(index)
+                        } else {
+                            mAdapter.notifyItemChanged(index + mAdapter.headerLayoutCount)
+                        }
+                        // 操作过后应该更新本地的用户信息里的收藏
+                        UserUtil.setUser(
+                            mAppVm.userInfo.value?.apply {
+                            if (it.collect)
+                                collectIds.add(articleId.toString())
+                            else
+                                collectIds.remove(articleId.toString())
+                        })
+                        break
+                    }
                 }
-            }
-            mAdapter.notifyDataSetChanged()
-        })
-        mEventVm.collectEvent.observeInFragment(this, Observer {
-            for (index in mAdapter.data.indices) {
-                if (mAdapter.data[index].id == it.id) {
-                    mAdapter.data[index].collect = it.collect
-                    mAdapter.notifyItemChanged(index+mAdapter.headerLayoutCount)
-                    break
-                }
-            }
-        })
+            })
+
+        }
         mViewModel.getCollectionError().observe(viewLifecycleOwner, Observer {
             showFailDialog(it)
         })
@@ -104,7 +125,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
     ) {
         checkLogin {
             val article = adapter.getItem(position) as ArticleResponse
-            mViewModel.collection(article,mEventVm)
+            mViewModel.collection(article, mAppVm)
         }
     }
 
