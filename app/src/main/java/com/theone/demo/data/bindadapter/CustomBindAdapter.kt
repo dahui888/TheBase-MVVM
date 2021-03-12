@@ -23,6 +23,7 @@ import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.data.model.bean.SearchResponse
 import com.theone.demo.ui.fragment.SystemArticleFragment
+import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.base.ext.util.dp2px
 import com.theone.mvvm.base.ext.util.getDrawable
@@ -43,7 +44,9 @@ object CustomBindAdapter {
     ) {
         floatLayout.removeAllViews()
         for (c in classifyResponses) {
-            createFloatLayoutItem(floatLayout,c.name)
+            createFloatLayoutItem(floatLayout,c.name){
+                fragment?.startFragment(SystemArticleFragment.newInstance(c))
+            }
         }
     }
 
@@ -55,9 +58,10 @@ object CustomBindAdapter {
         fragment: BaseFragment?
     ) {
         floatLayout.removeAllViews()
-        val context = floatLayout.context
         for (article in articles) {
-            createFloatLayoutItem(floatLayout,article.title)
+            createFloatLayoutItem(floatLayout,article.title){
+                fragment?.startFragment(WebExplorerFragment.newInstance(article))
+            }
         }
     }
 
@@ -73,7 +77,7 @@ object CustomBindAdapter {
     }
 
     private fun createFloatLayoutItem(
-        floatLayout: QMUIFloatLayout,title:String,callback: ((String) -> Unit?)? = null){
+        floatLayout: QMUIFloatLayout,title:String,callback: ((String) -> Any?)? = null){
         val context = floatLayout.context
         val layoutParams = ViewGroup.LayoutParams(wrapContent, wrapContent)
         val container = QMUIFrameLayout(context)
