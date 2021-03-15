@@ -1,7 +1,6 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.category
 
 import android.content.Context
-import androidx.fragment.app.Fragment
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.R
 import com.theone.mvvm.base.fragment.BaseTabInTitleFragment

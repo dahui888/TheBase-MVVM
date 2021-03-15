@@ -5,17 +5,15 @@ import androidx.lifecycle.Observer
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.theone.demo.R
-import com.theone.demo.app.util.CacheUtil
 import com.theone.demo.app.util.UserUtil
 import com.theone.demo.app.util.checkLogin
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.ui.adapter.ArticleAdapter
+import com.theone.demo.ui.fragment.mine.CollectionArticleFragment
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.ArticleViewModel
-import com.theone.demo.viewmodel.EventViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.showFailDialog
-import com.theone.mvvm.base.ext.util.logE
 
 
 //  ┏┓　　　┏┓
@@ -43,10 +41,8 @@ import com.theone.mvvm.base.ext.util.logE
  * @remark
  */
 abstract class ArticleFragment<VM : ArticleViewModel> :
-    SpacePagerListFragment<ArticleResponse, VM>(),
+    BasePagerListFragment<ArticleResponse, VM>(),
     OnItemChildClickListener {
-
-    private val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
     override fun getViewModelIndex(): Int = 0
 

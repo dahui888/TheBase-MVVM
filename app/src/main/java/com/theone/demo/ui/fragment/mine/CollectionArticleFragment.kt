@@ -1,5 +1,6 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.mine
 
+import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.viewmodel.CollectionArticleViewModel
 
 
@@ -27,7 +28,8 @@ import com.theone.demo.viewmodel.CollectionArticleViewModel
  * @email 625805189@qq.com
  * @remark
  */
-class CollectionArticleFragment:ArticleFragment<CollectionArticleViewModel>() {
+class CollectionArticleFragment:
+    ArticleFragment<CollectionArticleViewModel>() {
 
 
 }

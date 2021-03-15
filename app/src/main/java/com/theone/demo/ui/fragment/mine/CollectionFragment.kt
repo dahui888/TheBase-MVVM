@@ -1,8 +1,8 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.mine
 
 import android.view.View
-import androidx.fragment.app.Fragment
 import com.qmuiteam.qmui.arch.QMUIFragment
+import com.theone.demo.ui.fragment.mine.CollectionArticleFragment
 import com.theone.mvvm.base.entity.QMUITabBean
 import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel

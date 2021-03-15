@@ -33,6 +33,7 @@ import com.tencent.mmkv.MMKV
 object CacheUtil {
 
     private const val HISTORY: String = "search_history"
+    private const val ANIMATION: String = "animation_type"
 
     /**
      * 获取搜索历史缓存数据
@@ -53,6 +54,18 @@ object CacheUtil {
      */
     fun setSearchHistoryData(searchResponseStr: String) {
         MMKVUtil.putString(HISTORY, searchResponseStr)
+    }
+
+    /**
+     * 获取列表动画类型
+     */
+    fun getAnimationType():Int =  MMKVUtil.getInt(ANIMATION, 0)
+
+    /**
+     * 设置类表动画类型
+     */
+    fun setAnimationType(type:Int){
+        MMKVUtil.putInt(ANIMATION, type)
     }
 
 }

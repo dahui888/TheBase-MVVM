@@ -29,7 +29,7 @@ import com.tencent.mmkv.MMKV
  */
 object MMKVUtil {
 
-    private fun getMMKV(id:String?="the_base_mvvm"): MMKV = MMKV.mmkvWithID(id)
+    private fun getMMKV(id: String? = "the_base_mvvm"): MMKV = MMKV.mmkvWithID(id)
 
     fun putBoolean(key: String, value: Boolean) {
         getMMKV().encode(key, value)
@@ -51,5 +51,11 @@ object MMKVUtil {
     fun getString(key: String): String? =
         getString(key, null)
 
+    fun putInt(key: String, value: Int) {
+        getMMKV().encode(key, value)
+    }
+
+    fun getInt(key: String, default: Int): Int =
+        getMMKV().decodeInt(key, default)
 }
 

@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.theone.demo.R
 import com.theone.demo.data.model.bean.SystemResponse
 import com.theone.demo.databinding.ItemSystemBinding
-import com.theone.demo.ui.fragment.SystemFragment
+import com.theone.demo.ui.fragment.category.SystemFragment
 
 
 //  ┏┓　　　┏┓
@@ -33,7 +33,7 @@ import com.theone.demo.ui.fragment.SystemFragment
  * @email 625805189@qq.com
  * @remark
  */
-class SystemAdapter(val fragment:SystemFragment) : BaseQuickAdapter<SystemResponse,BaseDataBindingHolder<ItemSystemBinding>>(
+class SystemAdapter(val fragment: SystemFragment) : BaseQuickAdapter<SystemResponse,BaseDataBindingHolder<ItemSystemBinding>>(
     R.layout.item_system
 ),LoadMoreModule {
 

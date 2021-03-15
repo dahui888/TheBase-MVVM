@@ -6,8 +6,7 @@ import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.theone.demo.R
 import com.theone.demo.data.model.bean.NavigationResponse
 import com.theone.demo.databinding.ItemNavBinding
-import com.theone.demo.ui.fragment.NavFragment
-import com.theone.mvvm.base.fragment.BaseFragment
+import com.theone.demo.ui.fragment.category.NavFragment
 
 
 //  ┏┓　　　┏┓
@@ -34,7 +33,7 @@ import com.theone.mvvm.base.fragment.BaseFragment
  * @email 625805189@qq.com
  * @remark
  */
-class NavAdapter(val f:NavFragment) : BaseQuickAdapter<NavigationResponse,BaseDataBindingHolder<ItemNavBinding>>(
+class NavAdapter(val f: NavFragment) : BaseQuickAdapter<NavigationResponse,BaseDataBindingHolder<ItemNavBinding>>(
     R.layout.item_nav
 ),LoadMoreModule {
 

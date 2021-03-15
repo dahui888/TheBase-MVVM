@@ -11,7 +11,7 @@
 
         <variable
             name="click"
-            type="com.theone.demo.ui.fragment.MineFragment.ProxyClick" />
+            type="com.theone.demo.ui.fragment.mine.MineFragment.ProxyClick" />
 
     </data>
 

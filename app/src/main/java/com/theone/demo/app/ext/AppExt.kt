@@ -3,6 +3,7 @@ package com.theone.demo.app.ext
 import android.content.Intent
 import android.net.Uri
 import androidx.fragment.app.Fragment
+import com.chad.library.adapter.base.BaseQuickAdapter
 import com.luck.picture.lib.tools.ToastUtils
 import com.theone.mvvm.base.ext.qmui.showFailDialog
 import com.theone.mvvm.base.fragment.BaseFragment
@@ -51,4 +52,18 @@ fun BaseFragment.joinQQGroup(key: String): Boolean {
         showFailDialog("未安装手机QQ或安装的版本不支持")
         false
     }
+}
+
+//设置适配器的列表动画
+fun BaseQuickAdapter<*, *>.setAdapterAnimation(mode: Int?) {
+    mode?.let {
+        //等于0，关闭列表动画 否则开启
+        if (it == 0) {
+            animationEnable = false
+        } else {
+            animationEnable = true
+            setAnimationWithDefault(BaseQuickAdapter.AnimationType.values()[it - 1])
+        }
+    }
+
 }

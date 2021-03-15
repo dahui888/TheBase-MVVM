@@ -12,7 +12,7 @@
 
         <variable
             name="fg"
-            type="com.theone.demo.ui.fragment.SystemFragment" />
+            type="com.theone.demo.ui.fragment.category.SystemFragment" />
 
     </data>
 

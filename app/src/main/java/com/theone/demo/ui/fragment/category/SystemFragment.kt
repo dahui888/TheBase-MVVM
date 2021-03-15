@@ -1,9 +1,10 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.category
 
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.demo.data.model.bean.SystemResponse
 import com.theone.demo.ui.adapter.SystemAdapter
+import com.theone.demo.ui.fragment.BasePagerListFragment
 import com.theone.demo.viewmodel.SystemViewModel
 
 
@@ -31,7 +32,8 @@ import com.theone.demo.viewmodel.SystemViewModel
  * @email 625805189@qq.com
  * @remark
  */
-class SystemFragment:SpacePagerListFragment<SystemResponse,SystemViewModel>() {
+class SystemFragment:
+    BasePagerListFragment<SystemResponse, SystemViewModel>() {
 
     override fun createAdapter(): SystemAdapter  = SystemAdapter(this)
 

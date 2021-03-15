@@ -24,10 +24,21 @@ fun Fragment.updateStatusBarMode(isLight: Boolean) {
     }
 }
 
-
 fun Fragment.getView(layoutId: Int): View {
    return layoutInflater.inflate(layoutId, null)
 }
 
 fun Fragment.dp2px(dp: Int): Int = QMUIDisplayHelper.dp2px(requireActivity(), dp)
 fun Fragment.sp2px(dp: Int): Int = QMUIDisplayHelper.sp2px(requireActivity(), dp)
+
+inline fun <reified T:Any> Fragment.getValue(label:String,defaultValue:T?=null) = lazy {
+    val value = arguments?.get(label)
+    if(value is T) value else defaultValue
+}
+
+inline fun <reified T:Any> Fragment.getValueNonNull(label:String,defaultValue:T?=null) = lazy {
+    val value = arguments?.get(label)
+    requireNotNull(if(value is T) value else defaultValue){
+        label
+    }
+}

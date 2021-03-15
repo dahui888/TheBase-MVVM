@@ -1,7 +1,9 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.mine
 
-import android.os.Bundle
-import com.theone.demo.viewmodel.ProjectItemViewModel
+import android.view.View
+import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.viewmodel.ShareArticleViewModel
+import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
 
 
 //  ┏┓　　　┏┓
@@ -23,27 +25,17 @@ import com.theone.demo.viewmodel.ProjectItemViewModel
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/3 0003
- * @describe TODO
+ * @date 2021/3/5 0005
+ * @describe 我分享的文章
  * @email 625805189@qq.com
  * @remark
  */
-class ProjectItemFragment :
-    ArticleFragment<ProjectItemViewModel>() {
+class ShareArticleFragment:
+    ArticleFragment<ShareArticleViewModel>() {
 
-    companion object {
-        fun newInstance(id: Int): ProjectItemFragment {
-            val fragment = ProjectItemFragment()
-            val bundle = Bundle()
-            bundle.putInt("DATA", id)
-            fragment.arguments = bundle
-            return fragment
-        }
-    }
-
-    override fun initData() {
-        val id = requireArguments().getInt("DATA")
-        mViewModel.mId = id
+    override fun initView(rootView: View) {
+        super.initView(rootView)
+        getTopBar()?.setTitleWithBackBtn("分享的文章",this)
     }
 
 }

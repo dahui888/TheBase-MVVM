@@ -27,7 +27,7 @@ class LoginRegisterViewModel : BaseRequestViewModel<UserInfo>() {
                 .toResponse<UserInfo>()
                 .await()
             onSuccess(res)
-        }, if (isRegister.get()) "登录中" else "注册中")
+        }, if (isRegister.get()) "注册中" else "登录中")
     }
 
 }

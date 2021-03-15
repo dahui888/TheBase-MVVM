@@ -1,4 +1,4 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.home
 
 import android.view.View
 import android.view.ViewGroup
@@ -18,11 +18,12 @@ import com.theone.demo.viewmodel.HomeViewModel
 import com.theone.demo.app.widge.OffsetLinearLayoutManager
 import com.theone.demo.app.widge.banner.HomeBannerAdapter
 import com.theone.demo.app.widge.banner.HomeBannerViewHolder
+import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.ui.fragment.search.SearchFragment
+import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.base.ext.*
-import com.theone.mvvm.base.ext.util.logE
 import com.zhpan.bannerview.BannerViewPager
-import com.zhpan.bannerview.annotation.AIndicatorGravity
 import com.zhpan.bannerview.constants.IndicatorGravity
 
 
@@ -106,14 +107,18 @@ class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
                 layoutParams = ViewGroup.LayoutParams(matchParent, mBannerHeight)
                 adapter = HomeBannerAdapter()
                 setAutoPlay(true)
-                setInterval(2000)
+                setInterval(2500)
                 setIndicatorGravity(IndicatorGravity.END)
                 setIndicatorSliderColor(
                     getColor(mActivity, R.color.white),
                     QMUIResHelper.getAttrColor(mActivity, R.attr.app_skin_primary_color)
                 )
                 setOnPageClickListener { position: Int ->
-                    startFragment(WebExplorerFragment.newInstance(mBannerList[position]))
+                    startFragment(
+                        WebExplorerFragment.newInstance(
+                            mBannerList[position]
+                        )
+                    )
                 }
                 mAdapter.addHeaderView(this)
             }

@@ -1,8 +1,11 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.category
 
 import android.view.View
-import com.theone.demo.viewmodel.ShareArticleViewModel
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.chad.library.adapter.base.BaseQuickAdapter
+import com.theone.demo.data.model.bean.NavigationResponse
+import com.theone.demo.ui.adapter.NavAdapter
+import com.theone.demo.ui.fragment.BasePagerListFragment
+import com.theone.demo.viewmodel.NavViewModel
 
 
 //  ┏┓　　　┏┓
@@ -24,16 +27,20 @@ import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/5 0005
- * @describe 我分享的文章
+ * @date 2021/3/4 0004
+ * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class ShareArticleFragment:ArticleFragment<ShareArticleViewModel>() {
+class NavFragment:
+    BasePagerListFragment<NavigationResponse, NavViewModel>() {
 
-    override fun initView(rootView: View) {
-        super.initView(rootView)
-        getTopBar()?.setTitleWithBackBtn("分享的文章",this)
+    override fun createAdapter(): NavAdapter  = NavAdapter(this)
+
+    override fun initData() {
+    }
+
+    override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
     }
 
 }

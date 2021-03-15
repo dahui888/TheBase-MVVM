@@ -1,16 +1,13 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.search
 
-import android.annotation.SuppressLint
 import android.view.View
 import android.widget.Button
 import android.widget.RelativeLayout
 import android.widget.TextView
-import androidx.databinding.adapters.CompoundButtonBindingAdapter
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
-import com.qmuiteam.qmui.alpha.QMUIAlphaImageButton
 import com.qmuiteam.qmui.widget.QMUIFloatLayout
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
@@ -21,15 +18,8 @@ import com.theone.demo.app.widge.TheSearchView
 import com.theone.demo.data.bindadapter.CustomBindAdapter
 import com.theone.demo.ui.adapter.SearchAdapter
 import com.theone.demo.viewmodel.HotSearchViewModel
-import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.SearchViewModel
 import com.theone.mvvm.base.ext.*
-import com.theone.mvvm.base.ext.net.loadListData
-import com.theone.mvvm.base.ext.net.loadListError
-import com.theone.mvvm.base.ext.qmui.showFailDialog
-import com.theone.mvvm.base.ext.util.getColor
-import com.theone.mvvm.base.ext.util.getDrawable
-import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 
 
@@ -165,7 +155,11 @@ class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel>(), Vie
      * 更新搜索词
      */
     private fun updateKey(keyStr: String) {
-        startFragment(SearchResultFragment.newInstance(keyStr))
+        startFragment(
+            SearchResultFragment.newInstance(
+                keyStr
+            )
+        )
         mAdapter.data.let {
             if (it.contains(keyStr)) {
                 //当搜索历史中包含该数据时 删除

@@ -10,6 +10,7 @@ import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import com.theone.demo.databinding.FragmentLoginRegisterBinding
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
+import com.theone.mvvm.base.ext.getValueNonNull
 import com.theone.mvvm.base.ext.qmui.*
 
 class LoginRegisterItemFragment :
@@ -29,11 +30,11 @@ class LoginRegisterItemFragment :
 
     val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
+    private val isRegister :Boolean by getValueNonNull(TYPE)
 
     override fun getLayoutId(): Int = R.layout.fragment_login_register
 
     override fun initView(rootView: View) {
-        val isRegister = requireArguments().getBoolean(TYPE, false)
         mViewModel.isRegister.set(isRegister)
     }
 
@@ -45,7 +46,7 @@ class LoginRegisterItemFragment :
             getResponseLiveData().observeInFragment(this@LoginRegisterItemFragment, Observer {
                 mAppVm.userInfo.value = it
                 UserUtil.setUser(it)
-                showSuccessExitDialog(if (mViewModel.isRegister.get()) "注册成功" else "登录成功")
+                showSuccessExitDialog(if (isRegister.get()) "注册成功" else "登录成功")
             })
             getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
                 showFailDialog(it)

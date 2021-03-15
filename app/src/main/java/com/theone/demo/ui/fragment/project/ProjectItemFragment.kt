@@ -1,10 +1,8 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.project
 
 import android.os.Bundle
-import android.view.View
-import com.theone.demo.viewmodel.SearchResultModel
-import com.theone.demo.viewmodel.WxGzhItemViewModel
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.viewmodel.ProjectItemViewModel
 
 
 //  ┏┓　　　┏┓
@@ -31,29 +29,23 @@ import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
  * @email 625805189@qq.com
  * @remark
  */
-class SearchResultFragment :
-    ArticleFragment<SearchResultModel>() {
+class ProjectItemFragment :
+    ArticleFragment<ProjectItemViewModel>() {
 
     companion object {
-        fun newInstance(key: String): SearchResultFragment {
-            val fragment = SearchResultFragment()
+        fun newInstance(id: Int): ProjectItemFragment {
+            val fragment =
+                ProjectItemFragment()
             val bundle = Bundle()
-            bundle.putString("DATA", key)
+            bundle.putInt("DATA", id)
             fragment.arguments = bundle
             return fragment
         }
     }
 
-    override fun initView(rootView: View) {
-        val key = requireArguments().getString("DATA","")
-        mViewModel.mKey = key
-        super.initView(rootView)
-        getTopBar()?.setTitleWithBackBtn(key,this)
+    override fun initData() {
+        val id = requireArguments().getInt("DATA")
+        mViewModel.mId = id
     }
-
-    /**
-     * 更改进出动画效果 QMUIFragment提供
-     */
-    override fun onFetchTransitionConfig(): TransitionConfig  = SCALE_TRANSITION_CONFIG
 
 }

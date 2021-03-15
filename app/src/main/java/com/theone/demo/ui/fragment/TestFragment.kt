@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.bumptech.glide.Glide
 import com.theone.demo.R
+import com.theone.demo.ui.fragment.category.NavFragment
 import com.theone.mvvm.base.fragment.BaseFragment
 import kotlinx.android.synthetic.main.fragment_test.*
 import java.util.ArrayList

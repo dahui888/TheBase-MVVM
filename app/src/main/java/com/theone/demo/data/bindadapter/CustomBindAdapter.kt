@@ -22,7 +22,7 @@ import com.theone.demo.app.util.ColorUtil
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.data.model.bean.SearchResponse
-import com.theone.demo.ui.fragment.SystemArticleFragment
+import com.theone.demo.ui.fragment.category.SystemArticleFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.base.ext.util.dp2px
