@@ -36,13 +36,13 @@ import com.theone.mvvm.util.ToastUtil
 fun <T> loadListData(
     vm: BaseListViewModel<T>,
     adapter: BaseQuickAdapter<T, *>,
-    loader: LoadService<Any>
+    loader: LoadService<Any>?
 ) {
     val list = vm.getResponseLiveData().value
     val isNewData = vm.mPage.value == vm.mFirstPage.value
     if (list.isNullOrEmpty()) {
         if (isNewData) {
-            loader.showEmpty()
+            loader?.showEmpty()
         } else {
             adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
         }
@@ -53,7 +53,7 @@ fun <T> loadListData(
         vm.isFresh.value = false
         vm.firstLoadSuccess.value = true
         adapter.setList(list)
-        loader.showSuccess()
+        loader?.showSuccess()
     } else {
         adapter.addData(list)
     }
@@ -70,11 +70,11 @@ fun <T> loadListError(
     errorMsg: String,
     vm: BaseListViewModel<T>,
     adapter: BaseQuickAdapter<T, *>,
-    loader: LoadService<Any>
+    loader: LoadService<Any>?
 ) {
     when {
         vm.isFirst.value -> {
-            loader.showError(errorMsg)
+            loader?.showError(errorMsg)
         }
         vm.isFresh.value -> {
             ToastUtil.show(errorMsg)

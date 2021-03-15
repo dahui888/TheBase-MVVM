@@ -1,6 +1,5 @@
 package com.theone.demo.viewmodel
 
-import androidx.lifecycle.rxLifeScope
 import com.theone.demo.data.model.bean.SystemResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
@@ -33,7 +32,7 @@ import rxhttp.wrapper.param.toResponse
  * @email 625805189@qq.com
  * @remark
  */
-class SystemViewModel:BaseDemoViewModel<SystemResponse>() {
+class SystemViewModel:BasePagerViewModel<SystemResponse>() {
 
     override fun requestServer() {
         request({

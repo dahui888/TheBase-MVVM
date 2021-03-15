@@ -56,7 +56,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     lateinit var mActivity: AppCompatActivity
 
     //界面状态管理者
-    lateinit var mLoadSir: LoadService<Any>
+     var mLoadSir: LoadService<Any>?=null
     private var mTopBar: QMUITopBarLayout? = null
     private val mBody: View by lazy {
         createContentView()

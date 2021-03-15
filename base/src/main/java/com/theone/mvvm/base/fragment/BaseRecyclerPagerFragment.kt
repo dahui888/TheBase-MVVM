@@ -131,7 +131,7 @@ abstract class BaseRecyclerPagerFragment
 
     override fun createObserver() {
         mViewModel.run {
-            getResponseLiveData().observe(viewLifecycleOwner, Observer {
+            getResponseLiveData().observeInFragment(this@BaseRecyclerPagerFragment, Observer {
                 loadListData(mViewModel, mAdapter, mLoadSir)
             })
             getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {

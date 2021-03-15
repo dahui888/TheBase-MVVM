@@ -109,7 +109,7 @@ class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel>(), Vie
 
     override fun createObserver() {
         mViewModel.run {
-            getResponseLiveData().observe(viewLifecycleOwner, Observer {
+            getResponseLiveData().observeInFragment(this@SearchFragment, Observer {
                 mAdapter.setNewInstance(it.toMutableList())
                 mAdapter.loadMoreModule.loadMoreEnd(true)
                 if (it.isEmpty()) goneViews(mHistory) else showViews(mHistory)
@@ -118,7 +118,7 @@ class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel>(), Vie
             })
         }
         mHotVm.run {
-            getResponseLiveData().observe(viewLifecycleOwner, Observer { it ->
+            getResponseLiveData().observeInFragment(this@SearchFragment, Observer { it ->
                 CustomBindAdapter.loadHotSearchData(mFloatLayout, it) {
                     updateKey(it)
                 }

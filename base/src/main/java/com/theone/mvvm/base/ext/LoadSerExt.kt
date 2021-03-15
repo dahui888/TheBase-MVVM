@@ -79,21 +79,21 @@ fun LoadService<*>.showLoading() {
 }
 
 fun BaseFragment.showContentPage(){
-    mLoadSir.showSuccess()
+    mLoadSir?.showSuccess()
 }
 
 fun BaseFragment.showLoadingPage(){
-    mLoadSir.showLoading()
+    mLoadSir?.showLoading()
 }
 
 fun BaseFragment.showErrorPage(message: String, imageRes:Int = R.drawable.status_loading_view_loading_fail){
-    mLoadSir.showError(message,imageRes)
+    mLoadSir?.showError(message,imageRes)
 }
 
 fun BaseFragment.showEmptyPage(message: String, imageRes:Int = R.drawable.status_search_result_empty){
-    mLoadSir.showEmpty(message,imageRes)
+    mLoadSir?.showEmpty(message,imageRes)
 }
 
 fun BaseFragment.showEmptyPage(){
-    mLoadSir.showEmpty()
+    mLoadSir?.showEmpty()
 }

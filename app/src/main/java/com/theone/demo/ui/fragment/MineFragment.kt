@@ -96,7 +96,7 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
 
     override fun createObserver() {
         mRequestVm.run {
-            getResponseLiveData().observe(viewLifecycleOwner, Observer {
+            getResponseLiveData().observeInFragment(this@MineFragment, Observer {
                 it.run {
                     mViewModel.integral.set("积分 $coinCount")
                     mViewModel.rank.set("排名 $rank")
@@ -116,7 +116,7 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
             })
         }
         appVm.userInfo.observeInFragment(this, Observer { it ->
-            mRequestVm.isFirst.set(null == it)
+            mRequestVm.isFirst.set(false)
             setUserInfo(it)
         })
     }
@@ -142,8 +142,7 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
                 if (it.icon.isNotEmpty())
                     imageUrl.set(it.icon)
             }
-        }, {
-            swipeRefresh.isEnabled = false
+        },{
             mViewModel.run {
                 name.set("请先登录~")
                 id.set("ID")

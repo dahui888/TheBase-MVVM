@@ -6,12 +6,11 @@ import com.theone.demo.app.net.Url
 import com.theone.demo.app.util.UserUtil
 import com.theone.demo.data.model.bean.CollectBus
 import com.theone.mvvm.base.ext.request
-import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.callback.livedata.StringLiveData
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
-abstract class ArticleViewModel(val url: String? = null) : BaseDemoViewModel<ArticleResponse>() {
+abstract class ArticleViewModel(val url: String? = null) : BasePagerViewModel<ArticleResponse>() {
 
     //收藏文章
     private val collectionError: StringLiveData = StringLiveData()

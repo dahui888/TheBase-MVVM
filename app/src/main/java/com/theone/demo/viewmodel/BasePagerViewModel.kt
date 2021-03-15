@@ -29,7 +29,7 @@ import rxhttp.wrapper.cahce.CacheMode
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseDemoViewModel<T> : BaseListViewModel<T>() {
+abstract class BasePagerViewModel<T> : BaseListViewModel<T>() {
 
     init {
         mFirstPage.value = 0

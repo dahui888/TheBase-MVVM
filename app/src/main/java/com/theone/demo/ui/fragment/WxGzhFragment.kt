@@ -6,7 +6,9 @@ import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.viewmodel.WxGzhViewModel
 import com.theone.mvvm.base.entity.QMUITabBean
 import com.theone.mvvm.base.ext.showError
+import com.theone.mvvm.base.ext.showErrorPage
 import com.theone.mvvm.base.ext.showLoading
+import com.theone.mvvm.base.ext.showLoadingPage
 import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
 
 
@@ -41,7 +43,7 @@ class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
     private lateinit var mResponse: List<ClassifyResponse>
 
     override fun onLazyInit() {
-        mLoadSir.showLoading()
+        showLoadingPage()
         mViewModel.requestServer()
     }
 
@@ -57,12 +59,12 @@ class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
     }
 
     override fun createObserver() {
-       mViewModel.getResponseLiveData().observe(viewLifecycleOwner, Observer {
+       mViewModel.getResponseLiveData().observeInFragment(this, Observer {
            mResponse = it
            startInit()
        })
         mViewModel.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-            mLoadSir.showError(it)
+            showErrorPage(it)
         })
     }
 

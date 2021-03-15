@@ -4,25 +4,30 @@ import com.theone.demo.app.net.Url
 import com.theone.demo.data.model.bean.UserInfo
 import com.theone.mvvm.base.ext.request
 import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
+import com.theone.mvvm.callback.databind.BooleanObservableField
 import com.theone.mvvm.callback.databind.StringObservableField
 import com.theone.mvvm.callback.livedata.StringLiveData
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
-class LoginViewModel : BaseRequestViewModel<UserInfo>() {
+class LoginRegisterViewModel : BaseRequestViewModel<UserInfo>() {
 
     var account = StringLiveData()
     var password = StringObservableField()
+    var repassword = StringObservableField()
+
+    var isRegister = BooleanObservableField()
 
     override fun requestServer() {
         request({
-            val res = RxHttp.postForm(Url.LOGIN)
+            val res = RxHttp.postForm(if (isRegister.get()) Url.REGISTER else Url.LOGIN)
                 .add("username", account.value)
                 .add("password", password.get())
+                .add("repassword", repassword.get(), isRegister.get())
                 .toResponse<UserInfo>()
                 .await()
             onSuccess(res)
-        },"登录中")
+        }, if (isRegister.get()) "登录中" else "注册中")
     }
 
 }

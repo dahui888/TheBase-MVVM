@@ -1,6 +1,5 @@
 package com.theone.demo.viewmodel
 
-import androidx.lifecycle.rxLifeScope
 import com.theone.demo.data.model.bean.NavigationResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
@@ -33,7 +32,7 @@ import rxhttp.wrapper.param.toResponse
  * @email 625805189@qq.com
  * @remark
  */
-class NavViewModel:BaseDemoViewModel<NavigationResponse>() {
+class NavViewModel:BasePagerViewModel<NavigationResponse>() {
 
     override fun requestServer() {
         request({

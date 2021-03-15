@@ -34,13 +34,13 @@ import com.theone.mvvm.callback.livedata.BooleanLiveData
  */
 abstract class BaseRequestViewModel<T>:BaseViewModel() {
 
-    private val mResponse: MutableLiveData<T> = MutableLiveData()
+    private val mResponse: UnPeekLiveData<T> = UnPeekLiveData.Builder<T>().setAllowNullValue(true).create()
 
     private val error :StringLiveData = StringLiveData()
 
     private val finally :BooleanLiveData = BooleanLiveData()
 
-    fun getResponseLiveData(): MutableLiveData<T> = mResponse
+    fun getResponseLiveData(): UnPeekLiveData<T> = mResponse
 
     fun getErrorMsgLiveData():StringLiveData = error
 

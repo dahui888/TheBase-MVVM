@@ -7,6 +7,7 @@
     <string name="home_tag_new">新</string>
     <string name="login_input_account">请输入账号</string>
     <string name="login_input_password">请输入密码</string>
+    <string name="login_input_repassword">请确认密码</string>
     <string name="rank">排名</string>
     <string name="score">积分</string>
     <string name="plz_login_first">请先登录</string>
@@ -15,4 +16,6 @@
     <string name="search">搜索</string>
     <string name="search_hot_words">热门搜索</string>
     <string name="search_hint">请输入关键词</string>
+    <string name="login">登  录</string>
+    <string name="register">注  册</string>
 </resources>
