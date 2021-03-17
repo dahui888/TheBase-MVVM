@@ -88,6 +88,7 @@
                     <TextView
                         style="@style/mine_tips_style"
                         android:text="@{vm.rank}"
+                        noRepeatClick="@{()->click.rank()}"
                         app:drawableTopCompat="@drawable/svg_mine_rank" />
 
                 </com.qmuiteam.qmui.layout.QMUILinearLayout>

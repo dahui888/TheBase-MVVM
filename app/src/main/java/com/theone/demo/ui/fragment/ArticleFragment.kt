@@ -106,6 +106,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
             })
 
         }
+
         mViewModel.getCollectionError().observe(viewLifecycleOwner, Observer {
             showFailDialog(it)
         })

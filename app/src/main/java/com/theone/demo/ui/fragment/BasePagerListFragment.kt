@@ -35,9 +35,12 @@ import com.theone.mvvm.base.viewmodel.BaseListViewModel
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>>:BaseRecyclerPagerFragment<T,VM>() {
+abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>> :
+    BaseRecyclerPagerFragment<T, VM>() {
 
     protected val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
+
+    fun isFirstLoadSuccessRefresh()= false
 
     override fun getItemSpace(): Int = 12
 
@@ -48,13 +51,16 @@ abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>>:BaseRecyclerP
 
     override fun createObserver() {
         super.createObserver()
-        mViewModel.firstLoadSuccess.observe(viewLifecycleOwner, Observer {
+        mViewModel.getFirstLoadSuccessLiveData().observeInFragment(this, Observer {
             getRecyclerView().setBackgroundColor(
                 ContextCompat.getColor(
                     mActivity,
                     R.color.qmui_config_color_background
                 )
             )
+            if(isFirstLoadSuccessRefresh()){
+                onRefresh()
+            }
         })
         mAppVm.appAnimation.observeInFragment(this, Observer {
             mAdapter.setAdapterAnimation(it)

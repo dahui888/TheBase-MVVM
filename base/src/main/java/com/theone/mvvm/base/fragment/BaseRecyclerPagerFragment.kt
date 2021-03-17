@@ -162,6 +162,7 @@ abstract class BaseRecyclerPagerFragment
      * 刷新
      */
     override fun onRefresh() {
+        getRefreshLayout().isRefreshing = true
         mViewModel.isFresh.value = true
         mViewModel.requestNewData()
     }

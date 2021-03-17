@@ -89,6 +89,7 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
         swipeRefresh.setOnRefreshListener {
             mRequestVm.requestServer()
         }
+        setUserInfo(appVm.userInfo.value)
     }
 
     override fun onLazyInit() {
@@ -194,6 +195,12 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
         fun doLogin() {
             checkLogin {
 
+            }
+        }
+
+        fun rank() {
+            checkLogin {
+                startFragment(RankFragment())
             }
         }
 

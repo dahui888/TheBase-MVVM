@@ -37,7 +37,7 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
     val mPageInfo: MutableLiveData<IPageInfo> = MutableLiveData()
     val isFirst: BooleanLiveData = BooleanLiveData()
     val isFresh: BooleanLiveData = BooleanLiveData()
-    val firstLoadSuccess: BooleanLiveData = BooleanLiveData()
+    private val firstLoadSuccess: UnPeekLiveData<Boolean> = UnPeekLiveData()
     val mFirstPage: IntLiveData = IntLiveData()
     val mPage: IntLiveData = IntLiveData()
     var goneLoadMoreEndView: Boolean = false
@@ -45,6 +45,8 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
     init {
         mFirstPage.value = 1
     }
+
+    fun getFirstLoadSuccessLiveData():UnPeekLiveData<Boolean> = firstLoadSuccess
 
     open fun onSuccess( response:List<T>?, pageInfo: IPageInfo? ){
         onSuccess(response)

@@ -39,7 +39,7 @@ abstract class BasePagerViewModel<T> : BaseListViewModel<T>() {
         onSuccess(response?.datas, response)
     }
 
-    fun getCacheMode(): CacheMode {
+    open fun getCacheMode(): CacheMode {
         return when {
             isFirst.value -> CacheMode.READ_CACHE_FAILED_REQUEST_NETWORK
             isFresh.value -> CacheMode.NETWORK_SUCCESS_WRITE_CACHE
