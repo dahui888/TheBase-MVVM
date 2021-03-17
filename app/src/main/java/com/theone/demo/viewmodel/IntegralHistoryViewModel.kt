@@ -2,7 +2,7 @@ package com.theone.demo.viewmodel
 
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
-import com.theone.demo.data.model.bean.IntegralResponse
+import com.theone.demo.data.model.bean.IntegralHistoryResponse
 import com.theone.mvvm.base.ext.request
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
@@ -28,17 +28,21 @@ import rxhttp.wrapper.param.toResponse
 /**
  * @author The one
  * @date 2021/3/17 0017
- * @describe TODO
+ * @describe 积分记录
  * @email 625805189@qq.com
  * @remark
  */
-class RankViewModel:BasePagerViewModel<IntegralResponse>() {
+class IntegralHistoryViewModel:BasePagerViewModel<IntegralHistoryResponse>() {
+
+    init {
+        mFirstPage.value = 1
+    }
 
     override fun requestServer() {
         request({
-            val response = RxHttp.get(Url.COIN_RANK,getPage())
+            val response = RxHttp.get(Url.INTEGRAL_HISTORY,getPage())
                 .setCacheMode(getCacheMode())
-                .toResponse<PagerResponse<List<IntegralResponse>>>()
+                .toResponse<PagerResponse<List<IntegralHistoryResponse>>>()
                 .await()
             onSuccess(response)
         })

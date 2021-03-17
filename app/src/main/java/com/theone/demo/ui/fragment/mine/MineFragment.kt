@@ -14,6 +14,8 @@ import com.theone.demo.data.model.bean.UserInfo
 import com.theone.demo.databinding.FragmentMineBinding
 import com.theone.demo.ui.fragment.SettingFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
+import com.theone.demo.ui.fragment.integral.IntegralHistoryFragment
+import com.theone.demo.ui.fragment.integral.IntegralRankFragment
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.MineViewModel
@@ -93,7 +95,9 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
     }
 
     override fun onLazyInit() {
-        setUserInfo(appVm.userInfo.value)
+        appVm.userInfo.value?.run {
+            requestIntegral()
+        }
     }
 
     override fun createObserver() {
@@ -111,10 +115,7 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
             getFinallyLiveData().observe(viewLifecycleOwner, Observer {
                 swipeRefresh.isRefreshing = false
                 swipeRefresh.isEnabled = true
-                if (mRequestVm.isFirst.get()) {
-                    mRequestVm.isFirst.set(false)
-                    requestIntegral()
-                }
+                mRequestVm.isFirst.set(false)
             })
         }
         appVm.userInfo.observeInFragment(this, Observer { it ->
@@ -198,9 +199,21 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
             }
         }
 
-        fun rank() {
+        /**
+         * 积分历史
+         */
+        fun integralHistory() {
             checkLogin {
-                startFragment(RankFragment())
+                startFragment(IntegralHistoryFragment())
+            }
+        }
+
+        /**
+         * 积分排行
+         */
+        fun integralRank() {
+            checkLogin {
+                startFragment(IntegralRankFragment())
             }
         }
 

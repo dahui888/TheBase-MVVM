@@ -19,6 +19,7 @@ import com.qmuiteam.qmui.layout.QMUIFrameLayout
 import com.qmuiteam.qmui.widget.QMUIFloatLayout
 import com.theone.demo.R
 import com.theone.demo.app.util.ColorUtil
+import com.theone.demo.app.util.DateFormateUtils
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.data.model.bean.SearchResponse
@@ -34,6 +35,16 @@ import com.theone.mvvm.base.ext.util.getDrawable
  * 描述　: 自定义 BindingAdapter
  */
 object CustomBindAdapter {
+
+    @BindingAdapter(value = ["longDate","type"])
+    @JvmStatic
+    fun formatDate(
+        textView: TextView,
+        longDate: Long,
+        type: Int
+    ) {
+       textView.text = DateFormateUtils.formatTimeStampString(textView.context,longDate,type)
+    }
 
     @BindingAdapter(value = ["treeChildData", "fragment"], requireAll = false)
     @JvmStatic

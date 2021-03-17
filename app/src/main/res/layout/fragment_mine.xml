@@ -83,12 +83,13 @@
                     <TextView
                         style="@style/mine_tips_style"
                         android:text='@{vm.integral}'
+                        android:onClick="@{()-> click.integralHistory()}"
                         app:drawableTopCompat="@drawable/svg_mine_score" />
 
                     <TextView
                         style="@style/mine_tips_style"
                         android:text="@{vm.rank}"
-                        noRepeatClick="@{()->click.rank()}"
+                        android:onClick="@{()-> click.integralRank()}"
                         app:drawableTopCompat="@drawable/svg_mine_rank" />
 
                 </com.qmuiteam.qmui.layout.QMUILinearLayout>

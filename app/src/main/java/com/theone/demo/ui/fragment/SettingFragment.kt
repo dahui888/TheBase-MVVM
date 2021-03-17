@@ -98,6 +98,9 @@ class SettingFragment : BaseVmDbFragment<SettingViewModel, FragmentSettingBindin
             mAnimation -> {
                 showAnimationSelectDialog()
             }
+            mTheme -> {
+                showMsgDialog("开发中...")
+            }
         }
     }
 

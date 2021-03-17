@@ -163,8 +163,22 @@ object Url {
      * 积分排行榜
      * @GET
      * @page 页码
+     * @remark 起始页  1
      */
-    const val COIN_RANK = "coin/rank/%d/json"
+    const val INTEGRAL_RANK = "coin/rank/%d/json"
+
+    /**
+     * 积分记录
+     * @GET
+     * @page 页码
+     * @remark 起始页  1
+     */
+    const val INTEGRAL_HISTORY = "lg/coin/list/%d/json"
+
+    /**
+     * 积分规则
+     */
+    const val INTEGRAL_RULES = BASE_URL+"blog/show/2653"
 
     /**
      * 我收藏的文章

@@ -26,20 +26,21 @@
             android:layout_height="wrap_content"
             android:textSize="18sp"
             android:textStyle="bold"
-            android:text="@{item.rank}"/>
+            android:text="@{String.valueOf(item.rank)}"/>
 
         <TextView
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
             android:textSize="15sp"
+            android:layout_marginStart="15dp"
             android:text="@{item.username.toString()}"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="15sp"
-            android:text="@{item.coinCount}"/>
+            android:text="@{String.valueOf(item.coinCount)}"/>
 
     </com.qmuiteam.qmui.layout.QMUIPriorityLinearLayout>
 </layout>

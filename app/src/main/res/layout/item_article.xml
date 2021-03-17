@@ -39,7 +39,7 @@
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 style="@style/home_tag_style"
-                    visible="@{item.type == 1}"
+                visible="@{item.type == 1}"
                 android:text="@string/home_tag_top"
                 app:qmui_borderColor="@color/qmui_config_color_red"
                 app:qmui_isRadiusAdjustBounds="false"
