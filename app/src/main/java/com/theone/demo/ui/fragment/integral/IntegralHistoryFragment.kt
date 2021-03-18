@@ -14,6 +14,7 @@ import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.demo.viewmodel.IntegralHistoryViewModel
 import com.theone.demo.viewmodel.IntegralRankViewModel
 import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -40,7 +41,7 @@ import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
  * @email 625805189@qq.com
  * @remark
  */
-class IntegralHistoryFragment:BasePagerListFragment<IntegralHistoryResponse,IntegralHistoryViewModel>() {
+class IntegralHistoryFragment:BasePagerListFragment<IntegralHistoryResponse,IntegralHistoryViewModel, BaseRecyclerPagerFragmentBinding>() {
 
     override fun createAdapter(): BaseQuickAdapter<IntegralHistoryResponse, *> = IntegralHistoryAdapter()
 

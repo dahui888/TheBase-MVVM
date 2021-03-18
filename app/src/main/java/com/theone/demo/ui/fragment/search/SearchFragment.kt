@@ -21,6 +21,7 @@ import com.theone.demo.viewmodel.HotSearchViewModel
 import com.theone.demo.viewmodel.SearchViewModel
 import com.theone.mvvm.base.ext.*
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
+import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -47,7 +48,7 @@ import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
  * @email 625805189@qq.com
  * @remark
  */
-class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel>(), View.OnClickListener,
+class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel,BaseRecyclerPagerFragmentBinding>(), View.OnClickListener,
     TheSearchView.OnTextChangedListener, QMUIDialogAction.ActionListener, OnItemChildClickListener {
 
     private val mHotVm: HotSearchViewModel by viewModels()

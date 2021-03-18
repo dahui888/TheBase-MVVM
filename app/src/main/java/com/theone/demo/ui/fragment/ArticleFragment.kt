@@ -14,6 +14,7 @@ import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.ArticleViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.showFailDialog
+import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -41,7 +42,7 @@ import com.theone.mvvm.base.ext.qmui.showFailDialog
  * @remark
  */
 abstract class ArticleFragment<VM : ArticleViewModel> :
-    BasePagerListFragment<ArticleResponse, VM>(),
+    BasePagerListFragment<ArticleResponse, VM,BaseRecyclerPagerFragmentBinding>(),
     OnItemChildClickListener {
 
     override fun getViewModelIndex(): Int = 0

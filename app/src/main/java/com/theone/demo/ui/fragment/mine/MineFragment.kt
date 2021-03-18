@@ -10,6 +10,7 @@ import com.theone.demo.app.net.Url
 import com.theone.demo.app.util.checkLogin
 import com.theone.demo.app.util.notNull
 import com.theone.demo.data.model.bean.BannerResponse
+import com.theone.demo.data.model.bean.IntegralResponse
 import com.theone.demo.data.model.bean.UserInfo
 import com.theone.demo.databinding.FragmentMineBinding
 import com.theone.demo.ui.fragment.SettingFragment
@@ -213,7 +214,9 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
          */
         fun integralRank() {
             checkLogin {
-                startFragment(IntegralRankFragment())
+                mRequestVm.getResponseLiveData().value?.let {
+                    startFragment(IntegralRankFragment.newInstance(it))
+                }
             }
         }
 

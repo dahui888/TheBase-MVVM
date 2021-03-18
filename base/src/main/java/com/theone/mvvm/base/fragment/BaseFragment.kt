@@ -78,7 +78,6 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
     protected open fun onReLoad() {}
 
     override fun onCreateView(): View {
-//        mBody.setBackgroundColor(QMUIResHelper.getAttrColor(mActivity,R.attr.app_skin_background_color_1))
         if (showTitleBar()) {
             val root = QMUIWindowInsetLayout(mActivity)
             root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
@@ -146,7 +145,7 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
      * 1.在动画结束后开始进行加载
      * 2.当前Fragment为子Fragment时，比如ViewPager的ItemFragment,或者点击切换的，这种情况下当界面可见时才进行加载
      *
-     * 这里自动根据 [.isIndexFragment] 判断是以哪种情况进行懒加载
+     * 这里自动根据 [isIndexFragment] 判断是以哪种情况进行懒加载
      */
     abstract fun onLazyInit()
 
@@ -196,7 +195,10 @@ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
      * 向外提供的关闭方法
      */
     open fun finish() {
+        // 这里一定要用这个方法
         popBackStackAfterResume()
+        // 不能用这个
+        // popBackStack()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)

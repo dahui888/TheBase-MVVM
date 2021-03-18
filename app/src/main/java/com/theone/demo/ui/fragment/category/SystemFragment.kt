@@ -6,6 +6,7 @@ import com.theone.demo.data.model.bean.SystemResponse
 import com.theone.demo.ui.adapter.SystemAdapter
 import com.theone.demo.ui.fragment.BasePagerListFragment
 import com.theone.demo.viewmodel.SystemViewModel
+import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -33,7 +34,7 @@ import com.theone.demo.viewmodel.SystemViewModel
  * @remark
  */
 class SystemFragment:
-    BasePagerListFragment<SystemResponse, SystemViewModel>() {
+    BasePagerListFragment<SystemResponse, SystemViewModel, BaseRecyclerPagerFragmentBinding>() {
 
     override fun createAdapter(): SystemAdapter  = SystemAdapter(this)
 

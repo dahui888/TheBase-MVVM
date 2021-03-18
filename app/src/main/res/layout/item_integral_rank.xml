@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:textSize="15sp"
             android:layout_marginStart="15dp"
-            android:text="@{item.username.toString()}"/>
+            android:text="@{item.username}"/>
 
         <TextView
             android:layout_width="wrap_content"

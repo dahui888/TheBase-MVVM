@@ -55,8 +55,8 @@ object UserUtil {
         else
             Gson().fromJson(userStr, UserInfo::class.java)
     }
-
-
 }
+
+
 
 

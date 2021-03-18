@@ -1,6 +1,7 @@
 package com.theone.demo.ui.fragment
 
 import androidx.core.content.ContextCompat
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.theone.demo.R
 import com.theone.demo.app.ext.setAdapterAnimation
@@ -9,6 +10,7 @@ import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
+import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -35,8 +37,8 @@ import com.theone.mvvm.base.viewmodel.BaseListViewModel
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>> :
-    BaseRecyclerPagerFragment<T, VM>() {
+abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>, DB : ViewDataBinding> :
+    BaseRecyclerPagerFragment<T, VM,DB>() {
 
     protected val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 

@@ -1,6 +1,7 @@
 package com.theone.mvvm.base.fragment
 
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,8 +47,8 @@ import kotlinx.android.synthetic.main.base_recycler_pager_fragment.*
  * @remark
  */
 abstract class BaseRecyclerPagerFragment
-<T, VM : BaseListViewModel<T>>
-    : BaseVmFragment<VM>(),
+<T, VM : BaseListViewModel<T>, DB : ViewDataBinding>
+    : BaseVmDbFragment<VM,DB>(),
     SwipeRefreshLayout.OnRefreshListener, OnLoadMoreListener, OnItemClickListener {
 
     lateinit var mAdapter: BaseQuickAdapter<T, *>

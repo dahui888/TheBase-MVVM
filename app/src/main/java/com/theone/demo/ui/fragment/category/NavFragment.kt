@@ -6,6 +6,7 @@ import com.theone.demo.data.model.bean.NavigationResponse
 import com.theone.demo.ui.adapter.NavAdapter
 import com.theone.demo.ui.fragment.BasePagerListFragment
 import com.theone.demo.viewmodel.NavViewModel
+import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -33,7 +34,7 @@ import com.theone.demo.viewmodel.NavViewModel
  * @remark
  */
 class NavFragment:
-    BasePagerListFragment<NavigationResponse, NavViewModel>() {
+    BasePagerListFragment<NavigationResponse, NavViewModel, BaseRecyclerPagerFragmentBinding>() {
 
     override fun createAdapter(): NavAdapter  = NavAdapter(this)
 
