@@ -52,7 +52,9 @@ class AddShareArticleFragment :
 
     val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
-    private var mRulesPopup: QMUIPopup? = null
+    private val mRulesPopup: QMUIPopup by lazy {
+        createRulesPopup()
+    }
 
     override fun getLayoutId(): Int = R.layout.fragment_article_add
 
@@ -109,27 +111,28 @@ class AddShareArticleFragment :
     }
 
     private fun showRulesPopup(view: View) {
-        if (null == mRulesPopup) {
-            val textView = TextView(context)
-            textView.setLineSpacing(QMUIDisplayHelper.dp2px(context, 4).toFloat(), 1.0f)
-            val padding = QMUIDisplayHelper.dp2px(context, 20)
-            textView.setPadding(padding, padding, padding, padding)
-            textView.text = getString(R.string.share_article_rules)
-            val builder = QMUISkinValueBuilder.acquire()
-            QMUISkinHelper.setSkinValue(textView, builder)
-            builder.release()
-            mRulesPopup = QMUIPopups.popup(context, QMUIDisplayHelper.dp2px(context, 250))
-                .preferredDirection(QMUIPopup.DIRECTION_TOP)
-                .view(textView)
-                .shadowElevation(QMUIDisplayHelper.dp2px(context, 5), 0.55f)
-                .edgeProtection(QMUIDisplayHelper.dp2px(context, 10))
-                .offsetX(QMUIDisplayHelper.dp2px(context, 20))
-                .offsetYIfBottom(QMUIDisplayHelper.dp2px(context, 5))
-                .shadow(true)
-                .arrow(true)
-                .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER)
-        }
-        mRulesPopup?.dimAmount(0.5f)?.show(view)
+        mRulesPopup.show(view)
+    }
+
+    private fun createRulesPopup(): QMUIPopup {
+        val textView = TextView(context)
+        textView.setLineSpacing(QMUIDisplayHelper.dp2px(context, 4).toFloat(), 1.0f)
+        val padding = QMUIDisplayHelper.dp2px(context, 20)
+        textView.setPadding(padding, padding, padding, padding)
+        textView.text = getString(R.string.share_article_rules)
+        val builder = QMUISkinValueBuilder.acquire()
+        QMUISkinHelper.setSkinValue(textView, builder)
+        builder.release()
+        return QMUIPopups.popup(context, QMUIDisplayHelper.dp2px(context, 250))
+            .preferredDirection(QMUIPopup.DIRECTION_TOP)
+            .view(textView)
+            .shadowElevation(QMUIDisplayHelper.dp2px(context, 5), 0.55f)
+            .edgeProtection(QMUIDisplayHelper.dp2px(context, 10))
+            .offsetX(QMUIDisplayHelper.dp2px(context, 20))
+            .offsetYIfBottom(QMUIDisplayHelper.dp2px(context, 5))
+            .shadow(true)
+            .arrow(true)
+            .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER).dimAmount(0.5f)
     }
 
     inner class ProxyClick {
