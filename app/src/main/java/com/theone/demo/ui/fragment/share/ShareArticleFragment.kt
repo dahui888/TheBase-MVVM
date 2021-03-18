@@ -1,6 +1,7 @@
-package com.theone.demo.ui.fragment.mine
+package com.theone.demo.ui.fragment.share
 
 import android.view.View
+import com.theone.demo.R
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.viewmodel.ShareArticleViewModel
 import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
@@ -35,7 +36,19 @@ class ShareArticleFragment:
 
     override fun initView(rootView: View) {
         super.initView(rootView)
-        getTopBar()?.setTitleWithBackBtn("分享的文章",this)
+        getTopBar()?.run {
+            setTitleWithBackBtn("我的分享",this@ShareArticleFragment)
+            addRightImageButton(R.drawable.icon_add_dark,R.id.topbar_right_button1).setOnClickListener{
+                startFragment(AddShareArticleFragment())
+            }
+        }
+    }
+
+    override fun createObserver() {
+        super.createObserver()
+        mAppVm.shareArticle.observeInFragment(this){
+            onRefreshAuto()
+        }
     }
 
 }

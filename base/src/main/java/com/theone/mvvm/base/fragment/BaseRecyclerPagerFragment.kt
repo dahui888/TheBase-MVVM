@@ -169,6 +169,17 @@ abstract class BaseRecyclerPagerFragment
     }
 
     /**
+     * 回调需要自动刷新时
+     */
+    fun onRefreshAuto(){
+        if(mAdapter.data.size == 0){
+            onFirstLoading()
+        }else{
+            onRefresh()
+        }
+    }
+
+    /**
      * 刷新完成时的操作
      */
     open fun onRefreshComplete() {

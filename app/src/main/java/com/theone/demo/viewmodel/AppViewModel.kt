@@ -19,6 +19,9 @@ class AppViewModel:BaseViewModel() {
     //App 列表动画
     var appAnimation = UnPeekLiveData<Int>()
 
+    // 分享文章
+    var shareArticle = UnPeekLiveData<Boolean>()
+
     init {
         userInfo.value = UserUtil.getUser()
         //初始化列表动画

@@ -5,6 +5,7 @@ import com.theone.mvvm.widge.loadsir.core.LoadService
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.base.ext.showEmpty
 import com.theone.mvvm.base.ext.showError
+import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.util.ToastUtil
 
 
@@ -49,19 +50,25 @@ fun <T> loadListData(
         return
     }
     if (isNewData) {
-        vm.isFirst.value = false
-        vm.isFresh.value = false
-        vm.getFirstLoadSuccessLiveData().value = true
+        if(vm.isFirst.value){
+            vm.isFirst.value = false
+            vm.getFirstLoadSuccessLiveData().value = true
+            loader?.showSuccess()
+        }else{
+            vm.isFresh.value = false
+        }
         adapter.setList(list)
-        loader?.showSuccess()
     } else {
         adapter.addData(list)
     }
     val pageInfo = vm.mPageInfo.value
+    "loadListData ${pageInfo == null}".logE()
     if (pageInfo == null || pageInfo.getPageTotalCount() > pageInfo.getPage()) {
+        "loadMoreComplete ".logE()
         vm.mPage.value++
         adapter.loadMoreModule.loadMoreComplete()
     } else {
+        "loadMoreEnd ".logE()
         adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
     }
 }

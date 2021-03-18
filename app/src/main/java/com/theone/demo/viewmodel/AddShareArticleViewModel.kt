@@ -1,11 +1,10 @@
 package com.theone.demo.viewmodel
 
-import androidx.lifecycle.rxLifeScope
-import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
-import com.theone.demo.data.model.bean.ArticleResponse
-import com.theone.demo.data.model.bean.ShareResponse
 import com.theone.mvvm.base.ext.request
+import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
+import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.callback.databind.StringObservableField
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
@@ -29,25 +28,25 @@ import rxhttp.wrapper.param.toResponse
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/5 0005
+ * @date 2021/3/18 0018
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class ShareArticleViewModel:ArticleViewModel() {
+class AddShareArticleViewModel:BaseRequestViewModel<String>() {
 
-    init {
-        mFirstPage.value = 1
-    }
+    val title :StringObservableField = StringObservableField("")
+    val url :StringObservableField = StringObservableField("")
+    val publisher :StringObservableField = StringObservableField("")
 
     override fun requestServer() {
-        request({
-            val response = RxHttp.get(Url.MY_SHARE_ARTICLE,getPage())
-                .setCacheMode(getCacheMode())
-                .toResponse<ShareResponse>()
-                .await()
-            onSuccess(response?.shareArticles)
-        })
+       request({
+           val res = RxHttp.postForm(Url.SHARE_ARTICLE)
+               .add("title",title.get())
+               .add("link",url.get())
+               .toResponse<String>()
+               .await()
+           onSuccess(res)
+       },"添加中")
     }
-
 }
