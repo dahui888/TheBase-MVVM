@@ -67,3 +67,16 @@ fun BaseQuickAdapter<*, *>.setAdapterAnimation(mode: Int?) {
     }
 
 }
+
+/**
+ * 是否为官方链接自动通过
+ */
+fun isShareAutoPass(url:String):Boolean{
+    val filters = arrayOf("https://blog.csdn.net/", "https://juejin.cn/","https://www.jianshu.com/")
+    filters.forEach {
+        if(url.contains(it)){
+            return true
+        }
+    }
+    return false
+}
