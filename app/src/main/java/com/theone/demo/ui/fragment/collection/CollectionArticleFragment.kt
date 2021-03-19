@@ -1,4 +1,7 @@
-package com.theone.mvvm.base.constant
+package com.theone.demo.ui.fragment.collection
+
+import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.viewmodel.CollectionArticleViewModel
 
 
 //  ┏┓　　　┏┓
@@ -20,13 +23,13 @@ package com.theone.mvvm.base.constant
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/24 0024
+ * @date 2021/3/12 0012
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-enum class LayoutManagerType {
-    LIST,
-    GRID,
-    STAGGERED
+class CollectionArticleFragment:
+    ArticleFragment<CollectionArticleViewModel>() {
+
+
 }

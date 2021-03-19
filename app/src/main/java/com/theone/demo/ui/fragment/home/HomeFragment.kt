@@ -21,7 +21,7 @@ import com.theone.demo.app.widge.banner.HomeBannerViewHolder
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.ui.fragment.search.SearchFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
-import com.theone.mvvm.base.constant.LayoutManagerType
+import com.theone.mvvm.base.data.enum.LayoutManagerType
 import com.theone.mvvm.base.ext.*
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity

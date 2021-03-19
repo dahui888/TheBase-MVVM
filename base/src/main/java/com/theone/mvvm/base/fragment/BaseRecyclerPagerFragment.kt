@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.theone.mvvm.R
-import com.theone.mvvm.base.constant.LayoutManagerType
+import com.theone.mvvm.base.data.enum.LayoutManagerType
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.base.ext.net.loadListData
 import com.theone.mvvm.base.ext.net.loadListError

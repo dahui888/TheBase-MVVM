@@ -14,7 +14,7 @@ class AppViewModel:BaseViewModel() {
     var userInfo = UnPeekLiveData.Builder<UserInfo>().setAllowNullValue(true).create()
 
     //全局收藏，在任意一个地方收藏或取消收藏，监听该值的界面都会收到消息
-    val collectEvent = MutableLiveData<CollectBus>()
+    val collectEvent = UnPeekLiveData<CollectBus>()
 
     //App 列表动画
     var appAnimation = UnPeekLiveData<Int>()

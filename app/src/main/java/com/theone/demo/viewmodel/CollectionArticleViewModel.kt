@@ -44,7 +44,7 @@ class CollectionArticleViewModel : ArticleViewModel(Url.MY_COLLECTION_ARTICLES) 
         response?.forEach { it ->
             it.collect = true
         }
-        getResponseLiveData().value = response
+        super.onSuccess(response)
     }
 
     override fun getCacheMode(): CacheMode =  CacheMode.ONLY_NETWORK

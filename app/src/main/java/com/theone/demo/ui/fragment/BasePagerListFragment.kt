@@ -5,12 +5,10 @@ import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
 import com.theone.demo.R
 import com.theone.demo.app.ext.setAdapterAnimation
-import com.theone.demo.app.util.CacheUtil
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
-import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -42,7 +40,10 @@ abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>, DB : ViewData
 
     protected val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
-    fun isFirstLoadSuccessRefresh()= false
+    /**
+     * 第一次请求成功后是否自动刷新（第一次的数据从Cache里获取的)
+     */
+    fun isFirstLoadSuccessAutoRefresh()= false
 
     override fun getItemSpace(): Int = 12
 
@@ -60,7 +61,7 @@ abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>, DB : ViewData
                     R.color.qmui_config_color_background
                 )
             )
-            if(isFirstLoadSuccessRefresh()){
+            if(isFirstLoadSuccessAutoRefresh()){
                 onRefresh()
             }
         })

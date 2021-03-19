@@ -1,7 +1,4 @@
-package com.theone.demo.ui.fragment.mine
-
-import com.theone.demo.ui.fragment.ArticleFragment
-import com.theone.demo.viewmodel.CollectionArticleViewModel
+package com.theone.mvvm.base.data.entity
 
 
 //  ┏┓　　　┏┓
@@ -23,13 +20,9 @@ import com.theone.demo.viewmodel.CollectionArticleViewModel
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/12 0012
+ * @date 2021/3/2 0002
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class CollectionArticleFragment:
-    ArticleFragment<CollectionArticleViewModel>() {
-
-
-}
+data class QMUITabBean(var title:CharSequence,var normal:Int= -1,var select:Int = -1)

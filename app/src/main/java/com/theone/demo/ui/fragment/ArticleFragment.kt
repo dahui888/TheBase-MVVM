@@ -9,10 +9,8 @@ import com.theone.demo.app.util.UserUtil
 import com.theone.demo.app.util.checkLogin
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.ui.adapter.ArticleAdapter
-import com.theone.demo.ui.fragment.mine.CollectionArticleFragment
-import com.theone.demo.viewmodel.AppViewModel
+import com.theone.demo.ui.fragment.collection.CollectionArticleFragment
 import com.theone.demo.viewmodel.ArticleViewModel
-import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.showFailDialog
 import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
@@ -64,7 +62,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
         val isCollection = this is CollectionArticleFragment
         mAppVm.run {
             // 监听用户登录、登出时，改变收藏
-            userInfo.observeInFragment(this@ArticleFragment, Observer {
+            userInfo.observeInFragment(this@ArticleFragment){
                 if (it != null) {
                     it.collectIds.forEach { id ->
                         // 以用户信息里的为准，请求的数据可能是缓存里的，没有更新
@@ -81,8 +79,8 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
                     }
                 }
                 mAdapter.notifyDataSetChanged()
-            })
-            collectEvent.observe(viewLifecycleOwner, Observer {
+            }
+            collectEvent.observeInFragment(this@ArticleFragment){
                 for (index in mAdapter.data.indices) {
                     val articleId = mAdapter.data[index].getArticleId()
                     if (articleId == it.id) {
@@ -104,7 +102,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
                         break
                     }
                 }
-            })
+            }
 
         }
 

@@ -20,6 +20,7 @@ import com.theone.demo.ui.adapter.SearchAdapter
 import com.theone.demo.viewmodel.HotSearchViewModel
 import com.theone.demo.viewmodel.SearchViewModel
 import com.theone.mvvm.base.ext.*
+import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
 import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
 
@@ -48,7 +49,9 @@ import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
  * @email 625805189@qq.com
  * @remark
  */
-class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel,BaseRecyclerPagerFragmentBinding>(), View.OnClickListener,
+class SearchFragment :
+    BaseRecyclerPagerFragment<String, SearchViewModel, BaseRecyclerPagerFragmentBinding>(),
+    View.OnClickListener,
     TheSearchView.OnTextChangedListener, QMUIDialogAction.ActionListener, OnItemChildClickListener {
 
     private val mHotVm: HotSearchViewModel by viewModels()
@@ -66,7 +69,9 @@ class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel,BaseRec
         super.initView(rootView)
         getTopBar()?.run {
             addLeftBackImageButton().apply { setOnClickListener(this@SearchFragment) }
-            mSearchBtn = addRightTextButton(R.string.search, R.id.topbar_search).apply { setOnClickListener(this@SearchFragment) }
+            mSearchBtn = addRightTextButton(R.string.search, R.id.topbar_search).apply {
+                setOnClickListener(this@SearchFragment)
+            }
             mSearchView = TheSearchView(mActivity, true)
             mSearchView.setOnTextChangedListener(this@SearchFragment)
             mSearchView.searchEditText.setHint(R.string.search_hint)
@@ -103,8 +108,7 @@ class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel,BaseRec
             getResponseLiveData().observeInFragment(this@SearchFragment, Observer {
                 mAdapter.setNewInstance(it.toMutableList())
                 mAdapter.loadMoreModule.loadMoreEnd(true)
-                if (it.isEmpty()) goneViews(mHistory) else showViews(mHistory)
-                CacheUtil.setSearchHistoryData(it.toJson())
+                setHistoryData(it)
                 showContentPage()
             })
         }
@@ -131,14 +135,15 @@ class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel,BaseRec
 
     override fun onItemChildClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
         mAdapter.data.removeAt(position)
-        mViewModel.getResponseLiveData().value = mAdapter.data
+        mAdapter.notifyItemRangeChanged(position + mAdapter.headerLayoutCount,mAdapter.data.size + mAdapter.headerLayoutCount)
+        setHistoryData()
     }
 
     override fun onClick(p0: View?) {
         when (p0?.id) {
             R.id.clear -> showClearHistoryDialog()
             R.id.qmui_topbar_item_left_back -> finish()
-            R.id.topbar_search -> onSearch(mSearchView.searchEditText.text.toString(),true)
+            R.id.topbar_search -> onSearch(mSearchView.searchEditText.text.toString(), true)
         }
     }
 
@@ -171,8 +176,9 @@ class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel,BaseRec
             }
             //添加新数据到第一条
             it.add(0, keyStr)
-            mViewModel.getResponseLiveData().value = it
         }
+        mAdapter.notifyDataSetChanged()
+        setHistoryData()
     }
 
     private fun showClearHistoryDialog() {
@@ -187,9 +193,13 @@ class SearchFragment : BaseRecyclerPagerFragment<String, SearchViewModel,BaseRec
     override fun onClick(dialog: QMUIDialog?, index: Int) {
         dialog?.dismiss()
         if (index > 0) {
-            mViewModel.getResponseLiveData().value = mutableListOf()
+            setHistoryData(arrayListOf())
         }
     }
 
+    private fun setHistoryData(data: List<String> = mAdapter.data) {
+        if (data.isEmpty()) goneViews(mHistory) else showViews(mHistory)
+        CacheUtil.setSearchHistoryData(data.toJson())
+    }
 
 }

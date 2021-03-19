@@ -22,23 +22,23 @@ import com.theone.mvvm.base.ext.qmui.showSuccessExitDialog
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
 
 
-//  ┏┓　　　┏┓
+// ┏┓　 ┏┓
 //┏┛┻━━━┛┻┓
-//┃　　　　　　　┃
-//┃　　　━　　　┃
-//┃　┳┛　┗┳　┃
-//┃　　　　　　　┃
-//┃　　　┻　　　┃
-//┃　　　　　　　┃
-//┗━┓　　　┏━┛
-//    ┃　　　┃                  神兽保佑
-//    ┃　　　┃                  永无BUG！
-//    ┃　　　┗━━━┓
-//    ┃　　　　　　　┣┓
-//    ┃　　　　　　　┏┛
-//    ┗┓┓┏━┳┓┏┛
-//      ┃┫┫　┃┫┫
-//      ┗┻┛　┗┻┛
+//┃　　　　 ┃
+//┃　　━　  ┃
+//┃ ┳┛　┗┳　┃
+//┃　　　　 ┃
+//┃　　┻　  ┃
+//┃　　　　 ┃
+//┗━┓　　┏━┛
+//   ┃　  ┃                  神兽保佑
+//   ┃　　┃                  永无BUG！
+//   ┃　　┗━━━┓
+//   ┃　　　　┣┓
+//   ┃　　　　┏┛
+//   ┗┓┓┏━┳┓┏┛
+//    ┃┫┫　┃┫┫
+//    ┗┻┛　┗┻┛
 /**
  * @author The one
  * @date 2021/3/18 0018
@@ -48,7 +48,6 @@ import com.theone.mvvm.base.fragment.BaseVmDbFragment
  */
 class AddShareArticleFragment :
     BaseVmDbFragment<AddShareArticleViewModel, FragmentArticleAddBinding>() {
-
 
     val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
@@ -69,9 +68,7 @@ class AddShareArticleFragment :
                 showRulesPopup(it)
             }
         }
-        mAppVm.userInfo.value?.let {
-            mViewModel.publisher.set(it.getUserName())
-        }
+
     }
 
     override fun onLazyInit() {
@@ -79,6 +76,9 @@ class AddShareArticleFragment :
     }
 
     override fun initData() {
+        mAppVm.userInfo.value?.let {
+            mViewModel.publisher.set(it.getUserName())
+        }
         mBinding.run {
             vm = mViewModel
             click = ProxyClick()

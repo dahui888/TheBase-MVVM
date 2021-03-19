@@ -5,7 +5,7 @@ import androidx.viewpager.widget.ViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITab
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
-import com.theone.mvvm.base.entity.QMUITabBean
+import com.theone.mvvm.base.data.entity.QMUITabBean
 import com.theone.mvvm.base.ext.util.getDrawable
 
 

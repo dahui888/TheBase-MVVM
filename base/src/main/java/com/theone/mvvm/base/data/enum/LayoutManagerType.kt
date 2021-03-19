@@ -1,4 +1,4 @@
-package com.theone.mvvm.base.entity
+package com.theone.mvvm.base.data.enum
 
 
 //  ┏┓　　　┏┓
@@ -20,9 +20,13 @@ package com.theone.mvvm.base.entity
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/2 0002
+ * @date 2021/2/24 0024
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-data class QMUITabBean(var title:CharSequence,var normal:Int= -1,var select:Int = -1)
+enum class LayoutManagerType {
+    LIST,
+    GRID,
+    STAGGERED
+}

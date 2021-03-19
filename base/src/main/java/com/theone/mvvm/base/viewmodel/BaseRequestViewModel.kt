@@ -1,6 +1,7 @@
 package com.theone.mvvm.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.mvvm.callback.livedata.StringLiveData
 import com.theone.mvvm.base.ext.util.logI
@@ -40,14 +41,14 @@ abstract class BaseRequestViewModel<T>:BaseViewModel() {
 
     private val finally :BooleanLiveData = BooleanLiveData()
 
-    fun getResponseLiveData(): UnPeekLiveData<T> = mResponse
+    fun getResponseLiveData(): ProtectedUnPeekLiveData<T> = mResponse
 
     fun getErrorMsgLiveData():StringLiveData = error
 
     fun getFinallyLiveData():BooleanLiveData = finally
 
     open fun onSuccess(response:T?){
-        getResponseLiveData().value = response
+        mResponse.value = response
     }
 
     open fun onError(errorMsg:String,liveData :StringLiveData){

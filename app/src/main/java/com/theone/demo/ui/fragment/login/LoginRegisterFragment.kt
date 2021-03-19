@@ -3,7 +3,7 @@ package com.theone.demo.ui.fragment.login
 import android.view.View
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.R
-import com.theone.mvvm.base.entity.QMUITabBean
+import com.theone.mvvm.base.data.entity.QMUITabBean
 import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 

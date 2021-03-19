@@ -14,6 +14,7 @@ import com.theone.demo.data.model.bean.UserInfo
 import com.theone.demo.databinding.FragmentMineBinding
 import com.theone.demo.ui.fragment.SettingFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
+import com.theone.demo.ui.fragment.collection.CollectionFragment
 import com.theone.demo.ui.fragment.integral.IntegralHistoryFragment
 import com.theone.demo.ui.fragment.integral.IntegralRankFragment
 import com.theone.demo.ui.fragment.share.ShareArticleFragment

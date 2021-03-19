@@ -10,7 +10,7 @@ import com.qmuiteam.qmui.skin.defaultAttr.QMUISkinSimpleDefaultAttrProvider
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
 import com.theone.mvvm.R
-import com.theone.mvvm.base.entity.QMUITabBean
+import com.theone.mvvm.base.data.entity.QMUITabBean
 import com.theone.mvvm.base.ext.util.dp2px
 import com.theone.mvvm.base.ext.util.getColor
 import com.theone.mvvm.widge.indicator.SkinLinePagerIndicator

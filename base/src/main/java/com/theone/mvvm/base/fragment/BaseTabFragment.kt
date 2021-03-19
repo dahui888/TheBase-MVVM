@@ -8,7 +8,7 @@ import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import com.theone.mvvm.base.adapter.TabFragmentAdapter
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.base.entity.QMUITabBean
+import com.theone.mvvm.base.data.entity.QMUITabBean
 import com.theone.mvvm.base.ext.getLinePagerIndicator
 import com.theone.mvvm.base.ext.getPagerTitleView
 import com.theone.mvvm.base.ext.qmui.init

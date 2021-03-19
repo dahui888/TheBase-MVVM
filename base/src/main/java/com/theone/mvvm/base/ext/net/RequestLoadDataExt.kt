@@ -62,13 +62,10 @@ fun <T> loadListData(
         adapter.addData(list)
     }
     val pageInfo = vm.mPageInfo.value
-    "loadListData ${pageInfo == null}".logE()
     if (pageInfo == null || pageInfo.getPageTotalCount() > pageInfo.getPage()) {
-        "loadMoreComplete ".logE()
         vm.mPage.value++
         adapter.loadMoreModule.loadMoreComplete()
     } else {
-        "loadMoreEnd ".logE()
         adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
     }
 }

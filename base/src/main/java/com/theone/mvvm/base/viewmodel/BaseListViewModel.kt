@@ -2,7 +2,6 @@ package com.theone.mvvm.base.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
-import com.theone.mvvm.base.constant.LayoutManagerType
 import com.theone.mvvm.callback.livedata.BooleanLiveData
 import com.theone.mvvm.callback.livedata.IntLiveData
 import com.theone.mvvm.base.net.IPageInfo
