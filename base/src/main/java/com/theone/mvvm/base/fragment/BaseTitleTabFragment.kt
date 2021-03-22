@@ -4,7 +4,7 @@ import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import com.theone.mvvm.R
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import kotlinx.android.synthetic.main.base_title_tab_layout.*
+import com.theone.mvvm.databinding.BaseTitleTabLayoutBinding
 import net.lucode.hackware.magicindicator.MagicIndicator
 
 
@@ -32,14 +32,14 @@ import net.lucode.hackware.magicindicator.MagicIndicator
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseTitleTabFragment<VM : BaseViewModel> : BaseTabFragment<VM>() {
+abstract class BaseTitleTabFragment<VM : BaseViewModel> : BaseTabFragment<VM,BaseTitleTabLayoutBinding>() {
 
     override fun getLayoutId(): Int = R.layout.base_title_tab_layout
 
-    override fun getViewPager(): QMUIViewPager = view_pager
+    override fun getViewPager(): QMUIViewPager = mBinding.viewPager
 
     override fun getTabSegment(): QMUITabSegment? = null
 
-    override fun getMagicIndicator(): MagicIndicator? = indicator
+    override fun getMagicIndicator(): MagicIndicator? = mBinding.indicator
 
 }

@@ -1,9 +1,10 @@
 package com.theone.mvvm.base.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.mvvm.callback.livedata.BooleanLiveData
-import com.theone.mvvm.callback.livedata.IntLiveData
 import com.theone.mvvm.base.net.IPageInfo
 
 
@@ -27,35 +28,47 @@ import com.theone.mvvm.base.net.IPageInfo
 /**
  * @author The one
  * @date 2021/2/23 0023
- * @describe TODO
+ * @describe 列表类型数据请求
  * @email 625805189@qq.com
  * @remark
  */
 abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
 
-    val mPageInfo: MutableLiveData<IPageInfo> = MutableLiveData()
-    val isFirst: BooleanLiveData = BooleanLiveData()
-    val isFresh: BooleanLiveData = BooleanLiveData()
+    // 分页信息,实体需继承 IPageInfo
+    private val pageInfo: MutableLiveData<IPageInfo> = MutableLiveData()
+    // 是否第一次加载
+    var isFirst: Boolean = true
+    // 是否刷新
+    var isFresh: Boolean = false
+    // 第一次加载数据成功
     private val firstLoadSuccess: UnPeekLiveData<Boolean> = UnPeekLiveData()
-    val mFirstPage: IntLiveData = IntLiveData()
-    val mPage: IntLiveData = IntLiveData()
+    // 开始的页数
+    protected var startPage: Int = 1
+    // 当前页面
+    var page: Int = startPage
+    // 是否去掉“没有更多数据”
     var goneLoadMoreEndView: Boolean = false
 
-    init {
-        mFirstPage.value = 1
-    }
+    // 这里返回父类ProtectedUnPeekLiveData，保证数据的唯一性
+    fun getFirstLoadSuccessLiveData():ProtectedUnPeekLiveData<Boolean> = firstLoadSuccess
+    // 同上
+    fun getPageInfoLiveData():LiveData<IPageInfo> = pageInfo
 
-    fun getFirstLoadSuccessLiveData():UnPeekLiveData<Boolean> = firstLoadSuccess
-
+    /**
+     *     数据请求成功后调用此方法
+     * @param response 返回的数据
+     * @param pageInfo 页码信息
+     */
     open fun onSuccess( response:List<T>?, pageInfo: IPageInfo? ){
         onSuccess(response)
-        mPageInfo.value = pageInfo
+        this.pageInfo.value = pageInfo
     }
 
-    fun getPage():Int = mPage.value
-
+    /**
+     * 供外部调用的请求最新的数据
+     */
     fun requestNewData(){
-        mPage.value = mFirstPage.value
+        page = startPage
         requestServer()
     }
 

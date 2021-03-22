@@ -23,7 +23,7 @@ class SettingFragment : BaseVmDbFragment<SettingViewModel, FragmentSettingBindin
     View.OnClickListener,
     QMUIDialogAction.ActionListener {
 
-    val appVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
+    private val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
     private lateinit var mLoginOut: QMUICommonListItemView
     private lateinit var mVersion: QMUICommonListItemView
@@ -81,7 +81,7 @@ class SettingFragment : BaseVmDbFragment<SettingViewModel, FragmentSettingBindin
 
     override fun createObserver() {
         mViewModel.getResponseLiveData().observeInFragment(this, Observer {
-            appVm.userInfo.value = null
+            mAppVm.userInfo.value = null
             UserUtil.loginOut()
             showSuccessExitDialog("退出成功")
         })
@@ -112,7 +112,7 @@ class SettingFragment : BaseVmDbFragment<SettingViewModel, FragmentSettingBindin
         context?.showSingleChoiceDialog("列表动画", mAnimationTypes, CacheUtil.getAnimationType(),
             DialogInterface.OnClickListener { dialog, index ->
                 dialog.dismiss()
-                appVm.appAnimation.value = index
+                mAppVm.appAnimation.value = index
                 mAnimation.detailText = mAnimationTypes[index]
                 CacheUtil.setAnimationType(index)
             })

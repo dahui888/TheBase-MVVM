@@ -45,11 +45,11 @@ import com.theone.mvvm.widge.loadsir.core.LoadService
 /**
  * @author The one
  * @date 2021/2/22 0022
- * @describe TODO
+ * @describe BaseFragment
  * @email 625805189@qq.com
- * @remark
+ * @remark 懒加载+TopBar+界面状态管理+状态栏等的封装
  */
-abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
+ abstract class BaseFragment : QMUIFragment(), LifecycleObserver {
 
     val TAG: String = this.javaClass.simpleName
 

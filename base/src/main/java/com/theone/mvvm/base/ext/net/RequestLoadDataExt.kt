@@ -5,7 +5,6 @@ import com.theone.mvvm.widge.loadsir.core.LoadService
 import com.theone.mvvm.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.base.ext.showEmpty
 import com.theone.mvvm.base.ext.showError
-import com.theone.mvvm.base.ext.util.logE
 import com.theone.mvvm.util.ToastUtil
 
 
@@ -29,7 +28,7 @@ import com.theone.mvvm.util.ToastUtil
 /**
  * @author The one
  * @date 2021/2/22 0022
- * @describe QMUI相关组件的一些扩展函数
+ * @describe
  * @email 625805189@qq.com
  * @remark
  */
@@ -40,7 +39,7 @@ fun <T> loadListData(
     loader: LoadService<Any>?
 ) {
     val list = vm.getResponseLiveData().value
-    val isNewData = vm.mPage.value == vm.mFirstPage.value
+    val isNewData = vm.page == vm.startPage
     if (list.isNullOrEmpty()) {
         if (isNewData) {
             loader?.showEmpty()
@@ -50,20 +49,20 @@ fun <T> loadListData(
         return
     }
     if (isNewData) {
-        if(vm.isFirst.value){
-            vm.isFirst.value = false
+        if(vm.isFirst){
+            vm.isFirst = false
             vm.getFirstLoadSuccessLiveData().value = true
             loader?.showSuccess()
         }else{
-            vm.isFresh.value = false
+            vm.isFresh = false
         }
         adapter.setList(list)
     } else {
         adapter.addData(list)
     }
-    val pageInfo = vm.mPageInfo.value
+    val pageInfo = vm.getPageInfoLiveData().value
     if (pageInfo == null || pageInfo.getPageTotalCount() > pageInfo.getPage()) {
-        vm.mPage.value++
+        vm.page++
         adapter.loadMoreModule.loadMoreComplete()
     } else {
         adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
@@ -77,10 +76,10 @@ fun <T> loadListError(
     loader: LoadService<Any>?
 ) {
     when {
-        vm.isFirst.value -> {
+        vm.isFirst -> {
             loader?.showError(errorMsg)
         }
-        vm.isFresh.value -> {
+        vm.isFresh -> {
             ToastUtil.show(errorMsg)
         }
         else -> {

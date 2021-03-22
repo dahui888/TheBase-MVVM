@@ -39,7 +39,7 @@ class SystemArticleViewModel:ArticleViewModel() {
 
     override fun requestServer() {
        request({
-            val response = RxHttp.get(Url.TREE_DATA,getPage(),mId)
+            val response = RxHttp.get(Url.TREE_DATA,page,mId)
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<ArticleResponse>>>()
                 .await()

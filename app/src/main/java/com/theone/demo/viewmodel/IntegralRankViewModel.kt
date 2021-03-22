@@ -35,12 +35,12 @@ import rxhttp.wrapper.param.toResponse
 class IntegralRankViewModel:BasePagerViewModel<IntegralResponse>() {
 
     init {
-        mFirstPage.value = 1
+        startPage = 1
     }
 
     override fun requestServer() {
         request({
-            val response = RxHttp.get(Url.INTEGRAL_RANK,getPage())
+            val response = RxHttp.get(Url.INTEGRAL_RANK,page)
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<IntegralResponse>>>()
                 .await()

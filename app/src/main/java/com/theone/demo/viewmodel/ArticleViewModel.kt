@@ -19,7 +19,7 @@ abstract class ArticleViewModel(val url: String? = null) : BasePagerViewModel<Ar
 
     override fun requestServer() {
         request({
-            val response = RxHttp.get(url, getPage())
+            val response = RxHttp.get(url, page)
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<ArticleResponse>>>()
                 .await()
@@ -30,7 +30,7 @@ abstract class ArticleViewModel(val url: String? = null) : BasePagerViewModel<Ar
     override fun onSuccess(response: List<ArticleResponse>?) {
         // 第一次是从缓存里获取，这里要拿用户里收藏的判断一下
         response?.run {
-            if (isFirst.value) {
+            if (isFirst) {
                 val user = UserUtil.getUser()
                 user?.collectIds?.forEach { id ->
                     for (index in this.indices) {

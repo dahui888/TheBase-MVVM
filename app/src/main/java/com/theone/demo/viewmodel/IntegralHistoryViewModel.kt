@@ -35,12 +35,12 @@ import rxhttp.wrapper.param.toResponse
 class IntegralHistoryViewModel:BasePagerViewModel<IntegralHistoryResponse>() {
 
     init {
-        mFirstPage.value = 1
+        startPage = 1
     }
 
     override fun requestServer() {
         request({
-            val response = RxHttp.get(Url.INTEGRAL_HISTORY,getPage())
+            val response = RxHttp.get(Url.INTEGRAL_HISTORY,page)
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<IntegralHistoryResponse>>>()
                 .await()

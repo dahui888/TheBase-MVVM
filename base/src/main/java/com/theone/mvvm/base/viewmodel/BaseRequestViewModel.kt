@@ -1,10 +1,8 @@
 package com.theone.mvvm.base.viewmodel
 
-import androidx.lifecycle.MutableLiveData
 import com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.mvvm.callback.livedata.StringLiveData
-import com.theone.mvvm.base.ext.util.logI
 import com.theone.mvvm.base.net.error.ErrorInfo
 import com.theone.mvvm.callback.livedata.BooleanLiveData
 
@@ -29,42 +27,53 @@ import com.theone.mvvm.callback.livedata.BooleanLiveData
 /**
  * @author The one
  * @date 2021/2/25 0025
- * @describe TODO
+ * @describe 请求ViewModel基类
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseRequestViewModel<T>:BaseViewModel() {
+abstract class BaseRequestViewModel<T> : BaseViewModel() {
 
-    private val mResponse: UnPeekLiveData<T> = UnPeekLiveData.Builder<T>().setAllowNullValue(true).create()
+    /**
+     * 请求返回的数据
+     */
+    private val response: UnPeekLiveData<T> =
+        UnPeekLiveData.Builder<T>().setAllowNullValue(true).create()
 
-    private val error :StringLiveData = StringLiveData()
+    /**
+     * 错误原因
+     */
+    private val error: StringLiveData = StringLiveData()
 
-    private val finally :BooleanLiveData = BooleanLiveData()
+    /**
+     * 请求无论成功或者失败之后的回调
+     */
+    private val finally: BooleanLiveData = BooleanLiveData()
 
-    fun getResponseLiveData(): ProtectedUnPeekLiveData<T> = mResponse
+    fun getResponseLiveData(): ProtectedUnPeekLiveData<T> = response
 
-    fun getErrorMsgLiveData():StringLiveData = error
+    fun getErrorMsgLiveData(): StringLiveData = error
 
-    fun getFinallyLiveData():BooleanLiveData = finally
+    fun getFinallyLiveData(): BooleanLiveData = finally
 
-    open fun onSuccess(response:T?){
-        mResponse.value = response
+    /**
+     * 请求成功后设置数据调用此方法
+     * @param response
+     */
+    open fun onSuccess(response: T?) {
+        this.response.value = response
     }
 
-    open fun onError(errorMsg:String,liveData :StringLiveData){
-        liveData.value = errorMsg
+    /**
+     * 请求错误时调用此方法
+     * @param errorMsg 错误信息
+     * @param errorLiveData 错误接收的LiveData
+     */
+    open fun onError(errorMsg: String, errorLiveData: StringLiveData = error) {
+        errorLiveData.value = errorMsg
     }
 
-    open fun onError(errorMsg:String){
-        onError(errorMsg,error)
-    }
-
-    open fun onError(throwable:Throwable?,liveData :StringLiveData){
-        onError(ErrorInfo(throwable).errorMsg,liveData)
-    }
-
-    open fun onError(throwable:Throwable?){
-        onError(throwable,error)
+    open fun onError(throwable: Throwable?, liveData: StringLiveData = error) {
+        onError(ErrorInfo(throwable).errorMsg, liveData)
     }
 
     abstract fun requestServer()

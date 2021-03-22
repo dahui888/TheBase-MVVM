@@ -1,6 +1,5 @@
 package com.theone.demo.viewmodel
 
-import androidx.lifecycle.rxLifeScope
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
@@ -39,7 +38,7 @@ class ProjectItemViewModel : ArticleViewModel() {
 
     override fun requestServer() {
        request({
-            val response = RxHttp.get(Url.PROJECT_DATA, mPage.value,mId)
+            val response = RxHttp.get(Url.PROJECT_DATA, page,mId)
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<ArticleResponse>>>()
                 .await()

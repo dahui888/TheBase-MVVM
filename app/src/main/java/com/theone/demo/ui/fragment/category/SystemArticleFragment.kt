@@ -38,12 +38,11 @@ class SystemArticleFragment :
 
     companion object {
         fun newInstance(data: ClassifyResponse): SystemArticleFragment {
-            val fragment =
-                SystemArticleFragment()
-            val bundle = Bundle()
-            bundle.putParcelable("DATA", data)
-            fragment.arguments = bundle
-            return fragment
+            return  SystemArticleFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable("DATA", data)
+                }
+            }
         }
     }
 

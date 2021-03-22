@@ -26,7 +26,7 @@ import kotlinx.coroutines.*
 /**
  * @author The one
  * @date 2021/3/5 0005
- * @describe TODO
+ * @describe 请求统一弹窗开启结束封装
  * @email 625805189@qq.com
  * @remark
  */

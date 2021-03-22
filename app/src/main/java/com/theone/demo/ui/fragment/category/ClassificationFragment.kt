@@ -17,17 +17,18 @@ class ClassificationFragment : BaseTabInTitleFragment<BaseViewModel>() {
         tabs: MutableList<QMUITabBean>,
         fragments: MutableList<QMUIFragment>
     ) {
-
-        tabs.add(QMUITabBean("广场"))
-        tabs.add(QMUITabBean("问答"))
-        tabs.add(QMUITabBean("体系"))
-        tabs.add(QMUITabBean("导航"))
-
-        fragments.add(PlazaFragment())
-        fragments.add(QAFragment())
-        fragments.add(SystemFragment())
-        fragments.add(NavFragment())
-
+        with(tabs){
+            add(QMUITabBean("广场"))
+            add(QMUITabBean("问答"))
+            add(QMUITabBean("体系"))
+            add(QMUITabBean("导航"))
+        }
+        with(fragments){
+            add(PlazaFragment())
+            add(QAFragment())
+            add(SystemFragment())
+            add(NavFragment())
+        }
     }
 
     override fun getNavIndicator(context: Context): IPagerIndicator =

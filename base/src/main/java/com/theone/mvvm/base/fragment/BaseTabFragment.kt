@@ -2,6 +2,7 @@ package com.theone.mvvm.base.fragment
 
 import android.content.Context
 import android.view.View
+import androidx.databinding.ViewDataBinding
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
@@ -45,7 +46,7 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
+abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseVmDbFragment<VM,DB>() {
 
     private var mTabs: MutableList<QMUITabBean> = mutableListOf()
     private var mFragments: MutableList<QMUIFragment> = mutableListOf()
@@ -73,7 +74,7 @@ abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
         mFragments.clear()
         initTabAndFragments(mTabs, mFragments)
         initViewPager()
-        initSegment()
+        initTabSegment()
         initMagicIndicator()
         showContentPage()
     }
@@ -85,7 +86,7 @@ abstract class BaseTabFragment<VM : BaseViewModel> : BaseVmFragment<VM>() {
         }
     }
 
-    protected open fun initSegment() {
+    protected open fun initTabSegment() {
         getTabSegment()?.init(getViewPager(), mTabs, createTabBuilder()!!)
     }
 

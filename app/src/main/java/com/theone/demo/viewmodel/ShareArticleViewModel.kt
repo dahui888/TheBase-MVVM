@@ -1,9 +1,6 @@
 package com.theone.demo.viewmodel
 
-import androidx.lifecycle.rxLifeScope
-import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
-import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.ShareResponse
 import com.theone.mvvm.base.ext.request
 import rxhttp.wrapper.param.RxHttp
@@ -37,12 +34,12 @@ import rxhttp.wrapper.param.toResponse
 class ShareArticleViewModel:ArticleViewModel() {
 
     init {
-        mFirstPage.value = 1
+        startPage = 1
     }
 
     override fun requestServer() {
         request({
-            val response = RxHttp.get(Url.MY_SHARE_ARTICLE,getPage())
+            val response = RxHttp.get(Url.MY_SHARE_ARTICLE,page)
                 .setCacheMode(getCacheMode())
                 .toResponse<ShareResponse>()
                 .await()

@@ -7,7 +7,6 @@ import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
 import com.theone.mvvm.base.ext.request
-import com.theone.mvvm.callback.livedata.BooleanLiveData
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 
@@ -44,7 +43,7 @@ class HomeViewModel : ArticleViewModel() {
 
     override fun requestServer() {
         request({
-            val response = RxHttp.get(Url.HOME_ARTICLE, mPage.value)
+            val response = RxHttp.get(Url.HOME_ARTICLE, page)
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<ArticleResponse>>>()
                 .await()

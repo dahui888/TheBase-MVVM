@@ -1,9 +1,9 @@
 ext {
 
     minSdkVersion = 20
-    targetSdkVersion = 29
-    compileSdkVersion = 29
-    buildVersion = '29.0.3'
+    targetSdkVersion = 30
+    compileSdkVersion = 30
+    buildVersion = '30.0.3'
 
     lifecycle_version = "2.2.0"
 

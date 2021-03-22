@@ -36,12 +36,11 @@ class SearchResultFragment :
 
     companion object {
         fun newInstance(key: String): SearchResultFragment {
-            val fragment =
-                SearchResultFragment()
-            val bundle = Bundle()
-            bundle.putString("DATA", key)
-            fragment.arguments = bundle
-            return fragment
+            return SearchResultFragment().apply {
+                arguments = Bundle().apply {
+                    putString("DATA", key)
+                }
+            }
         }
     }
 

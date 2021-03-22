@@ -32,7 +32,7 @@ import rxhttp.wrapper.cahce.CacheMode
 abstract class BasePagerViewModel<T> : BaseListViewModel<T>() {
 
     init {
-        mFirstPage.value = 0
+        startPage = 0
     }
 
     open fun onSuccess(response: PagerResponse<List<T>>?) {
@@ -41,8 +41,8 @@ abstract class BasePagerViewModel<T> : BaseListViewModel<T>() {
 
     open fun getCacheMode(): CacheMode {
         return when {
-            isFirst.value -> CacheMode.READ_CACHE_FAILED_REQUEST_NETWORK
-            isFresh.value -> CacheMode.NETWORK_SUCCESS_WRITE_CACHE
+            isFirst -> CacheMode.READ_CACHE_FAILED_REQUEST_NETWORK
+            isFresh -> CacheMode.NETWORK_SUCCESS_WRITE_CACHE
             else -> CacheMode.ONLY_NETWORK
         }
     }

@@ -155,7 +155,7 @@ abstract class BaseRecyclerPagerFragment
     open fun onFirstLoading() {
         showLoadingPage()
         getRecyclerView().scrollToPosition(0)
-        mViewModel.isFirst.value = true
+        mViewModel.isFirst = true
         mViewModel.requestNewData()
     }
 
@@ -164,7 +164,7 @@ abstract class BaseRecyclerPagerFragment
      */
     override fun onRefresh() {
         getRefreshLayout().isRefreshing = true
-        mViewModel.isFresh.value = true
+        mViewModel.isFresh = true
         mViewModel.requestNewData()
     }
 

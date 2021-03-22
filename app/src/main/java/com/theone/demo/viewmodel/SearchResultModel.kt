@@ -39,7 +39,7 @@ class SearchResultModel : ArticleViewModel() {
 
     override fun requestServer() {
         request({
-            val response = RxHttp.postForm(Url.SEARCH, getPage())
+            val response = RxHttp.postForm(Url.SEARCH, page)
                 .add("k",mKey)
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<ArticleResponse>>>()
