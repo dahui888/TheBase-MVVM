@@ -1,5 +1,5 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="app_name">TheBase-MVVM</string>
+    <string name="app_name">TheBase</string>
 
     <string name="app_test">TEST</string>
     <string name="home_tag_top">置顶</string>

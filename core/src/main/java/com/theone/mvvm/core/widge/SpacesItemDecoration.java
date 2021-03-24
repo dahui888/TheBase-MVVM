@@ -35,12 +35,12 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 public class SpacesItemDecoration extends RecyclerView.ItemDecoration {
     private static final String TAG = "SpacesItemDecoration";
 
-    private int column;
-    private int headerNum;
-    private int left;
-    private int right;
-    private int top;
-    private int bottom;
+    private final int column;
+    private final int headerNum;
+    private final int left;
+    private final int right;
+    private final int top;
+    private final int bottom;
 
     public SpacesItemDecoration(int column, int space) {
         this(column,0,space);

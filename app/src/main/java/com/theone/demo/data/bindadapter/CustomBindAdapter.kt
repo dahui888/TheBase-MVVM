@@ -20,7 +20,6 @@ import com.qmuiteam.qmui.layout.QMUIFrameLayout
 import com.qmuiteam.qmui.widget.QMUIFloatLayout
 import com.theone.demo.R
 import com.theone.demo.app.util.ColorUtil
-import com.theone.demo.app.util.DateFormateUtils
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.data.model.bean.SearchResponse
@@ -28,6 +27,7 @@ import com.theone.demo.ui.fragment.category.SystemArticleFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.mvvm.base.ext.util.dp2px
 import com.theone.mvvm.base.ext.util.getDrawable
+import com.theone.util.DateFormatUtils
 
 /**
  * 作者　: hegaojian
@@ -43,7 +43,7 @@ object CustomBindAdapter {
         longDate: Long,
         type: Int
     ) {
-       textView.text = DateFormateUtils.formatTimeStampString(textView.context,longDate,type)
+       textView.text = DateFormatUtils.formatTimeStampString(textView.context,longDate,type)
     }
 
     @BindingAdapter(value = ["treeChildData", "fragment"], requireAll = false)

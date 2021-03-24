@@ -2,7 +2,6 @@ package com.theone.demo.data.model.bean
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import com.theone.demo.app.util.DateFormateUtils
 import kotlinx.android.parcel.Parcelize
 
 /**

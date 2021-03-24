@@ -32,7 +32,7 @@ import com.theone.mvvm.core.net.IPageInfo
  */
 abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
 
-    // 分页信息,实体需继承 IPageInfo
+    // 分页信息,实体需实现 IPageInfo
     private val pageInfo: MutableLiveData<IPageInfo> = MutableLiveData()
     // 是否第一次加载
     var isFirst: Boolean = true
@@ -49,7 +49,7 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
 
     // 这里返回父类ProtectedUnPeekLiveData，保证数据的唯一性
     fun getFirstLoadSuccessLiveData():UnPeekLiveData<Boolean> = firstLoadSuccess
-    // 这里返回父类ProtectedUnPeekLiveData，保证数据的唯一性
+    // 这里返回父类LiveData，保证数据的唯一性
     fun getPageInfoLiveData():LiveData<IPageInfo> = pageInfo
 
     /**

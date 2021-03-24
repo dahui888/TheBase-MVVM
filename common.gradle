@@ -56,5 +56,6 @@ android {
 
 dependencies {
     implementation project(path: ':core')
+    implementation project(path: ':util')
     kapt "com.ljx.rxhttp:rxhttp-compiler:$rxhttpVersion" //生成RxHttp类
 }
