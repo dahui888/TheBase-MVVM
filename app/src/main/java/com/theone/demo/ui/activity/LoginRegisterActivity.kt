@@ -8,7 +8,7 @@ import com.theone.mvvm.base.activity.BaseFragmentActivity
 
 
 @DefaultFirstFragment(LoginRegisterFragment::class)
-class LoginRegisterActivity:BaseFragmentActivity(){
+class LoginRegisterActivity: BaseFragmentActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

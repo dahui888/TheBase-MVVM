@@ -2,11 +2,9 @@ package com.theone.demo.app.ext
 
 import android.content.Intent
 import android.net.Uri
-import androidx.fragment.app.Fragment
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.luck.picture.lib.tools.ToastUtils
 import com.theone.mvvm.base.ext.qmui.showFailDialog
-import com.theone.mvvm.base.fragment.BaseFragment
+import com.theone.mvvm.base.fragment.BaseQMUIFragment
 
 
 //  ┏┓　　　┏┓
@@ -39,7 +37,7 @@ import com.theone.mvvm.base.fragment.BaseFragment
  * 加入qq聊天群
  * https://qun.qq.com/join.html
  */
-fun BaseFragment.joinQQGroup(key: String): Boolean {
+fun BaseQMUIFragment.joinQQGroup(key: String): Boolean {
     val intent = Intent()
     intent.data =
         Uri.parse("mqqopensdkapi://bizAgent/qm/qr?url=http%3A%2F%2Fqm.qq.com%2Fcgi-bin%2Fqm%2Fqr%3Ffrom%3Dapp%26p%3Dandroid%26k%3D$key")

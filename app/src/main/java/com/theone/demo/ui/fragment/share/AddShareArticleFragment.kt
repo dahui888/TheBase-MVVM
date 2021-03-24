@@ -1,6 +1,5 @@
 package com.theone.demo.ui.fragment.share
 
-import android.content.Context
 import android.view.View
 import android.widget.TextView
 import com.qmuiteam.qmui.skin.QMUISkinHelper
@@ -19,7 +18,7 @@ import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.base.ext.qmui.showFailDialog
 import com.theone.mvvm.base.ext.qmui.showSuccessExitDialog
-import com.theone.mvvm.base.fragment.BaseVmDbFragment
+import com.theone.mvvm.core.fragment.BaseCoreFragment
 
 
 // ┏┓　 ┏┓
@@ -47,7 +46,7 @@ import com.theone.mvvm.base.fragment.BaseVmDbFragment
  * @remark
  */
 class AddShareArticleFragment :
-    BaseVmDbFragment<AddShareArticleViewModel, FragmentArticleAddBinding>() {
+    BaseCoreFragment<AddShareArticleViewModel, FragmentArticleAddBinding>() {
 
     val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 

@@ -5,9 +5,9 @@ import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.viewmodel.ProjectViewModel
-import com.theone.mvvm.base.fragment.BaseTabInTitleFragment
-import com.theone.mvvm.base.data.entity.QMUITabBean
-import com.theone.mvvm.base.ext.*
+import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
+import com.theone.mvvm.core.data.entity.QMUITabBean
+import com.theone.mvvm.core.ext.*
 
 
 //  ┏┓　　　┏┓

@@ -2,8 +2,8 @@ package com.theone.demo.app
 
 import com.tencent.mmkv.MMKV
 import com.theone.demo.BuildConfig
-import com.theone.mvvm.base.BaseApplication
-import com.theone.mvvm.util.RxHttpManager
+import com.theone.demo.app.util.RxHttpManager
+import com.theone.mvvm.core.CoreApplication
 import rxhttp.wrapper.param.RxHttp
 
 
@@ -31,14 +31,16 @@ import rxhttp.wrapper.param.RxHttp
  * @email 625805189@qq.com
  * @remark
  */
-class App : BaseApplication() {
+class App : CoreApplication() {
 
-    override fun isDebug(): Boolean = true
+    override fun isDebug(): Boolean = BuildConfig.DEBUG
 
     override fun onCreate() {
         super.onCreate()
         MMKV.initialize(this.filesDir.absolutePath + "/mmkv")
-        RxHttp.init(RxHttpManager.getHttpClient(RxHttpManager.HttpBuilder().setNeedCookie(true)),true)
+        RxHttp.init(
+            RxHttpManager.getHttpClient(
+                RxHttpManager.HttpBuilder().setNeedCookie(true)),true)
     }
 
 }

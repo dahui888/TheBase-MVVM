@@ -3,11 +3,12 @@ package com.theone.demo.ui.fragment
 import android.view.View
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.theone.demo.R
+import com.theone.demo.databinding.FragmentSampleBinding
 import com.theone.demo.ui.fragment.home.HomeFragment
-import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.base.ext.qmui.addToGroup
 import com.theone.mvvm.base.ext.qmui.createNormalItem
-import kotlinx.android.synthetic.main.fragment_sample.*
+import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.core.fragment.BaseCoreFragment
 
 
 //  ┏┓　　　┏┓
@@ -34,7 +35,8 @@ import kotlinx.android.synthetic.main.fragment_sample.*
  * @email 625805189@qq.com
  * @remark
  */
-class SampleFragment : BaseFragment(), View.OnClickListener {
+class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
+    View.OnClickListener {
 
     override fun getLayoutId(): Int = R.layout.fragment_sample
 
@@ -43,9 +45,11 @@ class SampleFragment : BaseFragment(), View.OnClickListener {
 
     override fun initView(rootView: View) {
         getTopBar()?.setTitle(R.string.app_name)
-        mRecyclerPager = groupListView.createNormalItem("BaseRecyclerPagerFragment")
-        mGroupListView = groupListView.createNormalItem("QMUIGroupListView")
-        groupListView.addToGroup("ui",this, mRecyclerPager, mGroupListView)
+        mBinding.groupListView.run {
+            mRecyclerPager = createNormalItem("BaseRecyclerPagerFragment")
+            mGroupListView = createNormalItem("QMUIGroupListView")
+            addToGroup("ui", this@SampleFragment, mRecyclerPager, mGroupListView)
+        }
     }
 
     override fun onLazyInit() {
@@ -59,6 +63,12 @@ class SampleFragment : BaseFragment(), View.OnClickListener {
                 else -> GroupListViewFragment()
             }
         )
+    }
+
+    override fun initData() {
+    }
+
+    override fun createObserver() {
     }
 
 }

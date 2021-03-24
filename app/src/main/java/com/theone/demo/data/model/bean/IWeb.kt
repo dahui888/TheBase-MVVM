@@ -1,7 +1,6 @@
 package com.theone.demo.data.model.bean
 
 import android.os.Parcelable
-import java.io.Serializable
 
 
 //  ┏┓　　　┏┓

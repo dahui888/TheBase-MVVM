@@ -2,8 +2,6 @@ package com.theone.demo.app.util
 
 import com.google.gson.Gson
 import com.theone.demo.data.model.bean.UserInfo
-import com.theone.mvvm.base.ext.util.logE
-import com.theone.mvvm.util.RxHttpManager
 
 
 //  ┏┓　　　┏┓

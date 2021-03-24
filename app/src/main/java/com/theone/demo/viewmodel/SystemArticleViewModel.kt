@@ -4,7 +4,7 @@ import androidx.lifecycle.rxLifeScope
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
-import com.theone.mvvm.base.ext.request
+import com.theone.mvvm.core.ext.request
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 

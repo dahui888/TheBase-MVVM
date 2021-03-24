@@ -1,9 +1,9 @@
 package com.theone.mvvm.base.ext.qmui
 
 import android.content.Context
-import androidx.fragment.app.Fragment
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
-import com.theone.mvvm.base.fragment.BaseFragment
+import com.theone.mvvm.base.BaseApplication
+import com.theone.mvvm.base.fragment.BaseQMUIFragment
 
 
 //  ┏┓　　　┏┓
@@ -34,47 +34,52 @@ import com.theone.mvvm.base.fragment.BaseFragment
 
 private var loadingDialog: QMUITipDialog? = null
 
-fun BaseFragment.showLoadingDialog(msg: CharSequence) {
+fun BaseQMUIFragment.showLoadingDialog(msg: CharSequence) {
     loadingDialog =  context?.createQMUIDialog(msg, QMUITipDialog.Builder.ICON_TYPE_LOADING)
 }
 
-fun BaseFragment.hideLoadingDialog(){
+fun BaseQMUIFragment.hideLoadingDialog(){
     loadingDialog?.dismiss()
     loadingDialog = null
 }
 
-fun BaseFragment.showMsgDialog(msg: CharSequence, callback: (() -> Unit?)? = null) {
-    context?.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_NOTHING, callback)
+fun showMsgDialog(msg: CharSequence, delay: Long = 1000, callback: (() -> Unit?)? = null) {
+    BaseApplication.INSTANCE.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_NOTHING, delay,callback)
 }
 
-fun BaseFragment.showInfoMsgDialog(msg: CharSequence, callback: (() -> Unit?)? = null) {
-    context?.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_INFO, callback)
+fun BaseQMUIFragment.showMsgDialog(msg: CharSequence, delay: Long = 1000, callback: (() -> Unit?)? = null) {
+    context?.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_NOTHING, delay,callback)
 }
 
-fun BaseFragment.showSuccessExitDialog(msg: CharSequence) {
+fun BaseQMUIFragment.showInfoMsgDialog(msg: CharSequence, delay: Long = 1000, callback: (() -> Unit?)? = null) {
+    context?.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_INFO,delay, callback)
+}
+
+fun BaseQMUIFragment.showSuccessExitDialog(msg: CharSequence) {
     showSuccessDialog(msg){
         finish()
     }
 }
 
-fun BaseFragment.showSuccessDialog(msg: CharSequence, callback: (() -> Unit?)? = null) {
-    context?.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_SUCCESS, callback)
+fun BaseQMUIFragment.showSuccessDialog(msg: CharSequence, delay: Long = 1000, callback: (() -> Unit?)? = null) {
+    context?.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_SUCCESS, delay,callback)
 }
 
-fun BaseFragment.showFailDialog(msg: CharSequence, callback: (() -> Unit?)? = null) {
-    context?.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_FAIL, callback)
+fun BaseQMUIFragment.showFailDialog(msg: CharSequence, delay: Long = 1000, callback: (() -> Unit?)? = null) {
+    context?.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_FAIL, delay,callback)
 }
 
 fun Context.showTipsDialogDelayedDismiss(
     msg: CharSequence,
     type: Int,
+    delay: Long = 1000,
     callback: (() -> Unit?)? = null
 ) {
     val dialog = createQMUIDialog(msg, type)
     android.os.Handler().postDelayed({
         dialog.dismiss()
         callback?.invoke()
-    }, 1000)
+    }, delay)
 }
 
 fun Context.createQMUIDialog(msg: CharSequence, type: Int): QMUITipDialog {

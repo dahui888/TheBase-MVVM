@@ -1,7 +1,7 @@
 package com.theone.mvvm.base.ext.qmui
 
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
-import com.theone.mvvm.base.fragment.BaseFragment
+import com.theone.mvvm.base.fragment.BaseQMUIFragment
 
 
 //  ┏┓　　　┏┓
@@ -29,16 +29,16 @@ import com.theone.mvvm.base.fragment.BaseFragment
  * @remark
  */
 
-fun QMUITopBarLayout.setTitleWithBackBtn(title:String,fragment:BaseFragment){
+fun QMUITopBarLayout.setTitleWithBackBtn(title:String, fragmentThe:BaseQMUIFragment){
     setTitle(title)
     addLeftBackImageButton().setOnClickListener {
-        fragment.finish()
+        fragmentThe.finish()
     }
 }
 
-fun QMUITopBarLayout.setTitleWithBackBtn(resId:Int,fragment:BaseFragment){
+fun QMUITopBarLayout.setTitleWithBackBtn(resId:Int, fragmentThe:BaseQMUIFragment){
     setTitle(resId)
     addLeftBackImageButton().setOnClickListener {
-        fragment.finish()
+        fragmentThe.finish()
     }
 }

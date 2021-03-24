@@ -1,19 +1,10 @@
 package com.theone.demo.viewmodel
 
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.rxLifeScope
-import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.demo.app.net.Url
-import com.theone.demo.app.util.ColorUtil
-import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.IntegralResponse
-import com.theone.mvvm.base.ext.request
-import com.theone.mvvm.base.ext.util.logE
-import com.theone.mvvm.base.viewmodel.BaseRequestViewModel
+import com.theone.mvvm.core.ext.request
+import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
 import com.theone.mvvm.callback.databind.BooleanObservableField
-import com.theone.mvvm.callback.databind.CharSequenceObservableField
-import com.theone.mvvm.callback.databind.IntObservableField
-import com.theone.mvvm.callback.databind.StringObservableField
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
 

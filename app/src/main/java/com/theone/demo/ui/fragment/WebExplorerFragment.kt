@@ -7,7 +7,6 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.text.Html
 import android.view.View
 import android.webkit.WebChromeClient
 import android.webkit.WebView
@@ -17,12 +16,12 @@ import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.webview.QMUIWebViewClient
 import com.theone.demo.R
 import com.theone.demo.app.widge.QDWebView
-import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.IWeb
+import com.theone.demo.databinding.FragmentWebExploererBinding
 import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.base.ext.showViews
-import com.theone.mvvm.base.fragment.BaseFragment
-import kotlinx.android.synthetic.main.fragment_web_exploerer.*
+import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.core.fragment.BaseCoreFragment
 import java.lang.reflect.Field
 
 
@@ -50,7 +49,7 @@ import java.lang.reflect.Field
  * @email 625805189@qq.com
  * @remark
  */
-open class WebExplorerFragment : BaseFragment() {
+class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploererBinding>() {
 
     companion object {
         fun <T:IWeb>newInstance(data: T): WebExplorerFragment {
@@ -81,7 +80,7 @@ open class WebExplorerFragment : BaseFragment() {
     }
 
     private fun initTopBar() {
-        topbar.run {
+        mBinding.topbar.run {
             setTitleWithBackBtn(mIWeb.getWebTitle(),this@WebExplorerFragment)
         }
     }
@@ -93,7 +92,7 @@ open class WebExplorerFragment : BaseFragment() {
     private fun initWebView() {
         val needDispatchSafeAreaInset = needDispatchSafeAreaInset()
         mWebView = QDWebView(context)
-        mWebContainer.run {
+        mBinding.mWebContainer.run {
             addWebView(mWebView!!, needDispatchSafeAreaInset)
             val params = layoutParams as FrameLayout.LayoutParams
             fitsSystemWindows = !needDispatchSafeAreaInset
@@ -207,21 +206,21 @@ open class WebExplorerFragment : BaseFragment() {
          var mAnimator: ObjectAnimator? = null
 
         override fun handleMessage(msg: Message) {
-            if(progressbar == null) return
+            if(mBinding.progressbar == null) return
             when (msg.what) {
                 PROGRESS_PROCESS -> {
                     mDstProgressIndex = msg.arg1
                     mDuration = msg.arg2
-                    showViews(progressbar)
+                    showViews(mBinding.progressbar)
                     if (null != mAnimator && mAnimator?.isRunning!!) {
                         mAnimator?.cancel()
                     }
-                    mAnimator = ObjectAnimator.ofInt(progressbar, "progress", mDstProgressIndex)
+                    mAnimator = ObjectAnimator.ofInt(mBinding.progressbar, "progress", mDstProgressIndex)
                     mAnimator?.run {
                         duration = mDuration.toLong()
                         addListener(object : AnimatorListenerAdapter() {
                             override fun onAnimationEnd(animation: Animator) {
-                                if (progressbar?.progress == 100) {
+                                if (mBinding.progressbar?.progress == 100) {
                                     sendEmptyMessageDelayed(
                                         PROGRESS_GONE,
                                         500
@@ -233,15 +232,15 @@ open class WebExplorerFragment : BaseFragment() {
                     }
                 }
                 PROGRESS_GONE -> {
-                    if(progressbar == null) return
+                    if(mBinding.progressbar == null) return
                     mDstProgressIndex = 0
                     mDuration = 0
-                    progressbar.progress = 0
-                    progressbar.visibility = View.GONE
+                    mBinding.progressbar.progress = 0
+                    mBinding.progressbar.visibility = View.GONE
                     if (mAnimator != null && mAnimator!!.isRunning) {
                         mAnimator!!.cancel()
                     }
-                    mAnimator = ObjectAnimator.ofInt(progressbar, "progress", 0)
+                    mAnimator = ObjectAnimator.ofInt(mBinding.progressbar, "progress", 0)
                     mAnimator?.run {
                         duration = 0
                         removeAllListeners()
@@ -252,16 +251,15 @@ open class WebExplorerFragment : BaseFragment() {
 
     }
 
+    override fun initData() {
+    }
+
+    override fun createObserver() {
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        mWebContainer?.destroy()
-        mWebView = null
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        mWebContainer?.destroy()
+        mBinding.mWebContainer.destroy()
         mWebView = null
     }
 

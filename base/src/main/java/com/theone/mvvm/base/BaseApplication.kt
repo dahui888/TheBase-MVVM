@@ -5,12 +5,8 @@ import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.multidex.MultiDex
 import androidx.multidex.MultiDexApplication
-import com.theone.mvvm.widge.loadsir.callback.SuccessCallback
-import com.theone.mvvm.widge.loadsir.core.LoadSir
 import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
 import com.theone.mvvm.BuildConfig
-import com.theone.mvvm.widge.loadsir.callback.ErrorCallback
-import com.theone.mvvm.widge.loadsir.callback.LoadingCallback
 import kotlin.properties.Delegates
 
 
@@ -38,14 +34,16 @@ import kotlin.properties.Delegates
  * @email 625805189@qq.com
  * @remark
  */
-open class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
+abstract class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
 
     companion object {
         lateinit var INSTANCE: BaseApplication
         var DEBUG by Delegates.notNull<Boolean>()
     }
 
-    private lateinit var mAppViewModelStore: ViewModelStore
+    private val mAppViewModelStore: ViewModelStore by lazy {
+        ViewModelStore()
+    }
 
     private var mFactory: ViewModelProvider.Factory? = null
 
@@ -53,16 +51,14 @@ open class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
         return mAppViewModelStore
     }
 
-    open fun isDebug():Boolean = BuildConfig.DEBUG
+    open fun isDebug(): Boolean = BuildConfig.DEBUG
 
     override fun onCreate() {
         super.onCreate()
         INSTANCE = this
         DEBUG = isDebug()
         MultiDex.install(this)
-        mAppViewModelStore = ViewModelStore()
         QMUISwipeBackActivityManager.init(this)
-        initLoader()
     }
 
     /**
@@ -79,12 +75,5 @@ open class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
         return mFactory as ViewModelProvider.Factory
     }
 
-    open fun initLoader(){
-        LoadSir.beginBuilder()
-            .addCallback(LoadingCallback())
-            .addCallback(ErrorCallback())
-            .setDefaultCallback(SuccessCallback::class.java)
-            .commit()
-    }
 
 }

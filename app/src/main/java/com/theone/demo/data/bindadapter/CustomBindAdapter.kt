@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
+import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.layout.QMUIFrameLayout
 import com.qmuiteam.qmui.widget.QMUIFloatLayout
@@ -25,7 +26,6 @@ import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.data.model.bean.SearchResponse
 import com.theone.demo.ui.fragment.category.SystemArticleFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
-import com.theone.mvvm.base.fragment.BaseFragment
 import com.theone.mvvm.base.ext.util.dp2px
 import com.theone.mvvm.base.ext.util.getDrawable
 
@@ -51,7 +51,7 @@ object CustomBindAdapter {
     fun loadTreeData(
         floatLayout: QMUIFloatLayout,
         classifyResponses: List<ClassifyResponse>,
-        fragment: BaseFragment?
+        fragment: QMUIFragment?
     ) {
         floatLayout.removeAllViews()
         for (c in classifyResponses) {
@@ -66,7 +66,7 @@ object CustomBindAdapter {
     fun loadArticleTreeData(
         floatLayout: QMUIFloatLayout,
         articles: List<ArticleResponse>,
-        fragment: BaseFragment?
+        fragment: QMUIFragment?
     ) {
         floatLayout.removeAllViews()
         for (article in articles) {

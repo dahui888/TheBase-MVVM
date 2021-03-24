@@ -6,9 +6,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.bumptech.glide.Glide
 import com.theone.demo.R
+import com.theone.demo.databinding.FragmentTestBinding
 import com.theone.demo.ui.fragment.category.NavFragment
-import com.theone.mvvm.base.fragment.BaseFragment
-import kotlinx.android.synthetic.main.fragment_test.*
+import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.core.fragment.BaseCoreFragment
 import java.util.ArrayList
 
 
@@ -36,7 +37,7 @@ import java.util.ArrayList
  * @email 625805189@qq.com
  * @remark
  */
-class TestFragment:BaseFragment() {
+class TestFragment:BaseCoreFragment<BaseViewModel,FragmentTestBinding>() {
 
     override fun isStatusBarLightMode(): Boolean  = true
 
@@ -49,11 +50,12 @@ class TestFragment:BaseFragment() {
             addFragment(NavFragment(),"Tab1")
             addFragment(NavFragment(),"Tab2")
         }
-        mViewPager.adapter = adapter
-        mTabLayout.setupWithViewPager(mViewPager)
+        mBinding.mViewPager
+        mBinding.mViewPager.adapter = adapter
+        mBinding.mTabLayout.setupWithViewPager(mBinding.mViewPager)
 
         Glide.with(this).load("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2586870947,764155106&fm=26&gp=0.jpg")
-            .into(cover)
+            .into(mBinding.cover)
     }
 
     inner class MyPagerAdapter(fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager){
@@ -80,6 +82,12 @@ class TestFragment:BaseFragment() {
 
     override fun onLazyInit() {
 
+    }
+
+    override fun initData() {
+    }
+
+    override fun createObserver() {
     }
 
 }

@@ -2,10 +2,7 @@ package com.theone.demo.data.model.bean
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import android.service.quicksettings.Tile
-import android.text.TextUtils
 import kotlinx.android.parcel.Parcelize
-import java.io.Serializable
 
 /**
  * 文章

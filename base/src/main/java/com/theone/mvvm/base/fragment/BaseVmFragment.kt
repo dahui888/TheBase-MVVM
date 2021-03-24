@@ -33,7 +33,7 @@ import com.theone.mvvm.base.ext.qmui.showLoadingDialog
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseVmFragment<VM : BaseViewModel> : BaseFragment() {
+abstract class BaseVmFragment<VM : BaseViewModel> : BaseQMUIFragment() {
 
     lateinit var mViewModel: VM
 

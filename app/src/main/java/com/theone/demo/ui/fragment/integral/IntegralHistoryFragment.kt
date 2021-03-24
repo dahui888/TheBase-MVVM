@@ -1,20 +1,15 @@
 package com.theone.demo.ui.fragment.integral
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.theone.demo.R
-import com.theone.demo.app.net.Url
-import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.data.model.bean.IntegralHistoryResponse
-import com.theone.demo.data.model.bean.IntegralResponse
 import com.theone.demo.ui.adapter.IntegralHistoryAdapter
-import com.theone.demo.ui.adapter.IntegralRankAdapter
 import com.theone.demo.ui.fragment.BasePagerListFragment
-import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.demo.viewmodel.IntegralHistoryViewModel
-import com.theone.demo.viewmodel.IntegralRankViewModel
 import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
-import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
+import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -57,5 +52,9 @@ class IntegralHistoryFragment:BasePagerListFragment<IntegralHistoryResponse,Inte
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
     }
+    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
+
+    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
+
 
 }

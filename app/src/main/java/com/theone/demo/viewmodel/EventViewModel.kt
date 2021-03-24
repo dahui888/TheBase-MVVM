@@ -30,7 +30,7 @@ import com.theone.mvvm.base.viewmodel.BaseViewModel
  * @email 625805189@qq.com
  * @remark
  */
-class EventViewModel:BaseViewModel() {
+class EventViewModel: BaseViewModel() {
 
     //全局收藏，在任意一个地方收藏或取消收藏，监听该值的界面都会收到消息
     val collectEvent = MutableLiveData<CollectBus>()

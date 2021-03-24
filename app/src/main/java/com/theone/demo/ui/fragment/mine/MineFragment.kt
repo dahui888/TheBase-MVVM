@@ -25,7 +25,7 @@ import com.theone.mvvm.base.ext.getAppViewModel
 import com.theone.mvvm.base.ext.qmui.addToGroup
 import com.theone.mvvm.base.ext.qmui.createDetailItem
 import com.theone.mvvm.base.ext.qmui.showFailDialog
-import com.theone.mvvm.base.fragment.BaseVmDbFragment
+import com.theone.mvvm.core.fragment.BaseCoreFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 
@@ -53,7 +53,7 @@ import kotlinx.android.synthetic.main.fragment_mine.*
  * @email 625805189@qq.com
  * @remark
  */
-class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), View.OnClickListener {
+class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), View.OnClickListener {
 
     val appVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 

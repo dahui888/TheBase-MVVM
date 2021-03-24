@@ -7,8 +7,8 @@ import com.theone.demo.R
 import com.theone.demo.app.ext.setAdapterAnimation
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
-import com.theone.mvvm.base.fragment.BaseRecyclerPagerFragment
-import com.theone.mvvm.base.viewmodel.BaseListViewModel
+import com.theone.mvvm.core.fragment.BaseRecyclerPagerFragment
+import com.theone.mvvm.core.viewmodel.BaseListViewModel
 
 
 //  ┏┓　　　┏┓

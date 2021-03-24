@@ -2,9 +2,8 @@ package com.theone.demo.viewmodel
 
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.util.CacheUtil
-import com.theone.mvvm.base.ext.request
-import com.theone.mvvm.base.viewmodel.BaseListViewModel
-import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.core.ext.request
+import com.theone.mvvm.core.viewmodel.BaseListViewModel
 
 
 //  ┏┓　　　┏┓

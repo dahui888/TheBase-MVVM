@@ -3,12 +3,10 @@ package com.theone.demo.ui.fragment
 import android.view.View
 import android.widget.CompoundButton
 import com.theone.demo.R
-import com.theone.mvvm.base.fragment.BaseVmFragment
-import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.base.ext.qmui.*
+import com.theone.demo.databinding.FragmentTestBinding
 import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
-import com.theone.mvvm.util.ToastUtil
-import kotlinx.android.synthetic.main.fragment_test.*
+import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.core.fragment.BaseCoreFragment
 
 
 //  ┏┓　　　┏┓
@@ -35,7 +33,7 @@ import kotlinx.android.synthetic.main.fragment_test.*
  * @email 625805189@qq.com
  * @remark
  */
-class GroupListViewFragment : BaseVmFragment<BaseViewModel>(), CompoundButton.OnCheckedChangeListener,View.OnClickListener {
+class GroupListViewFragment : BaseCoreFragment<BaseViewModel,FragmentTestBinding>(), CompoundButton.OnCheckedChangeListener,View.OnClickListener {
 
     override fun getLayoutId(): Int = R.layout.fragment_test
 
@@ -85,7 +83,6 @@ class GroupListViewFragment : BaseVmFragment<BaseViewModel>(), CompoundButton.On
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
-        ToastUtil.show(isChecked.toString())
     }
 
     override fun onClick(v: View?) {

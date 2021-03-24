@@ -14,12 +14,10 @@ import com.theone.demo.databinding.FragmentSettingBinding
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.SettingViewModel
 import com.theone.mvvm.base.ext.getAppViewModel
-import com.theone.mvvm.base.ext.goneViews
 import com.theone.mvvm.base.ext.qmui.*
-import com.theone.mvvm.base.fragment.BaseVmDbFragment
-import kotlinx.android.synthetic.main.fragment_setting.*
+import com.theone.mvvm.core.fragment.BaseCoreFragment
 
-class SettingFragment : BaseVmDbFragment<SettingViewModel, FragmentSettingBinding>(),
+class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBinding>(),
     View.OnClickListener,
     QMUIDialogAction.ActionListener {
 
@@ -38,7 +36,7 @@ class SettingFragment : BaseVmDbFragment<SettingViewModel, FragmentSettingBindin
     override fun getLayoutId(): Int = R.layout.fragment_setting
 
     override fun initView(rootView: View) {
-        groupListView.run {
+        mBinding.groupListView.run {
             mAnimation = createDetailItem(
                 "列表动画",
                 mAnimationTypes[CacheUtil.getAnimationType()],
@@ -55,17 +53,15 @@ class SettingFragment : BaseVmDbFragment<SettingViewModel, FragmentSettingBindin
                 "The one",
                 R.drawable.svg_setting_author
             )
-            mLoginOut = createNormalItem("退出账号", R.drawable.svg_setting_login_out)
+
+            addToGroup("个性化", this@SettingFragment, mAnimation, mTheme)
+            addToGroup("关于", this@SettingFragment, mVersion, mAuthor)
+
+            if (UserUtil.isLogin()) {
+                mLoginOut = createNormalItem("退出账号", R.drawable.svg_setting_login_out)
+                addToGroup("", this@SettingFragment, mLoginOut)
+            }
         }
-
-        groupListView.addToGroup("个性化", this, mAnimation, mTheme)
-        groupListView.addToGroup("关于", this, mVersion, mAuthor)
-        groupListView.addToGroup("", this, mLoginOut)
-
-        if (!UserUtil.isLogin()) {
-            goneViews(mLoginOut)
-        }
-
         getTopBar()?.run {
             setTitleWithBackBtn("设置", this@SettingFragment)
         }

@@ -1,12 +1,14 @@
 package com.theone.demo.ui.fragment.category
 
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.demo.data.model.bean.NavigationResponse
 import com.theone.demo.ui.adapter.NavAdapter
 import com.theone.demo.ui.fragment.BasePagerListFragment
 import com.theone.demo.viewmodel.NavViewModel
-import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
+import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -43,5 +45,9 @@ class NavFragment:
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
     }
+
+    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
+
+    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
 
 }

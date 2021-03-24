@@ -1,12 +1,9 @@
 package com.theone.mvvm.base.ext
 
-import android.view.LayoutInflater
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.util.QMUIDisplayHelper
 import com.qmuiteam.qmui.util.QMUIStatusBarHelper
-import com.theone.mvvm.base.fragment.BaseFragment
 
 
 /**

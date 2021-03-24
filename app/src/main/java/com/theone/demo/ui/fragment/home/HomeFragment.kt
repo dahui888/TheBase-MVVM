@@ -21,8 +21,12 @@ import com.theone.demo.app.widge.banner.HomeBannerViewHolder
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.ui.fragment.search.SearchFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
-import com.theone.mvvm.base.data.enum.LayoutManagerType
-import com.theone.mvvm.base.ext.*
+import com.theone.mvvm.base.ext.dp2px
+import com.theone.mvvm.base.ext.goneViews
+import com.theone.mvvm.base.ext.showViews
+import com.theone.mvvm.base.ext.updateStatusBarMode
+import com.theone.mvvm.core.data.enum.LayoutManagerType
+import com.theone.mvvm.core.ext.*
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 
@@ -88,7 +92,7 @@ class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
     override fun createObserver() {
         super.createObserver()
         if (showBanner())
-            mViewModel.getBanners().observe(viewLifecycleOwner, Observer {
+            mViewModel.getBanners().observeInFragment(this, Observer {
                 mBannerList = it
                 mBannerViewPager?.create(it)
             })

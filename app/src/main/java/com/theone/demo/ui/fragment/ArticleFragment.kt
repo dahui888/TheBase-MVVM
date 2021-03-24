@@ -2,6 +2,8 @@ package com.theone.demo.ui.fragment
 
 import android.view.View
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.theone.demo.R
@@ -12,7 +14,7 @@ import com.theone.demo.ui.adapter.ArticleAdapter
 import com.theone.demo.ui.fragment.collection.CollectionArticleFragment
 import com.theone.demo.viewmodel.ArticleViewModel
 import com.theone.mvvm.base.ext.qmui.showFailDialog
-import com.theone.mvvm.databinding.BaseRecyclerPagerFragmentBinding
+import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
 
 
 //  ┏┓　　　┏┓
@@ -52,6 +54,10 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
         mAdapter.addChildClickViewIds(R.id.collection)
         mAdapter.setOnItemChildClickListener(this)
     }
+
+    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
+
+    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
 
     override fun initData() {
 
