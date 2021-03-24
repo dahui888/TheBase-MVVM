@@ -1,5 +1,6 @@
 package com.theone.demo.viewmodel
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.rxLifeScope
 import com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData
@@ -8,6 +9,7 @@ import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.app.net.PagerResponse
 import com.theone.demo.app.net.Url
+import com.theone.mvvm.callback.livedata.StringLiveData
 import com.theone.mvvm.core.ext.request
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse
@@ -40,7 +42,6 @@ import rxhttp.wrapper.param.toResponse
 class HomeViewModel : ArticleViewModel() {
 
     private val mBanners: UnPeekLiveData<List<BannerResponse>> = UnPeekLiveData()
-
     fun getBanners(): ProtectedUnPeekLiveData<List<BannerResponse>> = mBanners
 
     override fun requestServer() {
@@ -49,18 +50,13 @@ class HomeViewModel : ArticleViewModel() {
                 .setCacheMode(getCacheMode())
                 .toResponse<PagerResponse<List<ArticleResponse>>>()
                 .await()
+            if(isFirst || isFresh){
+                mBanners.value = RxHttp.get(Url.HOME_BANNER)
+                    .setCacheMode(getCacheMode())
+                    .toResponse<List<BannerResponse>>()
+                    .await()
+            }
             onSuccess(response)
-        })
-    }
-
-    fun requestBanner() {
-        rxLifeScope.launch({
-            val banners = RxHttp.get(Url.HOME_BANNER)
-                .setCacheMode(getCacheMode())
-                .toResponse<List<BannerResponse>>()
-                .await()
-            mBanners.value = banners
-        }, {
         })
     }
 

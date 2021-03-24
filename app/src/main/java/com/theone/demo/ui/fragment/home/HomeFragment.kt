@@ -23,6 +23,7 @@ import com.theone.demo.ui.fragment.search.SearchFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.mvvm.base.ext.dp2px
 import com.theone.mvvm.base.ext.goneViews
+import com.theone.mvvm.base.ext.qmui.showFailDialog
 import com.theone.mvvm.base.ext.showViews
 import com.theone.mvvm.base.ext.updateStatusBarMode
 import com.theone.mvvm.core.data.enum.LayoutManagerType
@@ -55,11 +56,10 @@ import com.zhpan.bannerview.constants.IndicatorGravity
  * @email 625805189@qq.com
  * @remark
  */
-class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
+class HomeFragment : ArticleFragment<HomeViewModel>(), View.OnClickListener {
 
     private fun showBanner(): Boolean = true
 
-    private var mBannerList: List<BannerResponse> = mutableListOf()
     private var mBannerViewPager: BannerViewPager<BannerResponse, HomeBannerViewHolder>? = null
     private var mMaxOffsetHeight: Float = 0f
     private var isLightMode: Boolean = true
@@ -81,7 +81,8 @@ class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
         super.initView(rootView)
         getTopBar()?.run {
             mTitleView = setTitle("首页")
-            mSearchBtn = addRightImageButton(R.drawable.mz_titlebar_ic_search_light,R.id.topbar_search)
+            mSearchBtn =
+                addRightImageButton(R.drawable.mz_titlebar_ic_search_light, R.id.topbar_search)
             mSearchBtn.setOnClickListener(this@HomeFragment)
             goneViews(mSearchBtn)
             if (showBanner())
@@ -91,11 +92,13 @@ class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
 
     override fun createObserver() {
         super.createObserver()
-        if (showBanner())
+        if (showBanner()){
             mViewModel.getBanners().observeInFragment(this, Observer {
-                mBannerList = it
                 mBannerViewPager?.create(it)
+                setStatusBarMode(false)
             })
+        }
+
     }
 
     override fun initAdapter() {
@@ -118,11 +121,13 @@ class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
                     QMUIResHelper.getAttrColor(mActivity, R.attr.app_skin_primary_color)
                 )
                 setOnPageClickListener { position: Int ->
-                    startFragment(
-                        WebExplorerFragment.newInstance(
-                            mBannerList[position]
+                    mViewModel.getBanners().value?.let {
+                        startFragment(
+                            WebExplorerFragment.newInstance(
+                                it[position]
+                            )
                         )
-                    )
+                    }
                 }
                 mAdapter.addHeaderView(this)
             }
@@ -176,8 +181,10 @@ class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
     }
 
     override fun onClick(view: View?) {
-        when(view?.id){
-            R.id.topbar_search->{startFragment(SearchFragment())}
+        when (view?.id) {
+            R.id.topbar_search -> {
+                startFragment(SearchFragment())
+            }
         }
     }
 
@@ -193,19 +200,17 @@ class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
         )
     }
 
-
-
     /**
      * 更改状态栏模式
      * @param isLight
      */
     private fun setStatusBarMode(isLight: Boolean) {
         // 只有当Banner数据存在后才进行状态栏的切换
-        if (!mBannerList.isNullOrEmpty()) {
+        mViewModel.getBanners().value?.let {
             //显示的时候才做更改
             if (isShow) {
                 showViews(mSearchBtn)
-                mSearchBtn.setImageResource(if(isLight) R.drawable.mz_titlebar_ic_search_dark else R.drawable.mz_titlebar_ic_search_light)
+                mSearchBtn.setImageResource(if (isLight) R.drawable.mz_titlebar_ic_search_dark else R.drawable.mz_titlebar_ic_search_light)
                 setBannerStatus(!isLight)
                 updateStatusBarMode(isLight)
             }
@@ -226,24 +231,6 @@ class HomeFragment : ArticleFragment<HomeViewModel>(),View.OnClickListener {
                     stopLoop()
                 }
             }
-    }
-
-    /**
-     * 第一次获取数据时要重新获取Banner数据
-     */
-    override fun onFirstLoading() {
-        super.onFirstLoading()
-        if (showBanner())
-            mViewModel.requestBanner()
-    }
-
-    /**
-     * 刷新时要重新获取Banner数据
-     */
-    override fun onRefresh() {
-        super.onRefresh()
-        if (showBanner())
-            mViewModel.requestBanner()
     }
 
     /**
