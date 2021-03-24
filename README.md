@@ -6,4 +6,4 @@
 
 #### Demo下载
 
-[点击下载](https://gitee.com/theoneee/the-base-mvvm/blob/master/apks/demo_release.apk)
+[点击下载](https://gitee.com/theoneee/the-base-mvvm/raw/master/apks/demo_release.apk)
