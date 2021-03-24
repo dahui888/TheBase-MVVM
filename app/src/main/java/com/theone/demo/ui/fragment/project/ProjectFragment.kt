@@ -45,7 +45,7 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
         mViewModel.requestServer()
     }
 
-    override fun onReLoad() {
+    override fun onErrorPageClick() {
         onLazyInit()
     }
 

@@ -70,7 +70,7 @@ abstract class BaseRecyclerPagerFragment
         onFirstLoading()
     }
 
-    override fun onReLoad() {
+    override fun onErrorPageClick() {
         onFirstLoading()
     }
 

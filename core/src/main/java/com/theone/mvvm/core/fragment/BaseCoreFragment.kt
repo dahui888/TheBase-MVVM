@@ -21,9 +21,11 @@ abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVm
 
     override fun onViewCreated(rootView: View) {
         mLoadSir = loadSirInit(mBody) {
-            onReLoad()
+            onErrorPageClick()
         }
         super.onViewCreated(rootView)
     }
+
+    protected open fun onErrorPageClick() {}
 
 }

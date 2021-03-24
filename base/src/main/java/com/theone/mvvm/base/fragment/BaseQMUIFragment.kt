@@ -68,7 +68,6 @@ import com.theone.mvvm.base.ext.*
     internal open fun createContentView(): View = getView(getLayoutId())
     open fun showTitleBar(): Boolean = isIndexFragment
 
-    protected open fun onReLoad() {}
 
     override fun onCreateView(): View {
         if (showTitleBar()) {
