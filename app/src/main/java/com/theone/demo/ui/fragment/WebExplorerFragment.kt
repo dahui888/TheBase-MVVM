@@ -18,8 +18,8 @@ import com.theone.demo.R
 import com.theone.demo.app.widge.QDWebView
 import com.theone.demo.data.model.bean.IWeb
 import com.theone.demo.databinding.FragmentWebExploererBinding
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
-import com.theone.mvvm.base.ext.showViews
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.ext.showViews
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.fragment.BaseCoreFragment
 import java.lang.reflect.Field
@@ -68,7 +68,7 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
     private var mWebView: QDWebView? = null
     private val mProgressHandler: ProgressHandler by lazy { ProgressHandler() }
 
-    protected open fun needDispatchSafeAreaInset(): Boolean = false
+    private fun needDispatchSafeAreaInset(): Boolean = false
 
     override fun showTitleBar(): Boolean = false
 
@@ -120,10 +120,10 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
         msg.what = progressType
         msg.arg1 = newProgress
         msg.arg2 = duration
-        mProgressHandler?.sendMessage(msg)
+        mProgressHandler.sendMessage(msg)
     }
 
-    open fun setZoomControlGone(webView: WebView) {
+    private fun setZoomControlGone(webView: WebView) {
         webView.settings.displayZoomControls = false
         val classType: Class<*>
         val field: Field
@@ -153,7 +153,7 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
 
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
-            if(newProgress > fragment.mProgressHandler?.mDstProgressIndex!!){
+            if(newProgress > fragment.mProgressHandler.mDstProgressIndex){
                 fragment.sendProgressMessage(PROGRESS_PROCESS,newProgress,100)
             }
         }
@@ -177,7 +177,7 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
             favicon: Bitmap?
         ) {
             super.onPageStarted(view, url, favicon)
-            if (mProgressHandler?.mDstProgressIndex == 0) {
+            if (mProgressHandler.mDstProgressIndex == 0) {
                 sendProgressMessage(
                     PROGRESS_PROCESS,
                     30,
@@ -206,7 +206,6 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
          var mAnimator: ObjectAnimator? = null
 
         override fun handleMessage(msg: Message) {
-            if(mBinding.progressbar == null) return
             when (msg.what) {
                 PROGRESS_PROCESS -> {
                     mDstProgressIndex = msg.arg1
@@ -232,7 +231,6 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
                     }
                 }
                 PROGRESS_GONE -> {
-                    if(mBinding.progressbar == null) return
                     mDstProgressIndex = 0
                     mDuration = 0
                     mBinding.progressbar.progress = 0

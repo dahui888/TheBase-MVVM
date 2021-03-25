@@ -4,6 +4,7 @@ import android.view.View
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
+import com.theone.mvvm.core.ext.addTab
 import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
 
 
@@ -44,16 +45,9 @@ class CollectionFragment :BaseTabInTitleFragment<BaseViewModel>() {
         tabs: MutableList<QMUITabBean>,
         fragments: MutableList<QMUIFragment>
     ) {
-       tabs.add(QMUITabBean("文章"))
+       tabs.addTab("文章")
 
         fragments.add(CollectionArticleFragment())
-    }
-
-    override fun initData() {
-    }
-
-    override fun createObserver() {
-
     }
 
 }

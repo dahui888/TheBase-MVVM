@@ -1,13 +1,9 @@
-package com.theone.demo.ui.adapter
+package com.theone.mvvm.core.adapter
 
+import androidx.databinding.ViewDataBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
-import com.theone.demo.R
-import com.theone.demo.data.model.bean.SystemResponse
-import com.theone.demo.databinding.ItemSystemBinding
-import com.theone.demo.ui.fragment.category.SystemFragment
-import com.theone.mvvm.core.adapter.TheBaseQuickAdapter
 
 
 //  ┏┓　　　┏┓
@@ -29,21 +25,12 @@ import com.theone.mvvm.core.adapter.TheBaseQuickAdapter
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
- * @describe TODO
+ * @date 2021/3/25 09:25
+ * @describe 简单封装下DataBinding带有加载更多模块Adapter
  * @email 625805189@qq.com
  * @remark
  */
-class SystemAdapter(val fragment: SystemFragment) :
-    TheBaseQuickAdapter<SystemResponse, ItemSystemBinding>(
-        R.layout.item_system
-    ) {
-
-    override fun convert(holder: BaseDataBindingHolder<ItemSystemBinding>, item: SystemResponse) {
-        holder.dataBinding?.run {
-            vm = item
-            fg = fragment
-        }
-    }
-
-}
+abstract class TheBaseQuickAdapter<T, BD : ViewDataBinding>(layout: Int) :
+    BaseQuickAdapter<T, BaseDataBindingHolder<BD>>(
+        layout
+    ), LoadMoreModule

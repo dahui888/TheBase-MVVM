@@ -21,10 +21,10 @@ import com.theone.demo.ui.fragment.share.ShareArticleFragment
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.MineViewModel
-import com.theone.mvvm.base.ext.getAppViewModel
-import com.theone.mvvm.base.ext.qmui.addToGroup
-import com.theone.mvvm.base.ext.qmui.createDetailItem
-import com.theone.mvvm.base.ext.qmui.showFailDialog
+import com.theone.mvvm.ext.getAppViewModel
+import com.theone.mvvm.ext.qmui.addToGroup
+import com.theone.mvvm.ext.qmui.createDetailItem
+import com.theone.mvvm.ext.qmui.showFailDialog
 import com.theone.mvvm.core.fragment.BaseCoreFragment
 import kotlinx.android.synthetic.main.fragment_mine.*
 
@@ -77,7 +77,7 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
             setBackgroundAlpha(0)
             updateBottomDivider(0, 0, 0, 0)
         }
-        groupListView.run {
+        mBinding.groupListView.run {
             mCollection = createDetailItem("我的收藏", "", R.drawable.svg_mine_collection)
             mShare = createDetailItem("我的分享", "", R.drawable.svg_mine_share)
 
@@ -85,10 +85,12 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
             mTheBase = createDetailItem("项目地址", "TheBase-MVVM", R.drawable.svg_mine_project_address)
             mJoinUs = createDetailItem("加入我们", "QQ群：761201022", R.drawable.svg_mine_qq)
             mSetting = createDetailItem("系统设置", "", R.drawable.svg_mine_setting)
+
+            addToGroup(this@MineFragment, mCollection, mShare)
+            addToGroup("", this@MineFragment, mAPI, mTheBase, mJoinUs)
+            addToGroup("", this@MineFragment, mSetting)
+
         }
-        groupListView.addToGroup(this, mCollection, mShare)
-        groupListView.addToGroup("", this, mAPI, mTheBase, mJoinUs)
-        groupListView.addToGroup("", this, mSetting)
 
         swipeRefresh.setOnRefreshListener {
             mRequestVm.requestServer()

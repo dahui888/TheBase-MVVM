@@ -9,6 +9,7 @@ import com.theone.demo.databinding.ItemArticleBinding
 import com.theone.demo.databinding.ItemSearchBinding
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.viewmodel.ArticleViewModel
+import com.theone.mvvm.core.adapter.TheBaseQuickAdapter
 
 
 //  ┏┓　　　┏┓
@@ -35,9 +36,9 @@ import com.theone.demo.viewmodel.ArticleViewModel
  * @email 625805189@qq.com
  * @remark
  */
-class SearchAdapter : BaseQuickAdapter<String,BaseDataBindingHolder<ItemSearchBinding>>(
+class SearchAdapter : TheBaseQuickAdapter<String, ItemSearchBinding>(
     R.layout.item_search
-),LoadMoreModule {
+) {
 
     override fun convert(holder: BaseDataBindingHolder<ItemSearchBinding>, item: String) {
        holder.dataBinding?.run {

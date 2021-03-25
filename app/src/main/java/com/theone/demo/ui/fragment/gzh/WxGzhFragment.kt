@@ -1,13 +1,14 @@
 package com.theone.demo.ui.fragment.gzh
 
-import androidx.lifecycle.Observer
+import androidx.fragment.app.viewModels
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.data.model.bean.ClassifyResponse
-import com.theone.demo.viewmodel.WxGzhViewModel
+import com.theone.demo.viewmodel.WxGzhRequestViewModel
+import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
-import com.theone.mvvm.core.ext.showErrorPage
-import com.theone.mvvm.core.ext.showLoadingPage
+import com.theone.mvvm.core.ext.addTab
 import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
+import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
 
 
 //  ┏┓　　　┏┓
@@ -34,24 +35,24 @@ import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
  * @email 625805189@qq.com
  * @remark
  */
-class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
+class WxGzhFragment:BaseTabInTitleFragment<BaseViewModel>() {
+
+    private val mRequestVm:WxGzhRequestViewModel by viewModels()
 
     override fun isNeedChangeStatusBarMode(): Boolean  = true
 
-    private lateinit var mResponse: List<ClassifyResponse>
-
-    override fun onLazyInit() {
-        showLoadingPage()
-        mViewModel.requestServer()
-    }
+    /**
+     * 这里如果为了方便，直接把泛型里的ViewModel填入WxGzhRequestViewModel，然后这里直接返回 mViewModel
+     */
+    override fun getRequestViewModel(): BaseRequestViewModel<List<ClassifyResponse>>? = mRequestVm
 
     override fun initTabAndFragments(
         tabs: MutableList<QMUITabBean>,
         fragments: MutableList<QMUIFragment>
     ) {
 
-        for (data in mResponse) {
-            tabs.add(QMUITabBean(data.name))
+        for (data in mRequestVm.getResponseLiveData().value!!) {
+            tabs.addTab(data.name)
             fragments.add(
                 WxGzhItemFragment.newInstance(
                     data.id
@@ -60,17 +61,4 @@ class WxGzhFragment:BaseTabInTitleFragment<WxGzhViewModel>() {
         }
     }
 
-    override fun createObserver() {
-       mViewModel.getResponseLiveData().observeInFragment(this, Observer {
-           mResponse = it
-           startInit()
-       })
-        mViewModel.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-            showErrorPage(it)
-        })
-    }
-
-    override fun initData() {
-
-    }
 }

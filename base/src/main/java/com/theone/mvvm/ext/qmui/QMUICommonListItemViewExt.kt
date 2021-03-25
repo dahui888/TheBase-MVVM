@@ -1,4 +1,4 @@
-package com.theone.mvvm.base.ext.qmui
+package com.theone.mvvm.ext.qmui
 
 import android.text.TextUtils
 import android.view.View

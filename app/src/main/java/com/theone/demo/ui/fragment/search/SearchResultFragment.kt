@@ -4,7 +4,8 @@ import android.os.Bundle
 import android.view.View
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.viewmodel.SearchResultModel
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.core.ext.BundleConstant
 
 
 //  ┏┓　　　┏┓
@@ -38,14 +39,14 @@ class SearchResultFragment :
         fun newInstance(key: String): SearchResultFragment {
             return SearchResultFragment().apply {
                 arguments = Bundle().apply {
-                    putString("DATA", key)
+                    putString(BundleConstant.DATA, key)
                 }
             }
         }
     }
 
     override fun initView(rootView: View) {
-        val key = requireArguments().getString("DATA","")
+        val key = requireArguments().getString(BundleConstant.DATA,"")
         mViewModel.mKey = key
         super.initView(rootView)
         getTopBar()?.setTitleWithBackBtn(key,this)

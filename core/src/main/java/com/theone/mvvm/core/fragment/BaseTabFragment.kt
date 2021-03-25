@@ -3,6 +3,7 @@ package com.theone.mvvm.core.fragment
 import android.content.Context
 import android.view.View
 import androidx.databinding.ViewDataBinding
+import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
@@ -10,10 +11,10 @@ import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import com.theone.mvvm.core.adapter.TabFragmentAdapter
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
-import com.theone.mvvm.core.ext.getLinePagerIndicator
-import com.theone.mvvm.core.ext.getPagerTitleView
+import com.theone.mvvm.core.ext.*
 import com.theone.mvvm.core.ext.qmui.init
-import com.theone.mvvm.core.ext.showContentPage
+import com.theone.mvvm.core.ext.util.notNull
+import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.ViewPagerHelper
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigator
@@ -42,18 +43,27 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTit
 /**
  * @author The one
  * @date 2021/3/2 0002
- * @describe TODO
+ * @describe TAB相关
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseCoreFragment<VM, DB>() {
+abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> :
+    BaseCoreFragment<VM, DB>() {
+
+    /**
+     * 如果TAB数据是从网络获取，则返回一个请求的ViewModel，继承 BaseRequestViewModel
+     */
+    protected open fun getRequestViewModel(): BaseRequestViewModel<*>? = null
 
     private var mTabs: MutableList<QMUITabBean> = mutableListOf()
     private var mFragments: MutableList<QMUIFragment> = mutableListOf()
 
     private lateinit var mPagerAdapter: TabFragmentAdapter
 
-    abstract fun initTabAndFragments(tabs: MutableList<QMUITabBean>, fragments: MutableList<QMUIFragment>)
+    abstract fun initTabAndFragments(
+        tabs: MutableList<QMUITabBean>,
+        fragments: MutableList<QMUIFragment>
+    )
 
     abstract fun getViewPager(): QMUIViewPager
     abstract fun getTabSegment(): QMUITabSegment?
@@ -63,11 +73,32 @@ abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> : BaseC
 
     }
 
-    /**
-     * @remark 如果Tab数据从网络加载，重写这个方法，请求数据，待数据返回成功后调用 {@link #startInit}方法
-     */
     override fun onLazyInit() {
-        startInit()
+        getRequestViewModel().notNull({
+            showLoadingPage()
+           it.requestServer()
+        }, {
+            startInit()
+        })
+    }
+
+    override fun onErrorPageClick() {
+        onLazyInit()
+    }
+
+    override fun createObserver() {
+        getRequestViewModel()?.run {
+            addLoadingObserve(this)
+            getResponseLiveData().observeInFragment(this@BaseTabFragment, Observer {
+                startInit()
+            })
+            getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+                showErrorPage(it)
+            })
+        }
+    }
+
+    override fun initData() {
     }
 
     protected open fun startInit() {

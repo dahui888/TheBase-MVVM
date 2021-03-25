@@ -14,8 +14,8 @@ import com.theone.demo.ui.adapter.IntegralRankAdapter
 import com.theone.demo.ui.fragment.BasePagerListFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.demo.viewmodel.IntegralRankViewModel
-import com.theone.mvvm.base.ext.getValueNonNull
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.ext.getValueNonNull
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
 
 //  ┏┓　　　┏┓
@@ -59,10 +59,6 @@ class IntegralRankFragment : BasePagerListFragment<IntegralResponse, IntegralRan
     private val mIntegralRank:IntegralResponse by getValueNonNull(DATA)
 
     override fun getLayoutId(): Int = R.layout.fragment_integral_rank
-
-    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
-
-    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
 
     override fun createAdapter(): BaseQuickAdapter<IntegralResponse, *> = IntegralRankAdapter()
 

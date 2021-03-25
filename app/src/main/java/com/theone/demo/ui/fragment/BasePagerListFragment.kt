@@ -6,8 +6,8 @@ import androidx.lifecycle.Observer
 import com.theone.demo.R
 import com.theone.demo.app.ext.setAdapterAnimation
 import com.theone.demo.viewmodel.AppViewModel
-import com.theone.mvvm.base.ext.getAppViewModel
-import com.theone.mvvm.core.fragment.BaseRecyclerPagerFragment
+import com.theone.mvvm.ext.getAppViewModel
+import com.theone.mvvm.core.fragment.BasePullRefreshRcPagerFragment
 import com.theone.mvvm.core.viewmodel.BaseListViewModel
 
 
@@ -36,9 +36,11 @@ import com.theone.mvvm.core.viewmodel.BaseListViewModel
  * @remark
  */
 abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>, DB : ViewDataBinding> :
-    BaseRecyclerPagerFragment<T, VM,DB>() {
+    BasePullRefreshRcPagerFragment<T, VM,DB>() {
 
     protected val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
+
+    override fun getRequestViewModel(): BaseListViewModel<T> = mViewModel
 
     /**
      * 第一次请求成功后是否自动刷新（第一次的数据从Cache里获取的)

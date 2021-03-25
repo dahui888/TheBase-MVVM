@@ -18,6 +18,10 @@ import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
 import com.theone.mvvm.R
 import com.theone.mvvm.base.ext.*
+import com.theone.mvvm.ext.getView
+import com.theone.mvvm.ext.match_wrap
+import com.theone.mvvm.ext.setMargin
+import com.theone.mvvm.ext.updateStatusBarMode
 
 
 //  ┏┓　　　┏┓

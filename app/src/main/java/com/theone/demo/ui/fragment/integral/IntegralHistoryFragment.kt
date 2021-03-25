@@ -8,7 +8,7 @@ import com.theone.demo.data.model.bean.IntegralHistoryResponse
 import com.theone.demo.ui.adapter.IntegralHistoryAdapter
 import com.theone.demo.ui.fragment.BasePagerListFragment
 import com.theone.demo.viewmodel.IntegralHistoryViewModel
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
 
 
@@ -52,9 +52,5 @@ class IntegralHistoryFragment:BasePagerListFragment<IntegralHistoryResponse,Inte
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
     }
-    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
-
-    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
-
 
 }

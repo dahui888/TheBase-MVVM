@@ -5,6 +5,7 @@ import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.R
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
+import com.theone.mvvm.core.ext.addTab
 import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
 
 
@@ -45,26 +46,27 @@ class LoginRegisterFragment:BaseTabInTitleFragment<BaseViewModel>() {
             }
             updateBottomDivider(0, 0, 0, 0)
         }
+        // 这里直接放到initView里面
         startInit()
     }
 
     override fun onLazyInit() {
+        // 这个方法要清空
     }
 
     override fun initTabAndFragments(
         tabs: MutableList<QMUITabBean>,
         fragments: MutableList<QMUIFragment>
     ) {
-        tabs.add(QMUITabBean("登录"))
-        tabs.add(QMUITabBean("注册"))
-        fragments.add(LoginRegisterItemFragment.newInstant(false))
-        fragments.add(LoginRegisterItemFragment.newInstant(true))
-    }
+        with(tabs){
+            addTab("登录")
+            addTab("注册")
+        }
 
-    override fun initData() {
-    }
-
-    override fun createObserver() {
+        with(fragments){
+            add(LoginRegisterItemFragment.newInstant(false))
+            add(LoginRegisterItemFragment.newInstant(true))
+        }
     }
 
     /**

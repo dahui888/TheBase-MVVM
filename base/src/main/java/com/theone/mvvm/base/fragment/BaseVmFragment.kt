@@ -4,9 +4,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.base.ext.getVmClazz
-import com.theone.mvvm.base.ext.qmui.hideLoadingDialog
-import com.theone.mvvm.base.ext.qmui.showLoadingDialog
+import com.theone.mvvm.ext.getVmClazz
+import com.theone.mvvm.ext.qmui.hideLoadingDialog
+import com.theone.mvvm.ext.qmui.showLoadingDialog
 
 
 //  ┏┓　　　┏┓
@@ -37,6 +37,9 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseQMUIFragment() {
 
     lateinit var mViewModel: VM
 
+    /**
+     * ViewModel的位置
+     */
     protected open fun getViewModelIndex(): Int = 0
 
     override fun onViewCreated(rootView: View) {
@@ -55,7 +58,12 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseQMUIFragment() {
      * 创建viewModel
      */
     open fun createViewModel(): VM {
-        return ViewModelProvider(this).get(getVmClazz(this, getViewModelIndex()))
+        return ViewModelProvider(this).get(
+            getVmClazz(
+                this,
+                getViewModelIndex()
+            )
+        )
     }
 
     abstract fun initData()

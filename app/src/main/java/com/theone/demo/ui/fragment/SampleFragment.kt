@@ -5,8 +5,8 @@ import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.theone.demo.R
 import com.theone.demo.databinding.FragmentSampleBinding
 import com.theone.demo.ui.fragment.home.HomeFragment
-import com.theone.mvvm.base.ext.qmui.addToGroup
-import com.theone.mvvm.base.ext.qmui.createNormalItem
+import com.theone.mvvm.ext.qmui.addToGroup
+import com.theone.mvvm.ext.qmui.createNormalItem
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.fragment.BaseCoreFragment
 

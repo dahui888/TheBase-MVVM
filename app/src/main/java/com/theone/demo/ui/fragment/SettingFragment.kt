@@ -13,9 +13,9 @@ import com.theone.demo.app.util.UserUtil
 import com.theone.demo.databinding.FragmentSettingBinding
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.SettingViewModel
-import com.theone.mvvm.base.ext.getAppViewModel
-import com.theone.mvvm.base.ext.qmui.*
+import com.theone.mvvm.ext.getAppViewModel
 import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.ext.qmui.*
 
 class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBinding>(),
     View.OnClickListener,

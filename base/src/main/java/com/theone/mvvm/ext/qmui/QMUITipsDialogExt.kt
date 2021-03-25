@@ -1,4 +1,4 @@
-package com.theone.mvvm.base.ext.qmui
+package com.theone.mvvm.ext.qmui
 
 import android.content.Context
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog

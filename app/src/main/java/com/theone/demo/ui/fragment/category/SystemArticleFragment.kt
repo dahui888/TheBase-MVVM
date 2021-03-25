@@ -6,7 +6,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.viewmodel.SystemArticleViewModel
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
 
 //  ┏┓　　　┏┓

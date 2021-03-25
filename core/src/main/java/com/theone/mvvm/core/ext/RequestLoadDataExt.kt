@@ -1,7 +1,7 @@
 package com.theone.mvvm.core.ext
 
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.theone.mvvm.base.ext.qmui.showMsgDialog
+import com.theone.mvvm.ext.qmui.showMsgDialog
 import com.theone.mvvm.core.viewmodel.BaseListViewModel
 import com.theone.mvvm.core.widge.loadsir.core.LoadService
 

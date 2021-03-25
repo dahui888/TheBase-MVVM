@@ -3,7 +3,7 @@ package com.theone.demo.app.ext
 import android.content.Intent
 import android.net.Uri
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.theone.mvvm.base.ext.qmui.showFailDialog
+import com.theone.mvvm.ext.qmui.showFailDialog
 import com.theone.mvvm.base.fragment.BaseQMUIFragment
 
 

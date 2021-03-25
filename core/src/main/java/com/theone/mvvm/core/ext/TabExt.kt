@@ -1,9 +1,6 @@
-package com.theone.demo.ui.fragment.project
+package com.theone.mvvm.core.ext
 
-import android.os.Bundle
-import com.theone.demo.ui.fragment.ArticleFragment
-import com.theone.demo.viewmodel.ProjectItemViewModel
-
+import com.theone.mvvm.core.data.entity.QMUITabBean
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -24,27 +21,12 @@ import com.theone.demo.viewmodel.ProjectItemViewModel
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/3 0003
+ * @date 2021-03-25 15:12
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class ProjectItemFragment :
-    ArticleFragment<ProjectItemViewModel>() {
 
-    companion object {
-        fun newInstance(id: Int): ProjectItemFragment {
-            return  ProjectItemFragment().apply {
-                arguments = Bundle().apply {
-                    putInt(DATA, id)
-                }
-            }
-        }
-        const val DATA = "data"
-    }
-
-    override fun initData() {
-        mViewModel.mId = requireArguments().getInt(DATA)
-    }
-
+fun MutableList<QMUITabBean>.addTab(title:String,normal:Int = -1,select:Int = -1){
+    add(QMUITabBean(title,normal,select))
 }

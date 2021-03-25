@@ -33,7 +33,7 @@ import rxhttp.wrapper.param.toResponse
  * @email 625805189@qq.com
  * @remark
  */
-class WxGzhViewModel : BaseRequestViewModel<List<ClassifyResponse>>() {
+class WxGzhRequestViewModel : BaseRequestViewModel<List<ClassifyResponse>>() {
 
     override fun requestServer() {
         request({

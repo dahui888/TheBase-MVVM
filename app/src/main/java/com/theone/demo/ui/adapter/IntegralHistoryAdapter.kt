@@ -6,6 +6,7 @@ import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.theone.demo.R
 import com.theone.demo.data.model.bean.IntegralHistoryResponse
 import com.theone.demo.databinding.ItemIntegralHistoryBinding
+import com.theone.mvvm.core.adapter.TheBaseQuickAdapter
 
 
 //  ┏┓　　　┏┓
@@ -32,9 +33,9 @@ import com.theone.demo.databinding.ItemIntegralHistoryBinding
  * @email 625805189@qq.com
  * @remark
  */
-class IntegralHistoryAdapter : BaseQuickAdapter<IntegralHistoryResponse,BaseDataBindingHolder<ItemIntegralHistoryBinding>>(
+class IntegralHistoryAdapter : TheBaseQuickAdapter<IntegralHistoryResponse, ItemIntegralHistoryBinding>(
     R.layout.item_integral_history
-),LoadMoreModule {
+) {
 
     override fun convert(holder: BaseDataBindingHolder<ItemIntegralHistoryBinding>, item: IntegralHistoryResponse) {
        holder.dataBinding?.run {

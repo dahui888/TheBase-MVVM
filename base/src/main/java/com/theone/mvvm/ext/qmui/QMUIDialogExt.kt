@@ -1,4 +1,4 @@
-package com.theone.mvvm.base.ext.qmui
+package com.theone.mvvm.ext.qmui
 
 import android.content.Context
 import android.content.DialogInterface
@@ -108,7 +108,7 @@ fun <T:CharSequence>  Context.showMultiChoiceDialog(
     checkedItems: IntArray,
     leftAction: String,
     rightAction: String,
-    listener:OnMultiChoiceConfirmClickListener
+    listener: OnMultiChoiceConfirmClickListener
 ): QMUIDialog {
     val builder = QMUIDialog.MultiCheckableDialogBuilder(this)
     with(builder){

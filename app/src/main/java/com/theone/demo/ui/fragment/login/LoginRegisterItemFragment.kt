@@ -8,10 +8,10 @@ import com.theone.demo.app.util.UserUtil
 import com.theone.demo.viewmodel.LoginRegisterViewModel
 import com.theone.demo.databinding.FragmentLoginRegisterBinding
 import com.theone.demo.viewmodel.AppViewModel
-import com.theone.mvvm.base.ext.getAppViewModel
-import com.theone.mvvm.base.ext.getValueNonNull
-import com.theone.mvvm.base.ext.qmui.showFailDialog
-import com.theone.mvvm.base.ext.qmui.showSuccessExitDialog
+import com.theone.mvvm.ext.getAppViewModel
+import com.theone.mvvm.ext.getValueNonNull
+import com.theone.mvvm.ext.qmui.showFailDialog
+import com.theone.mvvm.ext.qmui.showSuccessExitDialog
 import com.theone.mvvm.core.fragment.BaseCoreFragment
 
 class LoginRegisterItemFragment :
@@ -77,6 +77,5 @@ class LoginRegisterItemFragment :
             }
         }
     }
-
 
 }

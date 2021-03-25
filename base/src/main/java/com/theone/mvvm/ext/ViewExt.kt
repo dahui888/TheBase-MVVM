@@ -1,4 +1,4 @@
-package com.theone.mvvm.base.ext
+package com.theone.mvvm.ext
 
 import android.view.View
 import android.view.ViewGroup
@@ -49,11 +49,11 @@ fun setVisible(visible: Int, vararg views: View?) {
 }
 
 fun goneViews( vararg views: View?){
-    setVisible(View.GONE,*views)
+    setVisible(View.GONE, *views)
 }
 
 fun showViews( vararg views: View?){
-    setVisible(View.VISIBLE,*views)
+    setVisible(View.VISIBLE, *views)
 }
 
 val match_match :ViewGroup.LayoutParams = ViewGroup.LayoutParams(matchParent, matchParent)

@@ -6,8 +6,6 @@ import android.widget.RelativeLayout
 import android.widget.TextView
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.qmuiteam.qmui.widget.QMUIFloatLayout
@@ -21,12 +19,13 @@ import com.theone.demo.data.bindadapter.CustomBindAdapter
 import com.theone.demo.ui.adapter.SearchAdapter
 import com.theone.demo.viewmodel.HotSearchViewModel
 import com.theone.demo.viewmodel.SearchViewModel
-import com.theone.mvvm.base.ext.getView
-import com.theone.mvvm.base.ext.goneViews
-import com.theone.mvvm.base.ext.showViews
+import com.theone.mvvm.ext.getView
+import com.theone.mvvm.ext.goneViews
+import com.theone.mvvm.ext.showViews
 import com.theone.mvvm.core.ext.*
-import com.theone.mvvm.core.fragment.BaseRecyclerPagerFragment
+import com.theone.mvvm.core.fragment.BasePullRefreshRcPagerFragment
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
+import com.theone.mvvm.core.viewmodel.BaseListViewModel
 
 
 //  ┏┓　　　┏┓
@@ -54,7 +53,7 @@ import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
  * @remark
  */
 class SearchFragment :
-    BaseRecyclerPagerFragment<String, SearchViewModel, BaseRecyclerPagerFragmentBinding>(),
+    BasePullRefreshRcPagerFragment<String, SearchViewModel, BaseRecyclerPagerFragmentBinding>(),
     View.OnClickListener,
     TheSearchView.OnTextChangedListener, QMUIDialogAction.ActionListener, OnItemChildClickListener {
 
@@ -202,12 +201,14 @@ class SearchFragment :
     }
 
     private fun setHistoryData(data: List<String> = mAdapter.data) {
-        if (data.isEmpty()) goneViews(mHistory) else showViews(mHistory)
+        if (data.isEmpty()) goneViews(mHistory) else showViews(
+            mHistory
+        )
         CacheUtil.setSearchHistoryData(data.toJson())
     }
 
-    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
-
-    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
+    override fun getRequestViewModel(): BaseListViewModel<String> {
+       return mViewModel
+    }
 
 }

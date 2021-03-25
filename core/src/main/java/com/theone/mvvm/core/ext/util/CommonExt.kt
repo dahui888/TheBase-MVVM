@@ -1,4 +1,4 @@
-package com.theone.demo.app.util
+package com.theone.mvvm.core.ext.util
 
 import android.content.ClipData
 import android.content.Context

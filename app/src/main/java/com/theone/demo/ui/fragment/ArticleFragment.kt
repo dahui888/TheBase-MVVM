@@ -13,7 +13,7 @@ import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.ui.adapter.ArticleAdapter
 import com.theone.demo.ui.fragment.collection.CollectionArticleFragment
 import com.theone.demo.viewmodel.ArticleViewModel
-import com.theone.mvvm.base.ext.qmui.showFailDialog
+import com.theone.mvvm.ext.qmui.showFailDialog
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
 
 
@@ -54,10 +54,6 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
         mAdapter.addChildClickViewIds(R.id.collection)
         mAdapter.setOnItemChildClickListener(this)
     }
-
-    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
-
-    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
 
     override fun initData() {
 

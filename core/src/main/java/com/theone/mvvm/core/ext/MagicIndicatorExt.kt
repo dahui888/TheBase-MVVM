@@ -10,10 +10,10 @@ import com.qmuiteam.qmui.skin.defaultAttr.QMUISkinSimpleDefaultAttrProvider
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
 import com.theone.mvvm.core.R
-import com.theone.mvvm.base.ext.goneViews
+import com.theone.mvvm.ext.goneViews
 import com.theone.mvvm.core.data.entity.QMUITabBean
-import com.theone.mvvm.base.ext.util.dp2px
-import com.theone.mvvm.base.ext.util.getColor
+import com.theone.mvvm.ext.util.dp2px
+import com.theone.mvvm.ext.util.getColor
 import com.theone.mvvm.core.widge.indicator.SkinLinePagerIndicator
 import com.theone.mvvm.core.widge.indicator.SkinPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
@@ -99,6 +99,6 @@ fun getLinePagerIndicator(context: Context): IPagerIndicator {
 
 fun getWrapPagerIndicator(context: Context, fillColor: Int): WrapPagerIndicator {
     val indicator = WrapPagerIndicator(context)
-    indicator.fillColor = getColor(context,fillColor)
+    indicator.fillColor = getColor(context, fillColor)
     return indicator
 }

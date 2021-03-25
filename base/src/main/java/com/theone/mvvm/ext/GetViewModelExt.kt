@@ -1,4 +1,4 @@
-package com.theone.mvvm.base.ext
+package com.theone.mvvm.ext
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment

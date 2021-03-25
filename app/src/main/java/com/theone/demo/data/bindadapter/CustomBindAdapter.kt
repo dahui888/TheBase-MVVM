@@ -25,8 +25,8 @@ import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.data.model.bean.SearchResponse
 import com.theone.demo.ui.fragment.category.SystemArticleFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
-import com.theone.mvvm.base.ext.util.dp2px
-import com.theone.mvvm.base.ext.util.getDrawable
+import com.theone.mvvm.ext.util.dp2px
+import com.theone.mvvm.ext.util.getDrawable
 import com.theone.util.DateFormatUtils
 
 /**
@@ -103,7 +103,10 @@ object CustomBindAdapter {
             maxLines = 1
             setTextColor(ColorUtil.randomColor())
             text = title
-            background = getDrawable(context, R.drawable.tree_tag_bg)
+            background = getDrawable(
+                context,
+                R.drawable.tree_tag_bg
+            )
         }
         container.addView(tag,layoutParams)
         callback?.run {

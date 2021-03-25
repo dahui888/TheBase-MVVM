@@ -1,13 +1,17 @@
 package com.theone.demo.ui.fragment.project
 
 import android.view.View
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.data.model.bean.ClassifyResponse
+import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.ProjectViewModel
+import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.core.data.entity.QMUITabBean
 import com.theone.mvvm.core.ext.*
+import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
 
 
 //  ┏┓　　　┏┓
@@ -34,27 +38,18 @@ import com.theone.mvvm.core.ext.*
  * @email 625805189@qq.com
  * @remark
  */
-class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
+class ProjectFragment : BaseTabInTitleFragment<BaseViewModel>() {
 
-    private lateinit var mResponse: List<ClassifyResponse>
+    private val mRequestVm: ProjectViewModel by viewModels()
 
-    override fun isNeedChangeStatusBarMode(): Boolean = true
-
-    override fun onLazyInit() {
-        showLoadingPage()
-        mViewModel.requestServer()
-    }
-
-    override fun onErrorPageClick() {
-        onLazyInit()
-    }
+    override fun getRequestViewModel(): BaseRequestViewModel<List<ClassifyResponse>>?  = mRequestVm
 
     override fun initTabAndFragments(
         tabs: MutableList<QMUITabBean>,
         fragments: MutableList<QMUIFragment>
     ) {
-        for (data in mResponse) {
-            tabs.add(QMUITabBean(data.name))
+        for (data in mRequestVm.getResponseLiveData().value!!) {
+            tabs.addTab(data.name)
             fragments.add(
                 ProjectItemFragment.newInstance(
                     data.id
@@ -63,28 +58,6 @@ class ProjectFragment : BaseTabInTitleFragment<ProjectViewModel>() {
         }
     }
 
-    override fun initView(rootView: View) {
-        super.initView(rootView)
-//        getTopBar()?.run {
-//            addRightImageButton(R.drawable.mz_titlebar_ic_list_dark,R.id.topbar_right_button1).setOnClickListener{
-//
-//            }
-//        }
-    }
-
-    override fun createObserver() {
-        mViewModel.getResponseLiveData().observeInFragment(this, Observer {
-            mResponse = it
-            startInit()
-        })
-        mViewModel.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-            showErrorPage(it)
-        })
-    }
-
-    override fun initData() {
-    }
-
-
+    override fun isNeedChangeStatusBarMode(): Boolean = true
 
 }

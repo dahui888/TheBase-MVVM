@@ -10,6 +10,7 @@ import com.theone.demo.databinding.ItemArticleBinding
 import com.theone.demo.databinding.ItemIntegralRankBinding
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.viewmodel.ArticleViewModel
+import com.theone.mvvm.core.adapter.TheBaseQuickAdapter
 
 
 //  ┏┓　　　┏┓
@@ -36,9 +37,9 @@ import com.theone.demo.viewmodel.ArticleViewModel
  * @email 625805189@qq.com
  * @remark
  */
-class IntegralRankAdapter : BaseQuickAdapter<IntegralResponse,BaseDataBindingHolder<ItemIntegralRankBinding>>(
+class IntegralRankAdapter : TheBaseQuickAdapter<IntegralResponse, ItemIntegralRankBinding>(
     R.layout.item_integral_rank
-),LoadMoreModule {
+) {
 
     override fun convert(holder: BaseDataBindingHolder<ItemIntegralRankBinding>, data: IntegralResponse) {
        holder.dataBinding?.run {

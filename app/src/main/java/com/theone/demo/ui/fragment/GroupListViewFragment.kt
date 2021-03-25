@@ -4,7 +4,7 @@ import android.view.View
 import android.widget.CompoundButton
 import com.theone.demo.R
 import com.theone.demo.databinding.FragmentTestBinding
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.fragment.BaseCoreFragment
 

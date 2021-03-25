@@ -1,4 +1,4 @@
-package com.theone.mvvm.base.ext.util
+package com.theone.mvvm.ext.util
 
 import android.util.Log
 import com.theone.mvvm.base.BaseApplication
@@ -10,19 +10,39 @@ private enum class LEVEL {
 }
 
 fun String.logV(tag: String = TAG) =
-    log(LEVEL.V, tag, this)
+    log(
+        LEVEL.V,
+        tag,
+        this
+    )
 
 fun String.logD(tag: String = TAG) =
-    log(LEVEL.D, tag, this)
+    log(
+        LEVEL.D,
+        tag,
+        this
+    )
 
 fun String.logI(tag: String = TAG) =
-    log(LEVEL.I, tag, this)
+    log(
+        LEVEL.I,
+        tag,
+        this
+    )
 
 fun String.logW(tag: String = TAG) =
-    log(LEVEL.W, tag, this)
+    log(
+        LEVEL.W,
+        tag,
+        this
+    )
 
 fun String.logE(tag: String = TAG) =
-    log(LEVEL.E, tag, this)
+    log(
+        LEVEL.E,
+        tag,
+        this
+    )
 
 private fun log(level: LEVEL, tag: String, message: String) {
     if (!BaseApplication.DEBUG) return

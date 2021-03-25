@@ -45,8 +45,5 @@ class SystemFragment:
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
     }
-    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
-
-    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
 
 }

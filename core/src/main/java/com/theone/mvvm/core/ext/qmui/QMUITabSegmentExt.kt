@@ -5,7 +5,7 @@ import androidx.viewpager.widget.ViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITab
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
-import com.theone.mvvm.base.ext.util.getDrawable
+import com.theone.mvvm.ext.util.getDrawable
 import com.theone.mvvm.core.data.entity.QMUITabBean
 
 
@@ -44,7 +44,12 @@ fun QMUITabBuilder.createTab(
     if (normal != -1)
         setNormalDrawable(getDrawable(context, normal))
     if (normal != -1)
-        setSelectedDrawable(getDrawable(context, select))
+        setSelectedDrawable(
+            getDrawable(
+                context,
+                select
+            )
+        )
     return build(context)
 }
 

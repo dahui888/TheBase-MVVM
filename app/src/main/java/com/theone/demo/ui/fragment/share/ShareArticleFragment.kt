@@ -4,7 +4,7 @@ import android.view.View
 import com.theone.demo.R
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.viewmodel.ShareArticleViewModel
-import com.theone.mvvm.base.ext.qmui.setTitleWithBackBtn
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
 
 //  ┏┓　　　┏┓
@@ -47,7 +47,7 @@ class ShareArticleFragment:
     override fun createObserver() {
         super.createObserver()
         mAppVm.shareArticle.observeInFragment(this){
-            onRefreshAuto()
+            onAutoRefresh()
         }
     }
 

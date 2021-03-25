@@ -32,7 +32,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator
 /**
  * @author The one
  * @date 2021/3/3 0003
- * @describe TODO
+ * @describe Tab在TitleBar类型
  * @email 625805189@qq.com
  * @remark
  */
@@ -56,7 +56,7 @@ abstract class BaseTabInTitleFragment<VM : BaseViewModel> :
         initTopBar()
     }
 
-    fun initTopBar() {
+   protected open fun initTopBar() {
         getTopBar()?.run {
             setCenterView(mMagicIndicator)
         }

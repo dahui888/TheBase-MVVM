@@ -1,7 +1,7 @@
 package com.theone.demo.app.util
 
 import com.theone.demo.app.net.Url
-import com.theone.mvvm.base.ext.util.logE
+import com.theone.mvvm.ext.util.logE
 import okhttp3.Cookie
 import okhttp3.HttpUrl
 import rxhttp.HttpSender

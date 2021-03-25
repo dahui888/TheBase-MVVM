@@ -1,4 +1,4 @@
-package com.theone.mvvm.base.ext.util
+package com.theone.mvvm.ext.util
 
 import android.content.Context
 import android.graphics.drawable.Drawable

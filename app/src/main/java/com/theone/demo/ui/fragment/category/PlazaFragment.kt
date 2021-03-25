@@ -8,7 +8,7 @@ class PlazaFragment: ArticleFragment<PlazaViewModel>() {
     override fun createObserver() {
         super.createObserver()
         mAppVm.shareArticle.observeInFragment(this){
-            onRefreshAuto()
+            onAutoRefresh()
         }
     }
 
