@@ -29,8 +29,10 @@ import rxhttp.wrapper.annotation.DefaultDomain
  */
 object Url {
 
+    /**
+     * 设置为默认域名
+     */
     @DefaultDomain
-     //设置为默认域名
     const val BASE_URL = "https://www.wanandroid.com/"
 
     /**
@@ -86,6 +88,7 @@ object Url {
      * @GET
      * @page 页码
      * @cid 二级目录的id
+     * @remark 起始页  1
      */
     const val PROJECT_DATA = "project/list/%d/json?cid=%d"
 
@@ -149,6 +152,7 @@ object Url {
      * 自己分享的文章
      * @GET
      * @page 页码
+     * @remark 起始页  1
      */
     const val MY_SHARE_ARTICLE = "user/lg/private_articles/%d/json"
 

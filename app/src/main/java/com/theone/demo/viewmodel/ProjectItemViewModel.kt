@@ -36,6 +36,10 @@ class ProjectItemViewModel : ArticleViewModel() {
 
     var mId: Int = 0
 
+    init {
+        startPage = 1
+    }
+
     override fun requestServer() {
        request({
             val response = RxHttp.get(Url.PROJECT_DATA, page,mId)

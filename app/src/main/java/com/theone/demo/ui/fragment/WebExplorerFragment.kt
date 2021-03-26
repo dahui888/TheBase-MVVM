@@ -3,25 +3,36 @@ package com.theone.demo.ui.fragment
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.net.http.SslError
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
+import android.text.Html
+import android.text.TextUtils
 import android.view.View
+import android.webkit.SslErrorHandler
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.FrameLayout
+import android.widget.RelativeLayout
 import android.widget.ZoomButtonsController
+import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.webview.QMUIWebViewClient
 import com.theone.demo.R
+import com.theone.demo.app.util.dp2px
+import com.theone.demo.app.util.toHtml
+import com.theone.demo.app.widge.MarqueeTextView
 import com.theone.demo.app.widge.QDWebView
 import com.theone.demo.data.model.bean.IWeb
 import com.theone.demo.databinding.FragmentWebExploererBinding
-import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.ext.showViews
 import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.core.ext.BundleConstant
 import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.ext.getValueNonNull
 import java.lang.reflect.Field
 
 
@@ -52,10 +63,10 @@ import java.lang.reflect.Field
 class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploererBinding>() {
 
     companion object {
-        fun <T:IWeb>newInstance(data: T): WebExplorerFragment {
+        fun <T : IWeb> newInstance(data: T): WebExplorerFragment {
             val fragment = WebExplorerFragment()
             val bundle = Bundle()
-            bundle.putParcelable("DATA", data)
+            bundle.putParcelable(BundleConstant.DATA, data)
             fragment.arguments = bundle
             return fragment
         }
@@ -64,9 +75,10 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
         const val PROGRESS_GONE: Int = 1
     }
 
-    private lateinit var mIWeb: IWeb
+    private val mIWeb: IWeb by getValueNonNull(BundleConstant.DATA)
     private var mWebView: QDWebView? = null
     private val mProgressHandler: ProgressHandler by lazy { ProgressHandler() }
+    private lateinit var mTitleView: MarqueeTextView
 
     private fun needDispatchSafeAreaInset(): Boolean = false
 
@@ -75,13 +87,32 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
     override fun getLayoutId(): Int = R.layout.fragment_web_exploerer
 
     override fun initView(rootView: View) {
-        mIWeb = requireArguments().getParcelable("DATA")!!
         initTopBar()
     }
 
     private fun initTopBar() {
         mBinding.topbar.run {
-            setTitleWithBackBtn(mIWeb.getWebTitle(),this@WebExplorerFragment)
+            addLeftBackImageButton().setOnClickListener {
+                finish()
+            }
+            // QMUI的Title用的是QMUIQQFaceView，无法使用跑马灯效果，这里重新设置一个
+            // setTitle(mIWeb.getWebTitle().toHtml().toString())
+            mTitleView = MarqueeTextView(mActivity).apply {
+                layoutParams = RelativeLayout.LayoutParams(wrapContent, wrapContent).apply {
+                    addRule(RelativeLayout.RIGHT_OF, R.id.qmui_topbar_item_left_back)
+                    addRule(RelativeLayout.CENTER_IN_PARENT)
+                    marginEnd = dp2px(20)
+                }
+                marqueeRepeatLimit = Int.MAX_VALUE
+                isFocusable = true
+                textSize = 17f
+                ellipsize = TextUtils.TruncateAt.MARQUEE
+                isSingleLine = true
+                setHorizontallyScrolling(true)
+                isFocusableInTouchMode = true
+                text = mIWeb.getWebTitle().toHtml()
+            }
+            setCenterView(mTitleView)
         }
     }
 
@@ -153,14 +184,14 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
 
         override fun onProgressChanged(view: WebView?, newProgress: Int) {
             super.onProgressChanged(view, newProgress)
-            if(newProgress > fragment.mProgressHandler.mDstProgressIndex){
-                fragment.sendProgressMessage(PROGRESS_PROCESS,newProgress,100)
+            if (newProgress > fragment.mProgressHandler.mDstProgressIndex) {
+                fragment.sendProgressMessage(PROGRESS_PROCESS, newProgress, 100)
             }
         }
 
         override fun onReceivedTitle(view: WebView?, title: String?) {
             super.onReceivedTitle(view, title)
-
+//            mTitleView.setText(title)
         }
 
         override fun onShowCustomView(view: View?, callback: CustomViewCallback?) {
@@ -186,24 +217,43 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
             }
         }
 
+        override fun shouldOverrideUrlLoading(view: WebView?, url: String?): Boolean {
+            url?.let {
+                if (it.startsWith("http:") || it.startsWith("https:")) {
+                    view?.loadUrl(it)
+                    return false
+                }
+            }
+            return true
+        }
+
+        override fun onReceivedSslError(
+            view: WebView?,
+            handler: SslErrorHandler?,
+            error: SslError?
+        ) {
+            handler?.proceed()
+        }
+
         override fun onPageFinished(
             view: WebView,
             url: String
         ) {
             super.onPageFinished(view, url)
             sendProgressMessage(
-               PROGRESS_GONE,
+                PROGRESS_GONE,
                 100,
                 0
             )
         }
     }
 
+    @SuppressLint("HandlerLeak")
     inner class ProgressHandler : Handler() {
 
-         var mDstProgressIndex: Int = 0
-         var mDuration: Int = 0
-         var mAnimator: ObjectAnimator? = null
+        var mDstProgressIndex: Int = 0
+        var mDuration: Int = 0
+        var mAnimator: ObjectAnimator? = null
 
         override fun handleMessage(msg: Message) {
             when (msg.what) {
@@ -214,7 +264,8 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
                     if (null != mAnimator && mAnimator?.isRunning!!) {
                         mAnimator?.cancel()
                     }
-                    mAnimator = ObjectAnimator.ofInt(mBinding.progressbar, "progress", mDstProgressIndex)
+                    mAnimator =
+                        ObjectAnimator.ofInt(mBinding.progressbar, "progress", mDstProgressIndex)
                     mAnimator?.run {
                         duration = mDuration.toLong()
                         addListener(object : AnimatorListenerAdapter() {

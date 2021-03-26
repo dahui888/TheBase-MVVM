@@ -114,7 +114,7 @@ class HomeFragment : ArticleFragment<HomeViewModel>(), View.OnClickListener {
                 layoutParams = ViewGroup.LayoutParams(matchParent, mBannerHeight)
                 adapter = HomeBannerAdapter()
                 setAutoPlay(true)
-                setInterval(2500)
+                setInterval(3000)
                 setIndicatorGravity(IndicatorGravity.END)
                 setIndicatorSliderColor(
                     getColor(mActivity, R.color.white),
