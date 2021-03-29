@@ -4,7 +4,6 @@ apply from: "../base.gradle"
 android {
 
     defaultConfig {
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
     }
 }
@@ -12,6 +11,8 @@ android {
 dependencies {
     api project(path: ':base')
     api project(path: ':common')
+
+    api "androidx.multidex:multidex:$multidexVersion"
 
     api "com.zhy:okhttputils:$okhttpUtilVersion"
 
