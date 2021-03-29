@@ -3,9 +3,9 @@ package com.theone.mvvm.core.viewmodel
 import com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.mvvm.callback.livedata.StringLiveData
-import com.theone.mvvm.core.net.error.ErrorInfo
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.callback.livedata.BooleanLiveData
+import com.theone.mvvm.core.net.error.ErrorInfo
 
 
 //  ┏┓　　　┏┓
@@ -69,11 +69,13 @@ abstract class BaseRequestViewModel<T> : BaseViewModel() {
      * @param errorMsg 错误信息
      * @param errorLiveData 错误接收的LiveData
      */
-    open fun onError(errorMsg: String, errorLiveData: StringLiveData = error) {
-        errorLiveData.value = errorMsg
+    open fun onError(errorMsg: String?, errorLiveData: StringLiveData = error) {
+        errorMsg?.let {
+            errorLiveData.value = it
+        }
     }
 
-    open fun onError(throwable: Throwable?, liveData: StringLiveData = error) {
+    open fun onError(throwable: Throwable, liveData: StringLiveData = error) {
         onError(ErrorInfo(throwable).errorMsg, liveData)
     }
 

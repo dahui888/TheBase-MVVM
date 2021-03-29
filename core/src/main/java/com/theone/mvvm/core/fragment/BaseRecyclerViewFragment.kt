@@ -5,11 +5,8 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.enum.LayoutManagerType
-import com.theone.mvvm.core.ext.IRecyclerPager
 import com.theone.mvvm.core.ext.createLayoutManager
 import com.theone.mvvm.core.ext.init
-import com.theone.mvvm.core.viewmodel.BaseListViewModel
-import com.theone.mvvm.core.widge.SpacesItemDecoration
 import com.theone.mvvm.core.widge.loadsir.callback.ErrorCallback
 
 //  ┏┓　　　┏┓

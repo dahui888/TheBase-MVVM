@@ -1,4 +1,4 @@
-package com.theone.mvvm.core.ext
+package com.theone.mvvm.core.fragment
 
 import androidx.recyclerview.widget.RecyclerView
 import com.theone.mvvm.core.data.enum.LayoutManagerType

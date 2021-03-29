@@ -1,5 +1,6 @@
 package com.theone.mvvm.base
 
+import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
@@ -30,20 +31,13 @@ import kotlin.properties.Delegates
 /**
  * @author The one
  * @date 2021/2/22 0022
- * @describe TODO
+ * @describe 提供一个功能--在Activity/fragment中获取Application级别的ViewModel
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
+abstract class BaseApplication : Application(), ViewModelStoreOwner {
 
-    companion object {
-        lateinit var INSTANCE: BaseApplication
-        var DEBUG by Delegates.notNull<Boolean>()
-    }
-
-    private val mAppViewModelStore: ViewModelStore by lazy {
-        ViewModelStore()
-    }
+    private lateinit var mAppViewModelStore: ViewModelStore
 
     private var mFactory: ViewModelProvider.Factory? = null
 
@@ -51,14 +45,9 @@ abstract class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
         return mAppViewModelStore
     }
 
-    open fun isDebug(): Boolean = BuildConfig.DEBUG
-
     override fun onCreate() {
         super.onCreate()
-        INSTANCE = this
-        DEBUG = isDebug()
-        MultiDex.install(this)
-        QMUISwipeBackActivityManager.init(this)
+        mAppViewModelStore = ViewModelStore()
     }
 
     /**
@@ -74,6 +63,5 @@ abstract class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
         }
         return mFactory as ViewModelProvider.Factory
     }
-
 
 }

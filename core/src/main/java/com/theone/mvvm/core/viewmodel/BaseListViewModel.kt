@@ -47,9 +47,8 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
     // 是否去掉“没有更多数据”
     var goneLoadMoreEndView: Boolean = false
 
-    // 这里返回父类ProtectedUnPeekLiveData，保证数据的唯一性
+    // 这里返回父类，保证数据的唯一性，只能通过onSuccess方法赋值
     fun getFirstLoadSuccessLiveData():UnPeekLiveData<Boolean> = firstLoadSuccess
-    // 这里返回父类LiveData，保证数据的唯一性
     fun getPageInfoLiveData():LiveData<IPageInfo> = pageInfo
 
     /**

@@ -9,6 +9,7 @@ import com.theone.mvvm.core.R
 import com.theone.mvvm.core.fragment.BaseCoreFragment
 import com.theone.mvvm.core.widge.loadsir.callback.ErrorCallback
 import com.theone.mvvm.core.widge.loadsir.callback.LoadingCallback
+import com.theone.mvvm.core.widge.loadsir.callback.SuccessCallback
 
 
 //  ┏┓　　　┏┓
@@ -36,6 +37,16 @@ import com.theone.mvvm.core.widge.loadsir.callback.LoadingCallback
  * @remark
  */
 
+/**
+ * 提供默认的init方法
+ */
+fun initLoadSir(){
+    LoadSir.beginBuilder()
+        .addCallback(LoadingCallback())
+        .addCallback(ErrorCallback())
+        .setDefaultCallback(SuccessCallback::class.java)
+        .commit()
+}
 
 fun loadSirInit(view: View, callback: () -> Unit): LoadService<Any> {
     return LoadSir.getDefault().register(view) {

@@ -9,6 +9,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.theone.util.DateExtKt.getDay;
+import static com.theone.util.DateExtKt.getMonth;
+import static com.theone.util.DateExtKt.getYear;
+
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
 //┃　　　　　　　┃
@@ -475,9 +479,9 @@ public class IdCardUtils {
      */
     public static int getAgeByIdCard(@NonNull String idCard) {
         Calendar cal = Calendar.getInstance();
-        int yearNow = DateUtil.getYear(cal);  //当前年份
-        int monthNow =DateUtil.getMonth(cal);  //当前月份
-        int dayOfMonthNow = DateUtil.getDay(cal); //当前日期
+        int yearNow = getYear(cal);  //当前年份
+        int monthNow =getMonth(cal);  //当前月份
+        int dayOfMonthNow = getDay(cal); //当前日期
         int yearBirth = getYearByIdCard(idCard);  //当前年份
         int monthBirth = getMonthByIdCard(idCard);  //当前月份
         int dayOfMonthBirth = getDateByIdCard(idCard); //当前日期
