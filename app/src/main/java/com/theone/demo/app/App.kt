@@ -4,7 +4,7 @@ import com.tencent.mmkv.MMKV
 import com.theone.demo.BuildConfig
 import com.theone.demo.app.util.RxHttpManager
 import com.theone.mvvm.core.CoreApplication
-import com.theone.mvvm.core.ext.initLoadSir
+import com.theone.common.ext.LogEnable
 import rxhttp.wrapper.param.RxHttp
 
 
@@ -36,6 +36,7 @@ class App : CoreApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        LogEnable(BuildConfig.DEBUG)
         MMKV.initialize(this.filesDir.absolutePath + "/mmkv")
         RxHttp.init(
             RxHttpManager.getHttpClient(

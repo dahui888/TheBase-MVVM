@@ -170,6 +170,7 @@
 
         <item name="app_skin_webview_text_zoom_size">100</item>
 
+        <item name="common_edittext_cursor_color">?attr/app_skin_primary_color</item>
 
         <!--QMUI-->
         <item name="qmui_topbar_height">50dp</item>

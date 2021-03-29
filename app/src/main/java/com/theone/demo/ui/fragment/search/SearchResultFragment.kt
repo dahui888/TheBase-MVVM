@@ -5,7 +5,7 @@ import android.view.View
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.viewmodel.SearchResultModel
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
-import com.theone.mvvm.core.ext.BundleConstant
+import com.theone.common.constant.BundleConstant
 
 
 //  ┏┓　　　┏┓

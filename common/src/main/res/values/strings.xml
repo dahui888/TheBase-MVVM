@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="spanUtils_rmb">¥</string><!-- ¥相当于&#xA5 -->
+
+    <string name="common_search_hint">搜索</string>
+</resources>

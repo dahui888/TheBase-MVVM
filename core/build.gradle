@@ -11,6 +11,7 @@ android {
 
 dependencies {
     api project(path: ':base')
+    api project(path: ':common')
 
     api "com.zhy:okhttputils:$okhttpUtilVersion"
 

@@ -6,11 +6,11 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.chad.library.adapter.base.module.LoadMoreModule
+import com.theone.common.ext.dp2px
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.ext.*
 import com.theone.mvvm.core.viewmodel.BaseListViewModel
 import com.theone.mvvm.core.widge.SpacesItemDecoration
-import com.theone.mvvm.ext.dp2px
 
 
 //  ┏┓　　　┏┓

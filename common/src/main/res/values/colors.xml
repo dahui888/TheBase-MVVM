@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="common_search_bg_color">#F4F5F7</color>
+
+    <color name="red">@android:color/holo_red_dark</color>
+    <color name="blue">@android:color/holo_blue_dark</color>
+
+
+</resources>

@@ -8,12 +8,12 @@ import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
+import com.theone.common.ext.notNull
 import com.theone.mvvm.core.adapter.TabFragmentAdapter
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
 import com.theone.mvvm.core.ext.*
 import com.theone.mvvm.core.ext.qmui.init
-import com.theone.mvvm.core.ext.util.notNull
 import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
 import net.lucode.hackware.magicindicator.MagicIndicator
 import net.lucode.hackware.magicindicator.ViewPagerHelper

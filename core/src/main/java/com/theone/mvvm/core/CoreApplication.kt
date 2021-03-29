@@ -1,5 +1,6 @@
 package com.theone.mvvm.core
 
+import com.qmuiteam.qmui.util.QMUIResHelper
 import com.theone.mvvm.base.BaseApplication
 import com.theone.mvvm.core.ext.initLoadSir
 import com.theone.mvvm.core.widge.loadsir.callback.ErrorCallback

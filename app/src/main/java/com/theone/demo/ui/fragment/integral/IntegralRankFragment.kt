@@ -2,9 +2,8 @@ package com.theone.demo.ui.fragment.integral
 
 import android.os.Bundle
 import android.view.View
-import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.theone.common.ext.getValueNonNull
 import com.theone.demo.R
 import com.theone.demo.app.net.Url
 import com.theone.demo.data.model.bean.BannerResponse
@@ -14,7 +13,6 @@ import com.theone.demo.ui.adapter.IntegralRankAdapter
 import com.theone.demo.ui.fragment.BasePagerListFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.demo.viewmodel.IntegralRankViewModel
-import com.theone.mvvm.ext.getValueNonNull
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
 

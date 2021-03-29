@@ -6,7 +6,7 @@ import com.theone.demo.R
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.core.data.entity.QMUITabBean
-import com.theone.mvvm.core.ext.addTab
+import com.theone.mvvm.core.ext.qmui.addTab
 import com.theone.mvvm.core.ext.getWrapPagerIndicator
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
 

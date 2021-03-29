@@ -9,8 +9,8 @@ import android.net.http.SslError
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.text.Html
 import android.text.TextUtils
+import android.view.Gravity
 import android.view.View
 import android.webkit.SslErrorHandler
 import android.webkit.WebChromeClient
@@ -18,6 +18,7 @@ import android.webkit.WebView
 import android.widget.FrameLayout
 import android.widget.RelativeLayout
 import android.widget.ZoomButtonsController
+import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.webview.QMUIWebViewClient
@@ -28,11 +29,11 @@ import com.theone.demo.app.widge.MarqueeTextView
 import com.theone.demo.app.widge.QDWebView
 import com.theone.demo.data.model.bean.IWeb
 import com.theone.demo.databinding.FragmentWebExploererBinding
-import com.theone.mvvm.ext.showViews
+import com.theone.common.ext.showViews
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.core.ext.BundleConstant
+import com.theone.common.constant.BundleConstant
+import com.theone.common.ext.getValueNonNull
 import com.theone.mvvm.core.fragment.BaseCoreFragment
-import com.theone.mvvm.ext.getValueNonNull
 import java.lang.reflect.Field
 
 
@@ -98,9 +99,9 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
             // QMUI的Title用的是QMUIQQFaceView，无法使用跑马灯效果，这里重新设置一个
             // setTitle(mIWeb.getWebTitle().toHtml().toString())
             mTitleView = MarqueeTextView(mActivity).apply {
-                layoutParams = RelativeLayout.LayoutParams(wrapContent, wrapContent).apply {
+                layoutParams = RelativeLayout.LayoutParams(matchParent, wrapContent).apply {
                     addRule(RelativeLayout.RIGHT_OF, R.id.qmui_topbar_item_left_back)
-                    addRule(RelativeLayout.CENTER_IN_PARENT)
+                    gravity = Gravity.CENTER
                     marginEnd = dp2px(20)
                 }
                 marqueeRepeatLimit = Int.MAX_VALUE

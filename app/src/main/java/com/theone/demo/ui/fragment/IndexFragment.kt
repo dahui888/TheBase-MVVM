@@ -10,7 +10,7 @@ import com.theone.demo.ui.fragment.project.ProjectFragment
 import com.theone.demo.ui.fragment.gzh.WxGzhFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
-import com.theone.mvvm.core.ext.addTab
+import com.theone.mvvm.core.ext.qmui.addTab
 import com.theone.mvvm.core.fragment.BaseIndexTabFragment
 
 

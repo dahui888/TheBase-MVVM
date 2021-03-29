@@ -3,13 +3,13 @@ package com.theone.demo.ui.fragment.login
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.theone.common.ext.getValueNonNull
 import com.theone.demo.R
 import com.theone.demo.app.util.UserUtil
 import com.theone.demo.viewmodel.LoginRegisterViewModel
 import com.theone.demo.databinding.FragmentLoginRegisterBinding
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.ext.getAppViewModel
-import com.theone.mvvm.ext.getValueNonNull
 import com.theone.mvvm.ext.qmui.showFailDialog
 import com.theone.mvvm.ext.qmui.showSuccessExitDialog
 import com.theone.mvvm.core.fragment.BaseCoreFragment

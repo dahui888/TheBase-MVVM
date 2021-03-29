@@ -3,6 +3,7 @@ package com.theone.mvvm.ext.qmui
 import android.content.Context
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
 import com.theone.mvvm.base.BaseApplication
+import com.theone.mvvm.base.appContext
 import com.theone.mvvm.base.fragment.BaseQMUIFragment
 
 
@@ -44,7 +45,7 @@ fun BaseQMUIFragment.hideLoadingDialog(){
 }
 
 fun showMsgDialog(msg: CharSequence, delay: Long = 1000, callback: (() -> Unit?)? = null) {
-    BaseApplication.INSTANCE.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_NOTHING, delay,callback)
+    appContext.showTipsDialogDelayedDismiss(msg, QMUITipDialog.Builder.ICON_TYPE_NOTHING, delay,callback)
 }
 
 fun BaseQMUIFragment.showMsgDialog(msg: CharSequence, delay: Long = 1000, callback: (() -> Unit?)? = null) {

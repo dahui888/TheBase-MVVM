@@ -11,7 +11,7 @@
 
         <variable
             name="format"
-            type="com.theone.util.DateFormatUtils" />
+            type="com.theone.common.util.DateFormatUtils" />
     </data>
 
     <com.qmuiteam.qmui.layout.QMUILinearLayout

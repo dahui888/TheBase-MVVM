@@ -32,6 +32,7 @@
     <color name="price_color">#ed6e29</color>
     <color name="app_update_version_color">#42c6a6</color>
 
+
     <color name="letter_search_header_text_color">@color/white</color>
     <color name="letter_search_header_text_bg_color">@color/qmui_config_color_gray_4</color>
     <color name="letter_search_header_bg_color">@color/white</color>

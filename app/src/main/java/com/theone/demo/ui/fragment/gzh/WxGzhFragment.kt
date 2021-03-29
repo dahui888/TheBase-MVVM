@@ -6,7 +6,7 @@ import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.viewmodel.WxGzhRequestViewModel
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
-import com.theone.mvvm.core.ext.addTab
+import com.theone.mvvm.core.ext.qmui.addTab
 import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
 

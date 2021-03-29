@@ -6,7 +6,7 @@
     android:paddingLeft="15dp"
     android:paddingRight="15dp"
     android:orientation="horizontal"
-    android:background="@drawable/search_bg_corner">
+    android:background="@drawable/common_search_bg_corner">
 
     <EditText
         android:id="@+id/et_search"

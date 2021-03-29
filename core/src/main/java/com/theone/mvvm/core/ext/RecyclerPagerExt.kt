@@ -7,12 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.theone.mvvm.base.BaseApplication
 import com.theone.mvvm.core.data.enum.LayoutManagerType
 import com.theone.mvvm.core.fragment.BaseAdapterRcPagerFragment
 import com.theone.mvvm.core.viewmodel.BaseListViewModel
-import com.theone.mvvm.core.widge.SpacesItemDecoration
-import com.theone.mvvm.ext.util.dp2px
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓

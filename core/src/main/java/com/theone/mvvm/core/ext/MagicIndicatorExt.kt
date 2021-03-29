@@ -4,16 +4,16 @@ import android.content.Context
 import android.util.TypedValue
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
+import androidx.core.content.ContextCompat.getColor
 import androidx.viewpager.widget.ViewPager
 import com.qmuiteam.qmui.skin.QMUISkinValueBuilder
 import com.qmuiteam.qmui.skin.defaultAttr.QMUISkinSimpleDefaultAttrProvider
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+import com.theone.common.ext.dp2px
 import com.theone.mvvm.core.R
-import com.theone.mvvm.ext.goneViews
+import com.theone.common.ext.goneViews
 import com.theone.mvvm.core.data.entity.QMUITabBean
-import com.theone.mvvm.ext.util.dp2px
-import com.theone.mvvm.ext.util.getColor
 import com.theone.mvvm.core.widge.indicator.SkinLinePagerIndicator
 import com.theone.mvvm.core.widge.indicator.SkinPagerTitleView
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator
@@ -88,9 +88,9 @@ fun getLinePagerIndicator(context: Context): IPagerIndicator {
     val indicator = SkinLinePagerIndicator(context)
     indicator.run {
         mode = LinePagerIndicator.MODE_EXACTLY
-        lineHeight = dp2px(context, 3).toFloat()
-        lineWidth = dp2px(context, 15).toFloat()
-        roundRadius = dp2px(context, 2).toFloat()
+        lineHeight = dp2px(3).toFloat()
+        lineWidth = dp2px(15).toFloat()
+        roundRadius = dp2px(2).toFloat()
         startInterpolator = AccelerateInterpolator()
         endInterpolator = DecelerateInterpolator(2.0f)
     }

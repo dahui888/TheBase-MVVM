@@ -12,16 +12,13 @@ import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.kotlin.matchParent
+import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIKeyboardHelper
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
 import com.theone.mvvm.R
-import com.theone.mvvm.base.ext.*
-import com.theone.mvvm.ext.getView
-import com.theone.mvvm.ext.match_wrap
-import com.theone.mvvm.ext.setMargin
-import com.theone.mvvm.ext.updateStatusBarMode
+import com.theone.mvvm.ext.qmui.updateStatusBarMode
 
 
 //  ┏┓　　　┏┓
@@ -48,7 +45,10 @@ import com.theone.mvvm.ext.updateStatusBarMode
  * @email 625805189@qq.com
  * @remark 懒加载+TopBar+界面状态管理+状态栏等的封装
  */
- abstract class BaseQMUIFragment : QMUIFragment(), LifecycleObserver {
+
+val match_wrap : ViewGroup.LayoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
+
+abstract class BaseQMUIFragment : QMUIFragment(), LifecycleObserver {
 
     val TAG: String = this.javaClass.simpleName
 
@@ -69,7 +69,7 @@ import com.theone.mvvm.ext.updateStatusBarMode
 
     abstract fun initView(rootView: View)
 
-    internal open fun createContentView(): View = getView(getLayoutId())
+    internal open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
     open fun showTitleBar(): Boolean = isIndexFragment
 
 
@@ -85,12 +85,12 @@ import com.theone.mvvm.ext.updateStatusBarMode
                     mActivity,
                     R.attr.qmui_topbar_height
                 )
-                mBody.setMargin(
-                    0,
-                    margin,
-                    0,
-                    0
-                )
+                mBody.layoutParams.let {
+                    if (it is ViewGroup.MarginLayoutParams) {
+                        it.setMargins(0, margin, 0, 0)
+                        mBody.requestLayout()
+                    }
+                }
             }
             mTopBar = createQMUITopBarLayout()
             root.addView(mTopBar)
@@ -110,7 +110,7 @@ import com.theone.mvvm.ext.updateStatusBarMode
     }
 
     private fun createQMUITopBarLayout(): QMUITopBarLayout? {
-        return QMUITopBarLayout(mActivity).apply{
+        return QMUITopBarLayout(mActivity).apply {
             layoutParams = match_wrap
             fitsSystemWindows = true
         }
@@ -195,7 +195,7 @@ import com.theone.mvvm.ext.updateStatusBarMode
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_PAUSE)
-    open fun onLazyPause(){
+    open fun onLazyPause() {
         QMUIKeyboardHelper.hideKeyboard(view)
     }
 

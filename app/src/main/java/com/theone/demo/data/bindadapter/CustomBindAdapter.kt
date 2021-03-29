@@ -18,6 +18,8 @@ import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.layout.QMUIFrameLayout
 import com.qmuiteam.qmui.widget.QMUIFloatLayout
+import com.theone.common.ext.dp2px
+import com.theone.common.ext.getDrawable
 import com.theone.demo.R
 import com.theone.demo.app.util.ColorUtil
 import com.theone.demo.data.model.bean.ArticleResponse
@@ -25,15 +27,9 @@ import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.data.model.bean.SearchResponse
 import com.theone.demo.ui.fragment.category.SystemArticleFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
-import com.theone.mvvm.ext.util.dp2px
-import com.theone.mvvm.ext.util.getDrawable
-import com.theone.util.DateFormatUtils
+import com.theone.common.util.DateFormatUtils
 
-/**
- * 作者　: hegaojian
- * 时间　: 2019/12/23
- * 描述　: 自定义 BindingAdapter
- */
+
 object CustomBindAdapter {
 
     @BindingAdapter(value = ["longDate","type"])
@@ -92,10 +88,10 @@ object CustomBindAdapter {
         val context = floatLayout.context
         val layoutParams = ViewGroup.LayoutParams(wrapContent, wrapContent)
         val container = QMUIFrameLayout(context)
-        val space = dp2px(context, 10)
+        val space = context.dp2px(10)
         container.setPadding(0,0,space,space)
         val tag = TextView(context)
-        val padding = dp2px(context, 4)
+        val padding = context.dp2px( 4)
         val padding2 = padding * 2
         tag.run {
             setPadding(padding2, padding, padding2, padding)

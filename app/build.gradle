@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-apply from: "../common.gradle"
+apply from: "../default.gradle"
 
 android {
 

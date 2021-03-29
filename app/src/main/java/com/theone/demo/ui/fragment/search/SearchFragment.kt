@@ -11,20 +11,21 @@ import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.qmuiteam.qmui.widget.QMUIFloatLayout
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
+import com.theone.common.ext.getView
 import com.theone.demo.R
 import com.theone.demo.app.ext.toJson
 import com.theone.demo.app.util.CacheUtil
-import com.theone.demo.app.widge.TheSearchView
 import com.theone.demo.data.bindadapter.CustomBindAdapter
 import com.theone.demo.ui.adapter.SearchAdapter
 import com.theone.demo.viewmodel.HotSearchViewModel
 import com.theone.demo.viewmodel.SearchViewModel
-import com.theone.mvvm.ext.getView
-import com.theone.mvvm.ext.goneViews
-import com.theone.mvvm.ext.showViews
-import com.theone.mvvm.core.ext.*
+import com.theone.common.ext.goneViews
+import com.theone.common.ext.showViews
+import com.theone.common.ext.textStringTrim
+import com.theone.common.widge.TheSearchView
 import com.theone.mvvm.core.fragment.BasePullRefreshRcPagerFragment
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
+import com.theone.mvvm.core.ext.showContentPage
 import com.theone.mvvm.core.viewmodel.BaseListViewModel
 
 
@@ -76,8 +77,8 @@ class SearchFragment :
                 setOnClickListener(this@SearchFragment)
             }
             mSearchView = TheSearchView(mActivity, true)
-            mSearchView.setOnTextChangedListener(this@SearchFragment)
-            mSearchView.searchEditText.setHint(R.string.search_hint)
+            mSearchView.mSearchListener = this@SearchFragment
+            mSearchView.mEditText.setHint(R.string.search_hint)
             val params = mSearchView.layoutParams as RelativeLayout.LayoutParams
             params.run {
                 addRule(RelativeLayout.RIGHT_OF, R.id.qmui_topbar_item_left_back)
@@ -146,17 +147,7 @@ class SearchFragment :
         when (p0?.id) {
             R.id.clear -> showClearHistoryDialog()
             R.id.qmui_topbar_item_left_back -> finish()
-            R.id.topbar_search -> onSearch(mSearchView.searchEditText.text.toString(), true)
-        }
-    }
-
-    override fun onChanged(content: String?, isEmpty: Boolean) {
-        mSearchBtn.isEnabled = !isEmpty
-    }
-
-    override fun onSearch(content: String?, isEmpty: Boolean) {
-        if (!content.isNullOrEmpty()) {
-            updateKey(content)
+            R.id.topbar_search -> updateKey(mSearchView.mEditText.textStringTrim())
         }
     }
 
@@ -209,6 +200,16 @@ class SearchFragment :
 
     override fun getRequestViewModel(): BaseListViewModel<String> {
        return mViewModel
+    }
+
+    override fun onSearchViewTextChanged(content: String, empty: Boolean) {
+        mSearchBtn.isEnabled = !empty
+    }
+
+    override fun onSearchViewClick(content: String, empty: Boolean) {
+        if (!empty) {
+            updateKey(content)
+        }
     }
 
 }

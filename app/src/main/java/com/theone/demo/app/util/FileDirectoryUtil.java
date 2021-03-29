@@ -4,6 +4,7 @@ import android.os.Environment;
 
 import com.theone.mvvm.R;
 import com.theone.mvvm.base.BaseApplication;
+import com.theone.mvvm.base.Ktx;
 
 import java.io.File;
 
@@ -19,7 +20,7 @@ public class FileDirectoryUtil {
     /**
      * 根目录
      */
-    private static  String INDEX = BaseApplication.INSTANCE.getString(R.string.app_name);
+    private static  String INDEX = Ktx.app.getString(R.string.app_name);
     /**
      * 下载目录
      */

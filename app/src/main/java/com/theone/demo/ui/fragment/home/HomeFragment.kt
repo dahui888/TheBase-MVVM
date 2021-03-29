@@ -12,6 +12,7 @@ import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.qqface.QMUIQQFaceView
 import com.qmuiteam.qmui.util.QMUIColorHelper
 import com.qmuiteam.qmui.util.QMUIResHelper
+import com.theone.common.ext.dp2px
 import com.theone.demo.R
 import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.viewmodel.HomeViewModel
@@ -21,13 +22,9 @@ import com.theone.demo.app.widge.banner.HomeBannerViewHolder
 import com.theone.demo.ui.fragment.ArticleFragment
 import com.theone.demo.ui.fragment.search.SearchFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
-import com.theone.mvvm.ext.dp2px
-import com.theone.mvvm.ext.goneViews
-import com.theone.mvvm.ext.qmui.showFailDialog
-import com.theone.mvvm.ext.showViews
-import com.theone.mvvm.ext.updateStatusBarMode
-import com.theone.mvvm.core.data.enum.LayoutManagerType
-import com.theone.mvvm.core.ext.*
+import com.theone.common.ext.goneViews
+import com.theone.common.ext.showViews
+import com.theone.mvvm.ext.qmui.updateStatusBarMode
 import com.zhpan.bannerview.BannerViewPager
 import com.zhpan.bannerview.constants.IndicatorGravity
 
