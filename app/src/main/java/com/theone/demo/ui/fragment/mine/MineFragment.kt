@@ -62,7 +62,6 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
     private lateinit var mCollection: QMUICommonListItemView
     private lateinit var mSetting: QMUICommonListItemView
     private lateinit var mAPI: QMUICommonListItemView
-    private lateinit var mTheBase: QMUICommonListItemView
     private lateinit var mJoinUs: QMUICommonListItemView
     private lateinit var mSample: QMUICommonListItemView
 
@@ -83,14 +82,15 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
             mShare = createItem("我的分享", drawable =R.drawable.svg_mine_share)
 
             mAPI = createItem("开源网站", "玩Android", R.drawable.svg_mine_web)
-            mTheBase = createItem("项目地址", "TheBase-MVVM", R.drawable.svg_mine_project_address)
             mJoinUs = createItem("加入我们", "QQ群：761201022", R.drawable.svg_mine_qq)
             mSetting = createItem("系统设置", "", R.drawable.svg_mine_setting)
 
-            mSample = createItem("一些示例")
+            mSample = createItem("一些示例",drawable = R.drawable.svg_mine_sample)
+
+            showTips(mSample)
 
             addToGroup( mCollection, mShare,listener = this@MineFragment)
-            addToGroup( mAPI, mTheBase, mJoinUs,mSample,title = "", listener = this@MineFragment)
+            addToGroup( mAPI, mJoinUs,mSample,title = "", listener = this@MineFragment)
             addToGroup( mSetting,title = "", listener = this@MineFragment)
 
         }
@@ -177,14 +177,6 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
                     BannerResponse(
                         title = "玩Android",
                         url = Url.BASE_URL
-                    )
-                )
-            )
-            mTheBase -> startFragment(
-                WebExplorerFragment.newInstance(
-                    BannerResponse(
-                        title = "TheBase-MVVM",
-                        url = "https://gitee.com/theoneee/the-base-mvvm"
                     )
                 )
             )

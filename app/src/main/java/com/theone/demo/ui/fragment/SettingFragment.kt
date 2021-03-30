@@ -10,6 +10,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.theone.demo.R
 import com.theone.demo.app.util.CacheUtil
 import com.theone.demo.app.util.UserUtil
+import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.databinding.FragmentSettingBinding
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.SettingViewModel
@@ -34,6 +35,8 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
     private lateinit var mAnimation: QMUICommonListItemView
     private lateinit var mTheme: QMUICommonListItemView
     private lateinit var mAuthor: QMUICommonListItemView
+    private lateinit var mTheBase: QMUICommonListItemView
+
 
     private val mAnimationTypes: Array<String> by lazy {
         resources.getStringArray(R.array.setting_list_animations)
@@ -60,12 +63,13 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
                 R.drawable.svg_setting_author
             )
 
+            mTheBase = createItem("项目地址", "TheBase-MVVM", R.drawable.svg_setting_project)
 
             addToGroup(mAnimation, mTheme,title = "个性化",listener =  this@SettingFragment)
-            addToGroup(mVersion, mAuthor,title ="关于",listener =  this@SettingFragment)
+            addToGroup(mVersion, mAuthor,mTheBase,title ="关于",listener =  this@SettingFragment)
 
+            mLoginOut = createItem("退出账号", drawable = R.drawable.svg_setting_login_out)
             if (UserUtil.isLogin()) {
-                mLoginOut = createItem("退出账号", drawable = R.drawable.svg_setting_login_out)
                 addToGroup(  mLoginOut,listener = this@SettingFragment,title = "")
             }
         }
@@ -104,6 +108,14 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
             mTheme -> {
                 showMsgTipsDialog("开发中...")
             }
+            mTheBase -> startFragment(
+                WebExplorerFragment.newInstance(
+                    BannerResponse(
+                        title = "TheBase-MVVM",
+                        url = "https://gitee.com/theoneee/the-base-mvvm"
+                    )
+                )
+            )
         }
     }
 

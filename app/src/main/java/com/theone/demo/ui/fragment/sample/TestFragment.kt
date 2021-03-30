@@ -8,6 +8,9 @@ import com.bumptech.glide.Glide
 import com.theone.demo.R
 import com.theone.demo.databinding.FragmentTestBinding
 import com.theone.demo.ui.fragment.category.NavFragment
+import com.theone.demo.ui.fragment.category.SystemFragment
+import com.theone.demo.viewmodel.TestViewModel
+import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.fragment.BaseCoreFragment
 import java.util.ArrayList
@@ -33,32 +36,46 @@ import java.util.ArrayList
 /**
  * @author The one
  * @date 2021/3/10 0010
- * @describe TODO
+ * @describe BaseVmDbFragment 的使用示例
  * @email 625805189@qq.com
  * @remark
  */
-class TestFragment:BaseCoreFragment<BaseViewModel,FragmentTestBinding>() {
+class TestFragment : BaseVmDbFragment<TestViewModel, FragmentTestBinding>() {
 
-    override fun isStatusBarLightMode(): Boolean  = true
+    override fun isStatusBarLightMode(): Boolean = true
 
     override fun showTopBar(): Boolean = false
 
-    override fun getLayoutId(): Int  = R.layout.fragment_test
+    override fun getLayoutId(): Int = R.layout.fragment_test
 
-    override fun initView(rootView: View) {
-        val adapter = MyPagerAdapter(childFragmentManager).apply {
-            addFragment(NavFragment(),"Tab1")
-            addFragment(NavFragment(),"Tab2")
+    private val mAdapter: MyPagerAdapter by lazy {
+        MyPagerAdapter(childFragmentManager).apply {
+            addFragment(SystemFragment(), "体系")
+            addFragment(NavFragment(), "导航")
         }
-        mBinding.mViewPager
-        mBinding.mViewPager.adapter = adapter
-        mBinding.mTabLayout.setupWithViewPager(mBinding.mViewPager)
-
-        Glide.with(this).load("https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2586870947,764155106&fm=26&gp=0.jpg")
-            .into(mBinding.cover)
     }
 
-    inner class MyPagerAdapter(fragmentManager: FragmentManager): FragmentStatePagerAdapter(fragmentManager){
+    override fun initView(rootView: View) {
+        with(mBinding){
+            mViewPager.adapter = mAdapter
+            mTabLayout.setupWithViewPager(mViewPager)
+        }
+    }
+
+    override fun onLazyInit() {
+
+    }
+
+    override fun initData() {
+        mBinding.vm = mViewModel
+    }
+
+    override fun createObserver() {
+
+    }
+
+    inner class MyPagerAdapter(fragmentManager: FragmentManager) :
+        FragmentStatePagerAdapter(fragmentManager) {
         private val myFragments: MutableList<Fragment> = ArrayList<Fragment>()
         private val myFragmentTitles: MutableList<String> = ArrayList()
 
@@ -80,14 +97,5 @@ class TestFragment:BaseCoreFragment<BaseViewModel,FragmentTestBinding>() {
         }
     }
 
-    override fun onLazyInit() {
-
-    }
-
-    override fun initData() {
-    }
-
-    override fun createObserver() {
-    }
 
 }

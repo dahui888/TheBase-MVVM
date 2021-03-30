@@ -12,7 +12,7 @@ import com.theone.mvvm.core.widge.loadsir.core.LoadService
  * @date 2021/3/23 0022
  * @describe CoreBaseFragment
  * @email 625805189@qq.com
- * @remark 界面状态管理
+ * @remark 添加界面状态管理
  */
 abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVmDbFragment<VM,DB>() {
 

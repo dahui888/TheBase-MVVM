@@ -132,10 +132,10 @@ object CustomBindAdapter {
 
     @BindingAdapter(value = ["imageUrl", "placeHolder"], requireAll = false)
     @JvmStatic
-    fun imageUrl(view: ImageView, url: String, placeholder: Drawable) {
+    fun imageUrl(view: ImageView, url: String,  placeholder: Drawable?) {
         Glide.with(view.context.applicationContext)
             .load(url)
-            .placeholder(placeholder)
+            .placeholder(placeholder ?: getDrawable(view.context,R.drawable.image_place_holder))
             .transition(DrawableTransitionOptions.withCrossFade(500))
             .into(view)
     }

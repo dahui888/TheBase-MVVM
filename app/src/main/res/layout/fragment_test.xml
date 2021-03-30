@@ -4,6 +4,9 @@
 
     <data>
 
+        <variable
+            name="vm"
+            type="com.theone.demo.viewmodel.TestViewModel" />
 
     </data>
 
@@ -31,6 +34,7 @@
 
                 <ImageView
                     android:id="@+id/cover"
+                    app:imageUrl="@{vm.cover}"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fitsSystemWindows="true"
