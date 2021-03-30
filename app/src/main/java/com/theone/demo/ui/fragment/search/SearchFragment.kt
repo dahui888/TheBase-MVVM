@@ -27,6 +27,7 @@ import com.theone.mvvm.core.fragment.BasePullRefreshRcPagerFragment
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
 import com.theone.mvvm.core.ext.showContentPage
 import com.theone.mvvm.core.viewmodel.BaseListViewModel
+import com.theone.mvvm.ext.qmui.showMsgDialog
 
 
 //  ┏┓　　　┏┓
@@ -176,25 +177,22 @@ class SearchFragment :
     }
 
     private fun showClearHistoryDialog() {
-        QMUIDialog.MessageDialogBuilder(context)
-            .setTitle("提示")
-            .setMessage("是否清除所有搜索记录？")
-            .addAction("取消", this)
-            .addAction(0, "确定", QMUIDialogAction.ACTION_PROP_NEGATIVE, this)
-            .show()
+        context?.showMsgDialog("提示","是否清除所有搜索记录?",listener = this,prop = QMUIDialogAction.ACTION_PROP_NEGATIVE)
     }
 
     override fun onClick(dialog: QMUIDialog?, index: Int) {
         dialog?.dismiss()
         if (index > 0) {
             setHistoryData(arrayListOf())
+            mAdapter.setNewInstance(arrayListOf())
         }
     }
 
     private fun setHistoryData(data: List<String> = mAdapter.data) {
-        if (data.isEmpty()) goneViews(mHistory) else showViews(
-            mHistory
-        )
+        if (data.isEmpty())
+            goneViews(mHistory)
+        else
+            showViews(mHistory)
         CacheUtil.setSearchHistoryData(data.toJson())
     }
 

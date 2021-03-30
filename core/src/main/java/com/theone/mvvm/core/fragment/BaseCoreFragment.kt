@@ -20,7 +20,7 @@ abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVm
     var mLoadSir: LoadService<Any>?=null
 
     override fun onViewCreated(rootView: View) {
-        mLoadSir = loadSirInit(mBody) {
+        mLoadSir = loadSirInit(mContent) {
             onErrorPageClick()
         }
         super.onViewCreated(rootView)

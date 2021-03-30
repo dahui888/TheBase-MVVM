@@ -10,9 +10,9 @@ import com.theone.demo.viewmodel.LoginRegisterViewModel
 import com.theone.demo.databinding.FragmentLoginRegisterBinding
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.ext.getAppViewModel
-import com.theone.mvvm.ext.qmui.showFailDialog
-import com.theone.mvvm.ext.qmui.showSuccessExitDialog
 import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.ext.qmui.showFailTipsDialog
+import com.theone.mvvm.ext.qmui.showSuccessTipsExitDialog
 
 class LoginRegisterItemFragment :
     BaseCoreFragment<LoginRegisterViewModel, FragmentLoginRegisterBinding>() {
@@ -47,10 +47,10 @@ class LoginRegisterItemFragment :
             getResponseLiveData().observeInFragment(this@LoginRegisterItemFragment, Observer {
                 mAppVm.userInfo.value = it
                 UserUtil.setUser(it)
-                showSuccessExitDialog(if (isRegister.get()) "注册成功" else "登录成功")
+                showSuccessTipsExitDialog(if (isRegister.get()) "注册成功" else "登录成功")
             })
             getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-                showFailDialog(it)
+                showFailTipsDialog(it)
             })
         }
 
@@ -67,10 +67,10 @@ class LoginRegisterItemFragment :
 
         fun login() {
             when {
-                mViewModel.account.value.isEmpty() -> showFailDialog("请填写账号")
-                mViewModel.password.get().isEmpty() -> showFailDialog("请填写密码")
+                mViewModel.account.value.isEmpty() -> showFailTipsDialog("请填写账号")
+                mViewModel.password.get().isEmpty() -> showFailTipsDialog("请填写密码")
                 mViewModel.isRegister.get() && mViewModel.repassword.get()
-                    .isEmpty() -> showFailDialog("请填写确认密码")
+                    .isEmpty() -> showFailTipsDialog("请填写确认密码")
                 else -> {
                     mViewModel.requestServer()
                 }

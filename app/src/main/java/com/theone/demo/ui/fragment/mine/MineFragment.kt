@@ -24,8 +24,8 @@ import com.theone.demo.viewmodel.MineViewModel
 import com.theone.mvvm.ext.getAppViewModel
 import com.theone.mvvm.ext.qmui.addToGroup
 import com.theone.mvvm.ext.qmui.createDetailItem
-import com.theone.mvvm.ext.qmui.showFailDialog
 import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.ext.qmui.showFailTipsDialog
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 
@@ -114,7 +114,7 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
                 }
             })
             getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-                showFailDialog(it)
+                showFailTipsDialog(it)
             })
             getFinallyLiveData().observe(viewLifecycleOwner, Observer {
                 swipeRefresh.isRefreshing = false

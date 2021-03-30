@@ -34,7 +34,7 @@ import net.lucode.hackware.magicindicator.MagicIndicator
  */
 abstract class BaseIndexTabFragment<VM : BaseViewModel> : BaseTabFragment<VM, BaseFragmentIndexBinding>() {
 
-    override fun showTitleBar(): Boolean = false
+    override fun showTopBar(): Boolean = false
 
     override fun getLayoutId(): Int = R.layout.base_fragment_index
 

@@ -68,7 +68,7 @@ class HomeFragment : ArticleFragment<HomeViewModel>(), View.OnClickListener {
 
     override fun isStatusBarLightMode(): Boolean = if (showBanner()) isLightMode else true
 
-    override fun showTitleBar(): Boolean = true
+    override fun showTopBar(): Boolean = true
 
     override fun translucentFull(): Boolean = showBanner()
 

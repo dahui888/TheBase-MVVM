@@ -49,7 +49,7 @@ abstract class BaseTabInTitleFragment<VM : BaseViewModel> :
 
     override fun getLayoutId(): Int = R.layout.base_tab_in_title_layout
 
-    override fun showTitleBar(): Boolean = true
+    override fun showTopBar(): Boolean = true
 
     override fun initView(rootView: View) {
         super.initView(rootView)

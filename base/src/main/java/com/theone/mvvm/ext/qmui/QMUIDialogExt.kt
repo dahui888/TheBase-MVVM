@@ -40,8 +40,8 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialogBuilder
 fun Context.showMsgDialog(
     title: String?,
     message: CharSequence?,
-    leftAction: String,
-    rightAction: String,
+    leftAction: String? = "取消",
+    rightAction: String? = "确定",
     listener: QMUIDialogAction.ActionListener,
     @QMUIDialogAction.Prop prop: Int = ACTION_PROP_POSITIVE
 ): QMUIDialog {
@@ -51,19 +51,15 @@ fun Context.showMsgDialog(
         if (!message.isNullOrEmpty()) {
             setMessage(message)
         }
-        addAction(leftAction, listener)
-        addAction(0, rightAction, prop, listener)
+        leftAction?.let {
+            addAction(it, listener)
+        }
+        rightAction?.let {
+            addAction(0, it, prop, listener)
+        }
         show()
     }
 }
-
-fun Context.showMsgDialog(
-    title: String?,
-    message: CharSequence?,
-    listener: QMUIDialogAction.ActionListener,
-    @QMUIDialogAction.Prop prop: Int = ACTION_PROP_POSITIVE
-): QMUIDialog = showMsgDialog(title, message, "取消", "确定", listener, prop)
-
 
 /**
  * 菜单类型弹窗

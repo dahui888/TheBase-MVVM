@@ -26,7 +26,7 @@ import com.theone.mvvm.base.viewmodel.BaseViewModel
 /**
  * @author The one
  * @date 2021/2/22 0022
- * @describe TODO
+ * @describe ViewModel+DataBinding基类
  * @email 625805189@qq.com
  * @remark
  */

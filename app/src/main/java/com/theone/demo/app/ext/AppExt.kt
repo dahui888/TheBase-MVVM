@@ -3,8 +3,8 @@ package com.theone.demo.app.ext
 import android.content.Intent
 import android.net.Uri
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.theone.mvvm.ext.qmui.showFailDialog
 import com.theone.mvvm.base.fragment.BaseQMUIFragment
+import com.theone.mvvm.ext.qmui.showFailTipsDialog
 
 
 //  ┏┓　　　┏┓
@@ -47,7 +47,7 @@ fun BaseQMUIFragment.joinQQGroup(key: String): Boolean {
         true
     } catch (e: Exception) {
         // 未安装手Q或安装的版本不支持
-        showFailDialog("未安装手机QQ或安装的版本不支持")
+        showFailTipsDialog("未安装手机QQ或安装的版本不支持")
         false
     }
 }

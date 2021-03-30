@@ -83,7 +83,7 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
 
     private fun needDispatchSafeAreaInset(): Boolean = false
 
-    override fun showTitleBar(): Boolean = false
+    override fun showTopBar(): Boolean = false
 
     override fun getLayoutId(): Int = R.layout.fragment_web_exploerer
 

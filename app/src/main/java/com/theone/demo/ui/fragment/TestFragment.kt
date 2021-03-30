@@ -41,7 +41,7 @@ class TestFragment:BaseCoreFragment<BaseViewModel,FragmentTestBinding>() {
 
     override fun isStatusBarLightMode(): Boolean  = true
 
-    override fun showTitleBar(): Boolean = false
+    override fun showTopBar(): Boolean = false
 
     override fun getLayoutId(): Int  = R.layout.fragment_test
 

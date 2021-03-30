@@ -103,7 +103,7 @@
     <attr name="qmui_skin_segment_tab_height_size" format="reference|dimension"/> // QMUISegment高度
 
     <!-- 基础的相同的配置 -->
-    <style name="BaseTheme" parent="QMUI.Compat.NoActionBar">
+    <style name="CoreTheme" parent="BaseTheme">
 
         <!--App-->
         <item name="app_skin_primary_color">@color/app_color_theme_6</item>
@@ -201,7 +201,7 @@
 
     </style>
 
-    <style name="TopBarWhiteTheme" parent="BaseTheme">
+    <style name="TopBarWhiteTheme" parent="CoreTheme">
         <!--QMUI-->
         <item name="qmui_skin_support_topbar_bg">@color/qmui_config_color_white</item>
         <item name="qmui_skin_support_topbar_title_color">@color/qmui_config_color_gray_1</item>
@@ -212,7 +212,7 @@
         <item name="qmui_skin_support_topbar_back_drawable">@drawable/mz_titlebar_ic_back_dark</item>
     </style>
 
-    <style name="TopBarDarkTheme" parent="BaseTheme">
+    <style name="TopBarDarkTheme" parent="CoreTheme">
         <!--QMUI-->
         <item name="qmui_skin_support_topbar_title_color">@color/qmui_config_color_white</item>
         <item name="qmui_skin_support_topbar_subtitle_color">@color/qmui_config_color_white</item>

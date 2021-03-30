@@ -2,7 +2,10 @@ package com.theone.demo.ui.fragment.integral
 
 import android.os.Bundle
 import android.view.View
+import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.theone.common.constant.BundleConstant
 import com.theone.common.ext.getValueNonNull
 import com.theone.demo.R
 import com.theone.demo.app.net.Url
@@ -40,23 +43,24 @@ import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
  * @email 625805189@qq.com
  * @remark
  */
-class IntegralRankFragment : BasePagerListFragment<IntegralResponse, IntegralRankViewModel,FragmentIntegralRankBinding>() {
+class IntegralRankFragment :
+    BasePagerListFragment<IntegralResponse, IntegralRankViewModel, FragmentIntegralRankBinding>() {
 
-    companion object{
-        fun newInstance(rank:IntegralResponse):IntegralRankFragment{
+    companion object {
+        fun newInstance(rank: IntegralResponse): IntegralRankFragment {
             return IntegralRankFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelable(DATA,rank)
+                    putParcelable(BundleConstant.DATA, rank)
                 }
             }
         }
-
-        const val DATA = "data"
     }
 
-    private val mIntegralRank:IntegralResponse by getValueNonNull(DATA)
+    private val mIntegralRank: IntegralResponse by getValueNonNull(BundleConstant.DATA)
 
     override fun getLayoutId(): Int = R.layout.fragment_integral_rank
+    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
+    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
 
     override fun createAdapter(): BaseQuickAdapter<IntegralResponse, *> = IntegralRankAdapter()
 
@@ -67,7 +71,7 @@ class IntegralRankFragment : BasePagerListFragment<IntegralResponse, IntegralRan
             addRightImageButton(
                 R.drawable.svg_rank_rules,
                 R.id.app_integral_rules
-            ).setOnClickListener{
+            ).setOnClickListener {
                 startFragment(
                     WebExplorerFragment.newInstance(
                         BannerResponse(

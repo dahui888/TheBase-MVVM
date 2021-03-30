@@ -27,7 +27,7 @@
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
-        <com.qmuiteam.qmui.layout.QMUIPriorityLinearLayout
+        <com.qmuiteam.qmui.layout.QMUILinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -60,7 +60,7 @@
                 android:textSize="15sp"
                 android:text="@{String.valueOf(item.coinCount)}"/>
 
-        </com.qmuiteam.qmui.layout.QMUIPriorityLinearLayout>
+        </com.qmuiteam.qmui.layout.QMUILinearLayout>
 
     </LinearLayout>
 </layout>

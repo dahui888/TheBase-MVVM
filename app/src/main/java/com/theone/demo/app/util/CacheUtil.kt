@@ -50,7 +50,7 @@ object CacheUtil {
     }
 
     /**
-     *
+     * 设置搜索历史数据
      */
     fun setSearchHistoryData(searchResponseStr: String) {
         MMKVUtil.putString(HISTORY, searchResponseStr)

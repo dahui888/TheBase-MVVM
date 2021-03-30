@@ -29,7 +29,7 @@ import com.theone.mvvm.ext.qmui.showLoadingDialog
 /**
  * @author The one
  * @date 2021/2/22 0022
- * @describe TODO
+ * @describe ViewModel基类
  * @email 625805189@qq.com
  * @remark
  */
@@ -42,12 +42,19 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseQMUIFragment() {
      */
     protected open fun getViewModelIndex(): Int = 0
 
+    /**
+     * QMUIFragment这个方法只会触发一次,所以将初始化放在这个方法里
+     * 子类切勿乱重写这个方法
+     */
     override fun onViewCreated(rootView: View) {
         mViewModel = createViewModel()
         super.onViewCreated(rootView)
         initData()
     }
 
+    /**
+     * observe 一定要放在这个这个方法里
+     */
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         addLoadingObserve(mViewModel)

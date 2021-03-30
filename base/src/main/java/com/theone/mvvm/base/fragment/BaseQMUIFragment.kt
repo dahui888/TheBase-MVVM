@@ -43,60 +43,103 @@ import com.theone.mvvm.ext.qmui.updateStatusBarMode
  * @date 2021/2/22 0022
  * @describe BaseFragment
  * @email 625805189@qq.com
- * @remark 懒加载+TopBar+界面状态管理+状态栏等的封装
+ * @remark 懒加载+TopBar+状态栏等的封装
  */
-
-val match_wrap : ViewGroup.LayoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
 
 abstract class BaseQMUIFragment : QMUIFragment(), LifecycleObserver {
 
-    val TAG: String = this.javaClass.simpleName
+    protected val TAG: String = this.javaClass.simpleName
 
     lateinit var mActivity: AppCompatActivity
 
+    /**
+     * 默认封装提供的TopBar
+     */
     private var mTopBar: QMUITopBarLayout? = null
-    protected val mBody: View by lazy {
+
+    /**
+     * 内容层
+     */
+    protected val mContent: View by lazy {
         createContentView()
     }
 
     /**
      * 是否为根Fragment： getParentFragment() 为空
+     * 可作为一些默认情况的判断依据
      */
     private var isIndexFragment = false
+
+    /**
+     * 是否第一次加载
+     */
     private var mIsFirstLayInit = true
 
+    /**
+     * 获取布局
+     */
     abstract fun getLayoutId(): Int
 
+    /**
+     * 初始化
+     */
     abstract fun initView(rootView: View)
 
+    /**
+     * 这个方法是为了给BaseVmDbFragment重写绑定视图的
+     * 所以仅供此包类使用
+     */
     internal open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
-    open fun showTitleBar(): Boolean = isIndexFragment
 
+    /**
+     * 是否需要TopBar(默认为根Fragment才需要)
+     * 子类重写此方法进行修改
+     */
+    open fun showTopBar(): Boolean = isIndexFragment
+
+    /**
+     * 提供一个方法供子类获取TopBar
+     */
+    protected open fun getTopBar(): QMUITopBarLayout? = mTopBar
+
+    /**
+     * true -> 内容层将充满整个屏幕，直接延伸至状态栏
+     *
+     * false ->内容层将有一个向上的TopBar高度的间距
+     */
+    override fun translucentFull(): Boolean = false
 
     override fun onCreateView(): View {
-        if (showTitleBar()) {
+        mIsFirstLayInit = true
+        if (showTopBar()) {
+            // 如果需要TopBar，创建一个布局，加入TopBar和Body
             val root = QMUIWindowInsetLayout(mActivity)
             root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
-            mBody.fitsSystemWindows = !translucentFull()
-            root.addView(mBody)
+            mContent.fitsSystemWindows = !translucentFull()
+            root.addView(mContent)
             // 这个一定要放在addView后面
             if (!translucentFull()) {
+                // 设置一个向上的TopBar高度的间距
                 val margin = QMUIResHelper.getAttrDimen(
                     mActivity,
                     R.attr.qmui_topbar_height
                 )
-                mBody.layoutParams.let {
+                mContent.layoutParams.let {
                     if (it is ViewGroup.MarginLayoutParams) {
                         it.setMargins(0, margin, 0, 0)
-                        mBody.requestLayout()
+                        mContent.requestLayout()
                     }
                 }
             }
-            mTopBar = createQMUITopBarLayout()
+            // TopBar要放在后面（布局的上一层），如果body充满整个父容器时，要保证TopBar是在上面的。
+            mTopBar = QMUITopBarLayout(mActivity).apply {
+                layoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
+                fitsSystemWindows = true
+            }
             root.addView(mTopBar)
             return root
         }
-        return mBody
+        return mContent
     }
 
     override fun onViewCreated(rootView: View) {
@@ -108,15 +151,6 @@ abstract class BaseQMUIFragment : QMUIFragment(), LifecycleObserver {
         super.onViewCreated(view, savedInstanceState)
         lazyViewLifecycleOwner.lifecycle.addObserver(this)
     }
-
-    private fun createQMUITopBarLayout(): QMUITopBarLayout? {
-        return QMUITopBarLayout(mActivity).apply {
-            layoutParams = match_wrap
-            fitsSystemWindows = true
-        }
-    }
-
-    protected open fun getTopBar(): QMUITopBarLayout? = mTopBar
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -178,7 +212,8 @@ abstract class BaseQMUIFragment : QMUIFragment(), LifecycleObserver {
 
     /**
      * @return 是否设置状态栏LightMode true 深色图标 false 白色背景
-     * @remark 根据自己APP的配色，给定一个全局的默认模式。个人建议用TopBar的背景颜色做判断。
+     * @remark 根据自己APP的配色，给定一个全局的默认模式。
+     *         建议用TopBar的背景颜色做判断。或者在自己的BaseFragment里提供一个全局默认的模式。
      */
     protected open fun isStatusBarLightMode(): Boolean {
         return true

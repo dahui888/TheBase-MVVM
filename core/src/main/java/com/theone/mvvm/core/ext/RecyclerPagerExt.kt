@@ -81,7 +81,7 @@ fun <T> BaseAdapterRcPagerFragment<T, *, *>.createListVmObserve(vm: BaseListView
         })
         getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
             loadListError(
-                it,
+                mActivity,
                 vm,
                 mAdapter,
                 mLoadSir

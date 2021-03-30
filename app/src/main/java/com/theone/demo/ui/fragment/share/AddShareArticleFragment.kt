@@ -16,9 +16,10 @@ import com.theone.demo.viewmodel.AddShareArticleViewModel
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.ext.getAppViewModel
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
-import com.theone.mvvm.ext.qmui.showFailDialog
-import com.theone.mvvm.ext.qmui.showSuccessExitDialog
+import com.theone.mvvm.ext.qmui.showFailTipsDialog
 import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.ext.qmui.showMsgDialog
+import com.theone.mvvm.ext.qmui.showSuccessTipsExitDialog
 
 
 // ┏┓　 ┏┓
@@ -90,7 +91,7 @@ class AddShareArticleFragment :
                 // 不需要审核的官方链接才自动刷新
                 if (isShareAutoPass(mViewModel.url.get()))
                     mAppVm.shareArticle.value = true
-                showSuccessExitDialog("添加成功")
+                showSuccessTipsExitDialog("添加成功")
             }
         }
     }
@@ -107,6 +108,11 @@ class AddShareArticleFragment :
             }
             .show()
             .setCanceledOnTouchOutside(false)
+
+//        context?.showMsgDialog("温馨提示", getString(R.string.share_article_rules), leftAction = null,
+//            listener = QMUIDialogAction.ActionListener { dialog, index ->
+//                dialog.dismiss()
+//            })?.setCanceledOnTouchOutside(false)
     }
 
     private fun showRulesPopup(view: View) {
@@ -138,8 +144,8 @@ class AddShareArticleFragment :
 
         fun add() {
             when {
-                mViewModel.title.get().isEmpty() -> showFailDialog("标题不能为空")
-                mViewModel.url.get().isEmpty() -> showFailDialog("链接不能为空")
+                mViewModel.title.get().isEmpty() -> showFailTipsDialog("标题不能为空")
+                mViewModel.url.get().isEmpty() -> showFailTipsDialog("链接不能为空")
                 else -> {
                     mViewModel.requestServer()
                 }

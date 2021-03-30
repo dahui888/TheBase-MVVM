@@ -59,7 +59,7 @@ fun loadSirInit(view: View, callback: () -> Unit): LoadService<Any> {
  * 设置错误布局
  * @param message 错误布局显示的提示内容
  */
-fun LoadService<*>.showError(message: String, imageRes:Int = R.drawable.status_loading_view_loading_fail) {
+fun LoadService<*>.showError(message: String?, imageRes:Int = R.drawable.status_loading_view_loading_fail) {
     this.setCallBack(ErrorCallback::class.java) { _, view ->
         view.findViewById<TextView>(R.id.stateContentTextView).text = message
         view.findViewById<ImageView>(R.id.stateImageView).setImageResource(imageRes)

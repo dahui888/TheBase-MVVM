@@ -1,5 +1,6 @@
 package com.theone.mvvm.core.viewmodel
 
+import androidx.lifecycle.LiveData
 import com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.mvvm.callback.livedata.StringLiveData
@@ -50,11 +51,13 @@ abstract class BaseRequestViewModel<T> : BaseViewModel() {
      */
     private val finally: BooleanLiveData = BooleanLiveData()
 
+    /**
+     * 向 ui 层提供的 request LiveData/ProtectedUnPeekLiveData，禁止UI层获取后更改数据，保证数据的唯一性
+     * from: KunMinX  https://xiaozhuanlan.com/topic/0168753249
+     */
     fun getResponseLiveData(): ProtectedUnPeekLiveData<T> = response
-
-    fun getErrorMsgLiveData(): StringLiveData = error
-
-    fun getFinallyLiveData(): BooleanLiveData = finally
+    fun getErrorMsgLiveData(): LiveData<String> = error
+    fun getFinallyLiveData(): LiveData<Boolean> = finally
 
     /**
      * 请求成功后设置数据调用此方法
@@ -69,14 +72,22 @@ abstract class BaseRequestViewModel<T> : BaseViewModel() {
      * @param errorMsg 错误信息
      * @param errorLiveData 错误接收的LiveData
      */
-    open fun onError(errorMsg: String?, errorLiveData: StringLiveData = error) {
+    open fun onError(errorMsg: String?, errorLiveData: StringLiveData? = error) {
         errorMsg?.let {
-            errorLiveData.value = it
+            if(null == errorLiveData){
+                error.value = it
+            }else{
+                errorLiveData.value = it
+            }
         }
     }
 
-    open fun onError(throwable: Throwable, liveData: StringLiveData = error) {
+    open fun onError(throwable: Throwable, liveData: StringLiveData? = error) {
         onError(ErrorInfo(throwable).errorMsg, liveData)
+    }
+
+    fun onFinally(){
+        finally.value = true
     }
 
     abstract fun requestServer()

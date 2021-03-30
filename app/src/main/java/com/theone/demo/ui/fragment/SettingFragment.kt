@@ -21,6 +21,12 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
     View.OnClickListener,
     QMUIDialogAction.ActionListener {
 
+    /**
+     * 可以改变一下这两个方法试试看看效果
+     */
+    override fun showTopBar(): Boolean = true
+    override fun translucentFull(): Boolean = false
+
     private val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
     private lateinit var mLoginOut: QMUICommonListItemView
@@ -79,10 +85,10 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
         mViewModel.getResponseLiveData().observeInFragment(this, Observer {
             mAppVm.userInfo.value = null
             UserUtil.loginOut()
-            showSuccessExitDialog("退出成功")
+            showSuccessTipsExitDialog("退出成功")
         })
         mViewModel.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-            showFailDialog(it)
+            showFailTipsDialog(it)
         })
     }
 
@@ -95,13 +101,13 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
                 showAnimationSelectDialog()
             }
             mTheme -> {
-                showMsgDialog("开发中...")
+                showMsgTipsDialog("开发中...")
             }
         }
     }
 
     private fun showLoginOutDialog() {
-        context?.showMsgDialog("提示", "是否退出当前账号", this, QMUIDialogAction.ACTION_PROP_NEGATIVE)
+        context?.showMsgDialog("提示", "是否退出当前账号", listener = this, prop = QMUIDialogAction.ACTION_PROP_NEGATIVE)
     }
 
     private fun showAnimationSelectDialog() {

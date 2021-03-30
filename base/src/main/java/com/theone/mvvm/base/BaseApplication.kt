@@ -4,11 +4,6 @@ import android.app.Application
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStore
 import androidx.lifecycle.ViewModelStoreOwner
-import androidx.multidex.MultiDex
-import androidx.multidex.MultiDexApplication
-import com.qmuiteam.qmui.arch.QMUISwipeBackActivityManager
-import com.theone.mvvm.BuildConfig
-import kotlin.properties.Delegates
 
 
 //  ┏┓　　　┏┓
