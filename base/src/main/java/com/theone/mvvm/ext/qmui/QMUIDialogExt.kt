@@ -47,7 +47,7 @@ fun Context.showMsgDialog(
 ): QMUIDialog {
     val builder = QMUIDialog.MessageDialogBuilder(this)
     return builder.run {
-        setTitleNonNull(title)
+        setTitle(title)
         if (!message.isNullOrEmpty()) {
             setMessage(message)
         }
@@ -71,7 +71,7 @@ fun Context.showMenuDialog(
 ): QMUIDialog {
     val builder = MenuDialogBuilder(this)
     return builder.run {
-        setTitleNonNull(title)
+        setTitle(title)
         addItems(items, listener)
         show()
     }
@@ -88,7 +88,7 @@ fun <T:CharSequence> Context.showSingleChoiceDialog(
 ): QMUIDialog {
     val builder = QMUIDialog.CheckableDialogBuilder(this)
     return builder.run {
-        setTitleNonNull(title)
+        setTitle(title)
         setCheckedIndex(checkedIndex)
         addItems(items, listener)
         show()
@@ -108,22 +108,13 @@ fun <T:CharSequence>  Context.showMultiChoiceDialog(
 ): QMUIDialog {
     val builder = QMUIDialog.MultiCheckableDialogBuilder(this)
     with(builder){
-        setTitleNonNull(title)
+        setTitle(title)
         addItems(items,null)
         setCheckedItems(checkedItems)
         addAction(leftAction) { dialog, _ -> dialog?.dismiss() }
         addAction(rightAction) { dialog, _ -> listener.onItemSelected(dialog,builder.checkedItemIndexes) }
     }
     return builder.show()
-}
-
-
-private fun <T : QMUIDialogBuilder<T>> T.setTitleNonNull(
-    title: String?
-) {
-    if (!title.isNullOrEmpty()) {
-        setTitle(title)
-    }
 }
 
 interface OnMultiChoiceConfirmClickListener{

@@ -1,4 +1,4 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.sample
 
 import android.view.View
 import androidx.fragment.app.Fragment

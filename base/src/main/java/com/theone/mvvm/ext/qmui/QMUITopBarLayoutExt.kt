@@ -1,5 +1,6 @@
 package com.theone.mvvm.ext.qmui
 
+import androidx.annotation.StringRes
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.theone.mvvm.base.fragment.BaseQMUIFragment
 
@@ -29,16 +30,13 @@ import com.theone.mvvm.base.fragment.BaseQMUIFragment
  * @remark
  */
 
-fun QMUITopBarLayout.setTitleWithBackBtn(title:String, fragmentThe:BaseQMUIFragment){
+fun QMUITopBarLayout.setTitleWithBackBtn(title:String, fragment:BaseQMUIFragment){
     setTitle(title)
     addLeftBackImageButton().setOnClickListener {
-        fragmentThe.finish()
+        fragment.finish()
     }
 }
 
-fun QMUITopBarLayout.setTitleWithBackBtn(resId:Int, fragmentThe:BaseQMUIFragment){
-    setTitle(resId)
-    addLeftBackImageButton().setOnClickListener {
-        fragmentThe.finish()
-    }
+fun QMUITopBarLayout.setTitleWithBackBtn(@StringRes resId:Int, fragment:BaseQMUIFragment){
+    setTitleWithBackBtn(context.getString(resId),fragment)
 }

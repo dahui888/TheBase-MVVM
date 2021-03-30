@@ -4,10 +4,10 @@ import android.text.TextUtils
 import android.view.View
 import android.widget.CompoundButton
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
-import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.QMUICommonListItemAccessoryType
-import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.QMUICommonListItemOrientation
+import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView.*
 import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 
 
@@ -36,12 +36,25 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
  * @remark
  */
 
+private val NO_SET = -1
+
 fun QMUIGroupListView.createItem(
-    @DrawableRes drawable: Int = -1,
+    @StringRes title: Int,
+    @StringRes detail: Int = NO_SET,
+    @DrawableRes drawable: Int = NO_SET,
+    @QMUICommonListItemOrientation position: Int = HORIZONTAL,
+    @QMUICommonListItemAccessoryType type: Int = ACCESSORY_TYPE_CHEVRON
+): QMUICommonListItemView {
+    val d = if (detail == NO_SET) null else context.getString(detail)
+    return createItem(context.getString(title), d, drawable, position, type)
+}
+
+fun QMUIGroupListView.createItem(
     title: CharSequence,
-    detail: CharSequence?,
-    @QMUICommonListItemOrientation position: Int,
-    @QMUICommonListItemAccessoryType type: Int
+    detail: CharSequence? = null,
+    @DrawableRes drawable: Int = NO_SET,
+    @QMUICommonListItemOrientation position: Int = HORIZONTAL,
+    @QMUICommonListItemAccessoryType type: Int = ACCESSORY_TYPE_CHEVRON
 ): QMUICommonListItemView {
     val item = createItemView(title)
     return item.apply {
@@ -50,51 +63,36 @@ fun QMUIGroupListView.createItem(
             orientation = position
         }
         accessoryType = type
-        if (drawable != -1) {
+        if (drawable != NO_SET) {
             setImageDrawable(ContextCompat.getDrawable(context, drawable))
         }
     }
 }
 
-fun QMUIGroupListView.createNormalItem(
-    title: CharSequence,
-    @DrawableRes drawable: Int = -1
-    , @QMUICommonListItemAccessoryType type: Int = QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON
-): QMUICommonListItemView = createItem(
-    drawable,
-    title,
-    null,
-    QMUICommonListItemView.HORIZONTAL,
-    type
-)
-
-fun QMUIGroupListView.createDetailItem(
-    title: CharSequence,
-    detail: CharSequence?,
-    @DrawableRes drawable: Int = -1,
-    @QMUICommonListItemOrientation position: Int = QMUICommonListItemView.HORIZONTAL,
-    @QMUICommonListItemAccessoryType type: Int = QMUICommonListItemView.ACCESSORY_TYPE_CHEVRON
-): QMUICommonListItemView = createItem(
-    drawable,
-    title,
-    detail,
-    position,
-    type
-)
+fun QMUIGroupListView.createSwitchItem(
+    @StringRes title: Int,
+    @StringRes detail: Int = NO_SET,
+    @DrawableRes drawable: Int = NO_SET,
+    isCheck: Boolean = false,
+    listener: CompoundButton.OnCheckedChangeListener?
+): QMUICommonListItemView {
+    val d = if (detail == NO_SET) null else context.getString(detail)
+    return createSwitchItem(context.getString(title), d, drawable, isCheck, listener)
+}
 
 fun QMUIGroupListView.createSwitchItem(
     title: CharSequence,
     detail: CharSequence?,
-    isCheck: Boolean,
-    @DrawableRes drawable: Int = -1,
+    @DrawableRes drawable: Int = NO_SET,
+    isCheck: Boolean = false,
     listener: CompoundButton.OnCheckedChangeListener?
 ): QMUICommonListItemView {
     return createItem(
-        drawable,
         title,
         detail,
-        QMUICommonListItemView.VERTICAL,
-        QMUICommonListItemView.ACCESSORY_TYPE_SWITCH
+        drawable,
+        VERTICAL,
+        ACCESSORY_TYPE_SWITCH
     ).apply {
         switch.isChecked = isCheck
         switch.setOnCheckedChangeListener(listener)
@@ -102,35 +100,45 @@ fun QMUIGroupListView.createSwitchItem(
 }
 
 fun QMUIGroupListView.createCustomViewItem(
+    @StringRes title: Int,
+    @StringRes detail: Int = NO_SET,
+    @DrawableRes drawable: Int = NO_SET,
+    view: View
+): QMUICommonListItemView {
+    val d = if (detail == NO_SET) null else context.getString(detail)
+    return createCustomViewItem(context.getString(title), d, drawable, view)
+}
+
+fun QMUIGroupListView.createCustomViewItem(
     title: CharSequence,
-    detail: CharSequence?,
-    @DrawableRes drawable: Int = -1,
+    detail: CharSequence? = null,
+    @DrawableRes drawable: Int = NO_SET,
     view: View
 ): QMUICommonListItemView {
     return createItem(
-        drawable,
         title,
         detail,
-        QMUICommonListItemView.VERTICAL,
-        QMUICommonListItemView.ACCESSORY_TYPE_CUSTOM
+        drawable,
+        VERTICAL,
+        ACCESSORY_TYPE_CUSTOM
     ).apply {
         addAccessoryCustomView(view)
     }
 }
 
 fun QMUICommonListItemView.removeIconTintColor() {
-    val config = QMUICommonListItemView.SkinConfig()
+    val config = SkinConfig()
     config.iconTintColorRes = 0
     setSkinConfig(config)
 }
 
-private fun showTips(
-    showLeft: Boolean,
-    isDot: Boolean,
-    vararg items: QMUICommonListItemView
+fun showTips(
+    vararg items: QMUICommonListItemView,
+    showLeft: Boolean = false,
+    isDot: Boolean = true
 ) {
     val p =
-        if (showLeft) QMUICommonListItemView.TIP_POSITION_LEFT else QMUICommonListItemView.TIP_POSITION_RIGHT
+        if (showLeft) TIP_POSITION_LEFT else TIP_POSITION_RIGHT
     for (item in items) {
         item.setTipPosition(p)
         if (isDot)
@@ -140,33 +148,27 @@ private fun showTips(
     }
 }
 
-fun showNewTips(
-    showLeft: Boolean,
-    vararg items: QMUICommonListItemView
-) {
-    showTips(showLeft, false, *items)
-}
-
-fun showRedDots(
-    showLeft: Boolean,
-    vararg items: QMUICommonListItemView
-) {
-    showTips(showLeft, false, *items)
-}
-
+/**
+ *
+ * @receiver QMUIGroupListView
+ * @param items Array<out QMUICommonListItemView>
+ * @param title CharSequence?  标题-如果不想要标题栏返回null,只需要一个分割线返回一个空字符串
+ * @param description CharSequence? 描述-同上
+ * @param listener OnClickListener? 点击监听
+ */
 fun QMUIGroupListView.addToGroup(
-    title: CharSequence?,
-    description: CharSequence?,
-    listener: View.OnClickListener?,
-    vararg items: QMUICommonListItemView
+    vararg items: QMUICommonListItemView,
+    title: CharSequence? = null,
+    description: CharSequence? = null,
+    listener: View.OnClickListener? = null
 ) {
     val section = QMUIGroupListView.newSection(context)
-    if(null == title){
+    if (null == title) {
         section.setUseDefaultTitleIfNone(false).setUseTitleViewForSectionSpace(false)
-    }else{
+    } else {
         section.setTitle(title)
     }
-    if(null != description){
+    if (null != description) {
         section.setDescription(description)
     }
     for (item in items) {
@@ -176,13 +178,3 @@ fun QMUIGroupListView.addToGroup(
     section.addTo(this)
 }
 
-fun QMUIGroupListView.addToGroup(
-    title: CharSequence?,
-    listener: View.OnClickListener?,
-    vararg items: QMUICommonListItemView
-) = addToGroup(title, null, listener, *items)
-
-fun QMUIGroupListView.addToGroup(
-    listener: View.OnClickListener?,
-    vararg items: QMUICommonListItemView
-) = addToGroup(null, null, listener, *items)

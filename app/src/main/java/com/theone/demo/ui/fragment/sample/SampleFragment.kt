@@ -1,4 +1,4 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.sample
 
 import android.view.View
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
@@ -6,9 +6,10 @@ import com.theone.demo.R
 import com.theone.demo.databinding.FragmentSampleBinding
 import com.theone.demo.ui.fragment.home.HomeFragment
 import com.theone.mvvm.ext.qmui.addToGroup
-import com.theone.mvvm.ext.qmui.createNormalItem
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.ext.qmui.createItem
+import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
 
 //  ┏┓　　　┏┓
@@ -42,13 +43,15 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
 
     lateinit var mRecyclerPager: QMUICommonListItemView
     lateinit var mGroupListView: QMUICommonListItemView
+    lateinit var mTest: QMUICommonListItemView
 
     override fun initView(rootView: View) {
-        getTopBar()?.setTitle(R.string.app_name)
+        getTopBar()?.setTitleWithBackBtn("示例",this)
         mBinding.groupListView.run {
-            mRecyclerPager = createNormalItem("BaseRecyclerPagerFragment")
-            mGroupListView = createNormalItem("QMUIGroupListView")
-            addToGroup("ui", this@SampleFragment, mRecyclerPager, mGroupListView)
+            mRecyclerPager = createItem("BaseRecyclerPagerFragment")
+            mGroupListView = createItem("QMUIGroupListView")
+            mTest =  createItem("Test")
+            addToGroup( mRecyclerPager, mGroupListView,mTest,title = "ui", listener = this@SampleFragment)
         }
     }
 
@@ -60,7 +63,8 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
         startFragment(
             when (v) {
                 mRecyclerPager -> HomeFragment()
-                else -> GroupListViewFragment()
+                mGroupListView -> GroupListViewFragment()
+                else -> TestFragment()
             }
         )
     }

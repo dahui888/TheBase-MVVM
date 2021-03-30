@@ -1,5 +1,6 @@
 package com.theone.common.ext
 
+import android.annotation.SuppressLint
 import android.graphics.Typeface
 import android.text.Html
 import android.text.SpannableString
@@ -191,7 +192,7 @@ private const val PAT_CHARS = "[\\u4e00-\\u9fa5]"
 private const val PAT_NUMBERS = "\"[0-9]\""
 
 
-fun String.toHtml(flag: Int = Html.FROM_HTML_MODE_LEGACY): Spanned {
+fun String.toHtml(@SuppressLint("InlinedApi") flag: Int = Html.FROM_HTML_MODE_LEGACY): Spanned {
     return if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
         Html.fromHtml(this, flag)
     } else {

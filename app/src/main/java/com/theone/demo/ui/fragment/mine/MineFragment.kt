@@ -12,6 +12,7 @@ import com.theone.demo.app.util.notNull
 import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.data.model.bean.UserInfo
 import com.theone.demo.databinding.FragmentMineBinding
+import com.theone.demo.ui.fragment.sample.SampleFragment
 import com.theone.demo.ui.fragment.SettingFragment
 import com.theone.demo.ui.fragment.WebExplorerFragment
 import com.theone.demo.ui.fragment.collection.CollectionFragment
@@ -22,10 +23,8 @@ import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.MineViewModel
 import com.theone.mvvm.ext.getAppViewModel
-import com.theone.mvvm.ext.qmui.addToGroup
-import com.theone.mvvm.ext.qmui.createDetailItem
 import com.theone.mvvm.core.fragment.BaseCoreFragment
-import com.theone.mvvm.ext.qmui.showFailTipsDialog
+import com.theone.mvvm.ext.qmui.*
 import kotlinx.android.synthetic.main.fragment_mine.*
 
 
@@ -65,6 +64,8 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
     private lateinit var mAPI: QMUICommonListItemView
     private lateinit var mTheBase: QMUICommonListItemView
     private lateinit var mJoinUs: QMUICommonListItemView
+    private lateinit var mSample: QMUICommonListItemView
+
 
     override fun isNeedChangeStatusBarMode(): Boolean = true
 
@@ -78,17 +79,19 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
             updateBottomDivider(0, 0, 0, 0)
         }
         mBinding.groupListView.run {
-            mCollection = createDetailItem("我的收藏", "", R.drawable.svg_mine_collection)
-            mShare = createDetailItem("我的分享", "", R.drawable.svg_mine_share)
+            mCollection = createItem("我的收藏", drawable =  R.drawable.svg_mine_collection)
+            mShare = createItem("我的分享", drawable =R.drawable.svg_mine_share)
 
-            mAPI = createDetailItem("开源网站", "玩Android", R.drawable.svg_mine_web)
-            mTheBase = createDetailItem("项目地址", "TheBase-MVVM", R.drawable.svg_mine_project_address)
-            mJoinUs = createDetailItem("加入我们", "QQ群：761201022", R.drawable.svg_mine_qq)
-            mSetting = createDetailItem("系统设置", "", R.drawable.svg_mine_setting)
+            mAPI = createItem("开源网站", "玩Android", R.drawable.svg_mine_web)
+            mTheBase = createItem("项目地址", "TheBase-MVVM", R.drawable.svg_mine_project_address)
+            mJoinUs = createItem("加入我们", "QQ群：761201022", R.drawable.svg_mine_qq)
+            mSetting = createItem("系统设置", "", R.drawable.svg_mine_setting)
 
-            addToGroup(this@MineFragment, mCollection, mShare)
-            addToGroup("", this@MineFragment, mAPI, mTheBase, mJoinUs)
-            addToGroup("", this@MineFragment, mSetting)
+            mSample = createItem("一些示例")
+
+            addToGroup( mCollection, mShare,listener = this@MineFragment)
+            addToGroup( mAPI, mTheBase, mJoinUs,mSample,title = "", listener = this@MineFragment)
+            addToGroup( mSetting,title = "", listener = this@MineFragment)
 
         }
 
@@ -191,7 +194,7 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
             mSetting -> {
                 startFragment(SettingFragment())
             }
-
+            mSample -> startFragment(SampleFragment())
         }
     }
 

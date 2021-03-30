@@ -32,8 +32,10 @@ import android.view.ViewGroup
 val matchParent: Int = ViewGroup.LayoutParams.MATCH_PARENT
 val wrapContent: Int = ViewGroup.LayoutParams.WRAP_CONTENT
 
+val match_match : ViewGroup.LayoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
 val match_wrap : ViewGroup.LayoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)
 val wrap_wrap : ViewGroup.LayoutParams = ViewGroup.LayoutParams(wrapContent, wrapContent)
+val wrap_match : ViewGroup.LayoutParams = ViewGroup.LayoutParams(wrapContent, matchParent)
 
 fun View.setMargin(left: Int, top: Int, right: Int, bottom: Int) {
     val params = layoutParams

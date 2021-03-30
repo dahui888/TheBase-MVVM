@@ -5,6 +5,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 
 //  ┏┓　　　┏┓
@@ -38,6 +39,10 @@ fun View.getColor(@ColorRes id:Int):Int{
 
 fun View.getDrawable(@DrawableRes id:Int):Drawable?{
     return ContextCompat.getDrawable(context,id)
+}
+
+fun View.getString(@StringRes id:Int):String?{
+    return context.getString(id)
 }
 
 fun getDrawable(context: Context,@DrawableRes id:Int):Drawable?{

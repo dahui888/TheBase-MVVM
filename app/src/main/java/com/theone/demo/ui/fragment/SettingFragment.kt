@@ -43,29 +43,30 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
 
     override fun initView(rootView: View) {
         mBinding.groupListView.run {
-            mAnimation = createDetailItem(
+            mAnimation = createItem(
                 "列表动画",
                 mAnimationTypes[CacheUtil.getAnimationType()],
                 R.drawable.svg_setting_animation
             )
-            mTheme = createNormalItem("主题颜色", R.drawable.svg_setting_theme)
-            mVersion = createDetailItem(
+            mTheme = createItem("主题颜色",drawable =  R.drawable.svg_setting_theme)
+            mVersion = createItem(
                 "当前版本",
                 "Ver " + QMUIPackageHelper.getAppVersion(mActivity),
                 R.drawable.svg_setting_version
             )
-            mAuthor = createDetailItem(
+            mAuthor = createItem(
                 "项目作者",
                 "The one",
                 R.drawable.svg_setting_author
             )
 
-            addToGroup("个性化", this@SettingFragment, mAnimation, mTheme)
-            addToGroup("关于", this@SettingFragment, mVersion, mAuthor)
+
+            addToGroup(mAnimation, mTheme,title = "个性化",listener =  this@SettingFragment)
+            addToGroup(mVersion, mAuthor,title ="关于",listener =  this@SettingFragment)
 
             if (UserUtil.isLogin()) {
-                mLoginOut = createNormalItem("退出账号", R.drawable.svg_setting_login_out)
-                addToGroup("", this@SettingFragment, mLoginOut)
+                mLoginOut = createItem("退出账号", drawable = R.drawable.svg_setting_login_out)
+                addToGroup(  mLoginOut,listener = this@SettingFragment,title = "")
             }
         }
         getTopBar()?.run {

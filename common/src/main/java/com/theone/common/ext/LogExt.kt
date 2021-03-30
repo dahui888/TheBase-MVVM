@@ -2,13 +2,13 @@ package com.theone.common.ext
 
 import android.util.Log
 
-const val TAG = "TheBase"
-
-fun LogEnable(enable: Boolean) {
-    LOG_ENABLE = enable
-}
-
+var TAG = "TheBase"
 private var LOG_ENABLE = true
+
+fun LogInit(enable: Boolean, tag: String = "TheBase") {
+    LOG_ENABLE = enable
+    TAG = tag
+}
 
 private enum class LEVEL {
     V, D, I, W, E
