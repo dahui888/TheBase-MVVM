@@ -20,12 +20,12 @@
 
 ### common
 
-##### 一些公用的工具和Widge.
+##### 一些公用的工具和组件.
 
 
 ### app 
 
-以[core]()为基础，创建的一个 [玩Android](http://wanandroid.com/) App。
+以[core](https://gitee.com/theoneee/the-base-mvvm/tree/master/core/src/main/java/com/theone/mvvm/core)为基础，创建的一个 [玩Android](http://wanandroid.com/) App。
 
 [点击下载](https://gitee.com/theoneee/the-base-mvvm/raw/master/apks/demo_release.apk)
 
