@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!--    <androidx.constraintlayout.widget.Guideline-->
+        <!--        android:id="@+id/guideline1"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:orientation="vertical"-->
+        <!--        app:layout_constraintGuide_percent="0.5" />-->
+
+        <!--    <androidx.constraintlayout.widget.Guideline-->
+        <!--        android:id="@+id/guideline2"-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:orientation="horizontal"-->
+        <!--        app:layout_constraintGuide_percent="0.5" />-->
+
+        <!--    <TextView-->
+        <!--        android:text="@string/you_are"-->
+        <!--        android:layout_marginBottom="10dp"-->
+        <!--        android:layout_marginEnd="5dp"-->
+        <!--        app:layout_constraintBottom_toTopOf="@+id/guideline2"-->
+        <!--        android:gravity="end"-->
+        <!--        app:layout_constraintEnd_toStartOf="@+id/guideline1"-->
+        <!--        app:layout_constraintStart_toStartOf="parent"-->
+        <!--        style="@style/launcher_text_style" />-->
+
+        <!--    <TextView-->
+        <!--        style="@style/launcher_text_style"-->
+        <!--        android:text="@string/the_one"-->
+        <!--        android:layout_marginTop="10dp"-->
+        <!--        android:layout_marginStart="5dp"-->
+        <!--        app:layout_constraintEnd_toEndOf="parent"-->
+        <!--        app:layout_constraintStart_toStartOf="@+id/guideline1"-->
+        <!--        app:layout_constraintTop_toTopOf="@+id/guideline2" />-->
+
+
+        <com.theone.demo.app.widge.TypeTextView
+            android:id="@+id/tvType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            tools:text="you are the one"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </com.qmuiteam.qmui.widget.QMUIWindowInsetLayout2>
+</layout>

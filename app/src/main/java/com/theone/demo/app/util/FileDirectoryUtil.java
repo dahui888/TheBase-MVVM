@@ -20,7 +20,7 @@ public class FileDirectoryUtil {
     /**
      * 根目录
      */
-    private static  String INDEX = Ktx.app.getString(R.string.app_name);
+    private static  String INDEX = "TheBase";
     /**
      * 下载目录
      */

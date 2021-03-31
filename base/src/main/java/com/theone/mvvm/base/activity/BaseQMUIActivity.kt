@@ -2,11 +2,9 @@ package com.theone.mvvm.base.activity
 
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import com.qmuiteam.qmui.arch.QMUIActivity
-import com.qmuiteam.qmui.kotlin.matchParent
-import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
+import com.theone.mvvm.R
 import com.theone.mvvm.base.IQMUIBase
 import com.theone.mvvm.base.createTopBar
 import com.theone.mvvm.base.createView
@@ -72,6 +70,7 @@ abstract class BaseQMUIActivity : QMUIActivity(), IQMUIBase {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        overridePendingTransition(R.anim.scale_enter, R.anim.slide_still)
         updateStatusBarMode(isStatusBarLightMode())
         createView(this, translucentFull()).let {
             setContentView(it)
@@ -81,6 +80,11 @@ abstract class BaseQMUIActivity : QMUIActivity(), IQMUIBase {
 
     internal open fun init(root: View){
         initView(root)
+    }
+
+    override fun finish() {
+        super.finish()
+        overridePendingTransition(R.anim.slide_still, R.anim.scale_exit)
     }
 
 }

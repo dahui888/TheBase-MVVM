@@ -7,4 +7,10 @@
         <item>从左到右</item>
         <item>从右到左</item>
     </string-array>
+
+    <string-array name="launcher">
+        <item>you are the one</item>
+        <item>年轻时，\n你做了一个决定，\n要将生命献给爱情。\n后来，\n你没死，\n年轻替你抵了命。</item>
+        <item>我们会深情拥抱，\n我们会一直到老。</item>
+    </string-array>
 </resources>
