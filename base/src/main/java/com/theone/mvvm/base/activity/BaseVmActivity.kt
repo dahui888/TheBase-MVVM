@@ -1,4 +1,4 @@
-package com.theone.mvvm.base.fragment
+package com.theone.mvvm.base.activity
 
 import android.os.Bundle
 import android.view.View
@@ -8,7 +8,6 @@ import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.ext.getVmClazz
 import com.theone.mvvm.ext.qmui.hideLoadingDialog
 import com.theone.mvvm.ext.qmui.showLoadingDialog
-
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -29,42 +28,17 @@ import com.theone.mvvm.ext.qmui.showLoadingDialog
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/22 0022
- * @describe 持有 ViewModel Fragment基类
+ * @date 2021-03-31 15:01
+ * @describe 持有 ViewModel Activity基类
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseVmFragment<VM : BaseViewModel> : BaseQMUIFragment(), IBaseVm<VM> {
+abstract class BaseVmActivity<VM : BaseViewModel> : BaseQMUIActivity(), IBaseVm<VM> {
 
     lateinit var mViewModel: VM
 
-    /**
-     * ViewModel的位置
-     */
     override fun getViewModelIndex(): Int = 0
 
-    /**
-     * QMUIFragment这个方法只会触发一次,所以将初始化放在这个方法里
-     * 子类切勿乱重写这个方法
-     */
-    override fun onViewCreated(rootView: View) {
-        mViewModel = createViewModel()
-        super.onViewCreated(rootView)
-        initData()
-    }
-
-    /**
-     * observe 一定要放在这个这个方法里
-     */
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        addLoadingObserve(mViewModel)
-        createObserver()
-    }
-
-    /**
-     * 创建viewModel
-     */
     override fun createViewModel(): VM = ViewModelProvider(this).get(
         getVmClazz(
             this,
@@ -72,14 +46,21 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseQMUIFragment(), IBaseVm<
         )
     )
 
+    override fun init(root: View) {
+        mViewModel = createViewModel()
+        initView(root)
+        createObserver()
+        initData()
+    }
+
     override fun addLoadingObserve(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             //显示弹窗
-            viewModel.loadingChange.showDialog.observeInFragment(this) {
+            viewModel.loadingChange.showDialog.observeInActivity(this) {
                 showLoadingDialog(it)
             }
             //关闭弹窗
-            viewModel.loadingChange.dismissDialog.observeInFragment(this) {
+            viewModel.loadingChange.dismissDialog.observeInActivity(this) {
                 hideLoadingDialog()
             }
         }

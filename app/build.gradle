@@ -13,6 +13,10 @@ android {
 }
 
 dependencies {
+    //轮播图
     implementation 'com.github.zhpanvip:BannerViewPager:3.1.5'
+    //微信开源项目，替代SP
     implementation "com.tencent:mmkv-static:1.1.0"
+    //防崩溃
+    implementation 'cat.ereza:customactivityoncrash:2.3.0'
 }

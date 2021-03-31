@@ -15,7 +15,7 @@ class LauncherActivity : QMUIActivity() {
         }
         var intent = QMUILatestVisit.intentOfLatestVisit(this)
         if (intent == null) {
-            intent = Intent(this, MainActivity::class.java)
+            intent = Intent(this, ErrorActivity::class.java)
         }
         startActivity(intent)
         finish()
