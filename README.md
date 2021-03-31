@@ -1,6 +1,6 @@
 # TheBase-MVVM
 
-#### base
+### base
 
 以[QMUI](https://github.com/Tencent/QMUI_Android)+Jetpack组件封装的一个MVVM基础框架。
 
@@ -9,7 +9,7 @@
 
 ### core 
 
-在base的基础上再一次进行封装。
+##### 在base的基础上再一次进行封装。
 1.添加默认的状态管理器。
 
 2.对[列表](https://gitee.com/theoneee/the-base-mvvm/blob/master/core/src/main/java/com/theone/mvvm/core/fragment/BasePullRefreshRcPagerFragment.kt)、[Tab](https://gitee.com/theoneee/the-base-mvvm/blob/master/core/src/main/java/com/theone/mvvm/core/fragment/BaseTabFragment.kt)类型Fragment进行多级封装。
@@ -18,12 +18,12 @@
 
 4.[BaseRequestViewModel](https://gitee.com/theoneee/the-base-mvvm/blob/master/core/src/main/java/com/theone/mvvm/core/viewmodel/BaseRequestViewModel.kt)和[BaseListViewModel](https://gitee.com/theoneee/the-base-mvvm/blob/master/core/src/main/java/com/theone/mvvm/core/viewmodel/BaseListViewModel.kt)可以更方便的进行网络请求的处理。
 
-#### common
+### common
 
-一些公用的工具和Widge.
+##### 一些公用的工具和Widge.
 
 
-#### app 
+### app 
 
 以[core]()为基础，创建的一个 [玩Android](http://wanandroid.com/) App。
 
