@@ -33,9 +33,9 @@ import com.theone.mvvm.core.widge.TheSpaceItemDecoration
 /**
  * @author The one
  * @date 2021/2/23 0023
- * @describe RecyclerView分页显示基类
+ * @describe 给定了默认的Adapter初始化和RecyclerView初始化, 需要自定义下拉刷新控件继承此类
  * @email 625805189@qq.com
- * @remark 给定了默认的Adapter初始化和RecyclerView初始化, 需要自定义下拉刷新控件继承此类
+ * @remark
  */
 abstract class BaseAdapterRcPagerFragment
 <T, VM : BaseViewModel, DB : ViewDataBinding>
