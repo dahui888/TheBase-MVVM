@@ -2,7 +2,7 @@
 
 #### base
 
-以[QMUI](https://github.com/Tencent/QMUI_Android)+Jetpack封装的一个MVVM基础框架。
+以[QMUI](https://github.com/Tencent/QMUI_Android)+Jetpack组件封装的一个MVVM基础框架。
 
 主要提供了[BaseQMUIFragment](https://gitee.com/theoneee/the-base-mvvm/blob/master/base/src/main/java/com/theone/mvvm/base/fragment/BaseQMUIFragment.kt)、[BaseVmFragment](https://gitee.com/theoneee/the-base-mvvm/blob/master/base/src/main/java/com/theone/mvvm/base/fragment/BaseVmFragment.kt)和[BaseVmDbFragment](https://gitee.com/theoneee/the-base-mvvm/blob/master/base/src/main/java/com/theone/mvvm/base/fragment/BaseVmDbFragment.kt)三个基类和QMUI一些组件的扩展封装。
 
