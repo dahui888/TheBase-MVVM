@@ -1,5 +1,7 @@
 # TheBase-MVVM
 
+### 别问，问就是抄我鸡哥的代码 - [JetpackMvvm](https://gitee.com/hegaojian/JetpackMvvm)
+
 ### base
 
 以[QMUI](https://github.com/Tencent/QMUI_Android)+Jetpack组件封装的一个MVVM基础框架。
