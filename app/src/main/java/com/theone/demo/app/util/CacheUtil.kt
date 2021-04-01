@@ -34,6 +34,7 @@ object CacheUtil {
 
     private const val HISTORY: String = "search_history"
     private const val ANIMATION: String = "animation_type"
+    private const val LAUNCHER: String = "launcher_mode"
 
     /**
      * 获取搜索历史缓存数据
@@ -66,6 +67,19 @@ object CacheUtil {
      */
     fun setAnimationType(type:Int){
         MMKVUtil.putInt(ANIMATION, type)
+    }
+
+    /**
+     * 是否开启启动页文字
+     */
+    fun isOpenLauncherText():Boolean =  MMKVUtil.getBoolean(LAUNCHER, true)
+
+    /**
+     * 设置启动页文字开关
+     * @param open Boolean
+     */
+    fun setLauncherText(open:Boolean){
+        MMKVUtil.putBoolean(LAUNCHER, open)
     }
 
 }

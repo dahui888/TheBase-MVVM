@@ -6,6 +6,7 @@ import android.view.View
 import com.qmuiteam.qmui.arch.QMUIActivity
 import com.qmuiteam.qmui.arch.QMUILatestVisit
 import com.theone.demo.R
+import com.theone.demo.app.util.CacheUtil
 import com.theone.demo.app.widge.TypeTextView
 import com.theone.demo.databinding.ActivityLauncherBinding
 import com.theone.mvvm.base.activity.BaseQMUIActivity
@@ -33,9 +34,15 @@ class LauncherActivity : BaseVmDbActivity<BaseViewModel, ActivityLauncherBinding
     override fun getLayoutId(): Int = R.layout.activity_launcher
 
     override fun initView(root: View) {
+        val tips = mTypes[(mTypes.indices).random()]
         mBinding.tvType.run {
-            setOnTypeViewListener(this@LauncherActivity)
-            start(mTypes[(mTypes.indices).random()],220)
+            if (CacheUtil.isOpenLauncherText()) {
+                setOnTypeViewListener(this@LauncherActivity)
+                start(tips, 220)
+            } else {
+                text = tips
+                startToMain(3000)
+            }
         }
     }
 
@@ -51,6 +58,10 @@ class LauncherActivity : BaseVmDbActivity<BaseViewModel, ActivityLauncherBinding
     }
 
     override fun onTypeOver() {
+        startToMain(800)
+    }
+
+    private fun startToMain(delay: Long) {
         getContentView().postDelayed({
             var intent = QMUILatestVisit.intentOfLatestVisit(this)
             if (intent == null) {
@@ -58,7 +69,7 @@ class LauncherActivity : BaseVmDbActivity<BaseViewModel, ActivityLauncherBinding
             }
             startActivity(intent)
             finish()
-        }, 500)
+        }, delay)
     }
 
 }

@@ -2,6 +2,7 @@ package com.theone.demo.ui.fragment
 
 import android.content.DialogInterface
 import android.view.View
+import android.widget.CompoundButton
 import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.util.QMUIPackageHelper
 import com.qmuiteam.qmui.widget.dialog.QMUIDialog
@@ -36,6 +37,7 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
     private lateinit var mTheme: QMUICommonListItemView
     private lateinit var mAuthor: QMUICommonListItemView
     private lateinit var mTheBase: QMUICommonListItemView
+    private lateinit var mLauncherTips: QMUICommonListItemView
 
 
     private val mAnimationTypes: Array<String> by lazy {
@@ -52,6 +54,13 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
                 R.drawable.svg_setting_animation
             )
             mTheme = createItem("主题颜色",drawable =  R.drawable.svg_setting_theme)
+
+            mLauncherTips = createSwitchItem("启动页文字效果",null,R.drawable.svg_setting_launcher_text,CacheUtil.isOpenLauncherText(),
+                CompoundButton.OnCheckedChangeListener {
+                        buttonView, isChecked ->
+                            CacheUtil.setLauncherText(isChecked)
+                })
+
             mVersion = createItem(
                 "当前版本",
                 "Ver " + QMUIPackageHelper.getAppVersion(mActivity),
@@ -65,7 +74,7 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
 
             mTheBase = createItem("项目地址", "TheBase-MVVM", R.drawable.svg_setting_project)
 
-            addToGroup(mAnimation, mTheme,title = "个性化",listener =  this@SettingFragment)
+            addToGroup(mAnimation, mTheme,mLauncherTips,title = "个性化",listener =  this@SettingFragment)
             addToGroup(mVersion, mAuthor,mTheBase,title ="关于",listener =  this@SettingFragment)
 
             mLoginOut = createItem("退出账号", drawable = R.drawable.svg_setting_login_out)

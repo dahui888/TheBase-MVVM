@@ -7,6 +7,7 @@ import com.tencent.mmkv.MMKV
 import com.theone.common.ext.LogInit
 import com.theone.demo.BuildConfig
 import com.theone.demo.app.util.RxHttpManager
+import com.theone.demo.ui.activity.ErrorActivity
 import com.theone.demo.ui.activity.LauncherActivity
 import com.theone.mvvm.core.CoreApplication
 import rxhttp.wrapper.param.RxHttp
@@ -40,7 +41,15 @@ class App : CoreApplication() {
 
     override fun onCreate() {
         super.onCreate()
+        initCrashConfig()
+        LogInit(BuildConfig.DEBUG)
+        MMKV.initialize(this.filesDir.absolutePath + "/mmkv")
+        RxHttp.init(
+            RxHttpManager.getHttpClient(
+                RxHttpManager.HttpBuilder().setNeedCookie(true)),BuildConfig.DEBUG)
+    }
 
+    private fun initCrashConfig(){
         //防止项目崩溃，崩溃后打开错误界面
         CaocConfig.Builder.create()
             .backgroundMode(CaocConfig.BACKGROUND_MODE_SILENT) //default: CaocConfig.BACKGROUND_MODE_SHOW_CUSTOM
@@ -51,13 +60,8 @@ class App : CoreApplication() {
             .trackActivities(true) //是否必须跟踪用户访问的活动及其生命周期调用 default: false
             .minTimeBetweenCrashesMs(2000) //应用程序崩溃之间必须经过的时间 default: 3000
             .restartActivity(LauncherActivity::class.java) // 重启的activity
+            .errorActivity(ErrorActivity::class.java)
             .apply()
-
-        LogInit(BuildConfig.DEBUG)
-        MMKV.initialize(this.filesDir.absolutePath + "/mmkv")
-        RxHttp.init(
-            RxHttpManager.getHttpClient(
-                RxHttpManager.HttpBuilder().setNeedCookie(true)),BuildConfig.DEBUG)
     }
 
 }

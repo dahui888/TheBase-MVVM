@@ -27,6 +27,8 @@
         4. 目前处于测试阶段，如果你发现500等错误，可以向我提交日志，让我们一起使网站变得更好。\n
         5. 由于本站只有我一个人开发与维护，会尽力保证24小时内审核，当然有可能哪天太累，会延期，请保持佛系...\n
     </string>
-    <string name="you_are">you are</string>
-    <string name="the_one">the one</string>
+
+
+    <string name="crash_title">很抱歉，程序崩溃了</string>
+    <string name="show_error_msg">查看错误信息</string>
 </resources>

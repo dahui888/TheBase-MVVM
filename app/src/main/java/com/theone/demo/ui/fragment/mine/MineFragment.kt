@@ -181,12 +181,14 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
                 )
             )
             mJoinUs -> {
-                joinQQGroup("26hK_GKmpQJbBHpfPIMlJztVmzTRyzZp")
+                context?.joinQQGroup("26hK_GKmpQJbBHpfPIMlJztVmzTRyzZp")
             }
             mSetting -> {
                 startFragment(SettingFragment())
             }
-            mSample -> startFragment(SampleFragment())
+            mSample -> {
+                startFragment(SampleFragment())
+            }
         }
     }
 

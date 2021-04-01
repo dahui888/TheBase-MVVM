@@ -44,14 +44,18 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
     lateinit var mRecyclerPager: QMUICommonListItemView
     lateinit var mGroupListView: QMUICommonListItemView
     lateinit var mTest: QMUICommonListItemView
+    lateinit var mCrash: QMUICommonListItemView
 
     override fun initView(rootView: View) {
-        getTopBar()?.setTitleWithBackBtn("示例",this)
+        getTopBar()?.setTitleWithBackBtn("示例", this)
         mBinding.groupListView.run {
             mRecyclerPager = createItem("BaseRecyclerPagerFragment")
             mGroupListView = createItem("QMUIGroupListView")
-            mTest =  createItem("Test")
-            addToGroup( mRecyclerPager, mGroupListView,mTest,title = "ui", listener = this@SampleFragment)
+            mTest = createItem("Test")
+            mCrash = createItem("崩溃测试")
+            addToGroup(mRecyclerPager, mGroupListView, title = "ui", listener = this@SampleFragment)
+            addToGroup(mCrash, title = "工具", listener = this@SampleFragment)
+            addToGroup(mTest, title = "其他")
         }
     }
 
@@ -60,6 +64,10 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
     }
 
     override fun onClick(v: View?) {
+        if(v == mCrash){
+             arrayListOf<String>()[1]
+            return
+        }
         startFragment(
             when (v) {
                 mRecyclerPager -> HomeFragment()
