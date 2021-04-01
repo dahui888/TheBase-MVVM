@@ -7,7 +7,7 @@ import com.theone.demo.databinding.FragmentSampleBinding
 import com.theone.demo.ui.fragment.home.HomeFragment
 import com.theone.mvvm.ext.qmui.addToGroup
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.createItem
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 

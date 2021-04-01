@@ -1,4 +1,4 @@
-package com.theone.mvvm.core.fragment
+package com.theone.mvvm.core.base.fragment
 
 import android.view.View
 import androidx.databinding.ViewDataBinding
@@ -31,15 +31,27 @@ import com.theone.mvvm.core.widge.loadsir.callback.ErrorCallback
  * @date 2021-03-25 10:08
  * @describe RecyclerView基类
  * @email 625805189@qq.com
- * @remark 自行处理Adapter+RecyclerView的请继承此类
+ * @remark 自行处理Adapter+下拉刷新的请继承此类
  */
-abstract class BaseRecyclerViewFragment<VM : BaseViewModel, DB : ViewDataBinding> :
+abstract class BasePagerRecyclerViewFragment<VM : BaseViewModel, DB : ViewDataBinding> :
     BaseCoreFragment<VM, DB>(), IRecyclerPager {
 
-    abstract fun getRecyclerView(): RecyclerView
-
+    /**
+     * 获取 RecyclerView.LayoutManager 类型
+     * @return LayoutManagerType
+     */
     override fun getLayoutManagerType(): LayoutManagerType = LayoutManagerType.LIST
-    override fun getSpanCount(): Int = 1
+
+    /**
+     * 网格中的列数
+     * @return Int
+     */
+    override fun getSpanCount(): Int = 2
+
+    /**
+     * 间距
+     * @return Int
+     */
     override fun getItemSpace(): Int = 0
 
     override fun initView(rootView: View) {
@@ -48,10 +60,19 @@ abstract class BaseRecyclerViewFragment<VM : BaseViewModel, DB : ViewDataBinding
         initPullRefreshView()
     }
 
+    /**
+     * 对RRecyclerView进行默认初始化
+     * 如需自定义，重写
+     */
     override fun initRecyclerView() {
         getRecyclerView().init(getLayoutManager())
     }
 
+    /**
+     * 这里默认根据[getLayoutManagerType]提供常见的三种
+     * 如有需要，重写此方法返回
+     * @return RecyclerView.LayoutManager
+     */
     override  fun getLayoutManager(): RecyclerView.LayoutManager{
         return mActivity.createLayoutManager(getLayoutManagerType(),getSpanCount())
     }
@@ -70,6 +91,9 @@ abstract class BaseRecyclerViewFragment<VM : BaseViewModel, DB : ViewDataBinding
         }
     }
 
+    /**
+     * 懒加载 - 开始第一次请求数据
+     */
     override fun onLazyInit() {
         onFirstLoading()
     }
@@ -77,7 +101,7 @@ abstract class BaseRecyclerViewFragment<VM : BaseViewModel, DB : ViewDataBinding
     /**
      * 错误、空界面点击事件
      */
-    override fun onErrorPageClick() {
+    override fun onPageReLoad() {
         onFirstLoading()
     }
 

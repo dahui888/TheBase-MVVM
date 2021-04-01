@@ -13,8 +13,8 @@ import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.data.model.bean.UserInfo
 import com.theone.demo.databinding.FragmentMineBinding
 import com.theone.demo.ui.fragment.sample.SampleFragment
-import com.theone.demo.ui.fragment.SettingFragment
-import com.theone.demo.ui.fragment.WebExplorerFragment
+import com.theone.demo.ui.fragment.setting.SettingFragment
+import com.theone.demo.ui.fragment.web.WebExplorerFragment
 import com.theone.demo.ui.fragment.collection.CollectionFragment
 import com.theone.demo.ui.fragment.integral.IntegralHistoryFragment
 import com.theone.demo.ui.fragment.integral.IntegralRankFragment
@@ -23,7 +23,7 @@ import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.MineViewModel
 import com.theone.mvvm.ext.getAppViewModel
-import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.*
 import kotlinx.android.synthetic.main.fragment_mine.*
 

@@ -11,16 +11,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.qmuiteam.qmui.arch.QMUIFragment
-import com.qmuiteam.qmui.kotlin.matchParent
-import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIKeyboardHelper
-import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
-import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
-import com.theone.mvvm.R
 import com.theone.mvvm.base.IQMUIBase
-import com.theone.mvvm.base.createTopBar
-import com.theone.mvvm.base.createView
+import com.theone.mvvm.ext.createTopBar
+import com.theone.mvvm.ext.createView
 import com.theone.mvvm.ext.qmui.updateStatusBarMode
 
 

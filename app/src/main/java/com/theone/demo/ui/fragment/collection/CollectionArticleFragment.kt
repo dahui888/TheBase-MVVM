@@ -1,6 +1,6 @@
 package com.theone.demo.ui.fragment.collection
 
-import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.ui.fragment.BaseArticleFragment
 import com.theone.demo.viewmodel.CollectionArticleViewModel
 
 
@@ -29,7 +29,7 @@ import com.theone.demo.viewmodel.CollectionArticleViewModel
  * @remark
  */
 class CollectionArticleFragment:
-    ArticleFragment<CollectionArticleViewModel>() {
+    BaseArticleFragment<CollectionArticleViewModel>() {
 
 
 }

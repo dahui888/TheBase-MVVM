@@ -23,10 +23,9 @@ import com.theone.common.ext.goneViews
 import com.theone.common.ext.showViews
 import com.theone.common.ext.textStringTrim
 import com.theone.common.widge.TheSearchView
-import com.theone.mvvm.core.fragment.BasePullRefreshRcPagerFragment
+import com.theone.mvvm.core.base.fragment.BasePagerPullRefreshFragment
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
 import com.theone.mvvm.core.ext.showContentPage
-import com.theone.mvvm.core.viewmodel.BaseListViewModel
 import com.theone.mvvm.ext.qmui.showMsgDialog
 
 
@@ -55,7 +54,7 @@ import com.theone.mvvm.ext.qmui.showMsgDialog
  * @remark
  */
 class SearchFragment :
-    BasePullRefreshRcPagerFragment<String, SearchViewModel, BaseRecyclerPagerFragmentBinding>(),
+    BasePagerPullRefreshFragment<String, SearchViewModel, BaseRecyclerPagerFragmentBinding>(),
     View.OnClickListener,
     TheSearchView.OnTextChangedListener, QMUIDialogAction.ActionListener, OnItemChildClickListener {
 
@@ -194,10 +193,6 @@ class SearchFragment :
         else
             showViews(mHistory)
         CacheUtil.setSearchHistoryData(data.toJson())
-    }
-
-    override fun getRequestViewModel(): BaseListViewModel<String> {
-       return mViewModel
     }
 
     override fun onSearchViewTextChanged(content: String, empty: Boolean) {

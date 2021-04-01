@@ -39,15 +39,18 @@ import rxhttp.wrapper.param.RxHttp
  */
 class App : CoreApplication() {
 
+    override fun isDebug(): Boolean = BuildConfig.DEBUG
+
     override fun onCreate() {
         super.onCreate()
         initCrashConfig()
-        LogInit(BuildConfig.DEBUG)
         MMKV.initialize(this.filesDir.absolutePath + "/mmkv")
         RxHttp.init(
             RxHttpManager.getHttpClient(
-                RxHttpManager.HttpBuilder().setNeedCookie(true)),BuildConfig.DEBUG)
+                RxHttpManager.HttpBuilder().setNeedCookie(true)),DEBUG)
     }
+
+
 
     private fun initCrashConfig(){
         //防止项目崩溃，崩溃后打开错误界面

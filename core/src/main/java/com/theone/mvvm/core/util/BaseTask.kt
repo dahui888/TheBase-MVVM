@@ -1,10 +1,8 @@
-package com.theone.demo.viewmodel
+package com.theone.mvvm.core.util
 
-import com.theone.demo.app.net.PagerResponse
-import com.theone.demo.app.util.CacheUtil
-import com.theone.mvvm.core.ext.request
-import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
-
+import com.effective.android.anchors.task.Task
+import com.theone.common.ext.logE
+import com.theone.mvvm.core.ext.mAnchors
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -25,24 +23,16 @@ import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/11 0011
+ * @date 2021-04-01 16:44
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class SearchViewModel : BaseListViewModel<String>() {
+abstract class BaseTask(isAsyncTask:Boolean): Task(javaClass.simpleName,isAsyncTask) {
 
-    override fun requestServer() {
-        request({
-            val res = CacheUtil.getSearchHistoryData()
-            onSuccess(
-                res,
-                PagerResponse<String>().apply {
-                    curPage = 1
-                    pageCount = 1
-                })
-        })
-
+    init {
+        mAnchors.add(javaClass.name)
+        mAnchors.toString().logE()
     }
 
 }

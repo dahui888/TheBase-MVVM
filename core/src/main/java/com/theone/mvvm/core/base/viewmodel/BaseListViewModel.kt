@@ -1,4 +1,4 @@
-package com.theone.mvvm.core.viewmodel
+package com.theone.mvvm.core.base.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -44,8 +44,6 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
      var startPage: Int = 1
     // 当前页面
     var page: Int = startPage
-    // 是否去掉“没有更多数据”
-    var goneLoadMoreEndView: Boolean = false
 
     // 这里返回父类，保证数据的唯一性，只能通过onSuccess方法赋值
     fun getFirstLoadSuccessLiveData():UnPeekLiveData<Boolean> = firstLoadSuccess

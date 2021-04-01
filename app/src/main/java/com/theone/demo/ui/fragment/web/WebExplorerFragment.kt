@@ -1,4 +1,4 @@
-package com.theone.demo.ui.fragment
+package com.theone.demo.ui.fragment.web
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -33,7 +33,7 @@ import com.theone.common.ext.showViews
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.common.constant.BundleConstant
 import com.theone.common.ext.getValueNonNull
-import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import java.lang.reflect.Field
 
 

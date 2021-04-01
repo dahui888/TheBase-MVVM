@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.demo.data.model.bean.ClassifyResponse
-import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.ui.fragment.BaseArticleFragment
 import com.theone.demo.viewmodel.SystemArticleViewModel
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
@@ -34,7 +34,7 @@ import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
  * @remark
  */
 class SystemArticleFragment :
-    ArticleFragment<SystemArticleViewModel>() {
+    BaseArticleFragment<SystemArticleViewModel>() {
 
     companion object {
         fun newInstance(data: ClassifyResponse): SystemArticleFragment {

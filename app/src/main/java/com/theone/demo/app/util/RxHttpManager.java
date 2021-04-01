@@ -23,7 +23,6 @@ import com.franmontiel.persistentcookiejar.PersistentCookieJar;
 import com.franmontiel.persistentcookiejar.cache.SetCookieCache;
 import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor;
 import com.theone.mvvm.base.BaseApplication;
-import com.theone.mvvm.base.Ktx;
 import com.zhy.http.okhttp.OkHttpUtils;
 
 import java.io.File;
@@ -47,7 +46,7 @@ public class RxHttpManager {
 
     public static PersistentCookieJar getCookieJar(){
         if(null == cookieJar){
-            cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(Ktx.app));
+            cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(BaseApplication.app));
         }
         return cookieJar;
     }

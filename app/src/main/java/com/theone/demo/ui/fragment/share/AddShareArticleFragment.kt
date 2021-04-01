@@ -17,8 +17,7 @@ import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.ext.getAppViewModel
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.ext.qmui.showFailTipsDialog
-import com.theone.mvvm.core.fragment.BaseCoreFragment
-import com.theone.mvvm.ext.qmui.showMsgDialog
+import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.showSuccessTipsExitDialog
 
 

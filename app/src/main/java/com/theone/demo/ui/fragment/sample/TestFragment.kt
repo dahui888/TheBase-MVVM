@@ -4,15 +4,12 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import com.bumptech.glide.Glide
 import com.theone.demo.R
 import com.theone.demo.databinding.FragmentTestBinding
 import com.theone.demo.ui.fragment.category.NavFragment
 import com.theone.demo.ui.fragment.category.SystemFragment
 import com.theone.demo.viewmodel.TestViewModel
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
-import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.core.fragment.BaseCoreFragment
 import java.util.ArrayList
 
 

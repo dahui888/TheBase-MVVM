@@ -6,8 +6,8 @@ import com.qmuiteam.qmui.arch.QMUIActivity
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.theone.mvvm.R
 import com.theone.mvvm.base.IQMUIBase
-import com.theone.mvvm.base.createTopBar
-import com.theone.mvvm.base.createView
+import com.theone.mvvm.ext.createTopBar
+import com.theone.mvvm.ext.createView
 import com.theone.mvvm.ext.qmui.updateStatusBarMode
 
 //  ┏┓　　　┏┓
@@ -30,7 +30,7 @@ import com.theone.mvvm.ext.qmui.updateStatusBarMode
 /**
  * @author The one
  * @date 2021-03-31 14:26
- * @describe TODO
+ * @describe 对 QMUIActivity
  * @email 625805189@qq.com
  * @remark
  */
@@ -57,7 +57,7 @@ abstract class BaseQMUIActivity : QMUIActivity(), IQMUIBase {
     override fun showTopBar(): Boolean = true
 
     /**
-     * 这个方法是为了给BaseVmDbFragment重写绑定视图的
+     * 这个方法是为了给BaseVmDbActivity重写绑定视图的
      * 所以仅供此包类使用
      */
     internal open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)

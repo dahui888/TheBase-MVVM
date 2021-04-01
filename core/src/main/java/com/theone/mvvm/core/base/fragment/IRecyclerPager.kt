@@ -1,8 +1,7 @@
-package com.theone.mvvm.core.fragment
+package com.theone.mvvm.core.base.fragment
 
 import androidx.recyclerview.widget.RecyclerView
 import com.theone.mvvm.core.data.enum.LayoutManagerType
-import com.theone.mvvm.core.viewmodel.BaseListViewModel
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -29,6 +28,8 @@ import com.theone.mvvm.core.viewmodel.BaseListViewModel
  * @remark
  */
 interface IRecyclerPager {
+
+    fun getRecyclerView(): RecyclerView
 
     /**
      * 初始化适配器
@@ -83,16 +84,16 @@ interface IRecyclerPager {
     /**
      * 分割线
      */
-    fun getItemDecoration():RecyclerView.ItemDecoration
+    fun getItemDecoration(): RecyclerView.ItemDecoration
 
     /**
      * 获取列数
      */
-    fun getSpanCount():Int
+    fun getSpanCount(): Int
 
     /**
      * 获取间距大小
      */
-    fun getItemSpace():Int
+    fun getItemSpace(): Int
 
 }

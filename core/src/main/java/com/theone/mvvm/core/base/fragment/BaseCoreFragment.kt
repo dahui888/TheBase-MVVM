@@ -1,4 +1,4 @@
-package com.theone.mvvm.core.fragment
+package com.theone.mvvm.core.base.fragment
 
 import android.view.View
 import androidx.databinding.ViewDataBinding
@@ -19,13 +19,21 @@ abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVm
     //界面状态管理者
     var mLoadSir: LoadService<Any>?=null
 
+    /**
+     *  这里拿[getContentView]进行注册
+     *  无论子类需不需要TopBar,都拿content层去注册
+     * @param rootView View
+     */
     override fun onViewCreated(rootView: View) {
         mLoadSir = loadSirInit(getContentView()) {
-            onErrorPageClick()
+            onPageReLoad()
         }
         super.onViewCreated(rootView)
     }
 
-    protected open fun onErrorPageClick() {}
+    /**
+     * 错误、空界面重新
+     */
+    protected open fun onPageReLoad() {}
 
 }

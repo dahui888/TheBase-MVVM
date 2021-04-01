@@ -51,10 +51,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/show_error_msg"
+            android:layout_marginBottom="20dp"
             android:background="?attr/selectableItemBackgroundBorderless"
             android:textSize="14sp"
             android:onClick="@{()->click.showErrorMsgDialog()}"
-            android:layout_marginBottom="20dp"
             android:textColor="@color/qmui_config_color_gray_3"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"/>

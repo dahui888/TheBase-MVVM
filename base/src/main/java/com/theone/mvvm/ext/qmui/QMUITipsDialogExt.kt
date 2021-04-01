@@ -2,8 +2,6 @@ package com.theone.mvvm.ext.qmui
 
 import android.content.Context
 import com.qmuiteam.qmui.widget.dialog.QMUITipDialog
-import com.theone.mvvm.base.appContext
-import com.theone.mvvm.base.fragment.BaseQMUIFragment
 
 
 //  ┏┓　　　┏┓

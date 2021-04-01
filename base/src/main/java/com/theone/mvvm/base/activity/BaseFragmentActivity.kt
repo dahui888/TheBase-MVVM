@@ -29,6 +29,4 @@ import com.qmuiteam.qmui.arch.QMUIFragmentActivity
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseFragmentActivity : QMUIFragmentActivity() {
-
-}
+abstract class BaseFragmentActivity : QMUIFragmentActivity()

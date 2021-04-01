@@ -1,10 +1,10 @@
-package com.theone.mvvm.core.fragment
+package com.theone.mvvm.core.base.fragment
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.R
+import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 import kotlinx.android.synthetic.main.base_recycler_pager_fragment.*
 
 
@@ -32,9 +32,9 @@ import kotlinx.android.synthetic.main.base_recycler_pager_fragment.*
  * @email 625805189@qq.com
  * @remark 给定了默认的下拉刷新控件 SwipeRefreshLayout
  */
-abstract class BasePullRefreshRcPagerFragment
-<T, VM : BaseViewModel, DB : ViewDataBinding>
-    : BaseAdapterRcPagerFragment<T, VM, DB>(),
+abstract class BasePagerPullRefreshFragment
+<T, VM : BaseListViewModel<T>, DB : ViewDataBinding>
+    : BasePagerAdapterFragment<T, VM, DB>(),
     SwipeRefreshLayout.OnRefreshListener {
 
     override fun getLayoutId(): Int = R.layout.base_recycler_pager_fragment
@@ -47,7 +47,7 @@ abstract class BasePullRefreshRcPagerFragment
     override fun initPullRefreshView() {
         getRefreshLayout().run {
             isEnabled = false
-            setOnRefreshListener(this@BasePullRefreshRcPagerFragment)
+            setOnRefreshListener(this@BasePagerPullRefreshFragment)
         }
     }
 

@@ -9,7 +9,7 @@ import com.theone.common.ext.dp2px
 import com.theone.demo.R
 import com.theone.demo.databinding.FragmentSampleGroupListViewBinding
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.*
 
 

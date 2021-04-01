@@ -1,4 +1,4 @@
-package com.theone.mvvm.core.fragment
+package com.theone.mvvm.core.base.fragment
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
@@ -7,9 +7,8 @@ import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.theone.common.ext.dp2px
-import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.ext.*
-import com.theone.mvvm.core.viewmodel.BaseListViewModel
+import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.core.widge.TheSpaceItemDecoration
 
 
@@ -37,38 +36,59 @@ import com.theone.mvvm.core.widge.TheSpaceItemDecoration
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseAdapterRcPagerFragment
-<T, VM : BaseViewModel, DB : ViewDataBinding>
-    : BaseRecyclerViewFragment<VM, DB>()
-   , OnLoadMoreListener, OnItemClickListener {
+abstract class BasePagerAdapterFragment
+<T, VM : BaseListViewModel<T>, DB : ViewDataBinding>
+    : BasePagerRecyclerViewFragment<VM, DB>()
+    , OnLoadMoreListener, OnItemClickListener {
 
+    /**
+     * 由于这个界面需要添加一个泛型T,所以要改变一下ViewModel的位置
+     * @return Int
+     */
     override fun getViewModelIndex(): Int = 1
 
     val mAdapter: BaseQuickAdapter<T, *> by lazy {
-         createAdapter()
-     }
+        createAdapter()
+    }
 
     abstract fun createAdapter(): BaseQuickAdapter<T, *>
-    abstract fun getRequestViewModel(): BaseListViewModel<T>
 
+    /**
+     * 是否不显示<没有更多数据了>
+     * @return Boolean
+     */
+    fun goneLoadMoreEndView(): Boolean = false
+
+    /**
+     * 初始化默认的适配器配置
+     * 如有需要，重写此方法进行更改
+     */
     override fun initAdapter() {
         mAdapter.run {
             if (this is LoadMoreModule)
-                loadMoreModule.setOnLoadMoreListener(this@BaseAdapterRcPagerFragment)
-            setOnItemClickListener(this@BaseAdapterRcPagerFragment)
+                loadMoreModule.setOnLoadMoreListener(this@BasePagerAdapterFragment)
+            setOnItemClickListener(this@BasePagerAdapterFragment)
         }
     }
 
     override fun initRecyclerView() {
-        getRecyclerView().init(getLayoutManager(),mAdapter,getItemDecoration())
+        getRecyclerView().init(getLayoutManager(), mAdapter, getItemDecoration())
     }
 
-    override fun getItemDecoration():RecyclerView.ItemDecoration{
-        return TheSpaceItemDecoration(getSpanCount(),mAdapter.headerLayoutCount,dp2px(getItemSpace()))
+    /**
+     * 给一个默认的间距配置
+     * @return RecyclerView.ItemDecoration
+     */
+    override fun getItemDecoration(): RecyclerView.ItemDecoration {
+        return TheSpaceItemDecoration(
+            getSpanCount(),
+            dp2px(getItemSpace()),
+            mAdapter.headerLayoutCount
+        )
     }
 
     override fun createObserver() {
-        createListVmObserve(getRequestViewModel())
+        createListVmObserve()
     }
 
     /**
@@ -76,8 +96,11 @@ abstract class BaseAdapterRcPagerFragment
      */
     override fun onFirstLoading() {
         showLoadingPage()
-        getRecyclerView().scrollToPosition(0)
-        getRequestViewModel().run {
+        // 清空数据，因为这个方法可能会在有数据时再次调用
+        mAdapter.setNewInstance(null)
+        // 一开始是使用这个方法，但是觉得还是直接清空数据比较好
+        //getRecyclerView().scrollToPosition(0)
+        mViewModel.run {
             isFirst = true
             requestNewData()
         }
@@ -87,7 +110,7 @@ abstract class BaseAdapterRcPagerFragment
      * 刷新
      */
     override fun onRefresh() {
-        getRequestViewModel().run{
+        mViewModel.run {
             isFresh = true
             requestNewData()
         }
@@ -98,7 +121,7 @@ abstract class BaseAdapterRcPagerFragment
      * page的更改绝对不能放在这里处理，因为加载更多可能存在失败的情况。
      */
     override fun onLoadMore() {
-        getRequestViewModel().requestServer()
+        mViewModel.requestServer()
     }
 
 }

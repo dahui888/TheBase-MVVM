@@ -10,6 +10,7 @@ import com.theone.demo.app.util.checkLogin
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.ui.adapter.ArticleAdapter
 import com.theone.demo.ui.fragment.collection.CollectionArticleFragment
+import com.theone.demo.ui.fragment.web.WebExplorerFragment
 import com.theone.demo.viewmodel.ArticleViewModel
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
 import com.theone.mvvm.ext.qmui.showFailTipsDialog
@@ -39,7 +40,7 @@ import com.theone.mvvm.ext.qmui.showFailTipsDialog
  * @email 625805189@qq.com
  * @remark
  */
-abstract class ArticleFragment<VM : ArticleViewModel> :
+abstract class BaseArticleFragment<VM : ArticleViewModel> :
     BasePagerListFragment<ArticleResponse, VM,BaseRecyclerPagerFragmentBinding>(),
     OnItemChildClickListener {
 
@@ -62,7 +63,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
         val isCollection = this is CollectionArticleFragment
         mAppVm.run {
             // 监听用户登录、登出时，改变收藏
-            userInfo.observeInFragment(this@ArticleFragment){
+            userInfo.observeInFragment(this@BaseArticleFragment){
                 if (it != null) {
                     it.collectIds.forEach { id ->
                         // 以用户信息里的为准，请求的数据可能是缓存里的，没有更新
@@ -80,7 +81,7 @@ abstract class ArticleFragment<VM : ArticleViewModel> :
                 }
                 mAdapter.notifyDataSetChanged()
             }
-            collectEvent.observeInFragment(this@ArticleFragment){
+            collectEvent.observeInFragment(this@BaseArticleFragment){
                 for (index in mAdapter.data.indices) {
                     val articleId = mAdapter.data[index].getArticleId()
                     if (articleId == it.id) {

@@ -1,10 +1,10 @@
-package com.theone.mvvm.core.fragment
+package com.theone.mvvm.core.base.fragment
 
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import com.theone.mvvm.core.R
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.core.databinding.BaseTitleTabLayoutBinding
+import com.theone.mvvm.core.databinding.BaseFragmentIndexBinding
 import net.lucode.hackware.magicindicator.MagicIndicator
 
 
@@ -32,14 +32,21 @@ import net.lucode.hackware.magicindicator.MagicIndicator
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseTitleTabFragment<VM : BaseViewModel> : BaseTabFragment<VM, BaseTitleTabLayoutBinding>() {
+abstract class BaseTabIndexFragment<VM : BaseViewModel> : BaseTabFragment<VM, BaseFragmentIndexBinding>() {
 
-    override fun getLayoutId(): Int = R.layout.base_title_tab_layout
+    override fun showTopBar(): Boolean = false
 
-    override fun getViewPager(): QMUIViewPager = mBinding.viewPager
+    override fun getLayoutId(): Int = R.layout.base_fragment_index
 
-    override fun getTabSegment(): QMUITabSegment? = null
+    override fun getViewPager(): QMUIViewPager = mBinding.mQMUIViewPager
 
-    override fun getMagicIndicator(): MagicIndicator? = mBinding.indicator
+    override fun getTabSegment(): QMUITabSegment? = mBinding.mTabSegment
+
+    override fun getMagicIndicator(): MagicIndicator? = null
+
+    override fun initTabSegment() {
+        super.initTabSegment()
+        mBinding.mTabSegment.mode = QMUITabSegment.MODE_FIXED
+    }
 
 }

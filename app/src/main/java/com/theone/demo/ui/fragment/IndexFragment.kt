@@ -11,7 +11,7 @@ import com.theone.demo.ui.fragment.gzh.WxGzhFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
 import com.theone.mvvm.core.ext.qmui.addTab
-import com.theone.mvvm.core.fragment.BaseIndexTabFragment
+import com.theone.mvvm.core.base.fragment.BaseTabIndexFragment
 
 
 //  ┏┓　　　┏┓
@@ -38,7 +38,7 @@ import com.theone.mvvm.core.fragment.BaseIndexTabFragment
  * @email 625805189@qq.com
  * @remark
  */
-class IndexFragment : BaseIndexTabFragment<BaseViewModel>() {
+class IndexFragment : BaseTabIndexFragment<BaseViewModel>() {
 
     override fun isNeedChangeStatusBarMode(): Boolean = false
 

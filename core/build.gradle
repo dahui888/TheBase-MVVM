@@ -40,4 +40,7 @@ dependencies {
     api "com.github.hackware1993:MagicIndicator:$MagicIndicatorVersion"
     // 适配器
     api "com.github.CymChad:BaseRecyclerViewAdapterHelper:$BaseRecyclerViewAdapterHelperVersion"
+
+    //启动优化异步加载
+    api "com.effective.android:anchors:$anchorsVersion"
 }

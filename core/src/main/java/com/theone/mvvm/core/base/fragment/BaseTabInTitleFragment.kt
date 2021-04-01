@@ -1,4 +1,4 @@
-package com.theone.mvvm.core.fragment
+package com.theone.mvvm.core.base.fragment
 
 import android.view.View
 import android.widget.RelativeLayout

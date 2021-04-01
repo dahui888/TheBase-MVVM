@@ -1,7 +1,7 @@
 package com.theone.demo.ui.fragment.gzh
 
 import android.os.Bundle
-import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.ui.fragment.BaseArticleFragment
 import com.theone.demo.viewmodel.WxGzhItemViewModel
 
 
@@ -30,7 +30,7 @@ import com.theone.demo.viewmodel.WxGzhItemViewModel
  * @remark
  */
 class WxGzhItemFragment :
-    ArticleFragment<WxGzhItemViewModel>() {
+    BaseArticleFragment<WxGzhItemViewModel>() {
 
     companion object {
         fun newInstance(id: Int): WxGzhItemFragment {

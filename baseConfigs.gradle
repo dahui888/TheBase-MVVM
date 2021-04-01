@@ -33,6 +33,7 @@ ext {
     mmkvVersion = '1.1.0'
     jsoupVersion = '1.11.3'
     litePalVersion = '3.0.0'
+    anchorsVersion = '1.1.3'
 
     //ui
     qmuiVersion = '2.0.0-alpha10'

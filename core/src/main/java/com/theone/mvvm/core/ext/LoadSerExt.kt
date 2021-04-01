@@ -6,7 +6,7 @@ import android.widget.TextView
 import com.theone.mvvm.core.widge.loadsir.core.LoadService
 import com.theone.mvvm.core.widge.loadsir.core.LoadSir
 import com.theone.mvvm.core.R
-import com.theone.mvvm.core.fragment.BaseCoreFragment
+import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.core.widge.loadsir.callback.ErrorCallback
 import com.theone.mvvm.core.widge.loadsir.callback.LoadingCallback
 import com.theone.mvvm.core.widge.loadsir.callback.SuccessCallback

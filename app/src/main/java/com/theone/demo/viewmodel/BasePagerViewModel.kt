@@ -1,7 +1,7 @@
 package com.theone.demo.viewmodel
 
 import com.theone.demo.app.net.PagerResponse
-import com.theone.mvvm.core.viewmodel.BaseListViewModel
+import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 import rxhttp.wrapper.cahce.CacheMode
 
 

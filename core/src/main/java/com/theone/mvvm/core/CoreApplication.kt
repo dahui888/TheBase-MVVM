@@ -1,12 +1,11 @@
 package com.theone.mvvm.core
 
-import com.qmuiteam.qmui.util.QMUIResHelper
+import com.effective.android.anchors.AnchorsManager
+import com.theone.common.ext.LogInit
+import com.theone.common.ext.currentProcessName
 import com.theone.mvvm.base.BaseApplication
-import com.theone.mvvm.core.ext.initLoadSir
-import com.theone.mvvm.core.widge.loadsir.callback.ErrorCallback
-import com.theone.mvvm.core.widge.loadsir.callback.LoadingCallback
-import com.theone.mvvm.core.widge.loadsir.callback.SuccessCallback
-import com.theone.mvvm.core.widge.loadsir.core.LoadSir
+import com.theone.mvvm.core.ext.AnchorsInitUtil
+import com.theone.mvvm.core.ext.init
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -36,7 +35,24 @@ abstract class CoreApplication : BaseApplication() {
 
     override fun onCreate() {
         super.onCreate()
-        initLoadSir()
+        LogInit(DEBUG)
+        val processName = currentProcessName
+        if (processName == packageName) {
+            // 主进程初始化
+            onMainProcessInit()
+        } else {
+            // 其他进程初始化
+            processName?.let { onOtherProcessInit(it) }
+        }
     }
+
+    open fun onMainProcessInit() {
+        AnchorsInitUtil().init()
+    }
+
+    /**
+     * 其他进程初始化，[processName] 进程名
+     */
+    open fun onOtherProcessInit(processName: String) {}
 
 }

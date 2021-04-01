@@ -40,9 +40,7 @@ class TheSpaceItemDecoration(
 ) :
     RecyclerView.ItemDecoration() {
 
-    constructor(column: Int, space: Int) : this(column, 0, space)
-
-    constructor(column: Int, headerNum: Int, space: Int) : this(
+    constructor(column: Int, space: Int, headerNum: Int = 0) : this(
         column,
         headerNum,
         space,

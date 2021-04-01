@@ -32,6 +32,7 @@ import com.theone.mvvm.base.viewmodel.BaseViewModel
 abstract class BaseVmDbActivity<VM : BaseViewModel, DB : ViewDataBinding>:BaseVmActivity<VM>() {
 
     lateinit var mBinding: DB
+
     override fun createContentView(): View {
         mBinding = DataBindingUtil.inflate(layoutInflater,getLayoutId(),null,false)
         mBinding.lifecycleOwner = this

@@ -7,8 +7,8 @@ import com.theone.demo.viewmodel.WxGzhRequestViewModel
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
 import com.theone.mvvm.core.ext.qmui.addTab
-import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
-import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
+import com.theone.mvvm.core.base.fragment.BaseTabInTitleFragment
+import com.theone.mvvm.core.base.viewmodel.BaseRequestViewModel
 
 
 //  ┏┓　　　┏┓

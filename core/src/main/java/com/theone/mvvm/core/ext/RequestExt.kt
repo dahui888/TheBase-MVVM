@@ -3,12 +3,10 @@ package com.theone.mvvm.core.ext
 import android.content.Context
 import androidx.lifecycle.rxLifeScope
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.theone.mvvm.base.appContext
 import com.theone.mvvm.callback.livedata.StringLiveData
-import com.theone.mvvm.core.viewmodel.BaseListViewModel
-import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
+import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
+import com.theone.mvvm.core.base.viewmodel.BaseRequestViewModel
 import com.theone.mvvm.core.widge.loadsir.core.LoadService
-import com.theone.mvvm.ext.qmui.showMsgDialog
 import com.theone.mvvm.ext.qmui.showMsgTipsDialog
 import kotlinx.coroutines.CoroutineScope
 
@@ -75,7 +73,8 @@ fun <T> BaseRequestViewModel<T>.request(
 fun <T> loadListData(
     vm: BaseListViewModel<T>,
     adapter: BaseQuickAdapter<T, *>,
-    loader: LoadService<Any>?
+    loader: LoadService<Any>?,
+    goneLoadMoreEndView:Boolean
 ) {
     val list = vm.getResponseLiveData().value
     val isNewData = vm.page == vm.startPage
@@ -83,7 +82,7 @@ fun <T> loadListData(
         if (isNewData) {
             loader?.showEmpty()
         } else {
-            adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
+            adapter.loadMoreModule.loadMoreEnd(goneLoadMoreEndView)
         }
         return
     }
@@ -104,7 +103,7 @@ fun <T> loadListData(
         vm.page++
         adapter.loadMoreModule.loadMoreComplete()
     } else {
-        adapter.loadMoreModule.loadMoreEnd(vm.goneLoadMoreEndView)
+        adapter.loadMoreModule.loadMoreEnd(goneLoadMoreEndView)
     }
 }
 

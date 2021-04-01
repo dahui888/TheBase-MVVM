@@ -2,7 +2,7 @@ package com.theone.demo.viewmodel
 
 import com.theone.demo.app.net.Url
 import com.theone.mvvm.core.ext.request
-import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
+import com.theone.mvvm.core.base.viewmodel.BaseRequestViewModel
 import com.theone.mvvm.callback.databind.StringObservableField
 import rxhttp.wrapper.param.RxHttp
 import rxhttp.wrapper.param.toResponse

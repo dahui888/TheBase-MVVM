@@ -1,4 +1,4 @@
-package com.theone.mvvm.core.adapter
+package com.theone.mvvm.core.base.adapter
 
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager.widget.PagerAdapter

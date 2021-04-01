@@ -1,7 +1,7 @@
 package com.theone.demo.ui.fragment.project
 
 import android.os.Bundle
-import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.ui.fragment.BaseArticleFragment
 import com.theone.demo.viewmodel.ProjectItemViewModel
 
 
@@ -30,7 +30,7 @@ import com.theone.demo.viewmodel.ProjectItemViewModel
  * @remark
  */
 class ProjectItemFragment :
-    ArticleFragment<ProjectItemViewModel>() {
+    BaseArticleFragment<ProjectItemViewModel>() {
 
     companion object {
         fun newInstance(id: Int): ProjectItemFragment {

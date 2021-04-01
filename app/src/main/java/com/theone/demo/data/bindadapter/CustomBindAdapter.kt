@@ -26,7 +26,7 @@ import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.data.model.bean.ClassifyResponse
 import com.theone.demo.data.model.bean.SearchResponse
 import com.theone.demo.ui.fragment.category.SystemArticleFragment
-import com.theone.demo.ui.fragment.WebExplorerFragment
+import com.theone.demo.ui.fragment.web.WebExplorerFragment
 import com.theone.common.util.DateFormatUtils
 
 

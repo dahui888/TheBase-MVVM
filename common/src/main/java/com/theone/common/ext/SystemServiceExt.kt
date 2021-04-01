@@ -1,10 +1,7 @@
-package com.theone.demo.viewmodel
+package com.theone.common.ext
 
-import com.theone.demo.app.net.PagerResponse
-import com.theone.demo.app.util.CacheUtil
-import com.theone.mvvm.core.ext.request
-import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
-
+import android.app.ActivityManager
+import android.content.Context
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -25,24 +22,25 @@ import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/3/11 0011
+ * @date 2021-04-01 16:28
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class SearchViewModel : BaseListViewModel<String>() {
 
-    override fun requestServer() {
-        request({
-            val res = CacheUtil.getSearchHistoryData()
-            onSuccess(
-                res,
-                PagerResponse<String>().apply {
-                    curPage = 1
-                    pageCount = 1
-                })
-        })
-
+/**
+ * 获取当前进程的名称，默认进程名称是包名
+ */
+val Context.currentProcessName: String?
+    get() {
+        val pid = android.os.Process.myPid()
+        val mActivityManager = getSystemService(
+            Context.ACTIVITY_SERVICE
+        ) as ActivityManager
+        for (appProcess in mActivityManager.runningAppProcesses) {
+            if (appProcess.pid == pid) {
+                return appProcess.processName
+            }
+        }
+        return null
     }
-
-}

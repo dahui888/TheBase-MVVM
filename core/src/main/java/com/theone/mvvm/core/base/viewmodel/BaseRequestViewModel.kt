@@ -1,4 +1,4 @@
-package com.theone.mvvm.core.viewmodel
+package com.theone.mvvm.core.base.viewmodel
 
 import androidx.lifecycle.LiveData
 import com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData

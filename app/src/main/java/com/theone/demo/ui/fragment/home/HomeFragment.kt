@@ -19,9 +19,9 @@ import com.theone.demo.viewmodel.HomeViewModel
 import com.theone.demo.app.widge.OffsetLinearLayoutManager
 import com.theone.demo.app.widge.banner.HomeBannerAdapter
 import com.theone.demo.app.widge.banner.HomeBannerViewHolder
-import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.ui.fragment.BaseArticleFragment
 import com.theone.demo.ui.fragment.search.SearchFragment
-import com.theone.demo.ui.fragment.WebExplorerFragment
+import com.theone.demo.ui.fragment.web.WebExplorerFragment
 import com.theone.common.ext.goneViews
 import com.theone.common.ext.showViews
 import com.theone.mvvm.ext.qmui.updateStatusBarMode
@@ -53,7 +53,7 @@ import com.zhpan.bannerview.constants.IndicatorGravity
  * @email 625805189@qq.com
  * @remark
  */
-class HomeFragment : ArticleFragment<HomeViewModel>(), View.OnClickListener {
+class HomeFragment : BaseArticleFragment<HomeViewModel>(), View.OnClickListener {
 
     private fun showBanner(): Boolean = true
 

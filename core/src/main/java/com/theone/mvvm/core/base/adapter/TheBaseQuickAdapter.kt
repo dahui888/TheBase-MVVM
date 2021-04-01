@@ -1,4 +1,4 @@
-package com.theone.mvvm.core.adapter
+package com.theone.mvvm.core.base.adapter
 
 import androidx.databinding.ViewDataBinding
 import com.chad.library.adapter.base.BaseQuickAdapter

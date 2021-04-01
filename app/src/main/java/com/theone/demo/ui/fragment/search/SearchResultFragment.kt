@@ -2,7 +2,7 @@ package com.theone.demo.ui.fragment.search
 
 import android.os.Bundle
 import android.view.View
-import com.theone.demo.ui.fragment.ArticleFragment
+import com.theone.demo.ui.fragment.BaseArticleFragment
 import com.theone.demo.viewmodel.SearchResultModel
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 import com.theone.common.constant.BundleConstant
@@ -33,7 +33,7 @@ import com.theone.common.constant.BundleConstant
  * @remark
  */
 class SearchResultFragment :
-    ArticleFragment<SearchResultModel>() {
+    BaseArticleFragment<SearchResultModel>() {
 
     companion object {
         fun newInstance(key: String): SearchResultFragment {

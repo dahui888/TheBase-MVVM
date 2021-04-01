@@ -1,11 +1,6 @@
 package com.theone.demo.app.util;
 
 import android.os.Environment;
-
-import com.theone.mvvm.R;
-import com.theone.mvvm.base.BaseApplication;
-import com.theone.mvvm.base.Ktx;
-
 import java.io.File;
 
 /**

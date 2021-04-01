@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.mvvm.core.data.enum.LayoutManagerType
-import com.theone.mvvm.core.fragment.BaseAdapterRcPagerFragment
-import com.theone.mvvm.core.viewmodel.BaseListViewModel
+import com.theone.mvvm.core.base.fragment.BasePagerAdapterFragment
+import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -70,19 +70,20 @@ fun Context.createLayoutManager(
     return layoutManager
 }
 
-fun <T> BaseAdapterRcPagerFragment<T, *, *>.createListVmObserve(vm: BaseListViewModel<T>) {
-    vm.run {
-        getResponseLiveData().observeInFragment(this@createListVmObserve, Observer {
+fun <T,VM:BaseListViewModel<T>> BasePagerAdapterFragment<T,VM, *>.createListVmObserve() {
+    mViewModel.run {
+        getResponseLiveData().observeInFragment(this@createListVmObserve) {
             loadListData(
-                vm,
+                this,
                 mAdapter,
-                mLoadSir
+                mLoadSir,
+                goneLoadMoreEndView()
             )
-        })
+        }
         getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
             loadListError(
                 mActivity,
-                vm,
+                this,
                 mAdapter,
                 mLoadSir
             )
@@ -92,3 +93,5 @@ fun <T> BaseAdapterRcPagerFragment<T, *, *>.createListVmObserve(vm: BaseListView
         })
     }
 }
+
+

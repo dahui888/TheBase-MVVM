@@ -1,15 +1,9 @@
 package com.theone.demo.ui.adapter
 
-import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.theone.demo.R
-import com.theone.demo.data.model.bean.ArticleResponse
-import com.theone.demo.databinding.ItemArticleBinding
 import com.theone.demo.databinding.ItemSearchBinding
-import com.theone.demo.ui.fragment.ArticleFragment
-import com.theone.demo.viewmodel.ArticleViewModel
-import com.theone.mvvm.core.adapter.TheBaseQuickAdapter
+import com.theone.mvvm.core.base.adapter.TheBaseQuickAdapter
 
 
 //  ┏┓　　　┏┓

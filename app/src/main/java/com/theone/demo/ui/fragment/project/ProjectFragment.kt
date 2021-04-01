@@ -1,18 +1,14 @@
 package com.theone.demo.ui.fragment.project
 
-import android.view.View
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.theone.demo.data.model.bean.ClassifyResponse
-import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.ProjectViewModel
 import com.theone.mvvm.base.viewmodel.BaseViewModel
-import com.theone.mvvm.core.fragment.BaseTabInTitleFragment
+import com.theone.mvvm.core.base.fragment.BaseTabInTitleFragment
 import com.theone.mvvm.core.data.entity.QMUITabBean
-import com.theone.mvvm.core.ext.*
 import com.theone.mvvm.core.ext.qmui.addTab
-import com.theone.mvvm.core.viewmodel.BaseRequestViewModel
+import com.theone.mvvm.core.base.viewmodel.BaseRequestViewModel
 
 
 //  ┏┓　　　┏┓
