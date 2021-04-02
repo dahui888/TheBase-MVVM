@@ -18,7 +18,7 @@
 
 3.引入[RxHttp](https://github.com/liujingxing/okhttp-RxHttp)网络请求框架,对网络请求进行一些默认封装。
 
-4.[BaseRequestViewModel](https://gitee.com/theoneee/the-base-mvvm/blob/master/core/src/main/java/com/theone/mvvm/core/base/viewmodel/BaseRequestViewModel.kt)和[BaseListViewModel](https://gitee.com/theoneee/the-base-mvvm/blob/master/core/src/main/java/com/theone/mvvm/core/base/fragment/BaseTabFragment.kt)可以更方便的进行网络请求的处理。
+4.[BaseRequestViewModel](https://gitee.com/theoneee/the-base-mvvm/blob/master/core/src/main/java/com/theone/mvvm/core/base/viewmodel/BaseRequestViewModel.kt)和[BaseListViewModel](https://gitee.com/theoneee/the-base-mvvm/blob/master/core/src/main/java/com/theone/mvvm/core/base/viewmodel/BaseListViewModel.kt)可以更方便的进行网络请求的处理。
 
 ### common
 
