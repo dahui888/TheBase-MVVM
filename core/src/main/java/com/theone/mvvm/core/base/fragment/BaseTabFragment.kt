@@ -92,7 +92,7 @@ abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> :
             getResponseLiveData().observeInFragment(this@BaseTabFragment, Observer {
                 startInit()
             })
-            getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+            getErrorMsgLiveData().observeInFragment(this@BaseTabFragment, Observer {
                 showErrorPage(it)
             })
         }
@@ -108,7 +108,7 @@ abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> :
         initViewPager()
         initTabSegment()
         initMagicIndicator()
-        showContentPage()
+        showSuccessPage()
     }
 
     protected open fun initViewPager() {

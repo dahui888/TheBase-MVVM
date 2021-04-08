@@ -4,11 +4,11 @@ import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
+import com.theone.common.ext.notNull
 import com.theone.demo.R
 import com.theone.demo.app.ext.joinQQGroup
 import com.theone.demo.app.net.Url
-import com.theone.demo.app.util.checkLogin
-import com.theone.demo.app.util.notNull
+import com.theone.demo.app.ext.checkLogin
 import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.data.model.bean.UserInfo
 import com.theone.demo.databinding.FragmentMineBinding
@@ -116,10 +116,10 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
                     mViewModel.level.set("等级 $level")
                 }
             })
-            getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+            getErrorMsgLiveData().observeInFragment(this@MineFragment, Observer {
                 showFailTipsDialog(it)
             })
-            getFinallyLiveData().observe(viewLifecycleOwner, Observer {
+            getFinallyLiveData().observeInFragment(this@MineFragment, Observer {
                 swipeRefresh.isRefreshing = false
                 swipeRefresh.isEnabled = true
                 mRequestVm.isFirst.set(false)

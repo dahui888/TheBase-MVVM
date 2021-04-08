@@ -43,6 +43,7 @@ import rxhttp.wrapper.ssl.HttpsUtils;
 public class RxHttpManager {
 
     private static PersistentCookieJar cookieJar;
+    private static File mCacheFile;
 
     public static PersistentCookieJar getCookieJar(){
         if(null == cookieJar){
@@ -67,8 +68,14 @@ public class RxHttpManager {
     }
 
     private static void initCacheMode(HttpBuilder builder) {
-        File file = new File(builder.getCacheFilePath(), builder.getCacheFileName());
-        RxHttpPlugins.setCache(file, builder.getCacheMaxSize(), builder.getCacheMode(), builder.getCacheValidTime());
+        mCacheFile = new File(builder.getCacheFilePath(), builder.getCacheFileName());
+        RxHttpPlugins.setCache(mCacheFile, builder.getCacheMaxSize(), builder.getCacheMode(), builder.getCacheValidTime());
+    }
+
+    public static void clearCache(){
+        if(null != mCacheFile){
+            mCacheFile.deleteOnExit();
+        }
     }
 
     public static class HttpBuilder {

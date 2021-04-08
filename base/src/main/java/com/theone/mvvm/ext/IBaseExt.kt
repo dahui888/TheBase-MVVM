@@ -10,7 +10,7 @@ import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.QMUIWindowInsetLayout
 import com.theone.mvvm.R
-import com.theone.mvvm.base.IQMUIBase
+import com.theone.mvvm.base.IBaseQMUI
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -44,7 +44,7 @@ import com.theone.mvvm.base.IQMUIBase
  * @param translucentFull Boolean
  * @return View
  */
-fun IQMUIBase.createView(context: Context, translucentFull: Boolean): View {
+fun IBaseQMUI.createView(context: Context, translucentFull: Boolean): View {
     if (showTopBar()) {
         // 如果需要TopBar，创建一个布局，加入TopBar和Body
         val root = QMUIWindowInsetLayout(context)
@@ -84,7 +84,7 @@ fun IQMUIBase.createView(context: Context, translucentFull: Boolean): View {
  * @param context Context
  * @return QMUITopBarLayout?
  */
-fun IQMUIBase.createTopBar(context: Context): QMUITopBarLayout? {
+fun IBaseQMUI.createTopBar(context: Context): QMUITopBarLayout? {
     return if (showTopBar()) {
         QMUITopBarLayout(context).apply {
             layoutParams = ViewGroup.LayoutParams(matchParent, wrapContent)

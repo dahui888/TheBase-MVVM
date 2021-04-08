@@ -53,7 +53,11 @@ abstract class BaseApplication : Application(), ViewModelStoreOwner {
         app = this
         DEBUG = isDebug()
         mAppViewModelStore = ViewModelStore()
-        QMUISwipeBackActivityManager.init(this)
+        init(this)
+    }
+
+    protected open fun init(application: Application){
+        QMUISwipeBackActivityManager.init(application)
     }
 
     override fun getViewModelStore(): ViewModelStore {

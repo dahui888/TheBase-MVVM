@@ -9,7 +9,6 @@ import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
 import com.theone.demo.R
 import com.theone.demo.app.util.CacheUtil
-import com.theone.demo.app.util.UserUtil
 import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.databinding.FragmentSettingBinding
 import com.theone.demo.ui.fragment.web.WebExplorerFragment
@@ -85,7 +84,7 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
             addToGroup(mVersion, mAuthor, mTheBase, title = "关于", listener = this@SettingFragment)
 
             mLoginOut = createItem("退出账号", drawable = R.drawable.svg_setting_login_out)
-            if (UserUtil.isLogin()) {
+            if (CacheUtil.isLogin()) {
                 addToGroup(mLoginOut, listener = this@SettingFragment, title = "")
             }
         }
@@ -103,14 +102,16 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
     }
 
     override fun createObserver() {
-        mViewModel.getResponseLiveData().observeInFragment(this, Observer {
-            mAppVm.userInfo.value = null
-            UserUtil.loginOut()
-            showSuccessTipsExitDialog("退出成功")
-        })
-        mViewModel.getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-            showFailTipsDialog(it)
-        })
+        mViewModel.run {
+            getResponseLiveData().observeInFragment(this@SettingFragment, Observer {
+                mAppVm.userInfo.value = null
+                CacheUtil.loginOut()
+                showSuccessTipsExitDialog("退出成功")
+            })
+            getErrorMsgLiveData().observeInFragment(this@SettingFragment, Observer {
+                showFailTipsDialog(it)
+            })
+        }
     }
 
     override fun onClick(view: View?) {

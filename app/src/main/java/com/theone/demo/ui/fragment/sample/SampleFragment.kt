@@ -8,6 +8,7 @@ import com.theone.demo.ui.fragment.home.HomeFragment
 import com.theone.mvvm.ext.qmui.addToGroup
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.base.fragment.BaseCoreFragment
+import com.theone.mvvm.core.widge.pullrefresh.PullRefreshLayout
 import com.theone.mvvm.ext.qmui.createItem
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
@@ -41,19 +42,19 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
 
     override fun getLayoutId(): Int = R.layout.fragment_sample
 
-    lateinit var mRecyclerPager: QMUICommonListItemView
     lateinit var mGroupListView: QMUICommonListItemView
+    lateinit var mPager: QMUICommonListItemView
     lateinit var mTest: QMUICommonListItemView
     lateinit var mCrash: QMUICommonListItemView
 
     override fun initView(rootView: View) {
         getTopBar()?.setTitleWithBackBtn("示例", this)
         mBinding.groupListView.run {
-            mRecyclerPager = createItem("BaseRecyclerPagerFragment")
+            mPager = createItem("BasePagerPullRefreshFragment")
             mGroupListView = createItem("QMUIGroupListView")
             mTest = createItem("Test")
             mCrash = createItem("崩溃测试")
-            addToGroup(mRecyclerPager, mGroupListView, title = "ui", listener = this@SampleFragment)
+            addToGroup(mPager, mGroupListView, title = "ui", listener = this@SampleFragment)
             addToGroup(mCrash, title = "工具", listener = this@SampleFragment)
             addToGroup(mTest, title = "其他")
         }
@@ -70,7 +71,7 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
         }
         startFragment(
             when (v) {
-                mRecyclerPager -> HomeFragment()
+                mPager -> SamplePagerFragment()
                 mGroupListView -> GroupListViewFragment()
                 else -> TestFragment()
             }

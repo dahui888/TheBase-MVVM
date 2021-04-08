@@ -5,7 +5,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import com.theone.common.ext.getValueNonNull
 import com.theone.demo.R
-import com.theone.demo.app.util.UserUtil
+import com.theone.demo.app.util.CacheUtil
 import com.theone.demo.viewmodel.LoginRegisterViewModel
 import com.theone.demo.databinding.FragmentLoginRegisterBinding
 import com.theone.demo.viewmodel.AppViewModel
@@ -46,10 +46,10 @@ class LoginRegisterItemFragment :
         mViewModel.run {
             getResponseLiveData().observeInFragment(this@LoginRegisterItemFragment, Observer {
                 mAppVm.userInfo.value = it
-                UserUtil.setUser(it)
+                CacheUtil.setUser(it)
                 showSuccessTipsExitDialog(if (isRegister.get()) "注册成功" else "登录成功")
             })
-            getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
+            getErrorMsgLiveData().observeInFragment(this@LoginRegisterItemFragment, Observer {
                 showFailTipsDialog(it)
             })
         }

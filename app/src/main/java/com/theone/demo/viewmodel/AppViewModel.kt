@@ -2,7 +2,6 @@ package com.theone.demo.viewmodel
 
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.demo.app.util.CacheUtil
-import com.theone.demo.app.util.UserUtil
 import com.theone.demo.data.model.bean.CollectBus
 import com.theone.demo.data.model.bean.UserInfo
 import com.theone.mvvm.base.viewmodel.BaseViewModel
@@ -22,7 +21,7 @@ class AppViewModel: BaseViewModel() {
     var shareArticle = UnPeekLiveData<Boolean>()
 
     init {
-        userInfo.value = UserUtil.getUser()
+        userInfo.value = CacheUtil.getUser()
         //初始化列表动画
         appAnimation.value = CacheUtil.getAnimationType()
     }

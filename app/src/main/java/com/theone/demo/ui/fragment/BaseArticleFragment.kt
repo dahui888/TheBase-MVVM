@@ -5,8 +5,8 @@ import androidx.lifecycle.Observer
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.theone.demo.R
-import com.theone.demo.app.util.UserUtil
-import com.theone.demo.app.util.checkLogin
+import com.theone.demo.app.util.CacheUtil
+import com.theone.demo.app.ext.checkLogin
 import com.theone.demo.data.model.bean.ArticleResponse
 import com.theone.demo.ui.adapter.ArticleAdapter
 import com.theone.demo.ui.fragment.collection.CollectionArticleFragment
@@ -93,7 +93,7 @@ abstract class BaseArticleFragment<VM : ArticleViewModel> :
                             mAdapter.notifyItemChanged(index + mAdapter.headerLayoutCount)
                         }
                         // 操作过后应该更新本地的用户信息里的收藏
-                        UserUtil.setUser(
+                        CacheUtil.setUser(
                             mAppVm.userInfo.value?.apply {
                             if (it.collect)
                                 collectIds.add(articleId.toString())
@@ -107,7 +107,7 @@ abstract class BaseArticleFragment<VM : ArticleViewModel> :
 
         }
 
-        mViewModel.getCollectionError().observe(viewLifecycleOwner, Observer {
+        mViewModel.getCollectionError().observeInFragment(this, Observer {
             showFailTipsDialog(it)
         })
     }

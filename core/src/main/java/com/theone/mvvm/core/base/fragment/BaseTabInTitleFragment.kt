@@ -4,8 +4,11 @@ import android.view.View
 import android.widget.RelativeLayout
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.kotlin.wrapContent
+import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
+import com.theone.common.ext.goneViews
+import com.theone.common.ext.showViews
 import com.theone.mvvm.core.R
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.databinding.BaseTabInTitleLayoutBinding
@@ -54,12 +57,19 @@ abstract class BaseTabInTitleFragment<VM : BaseViewModel> :
     override fun initView(rootView: View) {
         super.initView(rootView)
         initTopBar()
+        goneViews(getTopBar())
     }
 
    protected open fun initTopBar() {
         getTopBar()?.run {
             setCenterView(mMagicIndicator)
+            goneViews(this)
         }
+    }
+
+    override fun startInit() {
+        showViews(getTopBar())
+        super.startInit()
     }
 
     override fun getViewPager(): QMUIViewPager = mBinding.mQMUIViewPager

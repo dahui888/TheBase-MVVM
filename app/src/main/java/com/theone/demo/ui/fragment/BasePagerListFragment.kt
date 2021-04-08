@@ -7,7 +7,7 @@ import com.theone.demo.R
 import com.theone.demo.app.ext.setAdapterAnimation
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.mvvm.ext.getAppViewModel
-import com.theone.mvvm.core.base.fragment.BasePagerPullRefreshFragment
+import com.theone.mvvm.core.base.fragment.BasePagerSwipeRefreshFragment
 import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 
 
@@ -36,7 +36,7 @@ import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
  * @remark
  */
 abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>, DB : ViewDataBinding> :
-    BasePagerPullRefreshFragment<T, VM,DB>() {
+    BasePagerSwipeRefreshFragment<T, VM,DB>() {
 
     protected val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
@@ -54,20 +54,33 @@ abstract class BasePagerListFragment<T, VM : BaseListViewModel<T>, DB : ViewData
 
     override fun createObserver() {
         super.createObserver()
-        mViewModel.getFirstLoadSuccessLiveData().observeInFragment(this, Observer {
-            getRecyclerView().setBackgroundColor(
-                ContextCompat.getColor(
-                    mActivity,
-                    R.color.qmui_config_color_background
-                )
-            )
-            if(isFirstLoadSuccessAutoRefresh()){
-                onRefresh()
-            }
-        })
+//        mViewModel.getFirstLoadSuccessLiveData().observeInFragment(this, Observer {
+//            getRecyclerView().setBackgroundColor(
+//                ContextCompat.getColor(
+//                    mActivity,
+//                    R.color.qmui_config_color_background
+//                )
+//            )
+//            if(isFirstLoadSuccessAutoRefresh()){
+//                onRefresh()
+//            }
+//        })
         mAppVm.appAnimation.observeInFragment(this, Observer {
             mAdapter.setAdapterAnimation(it)
         })
+    }
+
+    override fun onFirstLoadSuccess(data: List<T>) {
+        super.onFirstLoadSuccess(data)
+        getRecyclerView().setBackgroundColor(
+            ContextCompat.getColor(
+                mActivity,
+                R.color.qmui_config_color_background
+            )
+        )
+        if(isFirstLoadSuccessAutoRefresh()){
+            onRefresh()
+        }
     }
 
 }

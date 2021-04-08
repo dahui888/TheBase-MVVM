@@ -35,7 +35,7 @@ import com.theone.mvvm.R
  * @email 625805189@qq.com
  * @remark
  */
-interface IQMUIBase {
+interface IBaseQMUI {
 
     /**
      * 获取布局

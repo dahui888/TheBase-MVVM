@@ -3,8 +3,6 @@
 
     <dimen name="progressBar_size">10dp</dimen>
 
-    <dimen name="pull_size">42dp</dimen>
-
     <dimen name="home_tab_height">52dp</dimen>
 
     <dimen name="top_tab_height">42dp</dimen>
@@ -14,10 +12,27 @@
     <dimen name="letter_overlay_margin">60dp</dimen>
     <dimen name="city_text_size">17sp</dimen>
 
+
+
+    <!--     -->
     <dimen name="letter_search_header_text_width">20dp</dimen>
     <dimen name="letter_search_header_text_size">12sp</dimen>
     <dimen name="letter_search_header_text_left_margin">20dp</dimen>
     <dimen name="letter_search_header_text_top_margin">20dp</dimen>
     <dimen name="letter_search_header_text_bottom_margin">20dp</dimen>
+
+
+    <!--  下拉刷新控件相关   -->
+
+    <dimen name="pull_fresh_ww_size">45dp</dimen>
+
+    <dimen name="pull_fresh_flyme_tips_text_top_margin">8dp</dimen>
+    <dimen name="pull_fresh_flyme_tips_text_size">14sp</dimen>
+    <dimen name="pull_fresh_flyme_progress_wheel_size">25dp</dimen>
+    <dimen name="pull_fresh_flyme_progress_bar_width">3dp</dimen>
+    <dimen name="pull_fresh_flyme_progress_rim_width">3dp</dimen>
+
+
+    <!--         -->
 
 </resources>

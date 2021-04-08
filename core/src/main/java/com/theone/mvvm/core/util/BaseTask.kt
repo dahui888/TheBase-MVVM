@@ -1,8 +1,6 @@
 package com.theone.mvvm.core.util
 
 import com.effective.android.anchors.task.Task
-import com.theone.common.ext.logE
-import com.theone.mvvm.core.ext.mAnchors
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -28,11 +26,7 @@ import com.theone.mvvm.core.ext.mAnchors
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseTask(isAsyncTask:Boolean): Task(javaClass.simpleName,isAsyncTask) {
+abstract class BaseTask(isAsyncTask:Boolean): Task(this::class.java.simpleName,isAsyncTask) {
 
-    init {
-        mAnchors.add(javaClass.name)
-        mAnchors.toString().logE()
-    }
 
 }

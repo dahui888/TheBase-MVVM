@@ -27,7 +27,7 @@ import com.theone.mvvm.core.data.enum.LayoutManagerType
  * @email 625805189@qq.com
  * @remark
  */
-interface IRecyclerPager {
+interface IRecyclerPager<T> {
 
     fun getRecyclerView(): RecyclerView
 
@@ -52,9 +52,34 @@ interface IRecyclerPager {
     fun onFirstLoading()
 
     /**
+     * 第一次加载数据完成
+     */
+    fun onFirstLoadSuccess(data:List<T>)
+
+    /**
+     * 第一次加载数据失败
+     */
+    fun onFirstLoadError(errorMsg:String?)
+
+    /**
      * 刷新时的操作
      */
     fun onRefresh()
+
+    /**
+     * 刷新失败
+     */
+    fun onRefreshError(errorMsg:String?)
+
+    /**
+     * 刷新完成
+     */
+    fun onRefreshSuccess(data:List<T>)
+
+    /**
+     * 空数据
+     */
+    fun onEmptyData()
 
     /**
      * 回到界面自动刷新，刷新前可能是空白页，也可能存在数据
@@ -62,14 +87,29 @@ interface IRecyclerPager {
     fun onAutoRefresh()
 
     /**
-     * 刷新完成（无论成功与失败）
-     */
-    fun onRefreshComplete()
-
-    /**
      * 加载更多
      */
     fun onLoadMore()
+
+    /**
+     * 加载更多失败
+     */
+    fun onLoadMoreSuccess(data:List<T>)
+
+    /**
+     * 加载更多失败
+     */
+    fun onLoadMoreError(errorMsg:String?)
+
+    /**
+     * 加载更多完成，还有数据
+     */
+    fun onLoadMoreComplete()
+
+    /**
+     * 没有更多了
+     */
+    fun onLoadMoreEnd()
 
     /**
      * 获取LayoutManager

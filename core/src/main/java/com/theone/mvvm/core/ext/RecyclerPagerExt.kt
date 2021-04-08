@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.mvvm.core.data.enum.LayoutManagerType
 import com.theone.mvvm.core.base.fragment.BasePagerAdapterFragment
+import com.theone.mvvm.core.base.fragment.IRecyclerPager
 import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
+import com.theone.mvvm.core.widge.loadsir.core.LoadService
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -70,27 +72,78 @@ fun Context.createLayoutManager(
     return layoutManager
 }
 
-fun <T,VM:BaseListViewModel<T>> BasePagerAdapterFragment<T,VM, *>.createListVmObserve() {
+fun <T, VM : BaseListViewModel<T>> BasePagerAdapterFragment<T, VM, *>.createListVmObserve() {
     mViewModel.run {
         getResponseLiveData().observeInFragment(this@createListVmObserve) {
-            loadListData(
-                this,
-                mAdapter,
-                mLoadSir,
-                goneLoadMoreEndView()
-            )
+            loadListData(this)
         }
-        getErrorMsgLiveData().observe(viewLifecycleOwner, Observer {
-            loadListError(
-                mActivity,
-                this,
-                mAdapter,
-                mLoadSir
-            )
+        getErrorMsgLiveData().observeInFragment(this@createListVmObserve, Observer {
+            loadListError(this)
         })
-        getFinallyLiveData().observe(viewLifecycleOwner, Observer {
-            onRefreshComplete()
-        })
+    }
+}
+
+
+/**
+ * List数据请求成功后设置数据的统一封装
+ * @param vm        数据源
+ * @param adapter   适配器
+ * @param loader    界面管理器
+ */
+fun <T> IRecyclerPager<T>.loadListData(
+    vm: BaseListViewModel<T>
+) {
+    val list = vm.getResponseLiveData().value
+    val isNewData = vm.page == vm.startPage
+    if (list.isNullOrEmpty()) {
+        if (isNewData) {
+            onEmptyData()
+        } else {
+            onLoadMoreEnd()
+        }
+        return
+    }
+    if (isNewData) {
+        if (vm.isFirst) {
+            vm.isFirst = false
+            onFirstLoadSuccess(list)
+        } else {
+            vm.isFresh = false
+            onRefreshSuccess(list)
+        }
+    } else {
+        onLoadMoreSuccess(list)
+    }
+    val pageInfo = vm.getPageInfoLiveData().value
+    if (pageInfo == null || pageInfo.getPageTotalCount() > pageInfo.getPage()) {
+        vm.page++
+        onLoadMoreComplete()
+    } else {
+        onLoadMoreEnd()
+    }
+}
+
+/**
+ * 请求失败时
+ * @param vm        数据源
+ * @param adapter   适配器
+ * @param loader    界面管理器
+ */
+fun <T> IRecyclerPager<T>.loadListError(
+    vm: BaseListViewModel<T>
+) {
+    with(vm.getErrorMsgLiveData().value) {
+        when {
+            vm.isFirst -> {
+                onFirstLoadError(this)
+            }
+            vm.isFresh -> {
+                onRefreshError(this)
+            }
+            else -> {
+                onLoadMoreError(this)
+            }
+        }
     }
 }
 

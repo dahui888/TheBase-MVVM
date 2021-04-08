@@ -4,10 +4,10 @@ import com.effective.android.anchors.AnchorsManager
 import com.effective.android.anchors.task.Task
 import com.effective.android.anchors.task.TaskCreator
 import com.effective.android.anchors.task.project.Project
-import com.theone.common.ext.LogInit
 import com.theone.common.ext.logE
 import com.theone.mvvm.base.BaseApplication
 import com.theone.mvvm.core.util.BaseTask
+import java.lang.RuntimeException
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -34,38 +34,51 @@ import com.theone.mvvm.core.util.BaseTask
  * @remark
  */
 
-val mAnchors: MutableList<String> = arrayListOf()
+val mTasks: MutableList<Class<*>> = arrayListOf()
 
-class AnchorsInitUtil {
+//object TaskFactory{
+//
+//    fun initAnchors(vararg tasks:Class<*>):TaskFactory{
+//        mTasks.add(InitLoadSirTask::class.java)
+//        mTasks.addAll(tasks)
+//        return this
+//    }
+//
+//    fun init(task:TaskCreator){
+//        if(mTasks.isEmpty()){
+//          throw RuntimeException("Please initAnchors first.")
+//        }
+//        with(AnchorsManager.getInstance()) {
+//            debuggable(BaseApplication.DEBUG)
+//            for (task in mTasks){
+//                addAnchor(task.simpleName)
+//            }
+//            start(
+//                Project.Builder("app", Project.TaskFactory(task)).apply {
+//                    for (task in mTasks){
+//                        add(task.simpleName)
+//                    }
+//                }.build()
+//            )
+//        }
+//    }
+//}
 
-    fun init() {
-        //设置锚点
-        with(AnchorsManager.getInstance()) {
-            debuggable(BaseApplication.DEBUG)
-            for (id in mAnchors) {
-                "111 $id".logE()
-            }
-            addAnchor("InitLoadSirTask")
-            start(
-                Project.Builder("app", Project.TaskFactory(TaskCreator)).apply {
-                    for (id in mAnchors) {
-                        "222 $id".logE()
-                    }
-                    add("InitLoadSirTask")
-                }.build()
-            )
-        }
+class InitDefault : Task(TASK_ID, true) {
+    companion object {
+        const val TASK_ID = "0"
+    }
+
+    override fun run(name: String) {
+
     }
 }
 
-object TaskCreator : TaskCreator {
-    override fun createTask(taskName: String): Task {
-        taskName.logE()
-        return InitLoadSirTask()
-    }
-}
+class InitLoadSirTask : Task(TASK_ID,true) {
 
-class InitLoadSirTask : BaseTask(true) {
+    companion object{
+        const val TASK_ID = "0"
+    }
 
     override fun run(name: String) {
         initLoadSir()

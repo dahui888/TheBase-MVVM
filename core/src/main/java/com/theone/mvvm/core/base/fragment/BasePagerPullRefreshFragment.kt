@@ -2,11 +2,12 @@ package com.theone.mvvm.core.base.fragment
 
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUICenterGravityRefreshOffsetCalculator
+import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout.OnPullListener
 import com.theone.mvvm.core.R
 import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
-import kotlinx.android.synthetic.main.base_recycler_pager_fragment.*
-
+import com.theone.mvvm.core.widge.pullrefresh.PullRefreshLayout
+import kotlinx.android.synthetic.main.base_pull_fresh_fragment.*
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -27,45 +28,57 @@ import kotlinx.android.synthetic.main.base_recycler_pager_fragment.*
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021/2/23 0023
+ * @date 2021-04-08 09:04
  * @describe RecyclerView分页显示基类
  * @email 625805189@qq.com
- * @remark 给定了默认的下拉刷新控件 SwipeRefreshLayout
+ * @remark 给定了默认的下拉刷新控件 PullRefreshLayout
  */
-abstract class BasePagerPullRefreshFragment
-<T, VM : BaseListViewModel<T>, DB : ViewDataBinding>
-    : BasePagerAdapterFragment<T, VM, DB>(),
-    SwipeRefreshLayout.OnRefreshListener {
+abstract class BasePagerPullRefreshFragment<T, VM : BaseListViewModel<T>, DB : ViewDataBinding> :
+    BasePagerAdapterFragment<T, VM, DB>(),
+    OnPullListener {
 
-    override fun getLayoutId(): Int = R.layout.base_recycler_pager_fragment
+    override fun getLayoutId(): Int = R.layout.base_pull_fresh_fragment
+
     override fun getRecyclerView(): RecyclerView = recyclerView
-    protected open fun getRefreshLayout(): SwipeRefreshLayout = swipeRefresh
 
-    /**
-     * 初始化下拉刷新
-     */
+    protected open fun getRefreshLayout(): PullRefreshLayout = refresh_layout
+
     override fun initPullRefreshView() {
         getRefreshLayout().run {
+            setDragRate(0.5f)
+            setRefreshOffsetCalculator(QMUICenterGravityRefreshOffsetCalculator())
+            setOnPullListener(this@BasePagerPullRefreshFragment)
             isEnabled = false
-            setOnRefreshListener(this@BasePagerPullRefreshFragment)
         }
     }
 
-    /**
-     * 刷新
-     */
-    override fun onRefresh() {
-        getRefreshLayout().isRefreshing = true
-        super.onRefresh()
+    override fun onMoveTarget(offset: Int) {
+
     }
 
-    /**
-     * 刷新完成时的操作
-     */
-    override fun onRefreshComplete() {
+    override fun onMoveRefreshView(offset: Int) {
+
+    }
+
+    override fun onFirstLoadSuccess(data: List<T>) {
+        super.onFirstLoadSuccess(data)
+        setPullLayoutEnabled(true)
+    }
+
+    override fun onRefreshSuccess(data: List<T>) {
+        super.onRefreshSuccess(data)
+        setPullLayoutEnabled(true)
+    }
+
+    override fun onRefreshError(errorMsg: String?) {
+        super.onRefreshError(errorMsg)
+        setPullLayoutEnabled(true)
+    }
+
+    protected open fun setPullLayoutEnabled(enabled: Boolean) {
         getRefreshLayout().run {
-            isEnabled = true
-            isRefreshing = false
+            isEnabled = enabled
+            finishRefresh()
         }
     }
 

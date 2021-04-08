@@ -23,9 +23,9 @@ import com.theone.common.ext.goneViews
 import com.theone.common.ext.showViews
 import com.theone.common.ext.textStringTrim
 import com.theone.common.widge.TheSearchView
-import com.theone.mvvm.core.base.fragment.BasePagerPullRefreshFragment
+import com.theone.mvvm.core.base.fragment.BasePagerSwipeRefreshFragment
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
-import com.theone.mvvm.core.ext.showContentPage
+import com.theone.mvvm.core.ext.showSuccessPage
 import com.theone.mvvm.ext.qmui.showMsgDialog
 
 
@@ -54,7 +54,7 @@ import com.theone.mvvm.ext.qmui.showMsgDialog
  * @remark
  */
 class SearchFragment :
-    BasePagerPullRefreshFragment<String, SearchViewModel, BaseRecyclerPagerFragmentBinding>(),
+    BasePagerSwipeRefreshFragment<String, SearchViewModel, BaseRecyclerPagerFragmentBinding>(),
     View.OnClickListener,
     TheSearchView.OnTextChangedListener, QMUIDialogAction.ActionListener, OnItemChildClickListener {
 
@@ -113,7 +113,7 @@ class SearchFragment :
                 mAdapter.setNewInstance(it.toMutableList())
                 mAdapter.loadMoreModule.loadMoreEnd(true)
                 setHistoryData(it)
-                showContentPage()
+                showSuccessPage()
             })
         }
         mHotVm.run {
@@ -122,7 +122,7 @@ class SearchFragment :
                     updateKey(it)
                 }
             })
-            getFinallyLiveData().observe(viewLifecycleOwner, Observer {
+            getFinallyLiveData().observeInFragment(this@SearchFragment, Observer {
                 mHotVm.isFirst.set(false)
             })
         }

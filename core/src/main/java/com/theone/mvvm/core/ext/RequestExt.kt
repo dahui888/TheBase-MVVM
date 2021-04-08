@@ -3,7 +3,9 @@ package com.theone.mvvm.core.ext
 import android.content.Context
 import androidx.lifecycle.rxLifeScope
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.mvvm.callback.livedata.StringLiveData
+import com.theone.mvvm.core.base.fragment.IRecyclerPager
 import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.core.base.viewmodel.BaseRequestViewModel
 import com.theone.mvvm.core.widge.loadsir.core.LoadService
@@ -45,7 +47,7 @@ import kotlinx.coroutines.CoroutineScope
 fun <T> BaseRequestViewModel<T>.request(
     block: suspend CoroutineScope.() -> Unit,
     loadingMsg: String? = null,
-    errorLiveData: StringLiveData? = null
+    errorLiveData: UnPeekLiveData<String>? = null
 ) {
     rxLifeScope.launch({
         block()
@@ -62,73 +64,4 @@ fun <T> BaseRequestViewModel<T>.request(
         }
     }
     )
-}
-
-/**
- * List数据请求成功后设置数据的统一封装
- * @param vm        数据源
- * @param adapter   适配器
- * @param loader    界面管理器
- */
-fun <T> loadListData(
-    vm: BaseListViewModel<T>,
-    adapter: BaseQuickAdapter<T, *>,
-    loader: LoadService<Any>?,
-    goneLoadMoreEndView:Boolean
-) {
-    val list = vm.getResponseLiveData().value
-    val isNewData = vm.page == vm.startPage
-    if (list.isNullOrEmpty()) {
-        if (isNewData) {
-            loader?.showEmpty()
-        } else {
-            adapter.loadMoreModule.loadMoreEnd(goneLoadMoreEndView)
-        }
-        return
-    }
-    if (isNewData) {
-        if (vm.isFirst) {
-            vm.isFirst = false
-            vm.getFirstLoadSuccessLiveData().value = true
-            loader?.showSuccess()
-        } else {
-            vm.isFresh = false
-        }
-        adapter.setList(list)
-    } else {
-        adapter.addData(list)
-    }
-    val pageInfo = vm.getPageInfoLiveData().value
-    if (pageInfo == null || pageInfo.getPageTotalCount() > pageInfo.getPage()) {
-        vm.page++
-        adapter.loadMoreModule.loadMoreComplete()
-    } else {
-        adapter.loadMoreModule.loadMoreEnd(goneLoadMoreEndView)
-    }
-}
-
-/**
- * 请求失败时
- * @param vm        数据源
- * @param adapter   适配器
- * @param loader    界面管理器
- */
-fun <T> loadListError(
-    context:Context?,
-    vm: BaseListViewModel<T>,
-    adapter: BaseQuickAdapter<T, *>,
-    loader: LoadService<Any>?
-) {
-    val errorMsg = vm.getErrorMsgLiveData().value
-    when {
-        vm.isFirst -> {
-            loader?.showError(errorMsg)
-        }
-        vm.isFresh -> {
-            context?.showMsgTipsDialog(errorMsg)
-        }
-        else -> {
-            adapter.loadMoreModule.loadMoreFail()
-        }
-    }
 }

@@ -13,7 +13,7 @@ import androidx.lifecycle.OnLifecycleEvent
 import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.util.QMUIKeyboardHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
-import com.theone.mvvm.base.IQMUIBase
+import com.theone.mvvm.base.IBaseQMUI
 import com.theone.mvvm.ext.createTopBar
 import com.theone.mvvm.ext.createView
 import com.theone.mvvm.ext.qmui.updateStatusBarMode
@@ -44,24 +44,24 @@ import com.theone.mvvm.ext.qmui.updateStatusBarMode
  * @remark 懒加载+TopBar+状态栏等的封装
  */
 
-abstract class BaseQMUIFragment : QMUIFragment(), IQMUIBase,LifecycleObserver {
+abstract class BaseQMUIFragment : QMUIFragment(), IBaseQMUI,LifecycleObserver {
 
     protected val TAG: String = this.javaClass.simpleName
 
     lateinit var mActivity: AppCompatActivity
 
     /**
-     * 内容层
+     * TopBar
      */
-    private val mContent: View by lazy {
-        createContentView()
+    private val mTopBar: QMUITopBarLayout? by lazy {
+        createTopBar(mActivity)
     }
 
     /**
      * 内容层
      */
-    private val mTopBar: QMUITopBarLayout? by lazy {
-        createTopBar(mActivity)
+    private val mContent: View by lazy {
+        createContentView()
     }
 
     /**
@@ -77,7 +77,7 @@ abstract class BaseQMUIFragment : QMUIFragment(), IQMUIBase,LifecycleObserver {
 
     /**
      * 这个方法是为了给BaseVmDbFragment重写绑定视图的
-     * 所以仅供此包类使用
+     * 所以仅供此包内使用
      */
     internal open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
 

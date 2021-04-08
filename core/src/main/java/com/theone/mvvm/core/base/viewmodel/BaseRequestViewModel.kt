@@ -44,20 +44,21 @@ abstract class BaseRequestViewModel<T> : BaseViewModel() {
     /**
      * 错误原因
      */
-    private val error: StringLiveData = StringLiveData()
+    private val error: UnPeekLiveData<String> =
+        UnPeekLiveData.Builder<String>().setAllowNullValue(true).create()
 
     /**
      * 请求无论成功或者失败之后的回调
      */
-    private val finally: BooleanLiveData = BooleanLiveData()
+    private val finally: UnPeekLiveData<Boolean> = UnPeekLiveData()
 
     /**
-     * 向 ui 层提供的 request LiveData/ProtectedUnPeekLiveData，禁止UI层获取后更改数据，保证数据的唯一性
+     * 向 ui 层提供的 request ProtectedUnPeekLiveData，禁止UI层获取后更改数据，保证数据的唯一性
      * from: KunMinX  https://xiaozhuanlan.com/topic/0168753249
      */
     fun getResponseLiveData(): ProtectedUnPeekLiveData<T> = response
-    fun getErrorMsgLiveData(): LiveData<String> = error
-    fun getFinallyLiveData(): LiveData<Boolean> = finally
+    fun getErrorMsgLiveData(): ProtectedUnPeekLiveData<String> = error
+    fun getFinallyLiveData(): ProtectedUnPeekLiveData<Boolean> = finally
 
     /**
      * 请求成功后设置数据调用此方法
@@ -72,7 +73,7 @@ abstract class BaseRequestViewModel<T> : BaseViewModel() {
      * @param errorMsg 错误信息
      * @param errorLiveData 错误接收的LiveData
      */
-    open fun onError(errorMsg: String?, errorLiveData: StringLiveData? = error) {
+    open fun onError(errorMsg: String?, errorLiveData: UnPeekLiveData<String>? = error) {
         errorMsg?.let {
             if(null == errorLiveData){
                 error.value = it
@@ -82,7 +83,7 @@ abstract class BaseRequestViewModel<T> : BaseViewModel() {
         }
     }
 
-    open fun onError(throwable: Throwable, liveData: StringLiveData? = error) {
+    open fun onError(throwable: Throwable, liveData: UnPeekLiveData<String>? = error) {
         onError(ErrorInfo(throwable).errorMsg, liveData)
     }
 

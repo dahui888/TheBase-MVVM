@@ -23,8 +23,6 @@ import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.webview.QMUIWebViewClient
 import com.theone.demo.R
-import com.theone.demo.app.util.dp2px
-import com.theone.demo.app.util.toHtml
 import com.theone.demo.app.widge.MarqueeTextView
 import com.theone.demo.app.widge.QDWebView
 import com.theone.demo.data.model.bean.IWeb
@@ -32,7 +30,9 @@ import com.theone.demo.databinding.FragmentWebExploererBinding
 import com.theone.common.ext.showViews
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.common.constant.BundleConstant
+import com.theone.common.ext.dp2px
 import com.theone.common.ext.getValueNonNull
+import com.theone.common.ext.toHtml
 import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import java.lang.reflect.Field
 

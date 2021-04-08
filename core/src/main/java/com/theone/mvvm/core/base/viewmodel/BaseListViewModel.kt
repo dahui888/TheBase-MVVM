@@ -38,15 +38,11 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
     var isFirst: Boolean = true
     // 是否刷新
     var isFresh: Boolean = false
-    // 第一次加载数据成功
-    private val firstLoadSuccess: UnPeekLiveData<Boolean> = UnPeekLiveData()
     // 开始的页数
      var startPage: Int = 1
     // 当前页面
     var page: Int = startPage
 
-    // 这里返回父类，保证数据的唯一性，只能通过onSuccess方法赋值
-    fun getFirstLoadSuccessLiveData():UnPeekLiveData<Boolean> = firstLoadSuccess
     fun getPageInfoLiveData():LiveData<IPageInfo> = pageInfo
 
     /**

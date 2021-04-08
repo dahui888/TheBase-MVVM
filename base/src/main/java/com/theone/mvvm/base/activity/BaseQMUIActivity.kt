@@ -5,7 +5,7 @@ import android.view.View
 import com.qmuiteam.qmui.arch.QMUIActivity
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.theone.mvvm.R
-import com.theone.mvvm.base.IQMUIBase
+import com.theone.mvvm.base.IBaseQMUI
 import com.theone.mvvm.ext.createTopBar
 import com.theone.mvvm.ext.createView
 import com.theone.mvvm.ext.qmui.updateStatusBarMode
@@ -34,7 +34,7 @@ import com.theone.mvvm.ext.qmui.updateStatusBarMode
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseQMUIActivity : QMUIActivity(), IQMUIBase {
+abstract class BaseQMUIActivity : QMUIActivity(), IBaseQMUI {
 
     protected val TAG: String = this.javaClass.simpleName
 

@@ -37,4 +37,8 @@
     <color name="letter_search_header_text_bg_color">@color/qmui_config_color_gray_4</color>
     <color name="letter_search_header_bg_color">@color/white</color>
 
+    <!--  下拉刷新控件相关   -->
+    <color name="pull_fresh_flyme_tips_color">@color/qmui_config_color_gray_3</color>
+    <color name="pull_fresh_flyme_progress_rim_color">@color/qmui_config_color_gray_9</color>
+
 </resources>

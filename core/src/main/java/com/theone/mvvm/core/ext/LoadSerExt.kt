@@ -89,7 +89,7 @@ fun LoadService<*>.showLoading() {
     this.showCallback(LoadingCallback::class.java)
 }
 
-fun BaseCoreFragment<*,*>.showContentPage(){
+fun BaseCoreFragment<*,*>.showSuccessPage(){
     mLoadSir?.showSuccess()
 }
 
@@ -97,7 +97,7 @@ fun BaseCoreFragment<*,*>.showLoadingPage(){
     mLoadSir?.showLoading()
 }
 
-fun BaseCoreFragment<*,*>.showErrorPage(message: String, imageRes:Int = R.drawable.status_loading_view_loading_fail){
+fun BaseCoreFragment<*,*>.showErrorPage(message: String?, imageRes:Int = R.drawable.status_loading_view_loading_fail){
     mLoadSir?.showError(message,imageRes)
 }
 

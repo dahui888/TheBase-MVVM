@@ -7,10 +7,11 @@ import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.listener.OnLoadMoreListener
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.theone.common.ext.dp2px
+import com.theone.common.ext.logE
 import com.theone.mvvm.core.ext.*
 import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 import com.theone.mvvm.core.widge.TheSpaceItemDecoration
-
+import com.theone.mvvm.ext.qmui.showInfoTipsDialog
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -38,7 +39,7 @@ import com.theone.mvvm.core.widge.TheSpaceItemDecoration
  */
 abstract class BasePagerAdapterFragment
 <T, VM : BaseListViewModel<T>, DB : ViewDataBinding>
-    : BasePagerRecyclerViewFragment<VM, DB>()
+    : BasePagerRecyclerViewFragment<T, VM, DB>()
     , OnLoadMoreListener, OnItemClickListener {
 
     /**
@@ -53,11 +54,9 @@ abstract class BasePagerAdapterFragment
 
     abstract fun createAdapter(): BaseQuickAdapter<T, *>
 
-    /**
-     * 是否不显示<没有更多数据了>
-     * @return Boolean
-     */
-    fun goneLoadMoreEndView(): Boolean = false
+    override fun createObserver() {
+        createListVmObserve()
+    }
 
     /**
      * 初始化默认的适配器配置
@@ -87,41 +86,62 @@ abstract class BasePagerAdapterFragment
         )
     }
 
-    override fun createObserver() {
-        createListVmObserve()
-    }
-
     /**
-     * 第一次加载和刷新还是有区别的，所以这里分开
+     * 第一次加载
      */
     override fun onFirstLoading() {
-        showLoadingPage()
         // 清空数据，因为这个方法可能会在有数据时再次调用
         mAdapter.setNewInstance(null)
         // 一开始是使用这个方法，但是觉得还是直接清空数据比较好
         //getRecyclerView().scrollToPosition(0)
-        mViewModel.run {
-            isFirst = true
-            requestNewData()
-        }
+        super.onFirstLoading()
     }
 
     /**
-     * 刷新
+     * 第一次加载数据成功
+     * @param data List<T>
      */
-    override fun onRefresh() {
-        mViewModel.run {
-            isFresh = true
-            requestNewData()
-        }
+    override fun onFirstLoadSuccess(data: List<T>) {
+        mAdapter.setList(data)
+        showSuccessPage()
     }
 
     /**
-     * 加载更多(page已经在 loadListData 方法里增加了，所以这里只管请求数据）
-     * page的更改绝对不能放在这里处理，因为加载更多可能存在失败的情况。
+     * 刷新成功
+     * @param data List<T>
      */
-    override fun onLoadMore() {
-        mViewModel.requestServer()
+    override fun onRefreshSuccess(data: List<T>) {
+        mAdapter.setList(data)
+    }
+
+    /**
+     * 加载更多成功
+     * @param data List<T>
+     */
+    override fun onLoadMoreSuccess(data: List<T>) {
+        mAdapter.addData(data)
+    }
+
+    /**
+     * 数据加载后，当前的页数<总页数时会触发此方法
+     */
+    override fun onLoadMoreComplete() {
+        mAdapter.loadMoreModule.loadMoreComplete()
+    }
+
+    /**
+     * 加载更多失败
+     * @param errorMsg String?
+     */
+    override fun onLoadMoreError(errorMsg: String?) {
+        mAdapter.loadMoreModule.loadMoreFail()
+    }
+
+    /**
+     * 当没有数据时会触发此方法
+     */
+    override fun onLoadMoreEnd() {
+        mAdapter.loadMoreModule.loadMoreEnd()
     }
 
 }

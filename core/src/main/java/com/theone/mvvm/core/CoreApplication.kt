@@ -1,11 +1,10 @@
 package com.theone.mvvm.core
 
-import com.effective.android.anchors.AnchorsManager
+import android.app.Application
 import com.theone.common.ext.LogInit
 import com.theone.common.ext.currentProcessName
 import com.theone.mvvm.base.BaseApplication
-import com.theone.mvvm.core.ext.AnchorsInitUtil
-import com.theone.mvvm.core.ext.init
+import com.theone.mvvm.core.ext.initLoadSir
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -33,21 +32,26 @@ import com.theone.mvvm.core.ext.init
  */
 abstract class CoreApplication : BaseApplication() {
 
-    override fun onCreate() {
-        super.onCreate()
+    override fun init(application: Application) {
+        super.init(application)
         LogInit(DEBUG)
-        val processName = currentProcessName
-        if (processName == packageName) {
-            // 主进程初始化
-            onMainProcessInit()
-        } else {
-            // 其他进程初始化
-            processName?.let { onOtherProcessInit(it) }
-        }
+
+        initLoadSir()
+
+        // TODO 以下内容还在测试...
+//        val processName = currentProcessName
+//        if (processName == packageName) {
+//            // 主进程初始化
+//            onMainProcessInit()
+//        } else {
+//
+//            // 其他进程初始化
+//            processName?.let { onOtherProcessInit(it) }
+//        }
     }
 
     open fun onMainProcessInit() {
-        AnchorsInitUtil().init()
+
     }
 
     /**
