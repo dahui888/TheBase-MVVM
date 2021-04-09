@@ -45,6 +45,7 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
     lateinit var mGroupListView: QMUICommonListItemView
     lateinit var mPager: QMUICommonListItemView
     lateinit var mTest: QMUICommonListItemView
+    lateinit var mStringExt: QMUICommonListItemView
     lateinit var mCrash: QMUICommonListItemView
 
     override fun initView(rootView: View) {
@@ -52,11 +53,12 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
         mBinding.groupListView.run {
             mPager = createItem("BasePagerPullRefreshFragment")
             mGroupListView = createItem("QMUIGroupListView")
+            mStringExt=  createItem("StringExt")
             mTest = createItem("Test")
             mCrash = createItem("崩溃测试")
             addToGroup(mPager, mGroupListView, title = "ui", listener = this@SampleFragment)
-            addToGroup(mCrash, title = "工具", listener = this@SampleFragment)
-            addToGroup(mTest, title = "其他")
+            addToGroup(mStringExt,mCrash, title = "工具", listener = this@SampleFragment)
+            addToGroup(mTest, title = "其他",listener = this@SampleFragment)
         }
     }
 
@@ -73,6 +75,7 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
             when (v) {
                 mPager -> SamplePagerFragment()
                 mGroupListView -> GroupListViewFragment()
+                mStringExt -> StringExtFragment()
                 else -> TestFragment()
             }
         )

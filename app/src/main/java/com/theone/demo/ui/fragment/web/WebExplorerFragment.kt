@@ -23,7 +23,6 @@ import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.webview.QMUIWebViewClient
 import com.theone.demo.R
-import com.theone.demo.app.widge.MarqueeTextView
 import com.theone.demo.app.widge.QDWebView
 import com.theone.demo.data.model.bean.IWeb
 import com.theone.demo.databinding.FragmentWebExploererBinding
@@ -33,6 +32,7 @@ import com.theone.common.constant.BundleConstant
 import com.theone.common.ext.dp2px
 import com.theone.common.ext.getValueNonNull
 import com.theone.common.ext.toHtml
+import com.theone.common.widge.TheMarqueeTextView
 import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import java.lang.reflect.Field
 
@@ -77,9 +77,9 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
     }
 
     private val mIWeb: IWeb by getValueNonNull(BundleConstant.DATA)
-    private var mWebView: QDWebView? = null
+    private var mWebView: QDWebView?=null
     private val mProgressHandler: ProgressHandler by lazy { ProgressHandler() }
-    private lateinit var mTitleView: MarqueeTextView
+    private lateinit var mTitleView: TheMarqueeTextView
 
     private fun needDispatchSafeAreaInset(): Boolean = false
 
@@ -98,7 +98,7 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
             }
             // QMUI的Title用的是QMUIQQFaceView，无法使用跑马灯效果，这里重新设置一个
             // setTitle(mIWeb.getWebTitle().toHtml().toString())
-            mTitleView = MarqueeTextView(mActivity).apply {
+            mTitleView = TheMarqueeTextView(mActivity).apply {
                 layoutParams = RelativeLayout.LayoutParams(matchParent, wrapContent).apply {
                     addRule(RelativeLayout.RIGHT_OF, R.id.qmui_topbar_item_left_back)
                     gravity = Gravity.CENTER
@@ -254,7 +254,7 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
 
         var mDstProgressIndex: Int = 0
         var mDuration: Int = 0
-        var mAnimator: ObjectAnimator? = null
+        var mAnimator: ObjectAnimator?=null
 
         override fun handleMessage(msg: Message) {
             when (msg.what) {

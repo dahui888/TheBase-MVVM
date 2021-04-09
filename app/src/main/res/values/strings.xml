@@ -31,4 +31,5 @@
 
     <string name="crash_title">很抱歉，程序崩溃了</string>
     <string name="show_error_msg">查看错误信息</string>
+    <string name="long_fruit_name">这是一个超长的水果名称这是一个超长的水果名称这是一个超长的水果名称</string>
 </resources>

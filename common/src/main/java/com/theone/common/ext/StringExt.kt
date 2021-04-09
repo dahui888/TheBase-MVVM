@@ -1,12 +1,19 @@
 package com.theone.common.ext
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.text.Html
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.TextUtils
 import android.text.style.*
+import androidx.annotation.ColorInt
+import androidx.annotation.FloatRange
+import androidx.annotation.NonNull
+import com.theone.common.R
+import com.theone.common.widge.TheImageSpan
 import java.util.regex.Pattern
 
 //  ┏┓　　　┏┓
@@ -48,16 +55,58 @@ enum class SpanType {
 }
 
 /**
+ *
+ * @receiver String
+ * @param context Context 上下文
+ * @param price Double 价格
+ * @param left String 价格左边的文字
+ * @param right String 价格右边的文字
+ * @param color Int 价格颜色
+ * @param proportion Float 字体放大比例
+ * @param bold Boolean  是否需要加粗
+ * @param decimalPart Boolean 小数部分是否需要放大
+ * @return SpannableString
+ */
+fun getPriceSpannableString(
+    @NonNull context: Context,
+    price: Double,
+    left: String = "",
+    right: String = "",
+    @ColorInt color: Int = getColor(context, R.color.common_price_color),
+    @FloatRange(from = 0.0) proportion: Float = 1.3f,
+    bold: Boolean = true,
+    decimalPart:Boolean = false
+): SpannableString {
+    val mPrice = price.regularizePrice()
+    val rmb = "¥"
+    val mLeft = left + rmb
+    val content = mLeft + mPrice + right
+    val start = content.indexOf(rmb)
+    val end = content.indexOf(mPrice) + mPrice.length
+    var priceEnd = end
+    if (mPrice.contains(".")) {
+        priceEnd = mLeft.length + mPrice.indexOf(".")
+    }
+    return SpannableString(content).apply {
+        // 人民币符号保持原大小，默认只放大整数部分大小，如果小数部分也需要放大，decimalPart = true
+        setSpan(RelativeSizeSpan(proportion), start + 1, if(decimalPart) end else priceEnd, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        setSpan(ForegroundColorSpan(color), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+        if (bold)
+            setSpan(StyleSpan(Typeface.BOLD), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+    }
+}
+
+/**
  * 获取SpannableString
- * @param target      目标处理的文本
+ * @param target      需要的处理的文本
  * @param color       颜色
  * @param proportion  字体比例(放大或者缩小)
  * @param types       Span类型-对同一个布标进行多种样式设置
  */
 fun String.getSpannableString(
     target: String,
-    color: Int = -1,
-    proportion: Float = 1.3f,
+    @ColorInt color: Int = -1,
+    @FloatRange(from = 0.0) proportion: Float = 1.3f,
     vararg types: SpanType
 ): SpannableString {
     return SpannableString(this).apply {
@@ -82,6 +131,37 @@ fun String.getSpannableString(
 }
 
 /**
+ *
+ * @param drawable Drawable
+ * @param left String
+ * @param right String
+ * @return SpannableString
+ */
+fun getImageSpannableString(
+    drawable: Drawable?,
+    left: String = "",
+    right: String = ""
+): SpannableString {
+    val content = "$left $right"
+    return content.getImageSpannableString(drawable, left.length, left.length + 1)
+}
+
+/**
+ * 把文字自定地方替换成Drawable
+ * @receiver String
+ * @param drawable Drawable
+ * @param start Int
+ * @param end Int
+ * @return SpannableString
+ */
+fun String.getImageSpannableString(drawable: Drawable?, start: Int, end: Int): SpannableString {
+    drawable?.setBounds(0, 0, drawable.intrinsicWidth, drawable.intrinsicHeight)
+    return SpannableString(this).apply {
+        setSpan(TheImageSpan(drawable), start, end, Spanned.SPAN_INCLUSIVE_EXCLUSIVE)
+    }
+}
+
+/**
  * 获取目标文字在整段中的位置
  * @param targetString 目标文本
  */
@@ -96,7 +176,7 @@ fun String.getTargetIndexArray(
         index[1] = end
         return index
     } else {
-        throw Exception("======================== \n 目标文本 \n $targetString \n 不存在于 \n $this \n========================")
+        throw Exception("======================== \n 目标文本 ==================== \n $targetString \n =======  不存在于 ====== \n $this \n========================")
     }
 }
 
@@ -164,7 +244,8 @@ fun String.hideIdCardNumber(): String {
 /**
  * 移动号段正则表达式
  */
-private const val PAT_YD = "^((13[4-9])|(147)|(15[0-2,7-9])|(178)|(18[2-4,7-8]))\\d{8}|(1705)\\d{7}$"
+private const val PAT_YD =
+    "^((13[4-9])|(147)|(15[0-2,7-9])|(178)|(18[2-4,7-8]))\\d{8}|(1705)\\d{7}$"
 
 /**
  * 联通号段正则表达式

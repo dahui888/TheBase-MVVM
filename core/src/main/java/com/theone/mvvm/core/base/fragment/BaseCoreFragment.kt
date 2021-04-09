@@ -36,4 +36,8 @@ abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVm
      */
     protected open fun onPageReLoad() {}
 
+    override fun onLazyInit() {
+
+    }
+
 }
