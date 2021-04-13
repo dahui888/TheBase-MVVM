@@ -53,7 +53,7 @@ abstract class BaseRequestViewModel<T> : BaseViewModel() {
     private val finally: UnPeekLiveData<Boolean> = UnPeekLiveData()
 
     /**
-     * 向 ui 层提供的 request ProtectedUnPeekLiveData，禁止UI层获取后更改数据，保证数据的唯一性
+     * 向 ui 层提供 ProtectedUnPeekLiveData，从而限制从 Activity/Fragment 篡改来自 "数据层" 的数据，数据层的数据务必通过 "唯一可信源" 来分发
      * from: KunMinX  https://xiaozhuanlan.com/topic/0168753249
      */
     fun getResponseLiveData(): ProtectedUnPeekLiveData<T> = response
@@ -74,20 +74,14 @@ abstract class BaseRequestViewModel<T> : BaseViewModel() {
      * @param errorLiveData 错误接收的LiveData
      */
     open fun onError(errorMsg: String?, errorLiveData: UnPeekLiveData<String>? = error) {
-        errorMsg?.let {
-            if(null == errorLiveData){
-                error.value = it
-            }else{
-                errorLiveData.value = it
-            }
-        }
+        errorLiveData?.value = errorMsg
     }
 
     open fun onError(throwable: Throwable, liveData: UnPeekLiveData<String>? = error) {
         onError(ErrorInfo(throwable).errorMsg, liveData)
     }
 
-    fun onFinally(){
+    fun onFinally() {
         finally.value = true
     }
 

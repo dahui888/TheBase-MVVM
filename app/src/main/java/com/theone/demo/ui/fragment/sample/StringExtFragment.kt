@@ -57,17 +57,23 @@ class StringExtFragment : BaseCoreFragment<StringExtViewModel, FragmentSampleStr
         }
         mBinding.groupListView.run {
             ForegroundColorSpan =
-                createItem(getSpannableString("前景色", SpanType.ForegroundColorSpan))
+                createItem("前景色", SpanType.ForegroundColorSpan)
             BackgroundColorSpan =
-                createItem(getSpannableString("背景色", SpanType.BackgroundColorSpan))
-            StrikeThroughSpan = createItem(getSpannableString("删除线", SpanType.StrikeThroughSpan))
-            RelativeSizeSpan = createItem(getSpannableString("字体大小", SpanType.RelativeSizeSpan))
-            UnderlineSpan = createItem(getSpannableString("下划线", SpanType.UnderlineSpan))
-            BOLD = createItem(getSpannableString("粗体", SpanType.BOLD))
-            ITALIC = createItem(getSpannableString("斜体", SpanType.ITALIC))
+                createItem("背景色", SpanType.BackgroundColorSpan)
+            StrikeThroughSpan = createItem("删除线", SpanType.StrikeThroughSpan)
+            RelativeSizeSpan = createItem("字体大小", SpanType.RelativeSizeSpan)
+            UnderlineSpan = createItem("下划线", SpanType.UnderlineSpan)
+            BOLD = createItem("粗体", SpanType.BOLD)
+            ITALIC = createItem("斜体", SpanType.ITALIC)
             // 使用这个最好后面多加个空格
-            BOLD_ITALIC = createItem(getSpannableString("粗体加斜体 ", SpanType.BOLD_ITALIC))
-            BOLD_ITALIC2 = createItem(getSpannableString("组合使用", SpanType.BOLD, SpanType.ForegroundColorSpan, SpanType.UnderlineSpan, SpanType.RelativeSizeSpan))
+            BOLD_ITALIC = createItem("粗体加斜体 ", SpanType.BOLD_ITALIC)
+            BOLD_ITALIC2 = createItem(
+                "组合使用",
+                SpanType.BOLD,
+                SpanType.ForegroundColorSpan,
+                SpanType.UnderlineSpan,
+                SpanType.RelativeSizeSpan
+            )
 
             addToGroup(
                 ForegroundColorSpan,
@@ -86,16 +92,37 @@ class StringExtFragment : BaseCoreFragment<StringExtViewModel, FragmentSampleStr
     override fun initData() {
         mViewModel.run {
             mBinding.vm = this
-            subscript.set(getSpannableString("下标",SpanType.SubscriptSpan))
-            superscript.set(getSpannableString("上标",SpanType.SuperscriptSpan))
-            fruitName.set(getImageSpannableString(getDrawable(mActivity,R.drawable.ic_food_status_up),getString(R.string.long_fruit_name)))
+            subscript.set(getSpannableString("下标", SpanType.SubscriptSpan))
+            superscript.set(getSpannableString("上标", SpanType.SuperscriptSpan))
+            fruitName.set(
+                getImageSpannableString(
+                    getDrawable(
+                        mActivity,
+                        R.drawable.ic_food_status_up
+                    ), getString(R.string.long_fruit_name)
+                )
+            )
             // 参数基本上都是有默认值的，这里全写出来只是为了直观的看见全部可更改的
-            price.set(getPriceSpannableString(mActivity,5.20,"这份水果只需要 ",proportion = 1.5f,bold = true,decimalPart = false))
+            price.set(
+                getPriceSpannableString(
+                    mActivity,
+                    5.20,
+                    "这份水果只需要 ",
+                    proportion = 1.5f,
+                    bold = true,
+                    decimalPart = false
+                )
+            )
         }
     }
 
     override fun createObserver() {
 
+    }
+
+
+    private fun createItem(title: String, vararg types: SpanType): QMUICommonListItemView {
+        return mBinding.groupListView.createItem(getSpannableString(title, *types))
     }
 
     private fun getSpannableString(title: String, vararg types: SpanType): SpannableString {

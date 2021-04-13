@@ -41,40 +41,41 @@ import com.theone.mvvm.base.IBaseQMUI
  * 根据判断创建布局
  * @receiver IQMUIBase
  * @param context Context
- * @param translucentFull Boolean
+ * @param translucentFull Boolean 内容层是否需要填充满整个父布局，一般是延伸至状态栏，TopBar设置为透明。
  * @return View
  */
 fun IBaseQMUI.createView(context: Context, translucentFull: Boolean): View {
     if (showTopBar()) {
         // 如果需要TopBar，创建一个布局，加入TopBar和Body
-        val root = QMUIWindowInsetLayout(context)
-        root.layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
-        // TODO 这里要再额外的用一层，不能直接用contentView，原因见下Tips1
-        QMUIFrameLayout(context).run {
-            addView(getContentView())
-            fitsSystemWindows = !translucentFull
-            root.addView(this)
-            // 这个一定要放在addView后面
-            if (!translucentFull) {
-                // 获取TopBar的高度
-                val margin = QMUIResHelper.getAttrDimen(
-                    context,
-                    R.attr.qmui_topbar_height
-                )
-                // TODO Tips1 这里设置了margin后会使content最外层布局设置的一些属性无效。
-                // 设置一个向上的TopBar高度的间距
-                layoutParams.let {
-                    if (it is ViewGroup.MarginLayoutParams) {
-                        it.setMargins(0, margin, 0, 0)
-                        requestLayout()
+        return QMUIWindowInsetLayout(context).apply {
+            layoutParams = ViewGroup.LayoutParams(matchParent, matchParent)
+            // TODO 这里要再额外的用一层，不能直接用contentView，原因见下Tips1
+            QMUIFrameLayout(context).run {
+                addView(getContentView())
+                fitsSystemWindows = !translucentFull
+                this@apply.addView(this)
+                // TODO 这个时候这个设置margin一定要放在addView后面
+                if (!translucentFull) {
+                    // 获取TopBar的高度
+                    val topBarHeight = QMUIResHelper.getAttrDimen(
+                        context,
+                        R.attr.qmui_topbar_height
+                    )
+                    // TODO Tips1 这里设置了margin后会使content最外层布局设置的一些属性无效。
+                    // 设置一个向上的TopBar高度的间距
+                    layoutParams.let {
+                        if (it is ViewGroup.MarginLayoutParams) {
+                            it.setMargins(0, topBarHeight, 0, 0)
+                            requestLayout()
+                        }
                     }
                 }
             }
+            // TopBar要放在后面（布局的上一层），如果body充满整个父容器时，要保证TopBar是在上面的。
+            addView(getTopBar())
         }
-        // TopBar要放在后面（布局的上一层），如果body充满整个父容器时，要保证TopBar是在上面的。
-        root.addView(getTopBar())
-        return root
     }
+    // 不需要TopBar直接返回内容层
     return getContentView()
 }
 

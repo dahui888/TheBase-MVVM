@@ -90,7 +90,7 @@ class ErrorActivity : BaseVmDbActivity<BaseViewModel,ActivityErrorBinding>() {
             val mClipData = ClipData.newPlainText("errorLog",errorMsg)
             // 将ClipData内容放到系统剪贴板里。
             getSystemService<ClipboardManager>()?.setPrimaryClip(mClipData)
-            showMsgTipsDialog("已复制错误日志,请粘贴发送至QQ群",delay = 2000){
+            showMsgTipsDialog("已复制错误日志,请粘贴发送至QQ群",delay = 1500){
                 joinQQGroup("26hK_GKmpQJbBHpfPIMlJztVmzTRyzZp")
             }
         }

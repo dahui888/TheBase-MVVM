@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.lifecycle.rxLifeScope
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
+import com.theone.common.ext.notNull
 import com.theone.mvvm.callback.livedata.StringLiveData
 import com.theone.mvvm.core.base.fragment.IRecyclerPager
 import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
@@ -52,7 +53,11 @@ fun <T> BaseRequestViewModel<T>.request(
     rxLifeScope.launch({
         block()
     }, {
-        onError(it, errorLiveData)
+        if(null != errorLiveData){
+            onError(it,errorLiveData)
+        }else{
+            onError(it)
+        }
     }, {
         loadingMsg?.let {
             loadingChange.showDialog.value = loadingMsg

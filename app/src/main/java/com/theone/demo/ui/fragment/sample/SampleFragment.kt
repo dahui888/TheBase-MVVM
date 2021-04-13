@@ -48,7 +48,7 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
     lateinit var mStringExt: QMUICommonListItemView
     lateinit var mCrash: QMUICommonListItemView
 
-    override fun initView(rootView: View) {
+    override fun initView(root: View) {
         getTopBar()?.setTitleWithBackBtn("示例", this)
         mBinding.groupListView.run {
             mPager = createItem("BasePagerPullRefreshFragment")

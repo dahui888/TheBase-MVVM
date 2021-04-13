@@ -1,7 +1,5 @@
 package com.theone.mvvm.base.activity
 
-import android.os.Bundle
-import com.qmuiteam.qmui.arch.QMUIFragment
 import com.qmuiteam.qmui.arch.QMUIFragmentActivity
 
 
