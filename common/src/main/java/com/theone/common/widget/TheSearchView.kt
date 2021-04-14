@@ -1,7 +1,6 @@
-package com.theone.common.widge
+package com.theone.common.widget
 
 import android.content.Context
-import android.os.Build
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
@@ -12,7 +11,6 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatImageView
 import com.theone.common.R
 import com.theone.common.ext.*
-import java.lang.Exception
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓

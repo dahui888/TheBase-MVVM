@@ -1,4 +1,4 @@
-package com.theone.demo.app.widge;
+package com.theone.demo.app.widget;
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓

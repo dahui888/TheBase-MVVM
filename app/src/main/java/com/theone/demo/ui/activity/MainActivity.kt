@@ -5,10 +5,11 @@ import android.os.Bundle
 import androidx.core.app.ActivityCompat
 import com.qmuiteam.qmui.arch.annotation.DefaultFirstFragment
 import com.theone.demo.ui.fragment.IndexFragment
+import com.theone.demo.ui.fragment.sample.CustomViewFragment
 import com.theone.mvvm.base.activity.BaseFragmentActivity
 import rxhttp.wrapper.param.RxHttp
 
-@DefaultFirstFragment(IndexFragment::class)
+@DefaultFirstFragment(CustomViewFragment::class)
 class MainActivity : BaseFragmentActivity() {
 
     private val PERMISSIONS_REQUEST_CODE = 10

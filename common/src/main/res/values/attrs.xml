@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="TheSelectImageView">
+        <!-- 普通状态下的图片 -->
+        <attr name="img_normal" format="reference" />
+        <!-- 选中状态下的图片 -->
+        <attr name="img_selected" format="reference" />
+        <!-- 动画时间 -->
+        <attr name="animal_duration" format="integer" />
+        <!-- 长按是否也视为点击 -->
+        <attr name="long_click_enable" format="boolean" />
+        <!-- 视为长按的最低时间 -->
+        <attr name="press_min_time" format="float"/>
+    </declare-styleable>
+
+</resources>

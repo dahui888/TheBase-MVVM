@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.theone.demo.app.widge;
+package com.theone.demo.app.widget;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

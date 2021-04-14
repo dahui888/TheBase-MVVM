@@ -47,6 +47,7 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
     lateinit var mTest: QMUICommonListItemView
     lateinit var mStringExt: QMUICommonListItemView
     lateinit var mCrash: QMUICommonListItemView
+    lateinit var mCustomView: QMUICommonListItemView
 
     override fun initView(root: View) {
         getTopBar()?.setTitleWithBackBtn("示例", this)
@@ -56,8 +57,10 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
             mStringExt=  createItem("StringExt")
             mTest = createItem("Test")
             mCrash = createItem("崩溃测试")
+            mCustomView =  createItem("CustomView")
             addToGroup(mPager, mGroupListView, title = "ui", listener = this@SampleFragment)
             addToGroup(mStringExt,mCrash, title = "工具", listener = this@SampleFragment)
+            addToGroup(mCustomView, title = "widget", listener = this@SampleFragment)
             addToGroup(mTest, title = "其他",listener = this@SampleFragment)
         }
     }
@@ -76,6 +79,7 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
                 mPager -> SamplePagerFragment()
                 mGroupListView -> GroupListViewFragment()
                 mStringExt -> StringExtFragment()
+                mCustomView -> CustomViewFragment()
                 else -> TestFragment()
             }
         )

@@ -16,9 +16,9 @@ import com.theone.common.ext.dp2px
 import com.theone.demo.R
 import com.theone.demo.data.model.bean.BannerResponse
 import com.theone.demo.viewmodel.HomeViewModel
-import com.theone.demo.app.widge.OffsetLinearLayoutManager
-import com.theone.demo.app.widge.banner.HomeBannerAdapter
-import com.theone.demo.app.widge.banner.HomeBannerViewHolder
+import com.theone.demo.app.widget.OffsetLinearLayoutManager
+import com.theone.demo.app.widget.banner.HomeBannerAdapter
+import com.theone.demo.app.widget.banner.HomeBannerViewHolder
 import com.theone.demo.ui.fragment.BaseArticleFragment
 import com.theone.demo.ui.fragment.search.SearchFragment
 import com.theone.demo.ui.fragment.web.WebExplorerFragment

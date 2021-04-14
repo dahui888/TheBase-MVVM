@@ -13,7 +13,7 @@ import androidx.annotation.ColorInt
 import androidx.annotation.FloatRange
 import androidx.annotation.NonNull
 import com.theone.common.R
-import com.theone.common.widge.TheImageSpan
+import com.theone.common.widget.TheImageSpan
 import java.util.regex.Pattern
 
 //  ┏┓　　　┏┓

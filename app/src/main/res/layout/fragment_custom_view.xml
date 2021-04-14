@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.theone.common.widget.TheSelectImageView
+            app:img_normal="@drawable/svg_collection_normal2"
+            app:img_selected="@drawable/svg_collection_select"
+            app:animal_duration="100"
+            app:long_click_enable="true"
+            app:press_min_time="800"
+            android:layout_centerInParent="true"
+            android:layout_width="35dp"
+            android:layout_height="35dp"/>
+
+    </RelativeLayout>
+
+
+</layout>
+
+
+

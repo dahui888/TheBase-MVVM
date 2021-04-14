@@ -7,7 +7,7 @@ import com.qmuiteam.qmui.arch.QMUILatestVisit
 import com.theone.demo.R
 import com.theone.demo.app.util.CacheUtil
 import com.theone.demo.app.util.RxHttpManager
-import com.theone.demo.app.widge.TypeTextView
+import com.theone.demo.app.widget.TypeTextView
 import com.theone.demo.databinding.ActivityLauncherBinding
 import com.theone.mvvm.base.activity.BaseVmDbActivity
 import com.theone.mvvm.base.viewmodel.BaseViewModel

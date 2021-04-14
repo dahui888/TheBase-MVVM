@@ -45,7 +45,7 @@
         <!--        app:layout_constraintTop_toTopOf="@+id/guideline2" />-->
 
 
-        <com.theone.demo.app.widge.TypeTextView
+        <com.theone.demo.app.widget.TypeTextView
             android:id="@+id/tvType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

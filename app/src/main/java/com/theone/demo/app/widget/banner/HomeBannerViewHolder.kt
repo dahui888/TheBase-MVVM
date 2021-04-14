@@ -1,4 +1,4 @@
-package com.theone.demo.app.widge.banner
+package com.theone.demo.app.widget.banner
 
 import android.view.View
 import android.widget.ImageView

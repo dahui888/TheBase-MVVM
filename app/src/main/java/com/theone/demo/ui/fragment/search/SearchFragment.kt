@@ -22,7 +22,7 @@ import com.theone.demo.viewmodel.SearchViewModel
 import com.theone.common.ext.goneViews
 import com.theone.common.ext.showViews
 import com.theone.common.ext.textStringTrim
-import com.theone.common.widge.TheSearchView
+import com.theone.common.widget.TheSearchView
 import com.theone.mvvm.core.base.fragment.BasePagerSwipeRefreshFragment
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
 import com.theone.mvvm.core.ext.showSuccessPage
