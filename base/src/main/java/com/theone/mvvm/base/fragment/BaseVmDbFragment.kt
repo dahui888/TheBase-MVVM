@@ -81,17 +81,15 @@ abstract class BaseVmDbFragment<VM : BaseViewModel, DB : ViewDataBinding> : Base
         mBinding = DataBindingUtil.inflate(layoutInflater, getLayoutId(), null, false)
         mBinding.run {
             lifecycleOwner = this@BaseVmDbFragment
-            setVariable(getBindingVmId(), mViewModel)
+            this.setVariable(getBindingVmId(), mViewModel)
+            getBindingClick()?.let {
+                this.setVariable(getBindingClickId(),it)
+            }
             mBindingParams.forEach { key, any ->
-                setVariable(key, any)
+                this.setVariable(key, any)
             }
         }
         return mBinding.root
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        mBinding.unbind()
     }
 
 }

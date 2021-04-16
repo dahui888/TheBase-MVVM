@@ -132,6 +132,7 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
         context?.showMsgDialog(
             "提示", "是否退出当前账号",
             listener = QMUIDialogAction.ActionListener { dialog, index ->
+                dialog.dismiss()
                 if (index > 0) {
                     mViewModel.loginOut()
                 }

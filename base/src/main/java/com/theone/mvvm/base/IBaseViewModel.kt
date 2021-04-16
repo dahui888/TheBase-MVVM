@@ -42,6 +42,11 @@ interface IBaseViewModel<VM:BaseViewModel> {
     fun createViewModel(): VM
 
     /**
+     * 初始化数据
+     */
+    fun initData()
+
+    /**
      * 创建观察者
      */
     fun createObserver()

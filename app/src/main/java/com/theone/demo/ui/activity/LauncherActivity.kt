@@ -9,10 +9,10 @@ import com.theone.demo.app.util.CacheUtil
 import com.theone.demo.app.util.RxHttpManager
 import com.theone.demo.app.widget.TypeTextView
 import com.theone.demo.databinding.ActivityLauncherBinding
-import com.theone.mvvm.base.activity.BaseVmDbActivity
 import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.core.base.activity.BaseCoreActivity
 
-class LauncherActivity : BaseVmDbActivity<BaseViewModel, ActivityLauncherBinding>(),
+class LauncherActivity : BaseCoreActivity<BaseViewModel, ActivityLauncherBinding>(),
     TypeTextView.OnTypeViewListener {
 
     private val mTypes: Array<String> by lazy {

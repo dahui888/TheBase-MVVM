@@ -13,6 +13,8 @@ import com.theone.demo.databinding.ActivityErrorBinding
 import com.theone.mvvm.base.IClick
 import com.theone.mvvm.base.activity.BaseVmDbActivity
 import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.core.base.activity.BaseCoreActivity
+import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.showMsgDialog
 import com.theone.mvvm.ext.qmui.showMsgTipsDialog
 
@@ -40,7 +42,7 @@ import com.theone.mvvm.ext.qmui.showMsgTipsDialog
  * @email 625805189@qq.com
  * @remark
  */
-class ErrorActivity : BaseVmDbActivity<BaseViewModel,ActivityErrorBinding>() {
+class ErrorActivity : BaseCoreActivity<BaseViewModel,ActivityErrorBinding>() {
 
     private val config: CaocConfig? by lazy {
         CustomActivityOnCrash.getConfigFromIntent(intent)

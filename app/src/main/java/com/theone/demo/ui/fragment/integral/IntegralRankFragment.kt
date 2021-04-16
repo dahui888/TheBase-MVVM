@@ -17,7 +17,6 @@ import com.theone.demo.ui.adapter.IntegralRankAdapter
 import com.theone.demo.ui.fragment.BasePagerListFragment
 import com.theone.demo.ui.fragment.web.WebExplorerFragment
 import com.theone.demo.viewmodel.IntegralRankViewModel
-import com.theone.mvvm.ext.addBindingParams
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
 

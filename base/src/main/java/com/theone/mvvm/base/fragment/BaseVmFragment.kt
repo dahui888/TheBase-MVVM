@@ -51,6 +51,7 @@ abstract class BaseVmFragment<VM : BaseViewModel> : BaseQMUIFragment(), IBaseVie
      */
     override fun onViewCreated(rootView: View) {
         super.onViewCreated(rootView)
+        initData()
     }
 
     /**

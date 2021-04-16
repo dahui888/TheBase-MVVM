@@ -9,8 +9,7 @@ import com.theone.demo.databinding.FragmentTestBinding
 import com.theone.demo.ui.fragment.category.NavFragment
 import com.theone.demo.ui.fragment.category.SystemFragment
 import com.theone.demo.viewmodel.TestViewModel
-import com.theone.mvvm.base.fragment.BaseVmDbFragment
-import kotlinx.android.synthetic.main.fragment_test.*
+import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import java.util.ArrayList
 
 
@@ -38,7 +37,7 @@ import java.util.ArrayList
  * @email 625805189@qq.com
  * @remark
  */
-class TestFragment : BaseVmDbFragment<TestViewModel, FragmentTestBinding>() {
+class TestFragment : BaseCoreFragment<TestViewModel, FragmentTestBinding>() {
 
     override fun isStatusBarLightMode(): Boolean = true
 
@@ -53,9 +52,12 @@ class TestFragment : BaseVmDbFragment<TestViewModel, FragmentTestBinding>() {
         }
     }
 
-    override fun initView(rootView: View) {
-        mViewPager.adapter = mAdapter
-        mTabLayout.setupWithViewPager(mViewPager)
+    override fun initView(root: View) {
+        mBinding.run {
+            mViewPager.adapter = mAdapter
+            mTabLayout.setupWithViewPager(mViewPager)
+        }
+
     }
 
     override fun onLazyInit() {
@@ -88,6 +90,5 @@ class TestFragment : BaseVmDbFragment<TestViewModel, FragmentTestBinding>() {
             return myFragmentTitles[position]
         }
     }
-
 
 }

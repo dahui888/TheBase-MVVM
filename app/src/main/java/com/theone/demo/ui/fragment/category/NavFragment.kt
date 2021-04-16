@@ -40,9 +40,6 @@ class NavFragment:
 
     override fun createAdapter(): NavAdapter  = NavAdapter(this)
 
-    override fun initData() {
-    }
-
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
 
     }

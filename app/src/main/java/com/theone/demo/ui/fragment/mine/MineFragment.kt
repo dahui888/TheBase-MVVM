@@ -1,5 +1,6 @@
 package com.theone.demo.ui.fragment.mine
 
+import android.util.Log
 import android.view.View
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -23,10 +24,9 @@ import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.MineViewModel
 import com.theone.mvvm.base.IClick
+import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import com.theone.mvvm.ext.getAppViewModel
-import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.*
-import kotlinx.android.synthetic.main.fragment_mine.*
 
 
 //  ┏┓　　　┏┓
@@ -53,7 +53,7 @@ import kotlinx.android.synthetic.main.fragment_mine.*
  * @email 625805189@qq.com
  * @remark
  */
-class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), View.OnClickListener {
+class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), View.OnClickListener {
 
     val appVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
@@ -65,7 +65,6 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
     private lateinit var mAPI: QMUICommonListItemView
     private lateinit var mJoinUs: QMUICommonListItemView
     private lateinit var mSample: QMUICommonListItemView
-
 
     override fun isNeedChangeStatusBarMode(): Boolean = true
 
@@ -96,9 +95,12 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
 
         }
 
-        swipeRefresh.setOnRefreshListener {
+        mBinding.swipeRefresh.setOnRefreshListener {
             mRequestVm.requestServer()
         }
+    }
+
+    override fun initData() {
         setUserInfo(appVm.userInfo.value)
     }
 
@@ -111,6 +113,7 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
     override fun createObserver() {
         mRequestVm.run {
             getResponseLiveData().observeInFragment(this@MineFragment, Observer {
+                Log.e(TAG, "createObserver: $it")
                 it.run {
                     mViewModel.integral.set("积分 $coinCount")
                     mViewModel.rank.set("排名 $rank")
@@ -121,8 +124,7 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
                 showFailTipsDialog(it)
             })
             getFinallyLiveData().observeInFragment(this@MineFragment, Observer {
-                swipeRefresh.isRefreshing = false
-                swipeRefresh.isEnabled = true
+                mBinding.swipeRefresh.isRefreshing = false
                 mRequestVm.isFirst.set(false)
             })
         }
@@ -133,12 +135,13 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
     }
 
     private fun requestIntegral() {
-        swipeRefresh.isRefreshing = !mRequestVm.isFirst.get()
+        mBinding.swipeRefresh.isRefreshing = !mRequestVm.isFirst.get()
         mRequestVm.requestServer()
     }
 
     private fun setUserInfo(it: UserInfo?) {
         it.notNull({
+            Log.e(TAG, "setUserInfo: 111" )
             requestIntegral()
             mViewModel.run {
                 name.set(it.getUserName())
@@ -146,7 +149,10 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
                 if (it.icon.isNotEmpty())
                     imageUrl.set(it.icon)
             }
+            mBinding.swipeRefresh.isEnabled = true
         },{
+            Log.e(TAG, "setUserInfo: 222" )
+            mBinding.swipeRefresh.isEnabled = false
             mViewModel.run {
                 name.set("请先登录~")
                 id.set("ID")

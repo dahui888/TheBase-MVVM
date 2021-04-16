@@ -43,4 +43,6 @@ abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVm
      */
     override fun onLazyInit() {}
 
+    override fun initData() {}
+
 }

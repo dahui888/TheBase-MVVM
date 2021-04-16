@@ -54,10 +54,6 @@ abstract class BaseArticleFragment<VM : ArticleViewModel> :
         mAdapter.setOnItemChildClickListener(this)
     }
 
-    override fun initData() {
-
-    }
-
     override fun createObserver() {
         super.createObserver()
         val isCollection = this is CollectionArticleFragment

@@ -46,8 +46,7 @@ object CacheUtil {
     }
 
     fun setUser(userInfo: UserInfo?) {
-        val exits = null != userInfo
-        val user = if (exits) Gson().toJson(userInfo) else ""
+        val user = if (null != userInfo) Gson().toJson(userInfo) else ""
         MMKVUtil.putString(USER, user)
     }
 
