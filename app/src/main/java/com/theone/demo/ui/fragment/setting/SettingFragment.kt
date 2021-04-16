@@ -93,14 +93,6 @@ class SettingFragment : BaseCoreFragment<SettingViewModel, FragmentSettingBindin
         }
     }
 
-    override fun onLazyInit() {
-
-    }
-
-    override fun initData() {
-
-    }
-
     override fun createObserver() {
         mViewModel.run {
             getResponseLiveData().observeInFragment(this@SettingFragment, Observer {

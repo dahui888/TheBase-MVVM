@@ -1,6 +1,7 @@
 package com.theone.demo.ui.adapter
 
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
+import com.theone.demo.BR
 import com.theone.demo.R
 import com.theone.demo.data.model.bean.SystemResponse
 import com.theone.demo.databinding.ItemSystemBinding
@@ -37,11 +38,8 @@ class SystemAdapter(val fragment: SystemFragment) :
         R.layout.item_system
     ) {
 
-    override fun convert(holder: BaseDataBindingHolder<ItemSystemBinding>, item: SystemResponse) {
-        holder.dataBinding?.run {
-            vm = item
-            fg = fragment
-        }
+    init {
+        addBindingParams(BR.fragment,fragment)
     }
 
 }

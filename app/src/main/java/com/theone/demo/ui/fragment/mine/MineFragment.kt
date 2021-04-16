@@ -22,6 +22,7 @@ import com.theone.demo.ui.fragment.share.ShareArticleFragment
 import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.MineViewModel
+import com.theone.mvvm.base.IClick
 import com.theone.mvvm.ext.getAppViewModel
 import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.*
@@ -72,7 +73,7 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
 
     override fun getLayoutId(): Int = R.layout.fragment_mine
 
-    override fun initView(rootView: View) {
+    override fun initView(root: View) {
         getTopBar()?.run {
             setBackgroundAlpha(0)
             updateBottomDivider(0, 0, 0, 0)
@@ -131,13 +132,6 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
         })
     }
 
-    override fun initData() {
-        mBinding.run {
-            vm = mViewModel
-            click = ProxyClick()
-        }
-    }
-
     private fun requestIntegral() {
         swipeRefresh.isRefreshing = !mRequestVm.isFirst.get()
         mRequestVm.requestServer()
@@ -192,7 +186,9 @@ class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), Vie
         }
     }
 
-    inner class ProxyClick {
+    override fun getBindingClick(): IClick? = ProxyClick()
+
+    inner class ProxyClick:IClick {
 
         fun doLogin() {
             checkLogin {

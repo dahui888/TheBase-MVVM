@@ -11,6 +11,7 @@ import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.core.widge.pullrefresh.PullRefreshLayout
 import com.theone.mvvm.ext.qmui.createItem
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
+import kotlinx.android.synthetic.main.fragment_sample.*
 
 
 //  ┏┓　　　┏┓
@@ -51,7 +52,7 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
 
     override fun initView(root: View) {
         getTopBar()?.setTitleWithBackBtn("示例", this)
-        mBinding.groupListView.run {
+        groupListView.run {
             mPager = createItem("BasePagerPullRefreshFragment")
             mGroupListView = createItem("QMUIGroupListView")
             mStringExt=  createItem("StringExt")
@@ -83,9 +84,6 @@ class SampleFragment : BaseCoreFragment<BaseViewModel, FragmentSampleBinding>(),
                 else -> TestFragment()
             }
         )
-    }
-
-    override fun initData() {
     }
 
     override fun createObserver() {

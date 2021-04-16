@@ -11,6 +11,7 @@ import com.theone.demo.databinding.FragmentSampleGroupListViewBinding
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.*
+import kotlinx.android.synthetic.main.fragment_sample_group_list_view.*
 
 
 //  ┏┓　　　┏┓
@@ -69,15 +70,7 @@ class GroupListViewFragment : BaseCoreFragment<BaseViewModel, FragmentSampleGrou
         }
     }
 
-    override fun onLazyInit() {
-
-    }
-
     override fun createObserver() {
-
-    }
-
-    override fun initData() {
 
     }
 

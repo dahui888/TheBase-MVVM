@@ -11,11 +11,14 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import com.qmuiteam.qmui.arch.QMUIFragment
+import com.qmuiteam.qmui.arch.R
 import com.qmuiteam.qmui.util.QMUIKeyboardHelper
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.theone.mvvm.base.IBaseQMUI
 import com.theone.mvvm.ext.createTopBar
 import com.theone.mvvm.ext.createView
+import com.theone.mvvm.ext.qmui.hideLoadingDialog
+import com.theone.mvvm.ext.qmui.showLoadingDialog
 import com.theone.mvvm.ext.qmui.updateStatusBarMode
 
 
@@ -81,6 +84,10 @@ abstract class BaseQMUIFragment : QMUIFragment(), IBaseQMUI,LifecycleObserver {
      */
     internal open fun createContentView(): View = layoutInflater.inflate(getLayoutId(), null)
 
+    /**
+     * 提供一个方法子类获取内容层
+     * @return View
+     */
     override fun getContentView(): View = mContent
 
     /**
@@ -130,6 +137,21 @@ abstract class BaseQMUIFragment : QMUIFragment(), IBaseQMUI,LifecycleObserver {
         return super.onCreateView(inflater, container, savedInstanceState)
     }
 
+    /**
+     * 显示加载框
+     * @param msg String? 提示语
+     * @remark 这了提供了默认的加载效果，如果需要更改，重写此方法以及[hideLoading]
+     */
+    override fun showLoading(msg: String?) {
+        context?.showLoadingDialog(msg)
+    }
+
+    /**
+     * 隐藏加载框
+     */
+    override fun hideLoading() {
+        hideLoadingDialog()
+    }
 
     /**
      * 懒加载分两种情况

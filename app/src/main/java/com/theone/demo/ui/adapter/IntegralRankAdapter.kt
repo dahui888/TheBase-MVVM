@@ -33,12 +33,4 @@ import com.theone.mvvm.core.base.adapter.TheBaseQuickAdapter
  */
 class IntegralRankAdapter : TheBaseQuickAdapter<IntegralResponse, ItemIntegralRankBinding>(
     R.layout.item_integral_rank
-) {
-
-    override fun convert(holder: BaseDataBindingHolder<ItemIntegralRankBinding>, data: IntegralResponse) {
-       holder.dataBinding?.run {
-           item = data
-       }
-    }
-
-}
+)

@@ -1,8 +1,10 @@
 package com.theone.demo.ui.fragment.sample
 
 import android.text.SpannableString
+import android.text.Spanned
 import android.view.View
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView
+import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView
 import com.theone.common.ext.*
 import com.theone.demo.R
 import com.theone.demo.databinding.FragmentSampleStringExtBinding
@@ -11,6 +13,7 @@ import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.addToGroup
 import com.theone.mvvm.ext.qmui.createItem
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
+import kotlinx.android.synthetic.main.fragment_sample_string_ext.*
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -55,7 +58,7 @@ class StringExtFragment : BaseCoreFragment<StringExtViewModel, FragmentSampleStr
         getTopBar()?.run {
             setTitleWithBackBtn("StringExt", this@StringExtFragment)
         }
-        mBinding.groupListView.run {
+        groupListView.run {
             ForegroundColorSpan =
                 createItem("前景色", SpanType.ForegroundColorSpan)
             BackgroundColorSpan =
@@ -87,11 +90,7 @@ class StringExtFragment : BaseCoreFragment<StringExtViewModel, FragmentSampleStr
                 BOLD_ITALIC2
             )
         }
-    }
-
-    override fun initData() {
         mViewModel.run {
-            mBinding.vm = this
             subscript.set(getSpannableString("下标", SpanType.SubscriptSpan))
             superscript.set(getSpannableString("上标", SpanType.SuperscriptSpan))
             fruitName.set(
@@ -121,9 +120,10 @@ class StringExtFragment : BaseCoreFragment<StringExtViewModel, FragmentSampleStr
     }
 
 
-    private fun createItem(title: String, vararg types: SpanType): QMUICommonListItemView {
-        return mBinding.groupListView.createItem(getSpannableString(title, *types))
-    }
+    private fun QMUIGroupListView.createItem(
+        title: String,
+        vararg types: SpanType
+    ): QMUICommonListItemView = createItem(getSpannableString(title, *types))
 
     private fun getSpannableString(title: String, vararg types: SpanType): SpannableString {
         var content = "设置$title"

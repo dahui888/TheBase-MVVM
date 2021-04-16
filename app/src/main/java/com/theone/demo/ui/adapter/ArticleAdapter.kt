@@ -1,5 +1,6 @@
 package com.theone.demo.ui.adapter
 
+import android.util.SparseArray
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 import com.theone.demo.R
 import com.theone.demo.data.model.bean.ArticleResponse
@@ -33,12 +34,4 @@ import com.theone.mvvm.core.base.adapter.TheBaseQuickAdapter
  */
 class ArticleAdapter : TheBaseQuickAdapter<ArticleResponse, ItemArticleBinding>(
     R.layout.item_article
-) {
-
-    override fun convert(holder: BaseDataBindingHolder<ItemArticleBinding>, item: ArticleResponse) {
-        holder.dataBinding?.run {
-            bean = item
-        }
-    }
-
-}
+)

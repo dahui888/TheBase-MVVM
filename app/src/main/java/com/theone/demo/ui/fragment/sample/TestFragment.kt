@@ -10,6 +10,7 @@ import com.theone.demo.ui.fragment.category.NavFragment
 import com.theone.demo.ui.fragment.category.SystemFragment
 import com.theone.demo.viewmodel.TestViewModel
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
+import kotlinx.android.synthetic.main.fragment_test.*
 import java.util.ArrayList
 
 
@@ -53,18 +54,12 @@ class TestFragment : BaseVmDbFragment<TestViewModel, FragmentTestBinding>() {
     }
 
     override fun initView(rootView: View) {
-        with(mBinding){
-            mViewPager.adapter = mAdapter
-            mTabLayout.setupWithViewPager(mViewPager)
-        }
+        mViewPager.adapter = mAdapter
+        mTabLayout.setupWithViewPager(mViewPager)
     }
 
     override fun onLazyInit() {
 
-    }
-
-    override fun initData() {
-        mBinding.vm = mViewModel
     }
 
     override fun createObserver() {

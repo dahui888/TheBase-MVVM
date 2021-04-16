@@ -24,20 +24,32 @@ import com.theone.mvvm.ext.qmui.showLoadingDialog
 /**
  * @author The one
  * @date 2021-03-31 15:04
- * @describe TODO
+ * @describe ViewModel基类相关
  * @email 625805189@qq.com
  * @remark
  */
-interface IBaseVm<VM:BaseViewModel> {
+interface IBaseViewModel<VM:BaseViewModel> {
 
     /**
      * ViewMode在泛型中的的位置
      */
     fun getViewModelIndex(): Int
-    fun createViewModel(): VM
-    fun addLoadingObserve(vararg viewModels: BaseViewModel)
 
-    fun initData()
+    /**
+     * 创建ViewModel
+     * @return VM
+     */
+    fun createViewModel(): VM
+
+    /**
+     * 创建观察者
+     */
     fun createObserver()
+
+    /**
+     * BaseViewModel添加Loading观察
+     * @param viewModels Array<out BaseViewModel>
+     */
+    fun addLoadingObserve(vararg viewModels: BaseViewModel)
 
 }

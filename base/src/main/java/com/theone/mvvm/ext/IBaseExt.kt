@@ -1,8 +1,10 @@
 package com.theone.mvvm.ext
 
 import android.content.Context
+import android.util.SparseArray
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.NonNull
 import com.qmuiteam.qmui.kotlin.matchParent
 import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.layout.QMUIFrameLayout
@@ -93,5 +95,12 @@ fun IBaseQMUI.createTopBar(context: Context): QMUITopBarLayout? {
         }
     } else {
         null
+    }
+}
+
+fun SparseArray<Any>.addParams(@NonNull variableId: Int,
+                               @NonNull any: Any){
+    if(get(variableId) == null){
+        put(variableId,any)
     }
 }

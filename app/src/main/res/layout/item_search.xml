@@ -4,7 +4,7 @@
 
     <data>
         <variable
-            name="data"
+            name="item"
             type="String" />
 
     </data>
@@ -31,7 +31,7 @@
             android:maxLines="1"
             android:ellipsize="end"
             android:layout_toStartOf="@id/history_delete"
-            android:text="@{data}"
+            android:text="@{item}"
             android:drawableStart="@drawable/svg_search_history"
             android:drawablePadding="12dp"
             android:textColor="@color/qmui_config_color_gray_2" />

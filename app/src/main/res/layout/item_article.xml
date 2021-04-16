@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="bean"
+            name="item"
             type="com.theone.demo.data.model.bean.ArticleResponse" />
 
         <import
@@ -39,7 +39,7 @@
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 style="@style/home_tag_style"
-                visible="@{bean.type == 1}"
+                visible="@{item.type == 1}"
                 android:text="@string/home_tag_top"
                 app:qmui_borderColor="@color/qmui_config_color_red"
                 app:qmui_isRadiusAdjustBounds="false"
@@ -47,7 +47,7 @@
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 style="@style/home_tag_style"
-                visible="@{bean.fresh}"
+                visible="@{item.fresh}"
                 android:text="@string/home_tag_new"
                 app:qmui_borderColor="@color/qmui_config_color_red"
                 app:qmui_isRadiusAdjustBounds="false"
@@ -57,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
-                android:text='@{"#"+(textUtils.isEmpty(bean.author)?bean.shareUser:bean.author)}'
+                android:text='@{"#"+(textUtils.isEmpty(item.author)?item.shareUser:item.author)}'
                 android:textColor="?attr/app_skin_primary_color"
                 android:textSize="15sp" />
         </LinearLayout>
@@ -69,9 +69,9 @@
             android:orientation="horizontal">
 
             <com.qmuiteam.qmui.widget.QMUIRadiusImageView2
-                imageUrl="@{bean.envelopePic}"
+                imageUrl="@{item.envelopePic}"
                 placeHolder="@{@drawable/image_place_holder}"
-                visible="@{!textUtils.isEmpty(bean.envelopePic)}"
+                visible="@{!textUtils.isEmpty(item.envelopePic)}"
                 app:qmui_corner_radius="2dp"
                 app:qmui_border_color="@color/qmui_config_color_background"
                 android:layout_width="100dp"
@@ -91,7 +91,7 @@
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="2"
-                    android:text="@{html.fromHtml(bean.title)}"
+                    android:text="@{html.fromHtml(item.title)}"
                     android:textColor="@color/qmui_config_color_gray_2"
                     android:textSize="17sp"
                     android:textStyle="bold"
@@ -104,8 +104,8 @@
                     android:layout_marginTop="10dp"
                     android:ellipsize="end"
                     android:maxHeight="120dp"
-                    visible="@{!textUtils.isEmpty(bean.desc)}"
-                    android:text="@{html.fromHtml(bean.desc)}"
+                    visible="@{!textUtils.isEmpty(item.desc)}"
+                    android:text="@{html.fromHtml(item.desc)}"
                     android:textColor="@color/qmui_config_color_gray_4"
                     android:textSize="14sp"
                     tools:text="Java “优雅”地中断线程(原理篇)" />
@@ -124,8 +124,8 @@
 
             <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
                 style="@style/home_tag_style"
-                visible="@{bean.showTags()}"
-                android:text='@{bean.showTags()?bean.tags.get(0).name:""}'
+                visible="@{item.showTags()}"
+                android:text='@{item.showTags()?item.tags.get(0).name:""}'
                 android:textColor="@color/white"
                 android:textSize="11sp"
                 app:qmui_backgroundColor="@color/qmui_config_color_gray_5"
@@ -138,7 +138,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:layout_weight="1"
-                android:text="@{bean.niceDate}"
+                android:text="@{item.niceDate}"
                 android:textColor="@color/qmui_config_color_gray_3"
                 android:textSize="12sp" />
 
@@ -149,7 +149,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="10dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@{bean.collect? @drawable/svg_collection_select: @drawable/svg_collection_normal}" />
+                android:src="@{item.collect? @drawable/svg_collection_select: @drawable/svg_collection_normal}" />
         </LinearLayout>
 
     </com.qmuiteam.qmui.layout.QMUILinearLayout>

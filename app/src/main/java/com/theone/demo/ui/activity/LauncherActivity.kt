@@ -49,9 +49,6 @@ class LauncherActivity : BaseVmDbActivity<BaseViewModel, ActivityLauncherBinding
         }
     }
 
-    override fun initData() {
-    }
-
     override fun createObserver() {
     }
 

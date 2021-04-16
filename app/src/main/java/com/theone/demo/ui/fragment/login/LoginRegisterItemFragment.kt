@@ -3,12 +3,14 @@ package com.theone.demo.ui.fragment.login
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.Observer
+import com.theone.common.constant.BundleConstant.TYPE
 import com.theone.common.ext.getValueNonNull
 import com.theone.demo.R
 import com.theone.demo.app.util.CacheUtil
 import com.theone.demo.viewmodel.LoginRegisterViewModel
 import com.theone.demo.databinding.FragmentLoginRegisterBinding
 import com.theone.demo.viewmodel.AppViewModel
+import com.theone.mvvm.base.IClick
 import com.theone.mvvm.ext.getAppViewModel
 import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.qmui.showFailTipsDialog
@@ -25,8 +27,6 @@ class LoginRegisterItemFragment :
                 }
             }
         }
-
-        const val TYPE = "TYPE"
     }
 
     val mAppVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
@@ -35,11 +35,10 @@ class LoginRegisterItemFragment :
 
     override fun getLayoutId(): Int = R.layout.fragment_login_register
 
-    override fun initView(rootView: View) {
-        mViewModel.isRegister.set(isRegister)
-    }
+    override fun getBindingClick(): IClick?  = ProxyClick()
 
-    override fun onLazyInit() {
+    override fun initView(root: View) {
+        mViewModel.isRegister.set(isRegister)
     }
 
     override fun createObserver() {
@@ -47,7 +46,7 @@ class LoginRegisterItemFragment :
             getResponseLiveData().observeInFragment(this@LoginRegisterItemFragment, Observer {
                 mAppVm.userInfo.value = it
                 CacheUtil.setUser(it)
-                showSuccessTipsExitDialog(if (isRegister.get()) "注册成功" else "登录成功")
+                showSuccessTipsExitDialog(if (isRegister.get()) "注册" else "登录"+"成功")
             })
             getErrorMsgLiveData().observeInFragment(this@LoginRegisterItemFragment, Observer {
                 showFailTipsDialog(it)
@@ -56,14 +55,8 @@ class LoginRegisterItemFragment :
 
     }
 
-    override fun initData() {
-        mBinding.run {
-            vm = mViewModel
-            click = ProxyClick()
-        }
-    }
 
-    inner class ProxyClick {
+    inner class ProxyClick :IClick{
 
         fun login() {
             when {

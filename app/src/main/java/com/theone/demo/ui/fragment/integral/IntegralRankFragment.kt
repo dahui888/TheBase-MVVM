@@ -7,6 +7,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.theone.common.constant.BundleConstant
 import com.theone.common.ext.getValueNonNull
+import com.theone.demo.BR
 import com.theone.demo.R
 import com.theone.demo.app.net.Url
 import com.theone.demo.data.model.bean.BannerResponse
@@ -16,6 +17,7 @@ import com.theone.demo.ui.adapter.IntegralRankAdapter
 import com.theone.demo.ui.fragment.BasePagerListFragment
 import com.theone.demo.ui.fragment.web.WebExplorerFragment
 import com.theone.demo.viewmodel.IntegralRankViewModel
+import com.theone.mvvm.ext.addBindingParams
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 
 
@@ -59,8 +61,6 @@ class IntegralRankFragment :
     private val mIntegralRank: IntegralResponse by getValueNonNull(BundleConstant.DATA)
 
     override fun getLayoutId(): Int = R.layout.fragment_integral_rank
-    override fun getRecyclerView(): RecyclerView = mBinding.recyclerView
-    override fun getRefreshLayout(): SwipeRefreshLayout = mBinding.swipeRefresh
 
     override fun createAdapter(): BaseQuickAdapter<IntegralResponse, *> = IntegralRankAdapter()
 
@@ -82,12 +82,7 @@ class IntegralRankFragment :
                 )
             }
         }
-    }
-
-    override fun initData() {
-        mBinding.run {
-            item = mIntegralRank
-        }
+        addBindingParams(BR.item,mIntegralRank)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

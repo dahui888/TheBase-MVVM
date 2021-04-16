@@ -2,24 +2,19 @@ package com.theone.demo.ui.activity
 
 import android.content.ClipData
 import android.content.ClipboardManager
-import android.os.Bundle
 import android.view.View
 import androidx.core.content.getSystemService
 import cat.ereza.customactivityoncrash.CustomActivityOnCrash
 import cat.ereza.customactivityoncrash.config.CaocConfig
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog
 import com.qmuiteam.qmui.widget.dialog.QMUIDialogAction
 import com.theone.demo.R
 import com.theone.demo.app.ext.joinQQGroup
 import com.theone.demo.databinding.ActivityErrorBinding
-import com.theone.demo.databinding.FragmentTestBinding
-import com.theone.mvvm.base.activity.BaseQMUIActivity
+import com.theone.mvvm.base.IClick
 import com.theone.mvvm.base.activity.BaseVmDbActivity
-import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.ext.qmui.showMsgDialog
 import com.theone.mvvm.ext.qmui.showMsgTipsDialog
-import kotlinx.android.synthetic.main.activity_error.*
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -66,13 +61,11 @@ class ErrorActivity : BaseVmDbActivity<BaseViewModel,ActivityErrorBinding>() {
         }
     }
 
-    override fun initData() {
-        mBinding.click = Proxy()
-    }
-
     override fun createObserver() {}
 
-    inner class Proxy{
+    override fun getBindingClick(): IClick? = Proxy()
+
+    inner class Proxy:IClick{
 
         fun showErrorMsgDialog(){
             showMsgDialog("错误信息",errorMsg,leftAction = null,rightAction = "关闭",listener = QMUIDialogAction.ActionListener { dialog, index ->

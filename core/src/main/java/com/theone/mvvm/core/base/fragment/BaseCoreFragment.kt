@@ -16,7 +16,9 @@ import com.theone.mvvm.core.widge.loadsir.core.LoadService
  */
 abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVmDbFragment<VM,DB>() {
 
-    //界面状态管理者
+    /**
+     * 界面状态管理者
+     */
     var mLoadSir: LoadService<Any>?=null
 
     /**
@@ -36,8 +38,9 @@ abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVm
      */
     protected open fun onPageReLoad() {}
 
-    override fun onLazyInit() {
-
-    }
+    /**
+     * 这里把这个方法实现了，子类需要的时候重写，免的每次都要去实现这个方法
+     */
+    override fun onLazyInit() {}
 
 }

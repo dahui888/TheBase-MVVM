@@ -76,8 +76,4 @@ class IndexFragment : BaseTabIndexFragment<BaseViewModel>() {
     override fun createObserver() {
     }
 
-    override fun initData() {
-    }
-
-
 }

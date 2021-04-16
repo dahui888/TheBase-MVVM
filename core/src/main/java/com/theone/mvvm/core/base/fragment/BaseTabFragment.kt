@@ -98,9 +98,6 @@ abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> :
         }
     }
 
-    override fun initData() {
-    }
-
     protected open fun startInit() {
         mTabs.clear()
         mFragments.clear()

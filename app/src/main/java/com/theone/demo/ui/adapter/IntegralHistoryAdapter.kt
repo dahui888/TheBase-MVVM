@@ -33,12 +33,4 @@ import com.theone.mvvm.core.base.adapter.TheBaseQuickAdapter
  */
 class IntegralHistoryAdapter : TheBaseQuickAdapter<IntegralHistoryResponse, ItemIntegralHistoryBinding>(
     R.layout.item_integral_history
-) {
-
-    override fun convert(holder: BaseDataBindingHolder<ItemIntegralHistoryBinding>, item: IntegralHistoryResponse) {
-       holder.dataBinding?.run {
-           bean = item
-       }
-    }
-
-}
+)

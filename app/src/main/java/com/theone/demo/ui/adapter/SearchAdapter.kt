@@ -32,12 +32,4 @@ import com.theone.mvvm.core.base.adapter.TheBaseQuickAdapter
  */
 class SearchAdapter : TheBaseQuickAdapter<String, ItemSearchBinding>(
     R.layout.item_search
-) {
-
-    override fun convert(holder: BaseDataBindingHolder<ItemSearchBinding>, item: String) {
-       holder.dataBinding?.run {
-           data = item
-       }
-    }
-
-}
+)

@@ -1,9 +1,14 @@
 package com.theone.mvvm.core.base.adapter
 
+import android.util.SparseArray
+import androidx.annotation.NonNull
+import androidx.core.util.forEach
 import androidx.databinding.ViewDataBinding
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
+import com.theone.mvvm.core.BR
+import com.theone.mvvm.ext.addParams
 
 
 //  ┏┓　　　┏┓
@@ -33,4 +38,24 @@ import com.chad.library.adapter.base.viewholder.BaseDataBindingHolder
 abstract class TheBaseQuickAdapter<T, BD : ViewDataBinding>(layout: Int) :
     BaseQuickAdapter<T, BaseDataBindingHolder<BD>>(
         layout
-    ), LoadMoreModule
+    ), LoadMoreModule {
+
+    private val bindingParams: SparseArray<Any> = SparseArray()
+
+    protected fun addBindingParams(
+        @NonNull variableId: Int,
+        @NonNull any: Any
+    ) {
+        bindingParams.addParams(variableId,any)
+    }
+
+    override fun convert(holder: BaseDataBindingHolder<BD>, item: T) {
+        holder.dataBinding?.run {
+            this.setVariable(BR.item, item)
+            bindingParams.forEach { key, any ->
+                setVariable(key, any)
+            }
+        }
+    }
+
+}

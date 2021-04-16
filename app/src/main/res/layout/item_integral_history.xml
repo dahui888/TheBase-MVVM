@@ -6,7 +6,7 @@
     <data>
 
         <variable
-            name="bean"
+            name="item"
             type="com.theone.demo.data.model.bean.IntegralHistoryResponse" />
 
         <variable
@@ -37,13 +37,13 @@
                 android:id="@+id/des"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{bean.getDes}"
+                android:text="@{item.getDes}"
                 android:textColor="@color/qmui_config_color_gray_1"
                 android:textSize="15sp"
                 tools:text="【签到】 积分：10 + 14" />
 
             <TextView
-                longDate="@{bean.date}"
+                longDate="@{item.date}"
                 type="@{format.FORMAT_TYPE_PERSONAL_FOOTPRINT}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:layout_marginStart="15dp"
-            android:text='@{"+"+bean.coinCount}'
+            android:text='@{"+"+item.coinCount}'
             android:textColor="?attr/app_skin_primary_color"
             android:textSize="20sp"
             android:textStyle="bold"

@@ -3,7 +3,7 @@ package com.theone.mvvm.base.activity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
-import com.theone.mvvm.base.IBaseVm
+import com.theone.mvvm.base.IBaseViewModel
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.ext.getVmClazz
 import com.theone.mvvm.ext.qmui.hideLoadingDialog
@@ -33,12 +33,20 @@ import com.theone.mvvm.ext.qmui.showLoadingDialog
  * @email 625805189@qq.com
  * @remark
  */
-abstract class BaseVmActivity<VM : BaseViewModel> : BaseQMUIActivity(), IBaseVm<VM> {
+abstract class BaseVmActivity<VM : BaseViewModel> : BaseQMUIActivity(), IBaseViewModel<VM> {
 
-    lateinit var mViewModel: VM
+     val mViewModel: VM by lazy {
+        createViewModel()
+    }
 
+    /**
+     * ViewModel的位置
+     */
     override fun getViewModelIndex(): Int = 0
 
+    /**
+     * 创建viewModel
+     */
     override fun createViewModel(): VM = ViewModelProvider(this).get(
         getVmClazz(
             this,
@@ -46,22 +54,25 @@ abstract class BaseVmActivity<VM : BaseViewModel> : BaseQMUIActivity(), IBaseVm<
         )
     )
 
-    override fun init(root: View) {
-        mViewModel = createViewModel()
-        initView(root)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        // 创建观察者
         createObserver()
-        initData()
     }
 
+    /**
+     * 添加加载观察
+     * @param viewModels Array<out BaseViewModel>
+     */
     override fun addLoadingObserve(vararg viewModels: BaseViewModel) {
         viewModels.forEach { viewModel ->
             //显示弹窗
             viewModel.loadingChange.showDialog.observeInActivity(this) {
-                showLoadingDialog(it)
+                showLoading(it)
             }
             //关闭弹窗
             viewModel.loadingChange.dismissDialog.observeInActivity(this) {
-                hideLoadingDialog()
+                hideLoading()
             }
         }
     }

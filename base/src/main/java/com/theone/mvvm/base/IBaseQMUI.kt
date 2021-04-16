@@ -31,7 +31,7 @@ import com.theone.mvvm.R
 /**
  * @author The one
  * @date 2021-03-31 14:28
- * @describe TODO
+ * @describe 基类相关
  * @email 625805189@qq.com
  * @remark
  */
@@ -63,6 +63,17 @@ interface IBaseQMUI {
      * @param root View
      */
     fun initView(root: View)
+
+    /**
+     * 显示加载框
+     * @param msg String?
+     */
+    fun showLoading(msg:String?)
+
+    /**
+     * 隐藏加载框
+     */
+    fun hideLoading()
 
     /**
      * @return 是否设置状态栏LightMode true 深色图标 false 白色背景

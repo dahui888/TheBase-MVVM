@@ -14,6 +14,7 @@ import com.theone.demo.app.ext.isShareAutoPass
 import com.theone.demo.databinding.FragmentArticleAddBinding
 import com.theone.demo.viewmodel.AddShareArticleViewModel
 import com.theone.demo.viewmodel.AppViewModel
+import com.theone.mvvm.base.IClick
 import com.theone.mvvm.ext.getAppViewModel
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
 import com.theone.mvvm.ext.qmui.showFailTipsDialog
@@ -67,20 +68,8 @@ class AddShareArticleFragment :
                 showRulesPopup(it)
             }
         }
-
-    }
-
-    override fun onLazyInit() {
-
-    }
-
-    override fun initData() {
         mAppVm.userInfo.value?.let {
             mViewModel.publisher.set(it.getUserName())
-        }
-        mBinding.run {
-            vm = mViewModel
-            click = ProxyClick()
         }
     }
 
@@ -139,7 +128,9 @@ class AddShareArticleFragment :
             .animStyle(QMUIPopup.ANIM_GROW_FROM_CENTER).dimAmount(0.5f)
     }
 
-    inner class ProxyClick {
+    override fun getBindingClick(): IClick? = ProxyClick()
+
+    inner class ProxyClick:IClick {
 
         fun add() {
             when {
