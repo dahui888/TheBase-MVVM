@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.chad.library.adapter.base.BaseQuickAdapter
+import com.theone.common.ext.logE
+import com.theone.common.ext.logI
 import com.theone.mvvm.core.data.enum.LayoutManagerType
 import com.theone.mvvm.core.base.fragment.BasePagerAdapterFragment
 import com.theone.mvvm.core.base.fragment.IRecyclerPager
@@ -114,7 +116,11 @@ fun <T> IRecyclerPager<T>.loadListData(
     } else {
         onLoadMoreSuccess(list)
     }
-    val pageInfo = vm.getPageInfoLiveData().value
+    val pageInfo = vm.pageInfo
+//    "onSuccess loadListData".logE()
+//    pageInfo?.run {
+//        "${getPage()}  ${getPageTotalCount()} ${getTotalCount()}".logI()
+//    }
     if (pageInfo == null || pageInfo.getPageTotalCount() > pageInfo.getPage()) {
         vm.page++
         onLoadMoreComplete()

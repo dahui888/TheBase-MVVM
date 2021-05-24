@@ -3,8 +3,10 @@ package com.theone.mvvm.core.widge
 import android.graphics.Rect
 import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
+import com.theone.common.ext.logI
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -31,7 +33,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * @remark
  */
 class TheSpaceItemDecoration(
-    private val column: Int,
+    private var column: Int,
     private val headerNum: Int,
     private val mLeft: Int,
     private val mRight: Int,
@@ -66,6 +68,9 @@ class TheSpaceItemDecoration(
             is GridLayoutManager -> {
                 params as GridLayoutManager.LayoutParams
                 columnIndex = params.spanIndex
+            }
+            is LinearLayoutManager ->{
+                column = 1
             }
         }
         // 有的时候适配器会加上头部，如果有就不加间距，让头部自行处理 （如果有尾部，同理也可以加上）
@@ -104,6 +109,7 @@ class TheSpaceItemDecoration(
                 }
             }
         }
+
     }
 
 }

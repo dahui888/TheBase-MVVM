@@ -2,7 +2,10 @@ package com.theone.mvvm.core.base.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.kunminx.architecture.ui.callback.ProtectedUnPeekLiveData
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
+import com.theone.common.ext.logE
+import com.theone.common.ext.logI
 import com.theone.mvvm.core.net.IPageInfo
 
 
@@ -33,7 +36,7 @@ import com.theone.mvvm.core.net.IPageInfo
 abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
 
     // 分页信息,实体需实现 IPageInfo
-    private val pageInfo: MutableLiveData<IPageInfo> = MutableLiveData()
+    var pageInfo : IPageInfo ? = null
     // 是否第一次加载
     var isFirst: Boolean = true
     // 是否刷新
@@ -43,16 +46,15 @@ abstract class BaseListViewModel<T> : BaseRequestViewModel<List<T>>() {
     // 当前页面
     var page: Int = startPage
 
-    fun getPageInfoLiveData():LiveData<IPageInfo> = pageInfo
-
     /**
      *     数据请求成功后调用此方法
      * @param response 返回的数据
      * @param pageInfo 页码信息
      */
-    open fun onSuccess( response:List<T>?, pageInfo: IPageInfo? ){
+    open fun onSuccess(response: List<T>?, pageInfo: IPageInfo? =null){
+        // 这个一定要放前面
+        this.pageInfo = pageInfo
         onSuccess(response)
-        this.pageInfo.value = pageInfo
     }
 
     /**

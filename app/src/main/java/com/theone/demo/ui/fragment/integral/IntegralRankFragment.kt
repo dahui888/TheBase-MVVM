@@ -63,8 +63,12 @@ class IntegralRankFragment :
 
     override fun createAdapter(): BaseQuickAdapter<IntegralResponse, *> = IntegralRankAdapter()
 
-    override fun initView(rootView: View) {
-        super.initView(rootView)
+    override fun createBindingParams() {
+        addBindingParams(BR.bean,mIntegralRank)
+    }
+
+    override fun initView(root: View) {
+        super.initView(root)
         getTopBar()?.run {
             setTitleWithBackBtn("积分排行", this@IntegralRankFragment)
             addRightImageButton(
@@ -81,7 +85,6 @@ class IntegralRankFragment :
                 )
             }
         }
-        addBindingParams(BR.item,mIntegralRank)
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

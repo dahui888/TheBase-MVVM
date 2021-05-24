@@ -6,7 +6,9 @@ import android.widget.TextView
 import com.theone.mvvm.core.widge.loadsir.core.LoadService
 import com.theone.mvvm.core.widge.loadsir.core.LoadSir
 import com.theone.mvvm.core.R
+import com.theone.mvvm.core.base.activity.BaseCoreActivity
 import com.theone.mvvm.core.base.fragment.BaseCoreFragment
+import com.theone.mvvm.core.callback.ICore
 import com.theone.mvvm.core.widge.loadsir.callback.ErrorCallback
 import com.theone.mvvm.core.widge.loadsir.callback.LoadingCallback
 import com.theone.mvvm.core.widge.loadsir.callback.SuccessCallback
@@ -37,10 +39,14 @@ import com.theone.mvvm.core.widge.loadsir.callback.SuccessCallback
  * @remark
  */
 
+
+fun ICore.registerLoadSir(): LoadService<Any> =
+    loadSirRegister(loadSirRegisterView()) { onPageReLoad() }
+
 /**
  * 提供默认的init方法
  */
-fun initLoadSir(){
+fun initLoadSir() {
     LoadSir.beginBuilder()
         .addCallback(LoadingCallback())
         .addCallback(ErrorCallback())
@@ -48,7 +54,7 @@ fun initLoadSir(){
         .commit()
 }
 
-fun loadSirInit(view: View, callback: () -> Unit): LoadService<Any> {
+fun loadSirRegister(view: View, callback: () -> Unit): LoadService<Any> {
     return LoadSir.getDefault().register(view) {
         //点击重试时触发的操作
         callback.invoke()
@@ -59,7 +65,10 @@ fun loadSirInit(view: View, callback: () -> Unit): LoadService<Any> {
  * 设置错误布局
  * @param message 错误布局显示的提示内容
  */
-fun LoadService<*>.showError(message: String?, imageRes:Int = R.drawable.status_loading_view_loading_fail) {
+fun LoadService<*>.showError(
+    message: String?,
+    imageRes: Int = R.drawable.status_loading_view_loading_fail
+) {
     this.setCallBack(ErrorCallback::class.java) { _, view ->
         view.findViewById<TextView>(R.id.stateContentTextView).text = message
         view.findViewById<ImageView>(R.id.stateImageView).setImageResource(imageRes)
@@ -71,8 +80,11 @@ fun LoadService<*>.showError(message: String?, imageRes:Int = R.drawable.status_
  * 设置错误布局
  * @param message 错误布局显示的提示内容
  */
-fun LoadService<*>.showEmpty(message: String,imageRes:Int = R.drawable.status_search_result_empty) {
-    showError(message,imageRes)
+fun LoadService<*>.showEmpty(
+    message: String,
+    imageRes: Int = R.drawable.status_search_result_empty
+) {
+    showError(message, imageRes)
 }
 
 /**
@@ -89,22 +101,28 @@ fun LoadService<*>.showLoading() {
     this.showCallback(LoadingCallback::class.java)
 }
 
-fun BaseCoreFragment<*,*>.showSuccessPage(){
-    mLoadSir?.showSuccess()
+fun ICore.showSuccessPage() {
+    getLoadSir()?.showSuccess()
 }
 
-fun BaseCoreFragment<*,*>.showLoadingPage(){
-    mLoadSir?.showLoading()
+fun ICore.showLoadingPage() {
+    getLoadSir()?.showLoading()
 }
 
-fun BaseCoreFragment<*,*>.showErrorPage(message: String?, imageRes:Int = R.drawable.status_loading_view_loading_fail){
-    mLoadSir?.showError(message,imageRes)
+fun ICore.showErrorPage(
+    message: String?,
+    imageRes: Int = R.drawable.status_loading_view_loading_fail
+) {
+    getLoadSir()?.showError(message, imageRes)
 }
 
-fun BaseCoreFragment<*,*>.showEmptyPage(message: String, imageRes:Int = R.drawable.status_search_result_empty){
-    mLoadSir?.showEmpty(message,imageRes)
+fun ICore.showEmptyPage(
+    message: String,
+    imageRes: Int = R.drawable.status_search_result_empty
+) {
+    getLoadSir()?.showEmpty(message, imageRes)
 }
 
-fun BaseCoreFragment<*,*>.showEmptyPage(){
-    mLoadSir?.showEmpty()
+fun ICore.showEmptyPage() {
+    getLoadSir()?.showEmpty()
 }

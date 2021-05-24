@@ -6,6 +6,7 @@ import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUICenterGravityRefreshOffset
 import com.qmuiteam.qmui.widget.pullRefreshLayout.QMUIPullRefreshLayout.OnPullListener
 import com.theone.mvvm.core.R
 import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
+import com.theone.mvvm.core.widge.loadsir.callback.ErrorCallback
 import com.theone.mvvm.core.widge.pullrefresh.PullRefreshLayout
 import kotlinx.android.synthetic.main.base_pull_fresh_fragment.*
 
@@ -73,6 +74,15 @@ abstract class BasePagerPullRefreshFragment<T, VM : BaseListViewModel<T>, DB : V
     override fun onRefreshError(errorMsg: String?) {
         super.onRefreshError(errorMsg)
         setPullLayoutEnabled(true)
+    }
+
+    override fun onAutoRefresh() {
+        if (mLoadSir?.currentCallback is ErrorCallback) {
+            onFirstLoading()
+        } else {
+            // 这里要调用PullRefreshLayout的主动刷新方法，后会自动回到到onRefresh 方法请求数据
+            getRefreshLayout().setToRefreshDirectly()
+        }
     }
 
     protected open fun setPullLayoutEnabled(enabled: Boolean) {

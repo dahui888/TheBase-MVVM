@@ -44,7 +44,7 @@ fun QMUITabBuilder.createTab(
     setText(text)
     if (normal != NO_SET)
         setNormalDrawable(getDrawable(context, normal))
-    if (normal != NO_SET)
+    if (select != NO_SET)
         setSelectedDrawable(getDrawable(context, select))
     return build(context)
 }
@@ -61,7 +61,7 @@ fun QMUITabSegment.init(viewPager: ViewPager, tabs: List<QMUITabBean>, builder: 
 }
 
 fun MutableList<QMUITabBean>.addTab(title: String, normal: Int = NO_SET, select: Int = NO_SET) {
-    add(QMUITabBean(title, normal, select))
+    add(QMUITabBean(title, normal,if(select == NO_SET) normal else select))
 }
 
 private val NO_SET: Int = -1

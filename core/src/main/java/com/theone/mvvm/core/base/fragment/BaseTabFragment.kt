@@ -9,6 +9,7 @@ import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabBuilder
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
 import com.theone.common.ext.notNull
+import com.theone.common.ext.visible
 import com.theone.mvvm.core.base.adapter.TabFragmentAdapter
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.data.entity.QMUITabBean
@@ -58,7 +59,7 @@ abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> :
     private var mTabs: MutableList<QMUITabBean> = mutableListOf()
     private var mFragments: MutableList<QMUIFragment> = mutableListOf()
 
-    private lateinit var mPagerAdapter: TabFragmentAdapter
+    protected lateinit var mPagerAdapter: TabFragmentAdapter
 
     abstract fun initTabAndFragments(
         tabs: MutableList<QMUITabBean>,
@@ -69,8 +70,13 @@ abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> :
     abstract fun getTabSegment(): QMUITabSegment?
     abstract fun getMagicIndicator(): MagicIndicator?
 
-    override fun initView(rootView: View) {
-
+    override fun initView(root: View) {
+        // 如果Tab的内容不是从网络获取，是否也需要延迟初始化？
+//        getRequestViewModel().notNull({
+//
+//        }, {
+//            startInit()
+//        })
     }
 
     override fun onLazyInit() {
@@ -99,6 +105,7 @@ abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> :
     }
 
     protected open fun startInit() {
+        getTopBar()?.visible()
         mTabs.clear()
         mFragments.clear()
         initTabAndFragments(mTabs, mFragments)

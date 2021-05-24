@@ -67,6 +67,11 @@ interface IRecyclerPager<T> {
     fun onRefresh()
 
     /**
+     * 回到界面自动刷新，刷新前可能是空白页，也可能存在数据
+     */
+    fun onAutoRefresh()
+
+    /**
      * 刷新失败
      */
     fun onRefreshError(errorMsg:String?)
@@ -81,10 +86,6 @@ interface IRecyclerPager<T> {
      */
     fun onEmptyData()
 
-    /**
-     * 回到界面自动刷新，刷新前可能是空白页，也可能存在数据
-     */
-    fun onAutoRefresh()
 
     /**
      * 加载更多

@@ -24,7 +24,7 @@ import com.theone.demo.viewmodel.AppViewModel
 import com.theone.demo.viewmodel.MineRequestViewModel
 import com.theone.demo.viewmodel.MineViewModel
 import com.theone.mvvm.base.IClick
-import com.theone.mvvm.base.fragment.BaseVmDbFragment
+import com.theone.mvvm.core.base.fragment.BaseCoreFragment
 import com.theone.mvvm.ext.getAppViewModel
 import com.theone.mvvm.ext.qmui.*
 
@@ -53,7 +53,7 @@ import com.theone.mvvm.ext.qmui.*
  * @email 625805189@qq.com
  * @remark
  */
-class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), View.OnClickListener {
+class MineFragment : BaseCoreFragment<MineViewModel, FragmentMineBinding>(), View.OnClickListener {
 
     val appVm: AppViewModel by lazy { getAppViewModel<AppViewModel>() }
 
@@ -113,7 +113,6 @@ class MineFragment : BaseVmDbFragment<MineViewModel, FragmentMineBinding>(), Vie
     override fun createObserver() {
         mRequestVm.run {
             getResponseLiveData().observeInFragment(this@MineFragment, Observer {
-                Log.e(TAG, "createObserver: $it")
                 it.run {
                     mViewModel.integral.set("积分 $coinCount")
                     mViewModel.rank.set("排名 $rank")

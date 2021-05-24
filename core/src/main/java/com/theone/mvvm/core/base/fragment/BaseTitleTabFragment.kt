@@ -34,6 +34,8 @@ import net.lucode.hackware.magicindicator.MagicIndicator
  */
 abstract class BaseTitleTabFragment<VM : BaseViewModel> : BaseTabFragment<VM, BaseTitleTabLayoutBinding>() {
 
+    override fun showTopBar(): Boolean = true
+
     override fun getLayoutId(): Int = R.layout.base_title_tab_layout
 
     override fun getViewPager(): QMUIViewPager = mBinding.viewPager

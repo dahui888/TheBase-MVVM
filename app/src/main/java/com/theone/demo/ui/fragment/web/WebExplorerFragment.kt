@@ -65,11 +65,11 @@ class WebExplorerFragment : BaseCoreFragment<BaseViewModel, FragmentWebExploerer
 
     companion object {
         fun <T : IWeb> newInstance(data: T): WebExplorerFragment {
-            val fragment = WebExplorerFragment()
-            val bundle = Bundle()
-            bundle.putParcelable(BundleConstant.DATA, data)
-            fragment.arguments = bundle
-            return fragment
+            return WebExplorerFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(BundleConstant.DATA, data)
+                }
+            }
         }
 
         const val PROGRESS_PROCESS: Int = 0

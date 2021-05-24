@@ -39,4 +39,6 @@ interface IPageInfo {
     // 每页数量
     fun getPageSize():Int
 
+
+
 }

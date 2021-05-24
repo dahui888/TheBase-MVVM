@@ -1,11 +1,18 @@
 package com.theone.mvvm.core.base.fragment
 
+import android.view.KeyEvent
 import android.view.View
 import androidx.databinding.ViewDataBinding
-import com.theone.mvvm.core.ext.loadSirInit
+import com.hjq.toast.ToastUtils
 import com.theone.mvvm.base.fragment.BaseVmDbFragment
 import com.theone.mvvm.base.viewmodel.BaseViewModel
+import com.theone.mvvm.core.R
+import com.theone.mvvm.core.callback.ICore
+import com.theone.mvvm.core.ext.hideProgressDialog
+import com.theone.mvvm.core.ext.registerLoadSir
+import com.theone.mvvm.core.ext.showProgressDialog
 import com.theone.mvvm.core.widge.loadsir.core.LoadService
+import com.theone.mvvm.entity.ProgressBean
 
 /**
  * @author The one
@@ -14,12 +21,14 @@ import com.theone.mvvm.core.widge.loadsir.core.LoadService
  * @email 625805189@qq.com
  * @remark 添加界面状态管理
  */
-abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVmDbFragment<VM,DB>() {
+abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVmDbFragment<VM,DB>(),ICore {
 
     /**
      * 界面状态管理者
      */
     var mLoadSir: LoadService<Any>?=null
+
+    override fun getLoadSir(): LoadService<Any>? = mLoadSir
 
     /**
      *  这里拿[getContentView]进行注册
@@ -27,22 +36,51 @@ abstract class BaseCoreFragment<VM : BaseViewModel, DB : ViewDataBinding>:BaseVm
      * @param rootView View
      */
     override fun onViewCreated(rootView: View) {
-        mLoadSir = loadSirInit(getContentView()) {
-            onPageReLoad()
-        }
+        mLoadSir = registerLoadSir()
         super.onViewCreated(rootView)
     }
 
-    /**
-     * 错误、空界面重新
-     */
-    protected open fun onPageReLoad() {}
+    override fun loadSirRegisterView(): View = getContentView()
+
+    override fun showProgress(progress: ProgressBean) {
+        requireActivity().showProgressDialog(progress)
+    }
+
+    override fun hideProgress() {
+        hideProgressDialog()
+    }
 
     /**
-     * 这里把这个方法实现了，子类需要的时候重写，免的每次都要去实现这个方法
+     * 这里把这些方法实现了，子类需要的时候重写，免的每次都要去实现这个方法
      */
+    override fun createBindingParams() {}
+
     override fun onLazyInit() {}
 
     override fun initData() {}
+
+    override  fun onPageReLoad() {}
+
+    override fun isExitPage(): Boolean = false
+
+    override fun showExitTips() {
+        ToastUtils.show(R.string.core_exit_tips)
+    }
+
+    private var exitTime: Long = 0
+
+    override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
+        if (keyCode == KeyEvent.KEYCODE_BACK && isExitPage()) {
+            if (System.currentTimeMillis() - exitTime > 2000) {
+                //弹出提示，可以有多种方式
+                exitTime = System.currentTimeMillis()
+                showExitTips()
+            } else {
+                requireActivity().finish()
+            }
+            return true
+        }
+        return super.onKeyDown(keyCode, event)
+    }
 
 }

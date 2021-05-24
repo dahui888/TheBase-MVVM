@@ -1,16 +1,9 @@
 package com.theone.mvvm.core.ext
 
-import android.content.Context
 import androidx.lifecycle.rxLifeScope
-import com.chad.library.adapter.base.BaseQuickAdapter
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
-import com.theone.common.ext.notNull
-import com.theone.mvvm.callback.livedata.StringLiveData
-import com.theone.mvvm.core.base.fragment.IRecyclerPager
-import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
+import com.theone.common.ext.logE
 import com.theone.mvvm.core.base.viewmodel.BaseRequestViewModel
-import com.theone.mvvm.core.widge.loadsir.core.LoadService
-import com.theone.mvvm.ext.qmui.showMsgTipsDialog
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -53,19 +46,27 @@ fun <T> BaseRequestViewModel<T>.request(
     rxLifeScope.launch({
         block()
     }, {
+        // 错误回调
+        // 这里可以给不同的请求设置不同的错误接收
+        it.printStackTrace()
+        it.message.toString().logE()
         if(null != errorLiveData){
             onError(it,errorLiveData)
         }else{
             onError(it)
         }
     }, {
+        // 请求开始
+        // 求时的提示语句不为空时才开启弹窗提示
         loadingMsg?.let {
-            loadingChange.showDialog.value = loadingMsg
+            showLoadingDialog(it)
         }
     }, {
+        // 请求结束
         onFinally()
+        // 关闭loading
         loadingMsg?.let {
-            loadingChange.dismissDialog.value = false
+            hideLoadingDialog()
         }
     }
     )

@@ -1,14 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">TheBase</string>
 
-
-
     <string name="spanUtils_rmb">¥</string><!-- ¥相当于&#xA5 -->
 
     <string name="btn_confirm_string">确&#8195;定</string>
 
     <string name="phone">手机号码</string>
     <string name="password">密码</string>
+    <string name="original_password">原密码</string>
     <string name="name">姓名</string>
     <string name="verify_code">验证码</string>
     <string name="get_verify_code">获取验证码</string>
@@ -61,10 +60,11 @@
     <string name="oops">这个错误可能来自外太空·</string>
     <string name="no_permissioin_tips">没有权限很难办事啊~</string>
     <string name="loading">加载中</string>
+    <string name="core_exit_tips">再点一次退出程序</string>
 
 
     <!--  加载更多相关   -->
-    <string name="loadmore_loading">正在加载中...</string>
+    <string name="loadmore_loading">正在加载中…</string>
     <string name="loadmore_compelete">点击加载更多</string>
     <string name="loadmore_fail">加载失败，请点我重试</string>
     <string name="loadmore_end">没有更多数据</string>

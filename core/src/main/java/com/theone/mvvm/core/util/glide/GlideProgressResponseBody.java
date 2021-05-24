@@ -3,8 +3,6 @@ package com.theone.mvvm.core.util.glide;
 
 import androidx.annotation.Nullable;
 
-import com.theone.mvvm.callback.Interface.IGlideProgressListener;
-
 import java.io.IOException;
 
 import okhttp3.MediaType;

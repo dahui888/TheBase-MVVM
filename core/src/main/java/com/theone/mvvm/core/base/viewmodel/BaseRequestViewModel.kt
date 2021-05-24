@@ -7,6 +7,7 @@ import com.theone.mvvm.callback.livedata.StringLiveData
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.callback.livedata.BooleanLiveData
 import com.theone.mvvm.core.net.error.ErrorInfo
+import rxhttp.wrapper.cahce.CacheMode
 
 
 //  ┏┓　　　┏┓

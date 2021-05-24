@@ -24,7 +24,6 @@ import com.luck.picture.lib.widget.longimage.ImageViewState;
 import com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView;
 import com.qmuiteam.qmui.widget.QMUIProgressBar;
 import com.theone.mvvm.core.R;
-import com.theone.mvvm.callback.Interface.IGlideProgressListener;
 
 
 /**

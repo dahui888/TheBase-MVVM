@@ -1,10 +1,11 @@
 package com.theone.mvvm.core
 
 import android.app.Application
+import com.hjq.toast.ToastUtils
 import com.theone.common.ext.LogInit
-import com.theone.common.ext.currentProcessName
 import com.theone.mvvm.base.BaseApplication
 import com.theone.mvvm.core.ext.initLoadSir
+import com.theone.mvvm.core.util.NotificationManager
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -35,8 +36,10 @@ abstract class CoreApplication : BaseApplication() {
     override fun init(application: Application) {
         super.init(application)
         LogInit(DEBUG)
-
+        NotificationManager.INSTANCE.register()
         initLoadSir()
+
+        ToastUtils.init(this)
 
         // TODO 以下内容还在测试...
 //        val processName = currentProcessName

@@ -9,8 +9,8 @@ android {
 }
 
 dependencies {
-    api project(path: ':base')
-    api project(path: ':common')
+    api 'com.gitee.theoneee:The-Base-MVVM:1.0.1'
+    api 'com.gitee.theoneee:The-Base-Common:1.0.1'
 
     api "androidx.multidex:multidex:$multidexVersion"
 
@@ -20,6 +20,8 @@ dependencies {
     api "com.ljx.rxhttp:rxhttp:$rxhttpVersion"
     api "com.ljx.rxlife:rxlife-coroutine:$rxlifeCoroutine"
     api "com.ljx.rxlife2:rxlife-rxjava:$rxlifeVersion"  //页面销毁，关闭请求，非必须
+    api 'com.ljx.rxhttp:converter-fastjson:2.5.7'
+
     // RxJava RxAndroid
     api "io.reactivex.rxjava2:rxjava:$rxjavaVersion"
     api "io.reactivex.rxjava2:rxandroid:$rxandroidVersion"
@@ -27,6 +29,10 @@ dependencies {
     api "com.squareup.okhttp3:okhttp:$okhttpVersion"
     // cookie
     api 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+
+    api "com.github.lzyzsd:jsbridge:$jsbridgeVersion"
+    // 权限申请
+    api "com.hjq:xxpermissions:$xxpermissions"
 
     //Glide
     api "com.github.bumptech.glide:glide:$glideVersion"
@@ -43,4 +49,6 @@ dependencies {
 
     //启动优化异步加载
     api "com.effective.android:anchors:$anchorsVersion"
+
+    api 'com.github.getActivity:ToastUtils:9.0'
 }

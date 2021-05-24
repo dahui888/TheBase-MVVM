@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.qmuiteam.qmui.widget.QMUIProgressBar;
-import com.theone.mvvm.callback.Interface.IGlideProgressListener;
 
 public class SampleIGlideProgressListener implements IGlideProgressListener {
 

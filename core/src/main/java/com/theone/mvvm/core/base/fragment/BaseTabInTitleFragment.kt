@@ -7,8 +7,7 @@ import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUIViewPager
 import com.qmuiteam.qmui.widget.tab.QMUITabSegment
-import com.theone.common.ext.goneViews
-import com.theone.common.ext.showViews
+import com.theone.common.ext.*
 import com.theone.mvvm.core.R
 import com.theone.mvvm.base.viewmodel.BaseViewModel
 import com.theone.mvvm.core.databinding.BaseTabInTitleLayoutBinding
@@ -54,22 +53,19 @@ abstract class BaseTabInTitleFragment<VM : BaseViewModel> :
 
     override fun showTopBar(): Boolean = true
 
-    override fun initView(rootView: View) {
-        super.initView(rootView)
+    override fun initView(root: View) {
+        // 这个一定要放在前面，Tab不是从网络获取时startInit可能会先执行。
         initTopBar()
-        goneViews(getTopBar())
+        super.initView(root)
     }
 
-   protected open fun initTopBar() {
+    protected open fun initTopBar() {
         getTopBar()?.run {
             setCenterView(mMagicIndicator)
-            goneViews(this)
+            // 如果数据从网络获取先把TopBar隐藏掉。【能用INVISIBLE就不要用GONE】
+            if (null == getRequestViewModel())
+                invisible()
         }
-    }
-
-    override fun startInit() {
-        showViews(getTopBar())
-        super.startInit()
     }
 
     override fun getViewPager(): QMUIViewPager = mBinding.mQMUIViewPager

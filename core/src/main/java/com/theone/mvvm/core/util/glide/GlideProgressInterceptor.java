@@ -2,7 +2,6 @@ package com.theone.mvvm.core.util.glide;
 
 
 import com.bumptech.glide.load.model.GlideUrl;
-import com.theone.mvvm.callback.Interface.IGlideProgressListener;
 
 import java.io.IOException;
 import java.util.HashMap;
