@@ -95,8 +95,7 @@ abstract class BasePictureSelectorFragment<VM : BaseListViewModel<LocalMedia>, D
                         ArrayList<ImagePreviewBean>()
                     for (media in getSelectList()) {
                         val bean = ImagePreviewBean().apply {
-                            url = media.path
-                            mThumbnail = media.getShowPath()
+                            url = media.getShowPath()
                             mIsVideo =false
                         }
                         images.add(bean)

@@ -27,7 +27,6 @@ import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUIProgressBar
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
 import com.qmuiteam.qmui.widget.webview.QMUIWebView
-import com.qmuiteam.qmui.widget.webview.QMUIWebViewClient
 import com.qmuiteam.qmui.widget.webview.QMUIWebViewContainer
 import com.theone.common.constant.BundleConstant
 import com.theone.common.ext.dp2px
@@ -40,8 +39,9 @@ import com.theone.mvvm.core.R
 import com.theone.mvvm.core.callback.IWeb
 import com.theone.mvvm.core.ext.addImageListenerJs
 import com.theone.mvvm.core.ext.parseImagePreviewBeans
-import com.theone.mvvm.core.ext.startImagePreview
+import com.theone.mvvm.core.ext.startImagePreviewFragment
 import com.theone.mvvm.core.widge.webview.BridgeWebView
+import com.theone.mvvm.core.widge.webview.BridgeWebViewClient
 import kotlinx.android.synthetic.main.fragment_web_exploerer.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -158,7 +158,7 @@ abstract class BaseWebFragment<VM : BaseViewModel, DB : ViewDataBinding> :
         mWebView.run {
             overScrollMode = View.OVER_SCROLL_NEVER
             webChromeClient = ExplorerWebViewChromeClient()
-            webViewClient = ExplorerWebViewClient(needDispatchSafeAreaInset)
+            webViewClient = ExplorerWebViewClient(this,needDispatchSafeAreaInset)
             setZoomControlGone(this)
         }
         handleUrl(mIWeb.getWebUrl())
@@ -254,8 +254,8 @@ abstract class BaseWebFragment<VM : BaseViewModel, DB : ViewDataBinding> :
 
     }
 
-    inner class ExplorerWebViewClient(needDispatchSafeAreaInset: Boolean) :
-        QMUIWebViewClient(needDispatchSafeAreaInset, true) {
+    inner class ExplorerWebViewClient(webView: BridgeWebView,needDispatchSafeAreaInset: Boolean) :
+        BridgeWebViewClient(webView,needDispatchSafeAreaInset, true) {
         override fun onPageStarted(
             view: WebView,
             url: String,
@@ -294,12 +294,12 @@ abstract class BaseWebFragment<VM : BaseViewModel, DB : ViewDataBinding> :
             url: String
         ) {
             super.onPageFinished(view, url)
+            view.addImageListenerJs(IMAGE_HANDLER_NAME)
             sendProgressMessage(
                 PROGRESS_GONE,
                 100,
                 0
             )
-            view.addImageListenerJs(IMAGE_HANDLER_NAME)
         }
     }
 
@@ -323,7 +323,7 @@ abstract class BaseWebFragment<VM : BaseViewModel, DB : ViewDataBinding> :
                         position = i
                     }
                 }
-                startPhotoWatchActivity(itemData, position)
+                startImagePreview(itemData, position)
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
@@ -331,12 +331,11 @@ abstract class BaseWebFragment<VM : BaseViewModel, DB : ViewDataBinding> :
     }
 
 
-    protected open fun startPhotoWatchActivity(
+    protected open fun startImagePreview(
         itemData: ArrayList<String>,
         position: Int
     ) {
-        startImagePreview(
-            mActivity,
+        startImagePreviewFragment(
             images = itemData.parseImagePreviewBeans(),
             position = position
         )

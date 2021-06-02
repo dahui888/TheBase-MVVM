@@ -134,9 +134,12 @@ class PictureSelectorAdapter :
 }
 
 fun LocalMedia.getShowPath(): String {
+    "path = $path   cutPath = $cutPath  compressPath = $compressPath ".logI()
     return if (isCut && !isCompressed) {
+        "isCut && !isCompressed".logI()
         cutPath
-    } else if (isCompressed || (isCut && isCompressed)) {
+    } else if (isCompressed) {
+        " isCut ".logI()
         compressPath
     } else {
         path

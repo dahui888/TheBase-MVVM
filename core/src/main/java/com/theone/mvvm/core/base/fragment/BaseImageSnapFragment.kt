@@ -8,10 +8,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.module.LoadMoreModule
 import com.theone.common.callback.IImageUrl
+import com.theone.common.ext.getColor
 import com.theone.common.ext.invisible
 import com.theone.common.ext.isVisible
-import com.theone.common.ext.logI
 import com.theone.common.ext.visible
+import com.theone.mvvm.core.R
 import com.theone.mvvm.core.base.adapter.ImageSnapAdapter
 import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
 
@@ -53,6 +54,7 @@ abstract class BaseImageSnapFragment<T : IImageUrl, VM : BaseListViewModel<T>, D
 
     override fun initView(root: View) {
         super.initView(root)
+        getContentView().setBackgroundColor(getColor(mActivity,R.color.qmui_config_color_background))
         getTopBar()
     }
 
@@ -68,9 +70,10 @@ abstract class BaseImageSnapFragment<T : IImageUrl, VM : BaseListViewModel<T>, D
 
     override fun initRecyclerView() {
         super.initRecyclerView()
-        PagerSnapHelper().attachToRecyclerView(getRecyclerView())
-        super.initRecyclerView()
-        getRecyclerView().addOnScrollListener(getScrollListener())
+        getRecyclerView().let {
+            PagerSnapHelper().attachToRecyclerView(it)
+            it.addOnScrollListener(getScrollListener())
+        }
     }
 
     protected open fun getScrollListener(): RecyclerView.OnScrollListener {
@@ -95,10 +98,7 @@ abstract class BaseImageSnapFragment<T : IImageUrl, VM : BaseListViewModel<T>, D
      * 更改进出动画效果 QMUIFragment提供
      * @return
      */
-    override fun onFetchTransitionConfig(): TransitionConfig {
-        return SCALE_TRANSITION_CONFIG
-    }
-
+    override fun onFetchTransitionConfig(): TransitionConfig = SCALE_TRANSITION_CONFIG
 
     override fun onImageClick(data: T,position: Int) {
         getTopBar()?.run {

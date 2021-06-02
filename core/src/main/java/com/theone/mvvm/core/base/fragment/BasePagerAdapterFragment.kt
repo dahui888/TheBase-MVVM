@@ -111,7 +111,7 @@ abstract class BasePagerAdapterFragment
      * @param data List<T>
      */
     override fun onRefreshSuccess(data: List<T>) {
-        mAdapter.setList(data)
+        onFirstLoadSuccess(data)
     }
 
     /**

@@ -78,7 +78,7 @@ abstract class BasePagerPullRefreshFragment<T, VM : BaseListViewModel<T>, DB : V
 
     override fun onAutoRefresh() {
         if (mLoadSir?.currentCallback is ErrorCallback) {
-            onFirstLoading()
+            onPageReLoad()
         } else {
             // 这里要调用PullRefreshLayout的主动刷新方法，后会自动回到到onRefresh 方法请求数据
             getRefreshLayout().setToRefreshDirectly()

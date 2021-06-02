@@ -9,8 +9,10 @@ android {
 }
 
 dependencies {
-    api 'com.gitee.theoneee:The-Base-MVVM:1.0.1'
-    api 'com.gitee.theoneee:The-Base-Common:1.0.1'
+    api project(path: ':base')
+    api project(path: ':common')
+//    api 'com.gitee.theoneee:The-Base-MVVM:1.0.0'
+//    api 'com.gitee.theoneee:The-Base-Common:1.0.0'
 
     api "androidx.multidex:multidex:$multidexVersion"
 

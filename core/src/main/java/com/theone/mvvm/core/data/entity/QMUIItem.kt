@@ -1,7 +1,6 @@
-package com.theone.mvvm.core.viewmodel
+package com.theone.mvvm.core.data.entity
 
-import com.theone.mvvm.core.base.viewmodel.BaseListViewModel
-import com.theone.mvvm.core.data.entity.ImagePreviewBean
+import com.theone.mvvm.ext.qmui.NO_SET
 
 //  ┏┓　　　┏┓
 //┏┛┻━━━┛┻┓
@@ -22,15 +21,10 @@ import com.theone.mvvm.core.data.entity.ImagePreviewBean
 //      ┗┻┛　┗┻┛
 /**
  * @author The one
- * @date 2021-04-25 10:54
+ * @date 2021-05-27 14:50
  * @describe TODO
  * @email 625805189@qq.com
  * @remark
  */
-class ImagePreviewViewModel:BaseListViewModel<ImagePreviewBean>() {
-
-    override fun requestServer() {
-
-    }
-
+data class QMUIItem(val title:String,val res:Int= NO_SET) {
 }

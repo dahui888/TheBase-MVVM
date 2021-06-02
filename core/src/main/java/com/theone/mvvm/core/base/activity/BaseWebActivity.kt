@@ -8,20 +8,15 @@ import android.graphics.Bitmap
 import android.net.http.SslError
 import android.os.Handler
 import android.os.Message
-import android.text.TextUtils
-import android.view.Gravity
 import android.view.View
 import android.webkit.SslErrorHandler
 import android.webkit.WebChromeClient
 import android.webkit.WebView
 import android.widget.FrameLayout
-import android.widget.RelativeLayout
 import androidx.databinding.ViewDataBinding
 import com.github.lzyzsd.jsbridge.BridgeHandler
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import com.qmuiteam.qmui.kotlin.matchParent
-import com.qmuiteam.qmui.kotlin.wrapContent
 import com.qmuiteam.qmui.util.QMUIResHelper
 import com.qmuiteam.qmui.widget.QMUIProgressBar
 import com.qmuiteam.qmui.widget.QMUITopBarLayout
@@ -39,6 +34,7 @@ import com.theone.mvvm.core.ext.parseImagePreviewBeans
 import com.theone.mvvm.core.ext.setZoomControlGone
 import com.theone.mvvm.core.ext.startImagePreview
 import com.theone.mvvm.core.widge.webview.BridgeWebView
+import com.theone.mvvm.core.widge.webview.BridgeWebViewClient
 import kotlinx.android.synthetic.main.fragment_web_exploerer.*
 import org.json.JSONException
 import org.json.JSONObject
@@ -81,13 +77,18 @@ abstract class BaseWebActivity<VM : BaseViewModel, DB : ViewDataBinding> :
     private val IMAGE_HANDLER_NAME = "imagelistener"
 
     protected val mWebView: BridgeWebView by lazy {
-        BridgeWebView(this)
+        BridgeWebView(this).apply {
+            webChromeClient = getWebViewChromeClient()
+            webViewClient = this@BaseWebActivity.getWebViewClient(this)
+            setZoomControlGone()
+        }
     }
     private val mProgressHandler: ProgressHandler by lazy { ProgressHandler() }
     private lateinit var mTitleView: TheMarqueeTextView
 
     protected val mIWeb: IWeb by getValueNonNull(BundleConstant.DATA)
     private lateinit var mUrl: String
+    private var isFirstLoad: Boolean = true
 
     override fun loadSirRegisterView(): View = getWebContainer()
 
@@ -101,13 +102,21 @@ abstract class BaseWebActivity<VM : BaseViewModel, DB : ViewDataBinding> :
     protected open fun getProgressBar(): QMUIProgressBar = progressbar
     override fun getTopBar(): QMUITopBarLayout? = topbar
 
-    protected open fun getWebViewChromeClient():WebChromeClient = ExplorerWebViewChromeClient()
-    protected open fun getWebViewClient():QMUIWebViewClient = ExplorerWebViewClient(needDispatchSafeAreaInset())
+    protected open fun getWebViewChromeClient(): WebChromeClient = ExplorerWebViewChromeClient()
+    protected open fun getWebViewClient(webView: BridgeWebView): QMUIWebViewClient =
+        ExplorerWebViewClient(webView,needDispatchSafeAreaInset())
 
     override fun initView(root: View) {
         initTopBar()
         initWebView()
-        loadUrl()
+    }
+
+    override fun onEnterAnimationComplete() {
+        super.onEnterAnimationComplete()
+        if (isFirstLoad){
+            isFirstLoad = false
+            loadUrl()
+        }
     }
 
     protected open fun initTopBar() {
@@ -116,50 +125,43 @@ abstract class BaseWebActivity<VM : BaseViewModel, DB : ViewDataBinding> :
                 finish()
             }
             // QMUI的Title用的是QMUIQQFaceView，无法使用跑马灯效果，这里重新设置一个
-            // setTitle(mIWeb.getWebTitle().toHtml().toString())
-            mTitleView = TheMarqueeTextView(context).apply {
-                layoutParams = RelativeLayout.LayoutParams(matchParent, wrapContent).apply {
-                    addRule(RelativeLayout.RIGHT_OF, R.id.qmui_topbar_item_left_back)
-                    gravity = Gravity.CENTER
-                    marginEnd = dp2px(20)
-                }
-                marqueeRepeatLimit = Int.MAX_VALUE
-                isFocusable = true
-                textSize = 17f
-                ellipsize = TextUtils.TruncateAt.MARQUEE
-                isSingleLine = true
-                setHorizontallyScrolling(true)
-                isFocusableInTouchMode = true
-                mIWeb.getWebTitle()?.let {
-                    text = it
-                }
-            }
-            setCenterView(mTitleView)
+            setTitle(mIWeb.getWebTitle()?.toHtml().toString())
+//            mTitleView = TheMarqueeTextView(context).apply {
+//                layoutParams = RelativeLayout.LayoutParams(matchParent, wrapContent).apply {
+//                    addRule(RelativeLayout.RIGHT_OF, R.id.qmui_topbar_item_left_back)
+//                    gravity = Gravity.CENTER
+//                    marginEnd = dp2px(20)
+//                }
+//                marqueeRepeatLimit = Int.MAX_VALUE
+//                isFocusable = true
+//                textSize = 17f
+//                ellipsize = TextUtils.TruncateAt.MARQUEE
+//                isSingleLine = true
+//                setHorizontallyScrolling(true)
+//                isFocusableInTouchMode = true
+//                mIWeb.getWebTitle()?.let {
+//                    text = it
+//                }
+//            }
+//            setCenterView(mTitleView)
         }
     }
 
     @SuppressLint("JavascriptInterface")
     private fun initWebView() {
-        val needDispatchSafeAreaInset = needDispatchSafeAreaInset()
         getWebContainer().run {
-            addWebView(mWebView, needDispatchSafeAreaInset)
+            addWebView(mWebView, needDispatchSafeAreaInset())
             val params = layoutParams as FrameLayout.LayoutParams
-            fitsSystemWindows = !needDispatchSafeAreaInset
-            params.topMargin = if (needDispatchSafeAreaInset) 0 else QMUIResHelper.getAttrDimen(
+            fitsSystemWindows = !needDispatchSafeAreaInset()
+            params.topMargin = if (needDispatchSafeAreaInset()) 0 else QMUIResHelper.getAttrDimen(
                 context,
                 R.attr.qmui_topbar_height
             )
             layoutParams = params
             setCustomOnScrollChangeListener(this@BaseWebActivity)
         }
-
-        mWebView.run {
-            webChromeClient = getWebViewChromeClient()
-            webViewClient = this@BaseWebActivity.getWebViewClient()
-            setZoomControlGone()
-        }
-        handleUrl(mIWeb.getWebUrl())
         registerHandler()
+        handleUrl(mIWeb.getWebUrl())
     }
 
     protected open fun loadUrl() {
@@ -226,8 +228,8 @@ abstract class BaseWebActivity<VM : BaseViewModel, DB : ViewDataBinding> :
 
     }
 
-    inner class ExplorerWebViewClient(needDispatchSafeAreaInset: Boolean) :
-        QMUIWebViewClient(needDispatchSafeAreaInset, true) {
+    inner class ExplorerWebViewClient(webView: BridgeWebView,needDispatchSafeAreaInset: Boolean) :
+        BridgeWebViewClient(webView,needDispatchSafeAreaInset, true) {
         override fun onPageStarted(
             view: WebView,
             url: String,
@@ -266,12 +268,12 @@ abstract class BaseWebActivity<VM : BaseViewModel, DB : ViewDataBinding> :
             url: String
         ) {
             super.onPageFinished(view, url)
+            view.addImageListenerJs(IMAGE_HANDLER_NAME)
             sendProgressMessage(
                 PROGRESS_GONE,
                 100,
                 0
             )
-            mWebView.addImageListenerJs(IMAGE_HANDLER_NAME)
         }
     }
 
@@ -289,7 +291,7 @@ abstract class BaseWebActivity<VM : BaseViewModel, DB : ViewDataBinding> :
                     object :
                         TypeToken<List<String>>() {}.type
                 )
-                for ((i,item) in itemData.withIndex()) {
+                for ((i, item) in itemData.withIndex()) {
                     if (item == src) {
                         position = i
                     }

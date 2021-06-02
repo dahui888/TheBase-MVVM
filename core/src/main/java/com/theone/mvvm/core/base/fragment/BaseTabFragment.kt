@@ -72,11 +72,11 @@ abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> :
 
     override fun initView(root: View) {
         // 如果Tab的内容不是从网络获取，是否也需要延迟初始化？
-//        getRequestViewModel().notNull({
-//
-//        }, {
-//            startInit()
-//        })
+        getRequestViewModel().notNull({
+
+        }, {
+            startInit()
+        })
     }
 
     override fun onLazyInit() {
@@ -84,7 +84,7 @@ abstract class BaseTabFragment<VM : BaseViewModel, DB : ViewDataBinding> :
             showLoadingPage()
            it.requestServer()
         }, {
-            startInit()
+
         })
     }
 

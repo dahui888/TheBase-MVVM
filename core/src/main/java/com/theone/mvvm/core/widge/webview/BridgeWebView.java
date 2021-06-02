@@ -112,7 +112,6 @@ public class BridgeWebView extends QMUIWebView implements WebViewJavascriptBridg
         if (f != null) {
             f.onCallBack(data);
             responseCallbacks.remove(functionName);
-            return;
         }
     }
 

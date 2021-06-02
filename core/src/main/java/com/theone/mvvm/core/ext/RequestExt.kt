@@ -1,9 +1,11 @@
 package com.theone.mvvm.core.ext
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.rxLifeScope
 import com.kunminx.architecture.ui.callback.UnPeekLiveData
 import com.theone.common.ext.logE
 import com.theone.mvvm.core.base.viewmodel.BaseRequestViewModel
+import com.theone.mvvm.ext.qmui.showFailTipsDialog
 import kotlinx.coroutines.CoroutineScope
 
 
@@ -71,3 +73,12 @@ fun <T> BaseRequestViewModel<T>.request(
     }
     )
 }
+
+fun  Fragment.addFailTipsObserve(vararg vms:BaseRequestViewModel<*>){
+    for (vm in vms){
+        vm.getErrorMsgLiveData().observeInFragment(this){
+            showFailTipsDialog(it)
+        }
+    }
+}
+

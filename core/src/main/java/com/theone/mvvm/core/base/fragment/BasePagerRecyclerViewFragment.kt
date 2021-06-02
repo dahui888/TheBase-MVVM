@@ -103,6 +103,8 @@ abstract class BasePagerRecyclerViewFragment<T, VM : BaseListViewModel<T>, DB : 
      * 错误、空界面点击事件
      */
     override fun onPageReLoad() {
+        mViewModel.isFirst = false
+        mViewModel.isFresh = true
         onFirstLoading()
     }
 
@@ -112,7 +114,6 @@ abstract class BasePagerRecyclerViewFragment<T, VM : BaseListViewModel<T>, DB : 
     override fun onFirstLoading() {
         showLoadingPage()
         mViewModel.run {
-            isFirst = true
             requestNewData()
         }
     }

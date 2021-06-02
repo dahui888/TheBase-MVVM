@@ -33,22 +33,18 @@ import java.lang.reflect.Field
  */
 
 fun WebView.addImageListenerJs(method: String) {
-    val js = "javascript:(function(){" +
+    loadUrl("javascript:(function(){" +
             "var objs = document.getElementsByTagName(\"img\"); " +
             " var array=new Array(); " +
             " for(var j=0;j<objs.length;j++){ array[j]=objs[j].src; }" +
             "for(var i=0;i<objs.length;i++)  " +
-            "{"
-    "    objs[i].onclick=function()  " +
-            "    {  "
-    "        window.WebViewJavascriptBridge.callHandler('$method',{'position':this.src,'data':array});  " +
-            "    }  " +
+            "{"+
+             "objs[i].onclick=function()" +
+            "{"+
+             " window.WebViewJavascriptBridge.callHandler('$method',{'position':this.src,'data':array});"+
             "}" +
-            "})()"
-
-    js.logE()
-
-    loadUrl(js)
+            "}" +
+            "})()")
 }
 
 fun WebView.setZoomControlGone() {

@@ -11,6 +11,7 @@ import com.theone.mvvm.core.base.fragment.BaseImageSnapFragment
 import com.theone.mvvm.core.data.entity.ImagePreviewBean
 import com.theone.mvvm.core.data.entity.ImagePreviewEvent
 import com.theone.mvvm.core.databinding.BaseRecyclerPagerFragmentBinding
+import com.theone.mvvm.core.ext.showSuccessPage
 import com.theone.mvvm.core.viewmodel.ImagePreviewViewModel
 import com.theone.mvvm.ext.qmui.addLeftCloseImageBtn
 import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
@@ -39,7 +40,7 @@ import com.theone.mvvm.ext.qmui.setTitleWithBackBtn
  * @email 625805189@qq.com
  * @remark
  */
-class ImagePreviewFragment:
+open class ImagePreviewFragment:
     BaseImageSnapFragment<ImagePreviewBean, ImagePreviewViewModel, BaseRecyclerPagerFragmentBinding>() {
 
     companion object{
@@ -55,22 +56,20 @@ class ImagePreviewFragment:
 
     private val mData:ImagePreviewEvent by getValueNonNull(BundleConstant.DATA)
 
+    override fun translucentFull(): Boolean = true
+
     override fun initView(root: View) {
         super.initView(root)
         addLeftCloseImageBtn(R.drawable.mz_comment_titlebar_ic_close_dark)
-    }
-
-    override fun onFirstLoading() {
-        super.onFirstLoading()
-        mData.datas.toString().logI()
-        mViewModel.setData(mData.datas)
-    }
-
-    override fun onLoadMoreComplete() {
-        super.onLoadMoreComplete()
+        mAdapter.setList(mData.datas)
         getRefreshLayout().isEnabled = false
         mAdapter.loadMoreModule.loadMoreEnd(true)
         getRecyclerView().scrollToPosition(mData.position)
+        getTopBar()?.setTitle("${mData.position+1}/${mData.datas.size}")
+    }
+
+    override fun onLazyInit() {
+
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
